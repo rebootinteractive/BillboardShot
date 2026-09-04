@@ -224,36 +224,6 @@ export class GameApp {
     }
     this.disposables.push({ dispose: () => laneMat.dispose() });
 
-    // --- firing arc indicator ---
-    // The arc is fixed in world space; the player rotates pixels into it.
-    const shootArc = THREE.MathUtils.degToRad(s.shootArcDeg);
-    const shootR = s.carouselRadius * 1.06;
-    let lowest = -1.5;
-    for (const bb of this.billboards) lowest = Math.min(lowest, bb.bottomOffset);
-    const arcBottom = s.ceilingHeight + lowest - 0.12;
-    const arcTop = s.ceilingHeight - s.ropeLength + 0.1;
-    const arcMat = new THREE.MeshBasicMaterial({
-      color: 0x58e1c4,
-      transparent: true,
-      opacity: 0.45,
-      side: THREE.DoubleSide,
-    });
-    const arcGeo = new THREE.TorusGeometry(shootR, 0.028, 6, 64, shootArc);
-    const arcLine = new THREE.Mesh(arcGeo, arcMat);
-    arcLine.rotation.x = -Math.PI / 2;
-    arcLine.rotation.z = -Math.PI / 2 - shootArc / 2;
-    arcLine.position.y = arcBottom;
-    this.staticStage.add(arcLine);
-
-    const postGeo = new THREE.CylinderGeometry(0.022, 0.022, Math.max(0.2, arcTop - arcBottom), 6);
-    for (const sgn of [-1, 1]) {
-      const a = (sgn * shootArc) / 2;
-      const post = new THREE.Mesh(postGeo, arcMat);
-      post.position.set(Math.sin(a) * shootR, (arcTop + arcBottom) / 2, Math.cos(a) * shootR);
-      this.staticStage.add(post);
-    }
-    this.disposables.push({ dispose: () => { arcGeo.dispose(); postGeo.dispose(); arcMat.dispose(); } });
-
     const floorGeo = new THREE.CircleGeometry(s.carouselRadius * 2.6, 48);
     const floorMat = new THREE.MeshStandardMaterial({ color: 0x191d2b, roughness: 1 });
     const floor = new THREE.Mesh(floorGeo, floorMat);
@@ -553,22 +523,31 @@ export class GameApp {
     this.targets.length = write;
   }
 
-  /** Take the biggest volley available in the arc, nearest slot winning ties. */
+  /**
+   * Pick a target in the arc: lowest row first, so a shape is always eaten from
+   * its bottom edge upward. Bigger volleys break ties, then the nearest slot.
+   */
   private tryFire(sh: Shooter, s: Settings) {
     const shooterAngle = Math.atan2(sh.group.position.x, sh.group.position.z);
     let best = -1;
+    let bestRow = Infinity;
     let bestScore = 0;
     let bestSpread = Infinity;
     for (let i = 0; i < this.targets.length; i++) {
       const t = this.targets[i];
       if (t.color !== sh.color) continue;
+      const row = t.run[0].row;
       const score = Math.min(t.run.length, sh.charges);
       const spread = Math.abs(t.angle - shooterAngle);
-      if (score > bestScore || (score === bestScore && spread < bestSpread)) {
-        best = i;
-        bestScore = score;
-        bestSpread = spread;
-      }
+      const better =
+        row < bestRow ||
+        (row === bestRow &&
+          (score > bestScore || (score === bestScore && spread < bestSpread)));
+      if (!better) continue;
+      best = i;
+      bestRow = row;
+      bestScore = score;
+      bestSpread = spread;
     }
     if (best < 0) return;
 

@@ -43,8 +43,6 @@ export class Billboard {
   readonly rows: number;
   readonly cell: number;
   readonly halfWidth: number;
-  /** Bottom edge of the pixel grid, relative to the ceiling pivot (negative). */
-  readonly bottomOffset: number;
 
   /** grid[col][row], row 0 = bottom. null where the shape has a hole. */
   readonly grid: (Tile | null)[][] = [];
@@ -63,7 +61,9 @@ export class Billboard {
   private readonly ropeMat: THREE.MeshStandardMaterial;
   private readonly barMat: THREE.MeshStandardMaterial;
   private readonly barGeo: THREE.BoxGeometry;
-  private readonly postGeo: THREE.BoxGeometry;
+  private readonly outlineHGeo: THREE.BoxGeometry;
+  private readonly outlineVGeo: THREE.BoxGeometry;
+  private readonly outlineMat: THREE.MeshStandardMaterial;
   private readonly mats = new Map<ColorKey, THREE.MeshStandardMaterial>();
 
   constructor(shape: ShapeDef, angle: number, s: Settings, index: number) {
@@ -80,7 +80,6 @@ export class Billboard {
     const boardHalfH = ((this.rows - 1) / 2) * this.cell;
     this.board.position.set(0, -(s.ropeLength + boardHalfH + this.cell * 0.6), 0);
     this.pivot.add(this.board);
-    this.bottomOffset = this.board.position.y - boardHalfH - this.cell / 2;
 
     // Hanging bar across the top of the board + two ropes up to the ceiling.
     this.ropeGeo = new THREE.CylinderGeometry(0.015, 0.015, 1, 6);
@@ -92,23 +91,12 @@ export class Billboard {
       rope.position.set(sx * ropeX, -s.ropeLength / 2, 0);
       this.pivot.add(rope);
     }
-    // Frame around the pixel grid: two side posts and a top beam, open at the
-    // bottom so pixels have somewhere to be knocked out to.
-    const t = this.cell * 0.55;
-    const d = this.cell * 1.1;
-    const gridHalfW = (this.cols * this.cell) / 2;
-    const gridHalfH = (this.rows * this.cell) / 2;
+    // The bar the ropes tie to, sitting above the artwork.
+    this.barGeo = new THREE.BoxGeometry(this.halfWidth * 2 + this.cell * 1.2, this.cell * 0.4, this.cell * 0.9);
     this.barMat = new THREE.MeshStandardMaterial({ color: 0x7a6553, roughness: 0.8 });
-    this.barGeo = new THREE.BoxGeometry(gridHalfW * 2 + t * 2, t, d);
-    const topBeam = new THREE.Mesh(this.barGeo, this.barMat);
-    topBeam.position.set(0, gridHalfH + t / 2, 0);
-    this.board.add(topBeam);
-    this.postGeo = new THREE.BoxGeometry(t, gridHalfH * 2 + t, d);
-    for (const sx of [-1, 1]) {
-      const post = new THREE.Mesh(this.postGeo, this.barMat);
-      post.position.set(sx * (gridHalfW + t / 2), t / 2, 0);
-      this.board.add(post);
-    }
+    const bar = new THREE.Mesh(this.barGeo, this.barMat);
+    bar.position.set(0, boardHalfH + this.cell * 0.9, 0);
+    this.board.add(bar);
 
     // Tiles.
     this.tileGeo = new THREE.BoxGeometry(this.cell * 0.92, this.cell * 0.92, this.cell * 0.55);
@@ -131,6 +119,66 @@ export class Billboard {
         this.grid[c][r] = tile;
         this.tiles.push(tile);
         this.aliveCount++;
+      }
+    }
+
+    const ot = this.cell * 0.34;
+    const od = this.cell * 1.05;
+    this.outlineHGeo = new THREE.BoxGeometry(this.cell + ot, ot, od);
+    this.outlineVGeo = new THREE.BoxGeometry(ot, this.cell + ot, od);
+    this.outlineMat = new THREE.MeshStandardMaterial({ color: 0x7a6553, roughness: 0.8 });
+    this.buildOutline(ot);
+  }
+
+  /**
+   * Outline hugging the artwork's own silhouette — top and side edges only, since
+   * the bottom is open. It is traced downward from the top row and stops at the
+   * first row narrower than everything above it: the sides may widen as they
+   * descend but never pull back in. On the heart that ends the sides after its
+   * fourth row, where the lobes give way to the taper.
+   */
+  private buildOutline(ot: number) {
+    const filled = (c: number, r: number) => c >= 0 && c < this.cols && r >= 0 && r < this.rows && !!this.grid[c][r];
+
+    const span = (r: number): [number, number] | null => {
+      let lo = -1;
+      let hi = -1;
+      for (let c = 0; c < this.cols; c++) {
+        if (!filled(c, r)) continue;
+        if (lo < 0) lo = c;
+        hi = c;
+      }
+      return lo < 0 ? null : [lo, hi];
+    };
+
+    // Walk down from the top while each row is at least as wide as all above it.
+    const top = this.rows - 1;
+    let cutoff = top;
+    const first = span(top);
+    if (!first) return;
+    let [L, R] = first;
+    for (let r = top - 1; r >= 0; r--) {
+      const sp = span(r);
+      if (!sp || sp[0] > L || sp[1] < R) break;
+      L = sp[0];
+      R = sp[1];
+      cutoff = r;
+    }
+
+    const xOf = (c: number) => (c - (this.cols - 1) / 2) * this.cell;
+    const yOf = (r: number) => (r - (this.rows - 1) / 2) * this.cell;
+    const add = (geo: THREE.BoxGeometry, x: number, y: number) => {
+      const m = new THREE.Mesh(geo, this.outlineMat);
+      m.position.set(x, y, 0);
+      this.board.add(m);
+    };
+
+    for (let r = cutoff; r <= top; r++) {
+      for (let c = 0; c < this.cols; c++) {
+        if (!filled(c, r)) continue;
+        if (!filled(c, r + 1)) add(this.outlineHGeo, xOf(c), yOf(r) + this.cell / 2 + ot / 2);
+        if (!filled(c - 1, r)) add(this.outlineVGeo, xOf(c) - this.cell / 2 - ot / 2, yOf(r));
+        if (!filled(c + 1, r)) add(this.outlineVGeo, xOf(c) + this.cell / 2 + ot / 2, yOf(r));
       }
     }
   }
@@ -246,8 +294,10 @@ export class Billboard {
     this.ropeGeo.dispose();
     this.ropeMat.dispose();
     this.barGeo.dispose();
-    this.postGeo.dispose();
     this.barMat.dispose();
+    this.outlineHGeo.dispose();
+    this.outlineVGeo.dispose();
+    this.outlineMat.dispose();
     for (const m of this.mats.values()) m.dispose();
     this.mats.clear();
   }

@@ -11,8 +11,7 @@ is a pixel-art shape (heart, tree, star, ...) on a grid of colored tiles. They d
 and swing. Camera looks at the front of the ring, so 1-2 billboards are on stage.
 
 Below, at the **same radius**, a curved **deck** of slots. Below that, **queue lines**
-of colored shooters waiting. A teal band and two posts hugging the bottom of the
-boards mark the shooting arc.
+of colored shooters waiting.
 
 ## Inputs (two)
 
@@ -22,9 +21,15 @@ boards mark the shooting arc.
 
 ## Firing (automatic)
 
-Each billboard sits in a **frame**: side posts and a top beam, **open at the bottom**.
-A pixel is only shootable if it has a clear path down and out through that opening —
-in grid terms, the lowest surviving tile of its column.
+Each billboard carries an **outline hugging its own silhouette** — top and side edges
+only, never the bottom. The outline is traced downward from the top row and stops at
+the first row narrower than everything above it: the sides may widen as they descend
+but never pull back in. On the heart that ends the sides after the fourth row, where
+the lobes give way to the taper.
+
+The open bottom states the rule: a pixel is only shootable if it has a clear path down
+and out — in grid terms, the lowest surviving tile of its column. The shooting arc is
+deliberately **not drawn**.
 
 Shooters do **not** fire straight up. There is one **shooting arc**: a global angular
 window fixed in world space on the camera-facing side of the carousel. Any deck
@@ -34,9 +39,11 @@ is reachable.
 
 - Each frame the game collects the shootable pixel of every column, keeps the ones
   inside the arc, and offers them to the shooters.
-- A shooter takes the **largest volley available in its color** — ties broken by the
-  target nearest its own slot — then eats **consecutive same-color tiles up that
-  column**, one charge each, skipping holes, stopping at a different color.
+- A shooter takes the **lowest-row target available in its color**, so a shape is
+  always eaten from its bottom edge upward. Bigger volleys break ties, then the target
+  nearest the shooter's own slot.
+- It then eats **consecutive same-color tiles up that column**, one charge each,
+  skipping holes, stopping at a different color.
 - Volley size = min(run length, charges remaining). Tiles are reserved immediately so
   two shooters cannot claim the same tile, and a column takes at most one volley per
   frame.
