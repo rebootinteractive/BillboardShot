@@ -3,6 +3,15 @@ import type { ColorKey, ShapeDef } from '../shared/types';
 import { CHAR_TO_COLOR, COLOR_HEX } from '../shared/colors';
 import type { Settings } from '../shared/settings';
 
+/** A shootable pixel and the same-color run stacked on top of it. */
+export interface EligibleTarget {
+  board: Billboard;
+  run: Tile[];
+  color: ColorKey;
+  /** World angle around the carousel axis, filled in by the caller. */
+  angle: number;
+}
+
 export interface Tile {
   col: number;
   row: number;
@@ -34,6 +43,8 @@ export class Billboard {
   readonly rows: number;
   readonly cell: number;
   readonly halfWidth: number;
+  /** Bottom edge of the pixel grid, relative to the ceiling pivot (negative). */
+  readonly bottomOffset: number;
 
   /** grid[col][row], row 0 = bottom. null where the shape has a hole. */
   readonly grid: (Tile | null)[][] = [];
@@ -52,6 +63,7 @@ export class Billboard {
   private readonly ropeMat: THREE.MeshStandardMaterial;
   private readonly barMat: THREE.MeshStandardMaterial;
   private readonly barGeo: THREE.BoxGeometry;
+  private readonly postGeo: THREE.BoxGeometry;
   private readonly mats = new Map<ColorKey, THREE.MeshStandardMaterial>();
 
   constructor(shape: ShapeDef, angle: number, s: Settings, index: number) {
@@ -68,6 +80,7 @@ export class Billboard {
     const boardHalfH = ((this.rows - 1) / 2) * this.cell;
     this.board.position.set(0, -(s.ropeLength + boardHalfH + this.cell * 0.6), 0);
     this.pivot.add(this.board);
+    this.bottomOffset = this.board.position.y - boardHalfH - this.cell / 2;
 
     // Hanging bar across the top of the board + two ropes up to the ceiling.
     this.ropeGeo = new THREE.CylinderGeometry(0.015, 0.015, 1, 6);
@@ -79,11 +92,23 @@ export class Billboard {
       rope.position.set(sx * ropeX, -s.ropeLength / 2, 0);
       this.pivot.add(rope);
     }
-    this.barGeo = new THREE.BoxGeometry(this.halfWidth * 2 + this.cell * 1.2, this.cell * 0.45, this.cell * 0.9);
-    this.barMat = new THREE.MeshStandardMaterial({ color: 0x6b5947, roughness: 0.85 });
-    const bar = new THREE.Mesh(this.barGeo, this.barMat);
-    bar.position.set(0, boardHalfH + this.cell * 0.85, 0);
-    this.board.add(bar);
+    // Frame around the pixel grid: two side posts and a top beam, open at the
+    // bottom so pixels have somewhere to be knocked out to.
+    const t = this.cell * 0.55;
+    const d = this.cell * 1.1;
+    const gridHalfW = (this.cols * this.cell) / 2;
+    const gridHalfH = (this.rows * this.cell) / 2;
+    this.barMat = new THREE.MeshStandardMaterial({ color: 0x7a6553, roughness: 0.8 });
+    this.barGeo = new THREE.BoxGeometry(gridHalfW * 2 + t * 2, t, d);
+    const topBeam = new THREE.Mesh(this.barGeo, this.barMat);
+    topBeam.position.set(0, gridHalfH + t / 2, 0);
+    this.board.add(topBeam);
+    this.postGeo = new THREE.BoxGeometry(t, gridHalfH * 2 + t, d);
+    for (const sx of [-1, 1]) {
+      const post = new THREE.Mesh(this.postGeo, this.barMat);
+      post.position.set(sx * (gridHalfW + t / 2), t / 2, 0);
+      this.board.add(post);
+    }
 
     // Tiles.
     this.tileGeo = new THREE.BoxGeometry(this.cell * 0.92, this.cell * 0.92, this.cell * 0.55);
@@ -144,36 +169,31 @@ export class Billboard {
   }
 
   /**
-   * Put `worldPos` into this board's local space. Goes through the live world matrix,
-   * so swing and carousel rotation are automatically included.
+   * The run of consecutive same-color tiles starting at the lowest tile still
+   * standing in this column. That lowest tile is the only shootable one — the
+   * frame is open at the bottom, so a pixel needs a clear path down to be hit.
    */
-  localize(worldPos: THREE.Vector3, out: THREE.Vector3): THREE.Vector3 {
-    out.copy(worldPos);
-    this.board.worldToLocal(out);
-    return out;
-  }
-
-  /** Column index for a local-space x, or -1 if the point is off the board. */
-  colFromLocalX(x: number): number {
-    const col = Math.round(x / this.cell + (this.cols - 1) / 2);
-    if (col < 0 || col >= this.cols) return -1;
-    return col;
-  }
-
-  /**
-   * Walking a column bottom-up: the run of consecutive same-color tiles starting at
-   * the lowest tile still standing. Empty if that lowest tile is a different color.
-   */
-  columnRun(col: number, color: ColorKey): Tile[] {
+  columnRun(col: number): Tile[] {
     const column = this.grid[col];
     const run: Tile[] = [];
+    let color: ColorKey | null = null;
     for (let r = 0; r < this.rows; r++) {
       const t = column[r];
-      if (!t || !t.alive || t.reserved) continue; // skip holes and doomed tiles
-      if (t.color !== color) break;
+      if (!t || !t.alive || t.reserved) continue; // holes and doomed tiles are empty
+      if (color === null) color = t.color;
+      else if (t.color !== color) break;
       run.push(t);
     }
     return run;
+  }
+
+  /** One entry per column that currently has something shootable at its bottom. */
+  collectEligible(out: EligibleTarget[]) {
+    for (let c = 0; c < this.cols; c++) {
+      const run = this.columnRun(c);
+      if (run.length === 0) continue;
+      out.push({ board: this, run, color: run[0].color, angle: 0 });
+    }
   }
 
   destroyTile(t: Tile) {
@@ -226,6 +246,7 @@ export class Billboard {
     this.ropeGeo.dispose();
     this.ropeMat.dispose();
     this.barGeo.dispose();
+    this.postGeo.dispose();
     this.barMat.dispose();
     for (const m of this.mats.values()) m.dispose();
     this.mats.clear();

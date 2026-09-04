@@ -31,6 +31,9 @@ export interface Settings {
   swingImpulse: number;
   ambientSway: number;
 
+  // --- Shooting ---
+  shootArcDeg: number;
+
   // --- Deck ---
   deckSlots: number;
   deckArcDeg: number;
@@ -78,6 +81,8 @@ export const DEFAULT_SETTINGS: Settings = {
   swingDamping: 10,
   swingImpulse: 0,
   ambientSway: 0,
+
+  shootArcDeg: 80,
 
   deckSlots: 6,
   deckArcDeg: 76,
@@ -132,6 +137,8 @@ export const FIELDS: FieldDef[] = [
   { key: 'swingDamping', label: 'Swing damping', group: 'Swing', min: 0.1, max: 10, step: 0.1 },
   { key: 'swingImpulse', label: 'Hit impulse', group: 'Swing', min: 0, max: 3, step: 0.05 },
   { key: 'ambientSway', label: 'Ambient sway', group: 'Swing', min: 0, max: 3, step: 0.05 },
+
+  { key: 'shootArcDeg', label: 'Shooting arc °', group: 'Shooting', min: 10, max: 180, step: 2, structural: true },
 
   { key: 'deckSlots', label: 'Deck slots', group: 'Deck', min: 1, max: 10, step: 1, structural: true },
   { key: 'deckArcDeg', label: 'Deck arc °', group: 'Deck', min: 10, max: 180, step: 2, structural: true },

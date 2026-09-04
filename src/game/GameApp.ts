@@ -3,7 +3,7 @@ import type { ColorKey } from '../shared/types';
 import { COLOR_HEX } from '../shared/colors';
 import { loadSettings, saveSettings, type Settings } from '../shared/settings';
 import { DebugPanel } from '../ui/DebugPanel';
-import { Billboard, type Tile } from './Billboard';
+import { Billboard, type EligibleTarget, type Tile } from './Billboard';
 import { Shooter } from './Shooter';
 import { Projectile } from './Projectile';
 import { buildLevel } from './level';
@@ -41,6 +41,8 @@ export class GameApp {
   private lanes: Shooter[][] = [];
   private projectiles: Projectile[] = [];
   private allShooters: Shooter[] = [];
+  /** Shootable pixels inside the firing arc, rebuilt once per frame. */
+  private targets: EligibleTarget[] = [];
   private disposables: Array<{ dispose(): void }> = [];
 
   // ---- shared assets ----
@@ -222,6 +224,36 @@ export class GameApp {
     }
     this.disposables.push({ dispose: () => laneMat.dispose() });
 
+    // --- firing arc indicator ---
+    // The arc is fixed in world space; the player rotates pixels into it.
+    const shootArc = THREE.MathUtils.degToRad(s.shootArcDeg);
+    const shootR = s.carouselRadius * 1.06;
+    let lowest = -1.5;
+    for (const bb of this.billboards) lowest = Math.min(lowest, bb.bottomOffset);
+    const arcBottom = s.ceilingHeight + lowest - 0.12;
+    const arcTop = s.ceilingHeight - s.ropeLength + 0.1;
+    const arcMat = new THREE.MeshBasicMaterial({
+      color: 0x58e1c4,
+      transparent: true,
+      opacity: 0.45,
+      side: THREE.DoubleSide,
+    });
+    const arcGeo = new THREE.TorusGeometry(shootR, 0.028, 6, 64, shootArc);
+    const arcLine = new THREE.Mesh(arcGeo, arcMat);
+    arcLine.rotation.x = -Math.PI / 2;
+    arcLine.rotation.z = -Math.PI / 2 - shootArc / 2;
+    arcLine.position.y = arcBottom;
+    this.staticStage.add(arcLine);
+
+    const postGeo = new THREE.CylinderGeometry(0.022, 0.022, Math.max(0.2, arcTop - arcBottom), 6);
+    for (const sgn of [-1, 1]) {
+      const a = (sgn * shootArc) / 2;
+      const post = new THREE.Mesh(postGeo, arcMat);
+      post.position.set(Math.sin(a) * shootR, (arcTop + arcBottom) / 2, Math.cos(a) * shootR);
+      this.staticStage.add(post);
+    }
+    this.disposables.push({ dispose: () => { arcGeo.dispose(); postGeo.dispose(); arcMat.dispose(); } });
+
     const floorGeo = new THREE.CircleGeometry(s.carouselRadius * 2.6, 48);
     const floorMat = new THREE.MeshStandardMaterial({ color: 0x191d2b, roughness: 1 });
     const floor = new THREE.Mesh(floorGeo, floorMat);
@@ -246,6 +278,7 @@ export class GameApp {
       p.mesh.parent?.remove(p.mesh);
     }
     this.projectiles = [];
+    this.targets.length = 0;
     for (const sh of this.allShooters) sh.dispose();
     this.allShooters = [];
     this.lanes = [];
@@ -436,6 +469,7 @@ export class GameApp {
     // Matrices must be current before we map shooters into board space.
     this.world.updateMatrixWorld(true);
 
+    this.buildTargets(s);
     this.updateShooters(dt, s);
     this.updateProjectiles(dt, s);
     this.hud.tick(dt);
@@ -495,34 +529,55 @@ export class GameApp {
     }
   }
 
-  /** Look straight up, find the column overhead, eat the same-color run. */
-  private tryFire(sh: Shooter, s: Settings) {
-    const origin = this.scratch2.copy(sh.group.position);
-    origin.y += 0.7 * SHOOTER_SCALE;
-
-    let bestBoard: Billboard | null = null;
-    let bestCol = -1;
-    let bestDepth = Infinity;
-    // Only boards on this side of the ring count — a board across the carousel can
-    // line up with the same column index but is nowhere near overhead.
-    const maxDepth = Math.min(1.2, s.carouselRadius * 0.5);
+  /**
+   * Every shootable pixel currently inside the firing arc. The arc is fixed in
+   * world space in front of the camera, so spinning the carousel is what decides
+   * which pixels are reachable.
+   */
+  private buildTargets(s: Settings) {
+    this.targets.length = 0;
     for (const bb of this.billboards) {
       if (bb.aliveCount === 0) continue;
-      const local = bb.localize(origin, this.scratch);
-      const col = bb.colFromLocalX(local.x);
-      if (col < 0) continue;
-      const depth = Math.abs(local.z);
-      if (depth > maxDepth) continue;
-      if (depth < bestDepth) {
-        bestDepth = depth;
-        bestBoard = bb;
-        bestCol = col;
+      bb.collectEligible(this.targets);
+    }
+    const half = THREE.MathUtils.degToRad(s.shootArcDeg) / 2;
+    let write = 0;
+    for (let i = 0; i < this.targets.length; i++) {
+      const t = this.targets[i];
+      t.run[0].mesh.getWorldPosition(this.scratch);
+      const angle = Math.atan2(this.scratch.x, this.scratch.z);
+      if (Math.abs(angle) > half) continue;
+      t.angle = angle;
+      this.targets[write++] = t;
+    }
+    this.targets.length = write;
+  }
+
+  /** Take the biggest volley available in the arc, nearest slot winning ties. */
+  private tryFire(sh: Shooter, s: Settings) {
+    const shooterAngle = Math.atan2(sh.group.position.x, sh.group.position.z);
+    let best = -1;
+    let bestScore = 0;
+    let bestSpread = Infinity;
+    for (let i = 0; i < this.targets.length; i++) {
+      const t = this.targets[i];
+      if (t.color !== sh.color) continue;
+      const score = Math.min(t.run.length, sh.charges);
+      const spread = Math.abs(t.angle - shooterAngle);
+      if (score > bestScore || (score === bestScore && spread < bestSpread)) {
+        best = i;
+        bestScore = score;
+        bestSpread = spread;
       }
     }
-    if (!bestBoard) return;
+    if (best < 0) return;
 
-    const run = bestBoard.columnRun(bestCol, sh.color);
-    if (run.length === 0) return;
+    const target = this.targets[best];
+    this.targets.splice(best, 1); // one volley per column per frame
+    const run = target.run;
+
+    const origin = this.scratch2.copy(sh.group.position);
+    origin.y += 0.7 * SHOOTER_SCALE;
 
     const n = Math.min(run.length, sh.charges);
     for (let i = 0; i < n; i++) {

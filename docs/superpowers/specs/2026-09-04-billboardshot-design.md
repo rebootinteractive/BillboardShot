@@ -11,7 +11,8 @@ is a pixel-art shape (heart, tree, star, ...) on a grid of colored tiles. They d
 and swing. Camera looks at the front of the ring, so 1-2 billboards are on stage.
 
 Below, at the **same radius**, a curved **deck** of slots. Below that, **queue lines**
-of colored shooters waiting.
+of colored shooters waiting. A teal band and two posts hugging the bottom of the
+boards mark the shooting arc.
 
 ## Inputs (two)
 
@@ -21,24 +22,34 @@ of colored shooters waiting.
 
 ## Firing (automatic)
 
-A deck shooter looks **straight up** at whatever billboard column is above it (the
-column is found by transforming the shooter's world position into the billboard's
-local space, so swing and rotation are accounted for).
+Each billboard sits in a **frame**: side posts and a top beam, **open at the bottom**.
+A pixel is only shootable if it has a clear path down and out through that opening —
+in grid terms, the lowest surviving tile of its column.
 
-- It reads the column from the bottom up. If the lowest surviving tile matches its
-  color it fires; otherwise it is blocked and waits for the carousel.
-- It eats **consecutive same-color tiles up the column**, one charge each, skipping
-  holes, stopping at the first surviving tile of a different color.
+Shooters do **not** fire straight up. There is one **shooting arc**: a global angular
+window fixed in world space on the camera-facing side of the carousel. Any deck
+shooter can hit any shootable pixel whose world angle falls inside that arc, wherever
+it happens to be standing. Spinning the carousel is therefore the act of choosing what
+is reachable.
+
+- Each frame the game collects the shootable pixel of every column, keeps the ones
+  inside the arc, and offers them to the shooters.
+- A shooter takes the **largest volley available in its color** — ties broken by the
+  target nearest its own slot — then eats **consecutive same-color tiles up that
+  column**, one charge each, skipping holes, stopping at a different color.
 - Volley size = min(run length, charges remaining). Tiles are reserved immediately so
-  two shooters cannot claim the same tile.
+  two shooters cannot claim the same tile, and a column takes at most one volley per
+  frame.
 - Shots are arcing homing projectiles (the target swings and rotates).
 - A shooter that spends its **last charge leaves the deck**, freeing the slot.
 
 ## End conditions
 
 - **Win** — every billboard tile destroyed.
-- **Lose (deadlock)** — deck full AND none of those shooters' colors exist anywhere on
-  the remaining tiles.
+- **Lose (deadlock)** — nothing new can join the deck AND no shooter on it can reach
+  a pixel any more, "reachable" meaning its color sits at the bottom of some column
+  somewhere. The arc does not enter this test: the player can always rotate a column
+  into it.
 - **Lose (out of ammo)** — queues empty, deck empty, tiles still standing.
 
 ## v1 scope
