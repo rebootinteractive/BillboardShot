@@ -301,7 +301,6 @@ export class GameApp {
     this.lastX = e.clientX;
     this.lastMoveTime = performance.now();
     this.dragVel = 0;
-    this.spinVel = 0;
     this.tapCandidate = this.pickShooter(e);
     try {
       this.renderer.domElement.setPointerCapture(e.pointerId);
@@ -316,15 +315,19 @@ export class GameApp {
     this.lastX = e.clientX;
     if (!this.dragging) {
       const moved = Math.abs(e.clientX - this.startX) + Math.abs(e.clientY - this.startY);
-      if (moved > 9) this.dragging = true;
+      if (moved <= 9) return;
+      // Only a real drag takes the wheel — a tap must not disturb the spin.
+      this.dragging = true;
+      this.spinVel = 0;
+      this.lastMoveTime = performance.now();
+      return;
     }
-    if (!this.dragging) return;
     const now = performance.now();
     const dt = Math.max(0.008, (now - this.lastMoveTime) / 1000);
     this.lastMoveTime = now;
     const delta = dx * this.settings.dragSensitivity * 0.012;
     this.carousel.rotation.y += delta;
-    this.dragVel = THREE.MathUtils.clamp(delta / dt, -12, 12);
+    this.dragVel = THREE.MathUtils.clamp(delta / dt, -6, 6);
   };
 
   private readonly onUp = (e: PointerEvent) => {
@@ -337,14 +340,15 @@ export class GameApp {
     } catch {
       /* ignore */
     }
-    if (!this.dragging && this.tapCandidate) {
-      this.sendToDeck(this.tapCandidate);
-    } else if (this.dragging) {
+    if (this.dragging) {
       this.spinVel = this.dragVel;
+      // Hand control back to the idle rotation only after a hand-spin.
+      this.autoResumeAt = performance.now() + this.settings.resumeAutoDelay * 1000;
+    } else if (this.tapCandidate) {
+      this.sendToDeck(this.tapCandidate);
     }
     this.tapCandidate = null;
     this.dragging = false;
-    this.autoResumeAt = performance.now() + this.settings.resumeAutoDelay * 1000;
   };
 
   private attachInput() {
