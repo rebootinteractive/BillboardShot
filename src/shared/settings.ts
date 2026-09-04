@@ -178,6 +178,36 @@ export function saveSettings(s: Settings) {
   }
 }
 
+/**
+ * Coerce an arbitrary parsed object into valid Settings: unknown keys dropped,
+ * numbers clamped to each field's slider range, shapes checked against the
+ * known shape ids. Returns null if nothing usable was found.
+ */
+export function sanitizeSettings(raw: unknown, knownShapeIds: string[]): Settings | null {
+  if (typeof raw !== 'object' || raw === null || Array.isArray(raw)) return null;
+  const src = raw as Record<string, unknown>;
+  const out: Settings = { ...DEFAULT_SETTINGS, shapes: [...DEFAULT_SETTINGS.shapes] };
+  let matched = 0;
+
+  for (const f of FIELDS) {
+    const v = src[f.key];
+    if (typeof v !== 'number' || !Number.isFinite(v)) continue;
+    out[f.key] = Math.min(f.max, Math.max(f.min, v));
+    matched++;
+  }
+
+  const shapes = src.shapes;
+  if (Array.isArray(shapes)) {
+    const valid = shapes.filter((x): x is string => typeof x === 'string' && knownShapeIds.includes(x));
+    if (valid.length > 0) {
+      out.shapes = [...new Set(valid)];
+      matched++;
+    }
+  }
+
+  return matched > 0 ? out : null;
+}
+
 export function clearSettings() {
   try {
     localStorage.removeItem(KEY);

@@ -1,4 +1,11 @@
-import { FIELDS, DEFAULT_SETTINGS, saveSettings, clearSettings, type Settings } from '../shared/settings';
+import {
+  FIELDS,
+  DEFAULT_SETTINGS,
+  saveSettings,
+  clearSettings,
+  sanitizeSettings,
+  type Settings,
+} from '../shared/settings';
 import { SHAPES } from '../game/shapes';
 
 export interface DebugCallbacks {
@@ -17,6 +24,7 @@ export class DebugPanel {
   private readonly toggle: HTMLButtonElement;
   private readonly rows = new Map<string, { input: HTMLInputElement; out: HTMLElement }>();
   private open = false;
+  private jsonModal: HTMLDivElement | null = null;
 
   constructor(
     parent: HTMLElement,
@@ -105,6 +113,15 @@ export class DebugPanel {
     actions.append(restart, reset);
     body.appendChild(actions);
 
+    const jsonActions = document.createElement('div');
+    jsonActions.className = 'dbg-actions';
+    const jsonBtn = document.createElement('button');
+    jsonBtn.className = 'btn small ghost';
+    jsonBtn.textContent = 'Tuning JSON';
+    jsonBtn.addEventListener('click', () => this.openJsonModal());
+    jsonActions.append(jsonBtn);
+    body.appendChild(jsonActions);
+
     parent.appendChild(this.root);
   }
 
@@ -138,6 +155,89 @@ export class DebugPanel {
     return g;
   }
 
+  /**
+   * Two-way tuning JSON: read out the current settings to copy, download or
+   * share, and paste a set back in to apply it.
+   */
+  private openJsonModal() {
+    this.closeJsonModal();
+    const el = document.createElement('div');
+    el.className = 'modal dbg-modal';
+    el.innerHTML = `
+      <div class="modal-card">
+        <h2>Tuning JSON</h2>
+        <p>Copy or download this to save a setup. Paste one in and hit Apply to load it.</p>
+        <textarea class="json" spellcheck="false"></textarea>
+        <div class="dbg-status" data-status></div>
+        <div class="modal-actions">
+          <button class="btn small ghost" data-copy>Copy</button>
+          <button class="btn small ghost" data-download>Download</button>
+          <button class="btn small" data-apply>Apply</button>
+          <button class="btn small ghost" data-close>Close</button>
+        </div>
+      </div>`;
+
+    const ta = el.querySelector('textarea') as HTMLTextAreaElement;
+    const status = el.querySelector('[data-status]') as HTMLElement;
+    ta.value = JSON.stringify(this.settings, null, 2);
+
+    const say = (msg: string, bad = false) => {
+      status.textContent = msg;
+      status.classList.toggle('bad', bad);
+    };
+
+    el.querySelector('[data-copy]')!.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(ta.value);
+        say('Copied to clipboard.');
+      } catch {
+        ta.select();
+        say('Selected — press Cmd/Ctrl+C to copy.');
+      }
+    });
+
+    el.querySelector('[data-download]')!.addEventListener('click', () => {
+      const blob = new Blob([ta.value], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'billboardshot-tuning.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      say('Downloaded billboardshot-tuning.json');
+    });
+
+    el.querySelector('[data-apply]')!.addEventListener('click', () => {
+      let parsed: unknown;
+      try {
+        parsed = JSON.parse(ta.value);
+      } catch {
+        say('That is not valid JSON.', true);
+        return;
+      }
+      const clean = sanitizeSettings(parsed, SHAPES.map((sh) => sh.id));
+      if (!clean) {
+        say('No recognisable tuning values in there.', true);
+        return;
+      }
+      Object.assign(this.settings, clean);
+      saveSettings(this.settings);
+      this.syncInputs();
+      this.cb.onChange(true);
+      say('Applied — level rebuilt.');
+    });
+
+    el.querySelector('[data-close]')!.addEventListener('click', () => this.closeJsonModal());
+
+    (this.root.parentElement ?? document.body).appendChild(el);
+    this.jsonModal = el;
+  }
+
+  private closeJsonModal() {
+    this.jsonModal?.remove();
+    this.jsonModal = null;
+  }
+
   private syncInputs() {
     for (const f of FIELDS) {
       const row = this.rows.get(f.key);
@@ -159,6 +259,7 @@ export class DebugPanel {
   }
 
   dispose() {
+    this.closeJsonModal();
     this.root.remove();
   }
 }
