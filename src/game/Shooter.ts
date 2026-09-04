@@ -21,6 +21,7 @@ export class Shooter {
   /** Projectiles still in the air from this shooter. */
   inFlight = 0;
   retireT = 0;
+  private active = false;
 
   readonly target = new THREE.Vector3();
 
@@ -115,6 +116,17 @@ export class Shooter {
 
   setTapTargetEnabled(on: boolean) {
     this.hitMesh.userData.tappable = on;
+  }
+
+  /**
+   * Marks the one shooter of its color currently allowed to fire. Its own material
+   * instance, so the glow never bleeds onto the others.
+   */
+  setActive(on: boolean) {
+    if (this.active === on) return;
+    this.active = on;
+    this.bodyMat.emissive.setHex(on ? 0x2a2a2a : 0x000000);
+    this.barrelMat.emissive.setHex(on ? 0x203040 : 0x000000);
   }
 
   dispose() {

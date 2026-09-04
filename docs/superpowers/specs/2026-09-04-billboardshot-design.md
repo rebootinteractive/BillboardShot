@@ -43,6 +43,10 @@ is reachable.
 
 - Each frame the game collects the shootable pixel of every column, keeps the ones
   inside the arc, and offers them to the shooters.
+- **Only one shooter per color may fire**: the one with the fewest charges left, ties
+  going to the lower slot. Concentrating fire empties that shooter sooner and hands its
+  deck slot back, rather than draining a color's shooters in lockstep. The active one
+  is lit; the rest sit dark.
 - **One shot spends one charge on one pixel.** A shooter takes the lowest-row target
   available in its color, the target nearest its own slot breaking ties, then waits
   out its cooldown and picks again. Shapes erode from the bottom edge upward in a

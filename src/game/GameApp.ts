@@ -447,7 +447,27 @@ export class GameApp {
     if (this.over === 'none') this.checkEnd();
   }
 
+  /**
+   * Only one shooter per color may fire: the one with the fewest charges left, ties
+   * going to the lower slot. Concentrating fire empties that shooter sooner and hands
+   * its deck slot back, instead of draining a whole color's shooters in lockstep.
+   */
+  private pickFirers(): Map<ColorKey, number> {
+    const chosen = new Map<ColorKey, Shooter>();
+    for (const sh of this.allShooters) {
+      if (sh.state !== 'deck' || sh.charges <= 0) continue;
+      const cur = chosen.get(sh.color);
+      if (!cur || sh.charges < cur.charges || (sh.charges === cur.charges && sh.slot < cur.slot)) {
+        chosen.set(sh.color, sh);
+      }
+    }
+    const ids = new Map<ColorKey, number>();
+    for (const [color, sh] of chosen) ids.set(color, sh.id);
+    return ids;
+  }
+
   private updateShooters(dt: number, s: Settings) {
+    const firers = this.pickFirers();
     // Queue shuffling forward.
     for (let k = 0; k < this.lanes.length; k++) {
       const lane = this.lanes[k];
@@ -474,12 +494,14 @@ export class GameApp {
       } else if (sh.state === 'deck') {
         sh.cooldown -= dt;
         sh.refreshBadge();
+        const isFirer = firers.get(sh.color) === sh.id;
+        sh.setActive(isFirer);
         if (sh.charges <= 0) {
           if (sh.inFlight === 0) {
             sh.state = 'retiring';
             sh.retireT = 0;
           }
-        } else if (sh.cooldown <= 0) {
+        } else if (isFirer && sh.cooldown <= 0) {
           this.tryFire(sh, s);
         }
       } else if (sh.state === 'retiring') {
