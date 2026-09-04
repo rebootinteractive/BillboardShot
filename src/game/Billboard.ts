@@ -43,6 +43,8 @@ export class Billboard {
   readonly rows: number;
   readonly cell: number;
   readonly halfWidth: number;
+  /** Bottom edge of the pixel grid, relative to the ceiling pivot (negative). */
+  readonly bottomOffset: number;
 
   /** grid[col][row], row 0 = bottom. null where the shape has a hole. */
   readonly grid: (Tile | null)[][] = [];
@@ -80,6 +82,7 @@ export class Billboard {
     const boardHalfH = ((this.rows - 1) / 2) * this.cell;
     this.board.position.set(0, -(s.ropeLength + boardHalfH + this.cell * 0.6), 0);
     this.pivot.add(this.board);
+    this.bottomOffset = this.board.position.y - boardHalfH - this.cell / 2;
 
     // Hanging bar across the top of the board + two ropes up to the ceiling.
     this.ropeGeo = new THREE.CylinderGeometry(0.015, 0.015, 1, 6);

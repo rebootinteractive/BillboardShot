@@ -39,7 +39,7 @@ export interface Settings {
   // --- Deck ---
   deckSlots: number;
   deckArcDeg: number;
-  deckY: number;
+  deckGap: number;
 
   // --- Queue ---
   queueLines: number;
@@ -88,7 +88,7 @@ export const DEFAULT_SETTINGS: Settings = {
 
   deckSlots: 6,
   deckArcDeg: 76,
-  deckY: 2.6,
+  deckGap: 0.55,
 
   queueLines: 3,
   queueVisible: 4,
@@ -102,7 +102,7 @@ export const DEFAULT_SETTINGS: Settings = {
 
   fireCooldown: 0.05,
   projectileSpeed: 9,
-  projectileArc: 1.1,
+  projectileArc: 0.35,
 
   shapes: ['heart', 'tree', 'star', 'mushroom', 'smiley', 'ghost'],
 };
@@ -160,7 +160,7 @@ export const FIELDS: FieldDef[] = [
 
   { key: 'deckSlots', label: 'Deck slots', group: 'Deck', min: 1, max: 10, step: 1, structural: true },
   { key: 'deckArcDeg', label: 'Deck arc °', group: 'Deck', min: 10, max: 180, step: 2, structural: true },
-  { key: 'deckY', label: 'Deck height', group: 'Deck', min: -1, max: 6, step: 0.1, structural: true },
+  { key: 'deckGap', label: 'Deck gap under boards', group: 'Deck', min: 0, max: 4, step: 0.05, structural: true },
 
   { key: 'queueLines', label: 'Queue lines', group: 'Queue', min: 1, max: 6, step: 1, structural: true },
   { key: 'queueVisible', label: 'Visible per line', group: 'Queue', min: 1, max: 12, step: 1, structural: true },
@@ -174,7 +174,7 @@ export const FIELDS: FieldDef[] = [
 
   { key: 'fireCooldown', label: 'Fire cooldown (s)', group: 'Firing', min: 0.05, max: 2, step: 0.05 },
   { key: 'projectileSpeed', label: 'Projectile speed', group: 'Firing', min: 2, max: 30, step: 0.5 },
-  { key: 'projectileArc', label: 'Projectile arc', group: 'Firing', min: 0, max: 4, step: 0.05 },
+  { key: 'projectileArc', label: 'Projectile arc ×', group: 'Firing', min: 0, max: 2, step: 0.05 },
 ];
 
 const KEY = 'billboardshot:settings:v1';

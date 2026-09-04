@@ -54,7 +54,9 @@ export class Projectile {
     this.t = Math.min(1, this.t + (dt * this.speed) / this.travel);
     this.tile.mesh.getWorldPosition(this.to);
     this.ctrl.copy(this.from).add(this.to).multiplyScalar(0.5);
-    this.ctrl.y += this.arc;
+    // Lift is proportional to how far sideways the shot has to go, so a pixel straight
+    // overhead is a clean vertical push and only reaching across the arc lobs.
+    this.ctrl.y += this.arc * Math.hypot(this.to.x - this.from.x, this.to.z - this.from.z);
 
     const u = 1 - this.t;
     this.mesh.position.set(

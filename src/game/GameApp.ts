@@ -37,6 +37,8 @@ export class GameApp {
   private readonly staticStage = new THREE.Group();
   private billboards: Billboard[] = [];
   private deckSlots: DeckSlot[] = [];
+  /** Height of the deck, sat just under the lowest hanging billboard. */
+  private deckY = 0;
   private deckOccupants: (Shooter | null)[] = [];
   private lanes: Shooter[][] = [];
   private projectiles: Projectile[] = [];
@@ -161,13 +163,20 @@ export class GameApp {
     }
 
     // --- deck arc ---
+    // Sits directly beneath the near arc of the ring, just under where the artwork
+    // bottoms out, so a shot is plainly a short vertical push up into the open frame
+    // rather than something lobbed forward from across the room.
+    let lowest = 0;
+    for (const bb of this.billboards) lowest = Math.min(lowest, bb.bottomOffset);
+    this.deckY = s.ceilingHeight + lowest - s.deckGap;
+
     const arc = THREE.MathUtils.degToRad(s.deckArcDeg);
     const railGeo = new THREE.TorusGeometry(s.carouselRadius, 0.06, 8, 48, arc);
     const railMat = new THREE.MeshStandardMaterial({ color: 0x424a63, roughness: 0.6, metalness: 0.2 });
     const rail = new THREE.Mesh(railGeo, railMat);
     rail.rotation.x = -Math.PI / 2;
     rail.rotation.z = -Math.PI / 2 - arc / 2;
-    rail.position.y = s.deckY - 0.12;
+    rail.position.y = this.deckY - 0.12;
     this.staticStage.add(rail);
     this.disposables.push({ dispose: () => { railGeo.dispose(); railMat.dispose(); } });
 
@@ -175,7 +184,7 @@ export class GameApp {
     const padMat = new THREE.MeshStandardMaterial({ color: 0x2e3548, roughness: 0.8 });
     for (let i = 0; i < s.deckSlots; i++) {
       const a = s.deckSlots === 1 ? 0 : -arc / 2 + (i / (s.deckSlots - 1)) * arc;
-      const pos = new THREE.Vector3(Math.sin(a) * s.carouselRadius, s.deckY, Math.cos(a) * s.carouselRadius);
+      const pos = new THREE.Vector3(Math.sin(a) * s.carouselRadius, this.deckY, Math.cos(a) * s.carouselRadius);
       this.deckSlots.push({ pos, angle: a });
       this.deckOccupants.push(null);
       const pad = new THREE.Mesh(padGeo, padMat);
@@ -509,7 +518,7 @@ export class GameApp {
       } else if (sh.state === 'retiring') {
         sh.retireT += dt / RETIRE_TIME;
         const t = Math.min(1, sh.retireT);
-        sh.group.position.y = s.deckY + t * 1.1;
+        sh.group.position.y = this.deckY + t * 1.1;
         sh.group.scale.setScalar(Math.max(0.001, 1 - t));
         if (t >= 1) {
           sh.state = 'gone';

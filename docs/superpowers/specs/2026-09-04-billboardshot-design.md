@@ -10,8 +10,12 @@ placed at even angles on a circle around the Y axis, all facing outward. Each bi
 is a pixel-art shape (heart, tree, star, ...) on a grid of colored tiles. They dangle
 and swing. Camera looks at the front of the ring, so 1-2 billboards are on stage.
 
-Below, at the **same radius**, a curved **deck** of slots. Below that, **queue lines**
-of colored shooters waiting.
+Directly beneath the near arc of that ring, at the **same radius** and sitting just
+under where the artwork bottoms out, a curved **deck** of slots — so a shooter is
+plainly *under* a billboard, and a shot is a short push up into the open frame. The
+deck's height is derived from the boards, not set outright, so it stays put when the
+ceiling height, rope length or pixel size are tuned. Below that, on the ground,
+**queue lines** of colored shooters waiting.
 
 ## Inputs (two)
 
