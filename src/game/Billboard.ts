@@ -173,12 +173,30 @@ export class Billboard {
       this.board.add(m);
     };
 
+    /** Empty from this row all the way down — a gap that opens out of the bottom. */
+    const opensDownward = (c: number, r: number) => {
+      for (let k = r; k >= 0; k--) if (filled(c, k)) return false;
+      return true;
+    };
+
+    // A gap inside a row that drains out of the bottom gets no side edges, so the
+    // ghost's feet don't sprout teeth. A gap that is closed below — the notch
+    // between the heart's lobes — is still traced.
+    const skipSide = (nc: number, r: number, sp: [number, number]) =>
+      nc > sp[0] && nc < sp[1] && opensDownward(nc, r);
+
     for (let r = cutoff; r <= top; r++) {
+      const sp = span(r);
+      if (!sp) continue;
       for (let c = 0; c < this.cols; c++) {
         if (!filled(c, r)) continue;
         if (!filled(c, r + 1)) add(this.outlineHGeo, xOf(c), yOf(r) + this.cell / 2 + ot / 2);
-        if (!filled(c - 1, r)) add(this.outlineVGeo, xOf(c) - this.cell / 2 - ot / 2, yOf(r));
-        if (!filled(c + 1, r)) add(this.outlineVGeo, xOf(c) + this.cell / 2 + ot / 2, yOf(r));
+        if (!filled(c - 1, r) && !skipSide(c - 1, r, sp)) {
+          add(this.outlineVGeo, xOf(c) - this.cell / 2 - ot / 2, yOf(r));
+        }
+        if (!filled(c + 1, r) && !skipSide(c + 1, r, sp)) {
+          add(this.outlineVGeo, xOf(c) + this.cell / 2 + ot / 2, yOf(r));
+        }
       }
     }
   }

@@ -27,6 +27,10 @@ the first row narrower than everything above it: the sides may widen as they des
 but never pull back in. On the heart that ends the sides after the fourth row, where
 the lobes give way to the taper.
 
+A gap inside a row that drains out of the bottom gets no side edges either, so the
+ghost's feet do not sprout teeth. A gap that is closed off below — the notch between
+the heart's lobes — is still traced.
+
 The open bottom states the rule: a pixel is only shootable if it has a clear path down
 and out — in grid terms, the lowest surviving tile of its column. The shooting arc is
 deliberately **not drawn**.
