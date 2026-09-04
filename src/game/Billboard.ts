@@ -3,10 +3,10 @@ import type { ColorKey, ShapeDef } from '../shared/types';
 import { CHAR_TO_COLOR, COLOR_HEX } from '../shared/colors';
 import type { Settings } from '../shared/settings';
 
-/** A shootable pixel and the same-color run stacked on top of it. */
+/** A single shootable pixel: the lowest one still standing in its column. */
 export interface EligibleTarget {
   board: Billboard;
-  run: Tile[];
+  tile: Tile;
   color: ColorKey;
   /** World angle around the carousel axis, filled in by the caller. */
   angle: number;
@@ -235,30 +235,25 @@ export class Billboard {
   }
 
   /**
-   * The run of consecutive same-color tiles starting at the lowest tile still
-   * standing in this column. That lowest tile is the only shootable one — the
-   * frame is open at the bottom, so a pixel needs a clear path down to be hit.
+   * The lowest tile still standing in this column — the only shootable one, since
+   * the outline is open at the bottom and a pixel needs a clear path down to be hit.
    */
-  columnRun(col: number): Tile[] {
+  lowestStanding(col: number): Tile | null {
     const column = this.grid[col];
-    const run: Tile[] = [];
-    let color: ColorKey | null = null;
     for (let r = 0; r < this.rows; r++) {
       const t = column[r];
       if (!t || !t.alive || t.reserved) continue; // holes and doomed tiles are empty
-      if (color === null) color = t.color;
-      else if (t.color !== color) break;
-      run.push(t);
+      return t;
     }
-    return run;
+    return null;
   }
 
   /** One entry per column that currently has something shootable at its bottom. */
   collectEligible(out: EligibleTarget[]) {
     for (let c = 0; c < this.cols; c++) {
-      const run = this.columnRun(c);
-      if (run.length === 0) continue;
-      out.push({ board: this, run, color: run[0].color, angle: 0 });
+      const tile = this.lowestStanding(c);
+      if (!tile) continue;
+      out.push({ board: this, tile, color: tile.color, angle: 0 });
     }
   }
 

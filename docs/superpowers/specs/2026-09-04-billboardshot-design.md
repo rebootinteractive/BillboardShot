@@ -43,14 +43,12 @@ is reachable.
 
 - Each frame the game collects the shootable pixel of every column, keeps the ones
   inside the arc, and offers them to the shooters.
-- A shooter takes the **lowest-row target available in its color**, so a shape is
-  always eaten from its bottom edge upward. Bigger volleys break ties, then the target
-  nearest the shooter's own slot.
-- It then eats **consecutive same-color tiles up that column**, one charge each,
-  skipping holes, stopping at a different color.
-- Volley size = min(run length, charges remaining). Tiles are reserved immediately so
-  two shooters cannot claim the same tile, and a column takes at most one volley per
-  frame.
+- **One shot spends one charge on one pixel.** A shooter takes the lowest-row target
+  available in its color, the target nearest its own slot breaking ties, then waits
+  out its cooldown and picks again. Shapes erode from the bottom edge upward in a
+  level front rather than being carved into vertical stripes.
+- Tiles are reserved the moment they are targeted, so two shooters cannot claim the
+  same pixel and the one above it becomes shootable straight away.
 - Shots are arcing homing projectiles (the target swings and rotates).
 - A shooter that spends its **last charge leaves the deck**, freeing the slot.
 

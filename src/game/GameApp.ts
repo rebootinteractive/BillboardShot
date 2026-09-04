@@ -514,7 +514,7 @@ export class GameApp {
     let write = 0;
     for (let i = 0; i < this.targets.length; i++) {
       const t = this.targets[i];
-      t.run[0].mesh.getWorldPosition(this.scratch);
+      t.tile.mesh.getWorldPosition(this.scratch);
       const angle = Math.atan2(this.scratch.x, this.scratch.z);
       if (Math.abs(angle) > half) continue;
       t.angle = angle;
@@ -524,62 +524,51 @@ export class GameApp {
   }
 
   /**
-   * Pick a target in the arc: lowest row first, so a shape is always eaten from
-   * its bottom edge upward. Bigger volleys break ties, then the nearest slot.
+   * One shot spends one charge on one pixel: the lowest row available in the
+   * shooter's color, nearest slot breaking ties. Shapes erode from the bottom
+   * edge upward rather than being carved into vertical stripes.
    */
   private tryFire(sh: Shooter, s: Settings) {
     const shooterAngle = Math.atan2(sh.group.position.x, sh.group.position.z);
     let best = -1;
     let bestRow = Infinity;
-    let bestScore = 0;
     let bestSpread = Infinity;
     for (let i = 0; i < this.targets.length; i++) {
       const t = this.targets[i];
       if (t.color !== sh.color) continue;
-      const row = t.run[0].row;
-      const score = Math.min(t.run.length, sh.charges);
+      const row = t.tile.row;
       const spread = Math.abs(t.angle - shooterAngle);
-      const better =
-        row < bestRow ||
-        (row === bestRow &&
-          (score > bestScore || (score === bestScore && spread < bestSpread)));
-      if (!better) continue;
+      if (row > bestRow || (row === bestRow && spread >= bestSpread)) continue;
       best = i;
       bestRow = row;
-      bestScore = score;
       bestSpread = spread;
     }
     if (best < 0) return;
 
-    const target = this.targets[best];
-    this.targets.splice(best, 1); // one volley per column per frame
-    const run = target.run;
+    const tile = this.targets[best].tile;
+    this.targets.splice(best, 1);
 
     const origin = this.scratch2.copy(sh.group.position);
     origin.y += 0.7 * SHOOTER_SCALE;
 
-    const n = Math.min(run.length, sh.charges);
-    for (let i = 0; i < n; i++) {
-      const tile = run[i];
-      tile.reserved = true;
-      tile.mesh.scale.setScalar(0.8);
-      const p = new Projectile(
-        this.shotGeo,
-        this.shotMaterial(sh.color),
-        origin,
-        tile,
-        sh,
-        s.projectileSpeed,
-        s.projectileArc,
-        i * s.volleyStagger,
-      );
-      this.world.add(p.mesh);
-      this.projectiles.push(p);
-      sh.inFlight++;
-    }
-    sh.charges -= n;
+    tile.reserved = true;
+    tile.mesh.scale.setScalar(0.8);
+    const p = new Projectile(
+      this.shotGeo,
+      this.shotMaterial(sh.color),
+      origin,
+      tile,
+      sh,
+      s.projectileSpeed,
+      s.projectileArc,
+      0,
+    );
+    this.world.add(p.mesh);
+    this.projectiles.push(p);
+    sh.inFlight++;
+    sh.charges -= 1;
     sh.refreshBadge();
-    sh.cooldown = s.fireCooldown + n * s.volleyStagger;
+    sh.cooldown = s.fireCooldown;
   }
 
   private updateProjectiles(dt: number, s: Settings) {

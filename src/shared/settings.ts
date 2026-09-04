@@ -52,7 +52,6 @@ export interface Settings {
 
   // --- Firing ---
   fireCooldown: number;
-  volleyStagger: number;
   projectileSpeed: number;
   projectileArc: number;
 
@@ -99,7 +98,6 @@ export const DEFAULT_SETTINGS: Settings = {
   seed: 7,
 
   fireCooldown: 0.35,
-  volleyStagger: 0.07,
   projectileSpeed: 9,
   projectileArc: 1.1,
 
@@ -155,7 +153,6 @@ export const FIELDS: FieldDef[] = [
   { key: 'seed', label: 'Seed', group: 'Queue', min: 1, max: 999, step: 1, structural: true },
 
   { key: 'fireCooldown', label: 'Fire cooldown (s)', group: 'Firing', min: 0.05, max: 2, step: 0.05 },
-  { key: 'volleyStagger', label: 'Volley stagger (s)', group: 'Firing', min: 0, max: 0.4, step: 0.01 },
   { key: 'projectileSpeed', label: 'Projectile speed', group: 'Firing', min: 2, max: 30, step: 0.5 },
   { key: 'projectileArc', label: 'Projectile arc', group: 'Firing', min: 0, max: 4, step: 0.05 },
 ];
@@ -166,8 +163,12 @@ export function loadSettings(): Settings {
   try {
     const raw = localStorage.getItem(KEY);
     if (!raw) return { ...DEFAULT_SETTINGS };
-    const parsed = JSON.parse(raw) as Partial<Settings>;
-    const merged = { ...DEFAULT_SETTINGS, ...parsed };
+    const parsed = JSON.parse(raw) as Record<string, unknown>;
+    // Copy only keys we still recognise, so retired settings don't linger in storage.
+    const merged: Settings = { ...DEFAULT_SETTINGS, shapes: [...DEFAULT_SETTINGS.shapes] };
+    for (const key of Object.keys(DEFAULT_SETTINGS) as (keyof Settings)[]) {
+      if (key in parsed) (merged as unknown as Record<string, unknown>)[key] = parsed[key];
+    }
     if (!Array.isArray(merged.shapes) || merged.shapes.length === 0) {
       merged.shapes = [...DEFAULT_SETTINGS.shapes];
     }
