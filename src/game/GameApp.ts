@@ -468,6 +468,8 @@ export class GameApp {
 
   private updateShooters(dt: number, s: Settings) {
     const firers = this.pickFirers();
+    // Aiming and shooting are separate acts: nobody fires mid-drag.
+    const holdFire = s.holdFireWhileDragging && this.dragging;
     // Queue shuffling forward.
     for (let k = 0; k < this.lanes.length; k++) {
       const lane = this.lanes[k];
@@ -495,13 +497,13 @@ export class GameApp {
         sh.cooldown -= dt;
         sh.refreshBadge();
         const isFirer = firers.get(sh.color) === sh.id;
-        sh.setActive(isFirer);
+        sh.setActive(isFirer && !holdFire);
         if (sh.charges <= 0) {
           if (sh.inFlight === 0) {
             sh.state = 'retiring';
             sh.retireT = 0;
           }
-        } else if (isFirer && sh.cooldown <= 0) {
+        } else if (isFirer && !holdFire && sh.cooldown <= 0) {
           this.tryFire(sh, s);
         }
       } else if (sh.state === 'retiring') {

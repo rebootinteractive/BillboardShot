@@ -628,3 +628,12 @@ textarea.json {
 .dbg-status.bad {
   color: var(--danger);
 }
+
+.dbg-toggle-row {
+  grid-template-columns: 1fr auto;
+  margin-bottom: 12px;
+}
+.dbg-toggle-row .dbg-chip {
+  min-width: 54px;
+  text-align: center;
+}

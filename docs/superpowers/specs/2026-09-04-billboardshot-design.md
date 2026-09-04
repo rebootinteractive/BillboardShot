@@ -43,6 +43,9 @@ is reachable.
 
 - Each frame the game collects the shootable pixel of every column, keeps the ones
   inside the arc, and offers them to the shooters.
+- **Nobody fires while the player is dragging the carousel** (option "Hold fire while
+  dragging", on by default), so aiming and shooting are separate acts. Momentum after
+  release still counts as free time — firing resumes the moment the finger lifts.
 - **Only one shooter per color may fire**: the one with the fewest charges left, ties
   going to the lower slot. Concentrating fire empties that shooter sooner and hands its
   deck slot back, rather than draining a color's shooters in lockstep. The active one

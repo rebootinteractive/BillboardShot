@@ -33,6 +33,8 @@ export interface Settings {
 
   // --- Shooting ---
   shootArcDeg: number;
+  /** Shooters hold fire while the player is dragging the carousel. */
+  holdFireWhileDragging: boolean;
 
   // --- Deck ---
   deckSlots: number;
@@ -82,6 +84,7 @@ export const DEFAULT_SETTINGS: Settings = {
   ambientSway: 0,
 
   shootArcDeg: 80,
+  holdFireWhileDragging: true,
 
   deckSlots: 6,
   deckArcDeg: 76,
@@ -104,8 +107,25 @@ export const DEFAULT_SETTINGS: Settings = {
   shapes: ['heart', 'tree', 'star', 'mushroom', 'smiley', 'ghost'],
 };
 
+export interface ToggleDef {
+  key: BooleanKey;
+  label: string;
+  group: string;
+  /** structural = the level needs rebuilding when this changes. */
+  structural?: boolean;
+}
+
+/** Keys whose value is a boolean — the panel renders these as on/off pills. */
+type BooleanKey = {
+  [K in keyof Settings]: Settings[K] extends boolean ? K : never;
+}[keyof Settings];
+
+export const TOGGLES: ToggleDef[] = [
+  { key: 'holdFireWhileDragging', label: 'Hold fire while dragging', group: 'Shooting' },
+];
+
 export interface FieldDef {
-  key: Exclude<keyof Settings, 'shapes'>;
+  key: Exclude<keyof Settings, 'shapes' | BooleanKey>;
   label: string;
   group: string;
   min: number;
@@ -201,6 +221,13 @@ export function sanitizeSettings(raw: unknown, knownShapeIds: string[]): Setting
     const v = src[f.key];
     if (typeof v !== 'number' || !Number.isFinite(v)) continue;
     out[f.key] = Math.min(f.max, Math.max(f.min, v));
+    matched++;
+  }
+
+  for (const t of TOGGLES) {
+    const v = src[t.key];
+    if (typeof v !== 'boolean') continue;
+    out[t.key] = v;
     matched++;
   }
 

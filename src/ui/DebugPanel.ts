@@ -1,5 +1,6 @@
 import {
   FIELDS,
+  TOGGLES,
   DEFAULT_SETTINGS,
   saveSettings,
   clearSettings,
@@ -23,6 +24,7 @@ export class DebugPanel {
   private readonly panel: HTMLDivElement;
   private readonly toggle: HTMLButtonElement;
   private readonly rows = new Map<string, { input: HTMLInputElement; out: HTMLElement }>();
+  private readonly toggleBtns = new Map<string, HTMLButtonElement>();
   private open = false;
   private jsonModal: HTMLDivElement | null = null;
 
@@ -60,15 +62,25 @@ export class DebugPanel {
 
     body.appendChild(this.buildShapeGroup());
 
+    const groupEls = new Map<string, HTMLDivElement>();
+    const groupFor = (name: string) => {
+      let el = groupEls.get(name);
+      if (!el) {
+        el = document.createElement('div');
+        el.className = 'dbg-group';
+        el.innerHTML = `<div class="dbg-group-title">${name}</div>`;
+        body.appendChild(el);
+        groupEls.set(name, el);
+      }
+      return el;
+    };
+
     let currentGroup = '';
     let groupEl: HTMLDivElement | null = null;
     for (const f of FIELDS) {
       if (f.group !== currentGroup) {
         currentGroup = f.group;
-        groupEl = document.createElement('div');
-        groupEl.className = 'dbg-group';
-        groupEl.innerHTML = `<div class="dbg-group-title">${f.group}</div>`;
-        body.appendChild(groupEl);
+        groupEl = groupFor(f.group);
       }
       const row = document.createElement('label');
       row.className = 'dbg-row';
@@ -92,6 +104,29 @@ export class DebugPanel {
       row.appendChild(input);
       this.rows.set(f.key, { input, out });
       groupEl!.appendChild(row);
+    }
+
+    for (const t of TOGGLES) {
+      const row = document.createElement('div');
+      row.className = 'dbg-row dbg-toggle-row';
+      row.innerHTML = `<span class="dbg-label">${t.label}</span>`;
+      const btn = document.createElement('button');
+      btn.className = 'dbg-chip';
+      const sync = () => {
+        const on = this.settings[t.key];
+        btn.classList.toggle('on', on);
+        btn.textContent = on ? 'On' : 'Off';
+      };
+      sync();
+      btn.addEventListener('click', () => {
+        this.settings[t.key] = !this.settings[t.key];
+        sync();
+        saveSettings(this.settings);
+        this.cb.onChange(!!t.structural);
+      });
+      row.appendChild(btn);
+      this.toggleBtns.set(t.key, btn);
+      groupFor(t.group).appendChild(row);
     }
 
     const actions = document.createElement('div');
@@ -247,9 +282,16 @@ export class DebugPanel {
       const decimals = f.step < 1 ? String(f.step).split('.')[1]?.length ?? 1 : 0;
       row.out.textContent = v.toFixed(decimals);
     }
-    this.root.querySelectorAll<HTMLButtonElement>('.dbg-chip').forEach((chip, i) => {
+    this.root.querySelectorAll<HTMLButtonElement>('.dbg-chips .dbg-chip').forEach((chip, i) => {
       chip.classList.toggle('on', this.settings.shapes.includes(SHAPES[i].id));
     });
+    for (const t of TOGGLES) {
+      const btn = this.toggleBtns.get(t.key);
+      if (!btn) continue;
+      const on = this.settings[t.key];
+      btn.classList.toggle('on', on);
+      btn.textContent = on ? 'On' : 'Off';
+    }
   }
 
   setOpen(open: boolean) {
