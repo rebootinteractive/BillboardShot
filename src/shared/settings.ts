@@ -48,8 +48,8 @@ export interface Settings {
   queueHeadZ: number;
   queueSpacing: number;
   queueY: number;
+  minChargesPerShooter: number;
   chargesPerShooter: number;
-  ammoSurplus: number;
   seed: number;
 
   // --- Firing ---
@@ -96,8 +96,8 @@ export const DEFAULT_SETTINGS: Settings = {
   queueHeadZ: 3.2,
   queueSpacing: 0.7,
   queueY: 0.3,
+  minChargesPerShooter: 3,
   chargesPerShooter: 20,
-  ammoSurplus: 1.15,
   seed: 7,
 
   fireCooldown: 0.05,
@@ -168,8 +168,8 @@ export const FIELDS: FieldDef[] = [
   { key: 'queueHeadZ', label: 'Queue head Z', group: 'Queue', min: 2, max: 12, step: 0.1, structural: true },
   { key: 'queueSpacing', label: 'Queue spacing', group: 'Queue', min: 0.3, max: 2, step: 0.05, structural: true },
   { key: 'queueY', label: 'Queue height', group: 'Queue', min: -2, max: 4, step: 0.05, structural: true },
-  { key: 'chargesPerShooter', label: 'Charges / shooter', group: 'Queue', min: 1, max: 20, step: 1, structural: true },
-  { key: 'ammoSurplus', label: 'Ammo surplus ×', group: 'Queue', min: 1, max: 2.5, step: 0.05, structural: true },
+  { key: 'minChargesPerShooter', label: 'Min charges / shooter', group: 'Queue', min: 1, max: 30, step: 1, structural: true },
+  { key: 'chargesPerShooter', label: 'Max charges / shooter', group: 'Queue', min: 1, max: 30, step: 1, structural: true },
   { key: 'seed', label: 'Seed', group: 'Queue', min: 1, max: 999, step: 1, structural: true },
 
   { key: 'fireCooldown', label: 'Fire cooldown (s)', group: 'Firing', min: 0.05, max: 2, step: 0.05 },

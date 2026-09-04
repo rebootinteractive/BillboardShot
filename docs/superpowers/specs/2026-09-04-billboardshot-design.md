@@ -59,6 +59,14 @@ is reachable.
 - Shots are arcing homing projectiles (the target swings and rotates).
 - A shooter that spends its **last charge leaves the deck**, freeing the slot.
 
+## Ammo
+
+**Zero sum.** The charges dealt out in a color add up to exactly that color's pixel
+count, so every charge has a pixel waiting for it and there is no slack: a charge
+stranded on a jammed shooter is a pixel that can never be cleared. Loads are uneven —
+each shooter carries an arbitrary amount between the min and max charge settings, and
+the split never strands a tail smaller than the min.
+
 ## End conditions
 
 - **Win** — every billboard tile destroyed.

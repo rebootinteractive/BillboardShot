@@ -61,11 +61,26 @@ export function buildLevel(s: Settings): LevelPlan {
     }
   }
 
-  // Enough shooters to clear it, plus the surplus slack.
+  // Zero sum: the charges dealt out in a color add up to exactly that color's pixel
+  // count, so every charge has a pixel waiting for it and none is spare. Loads are
+  // uneven — each shooter takes an arbitrary amount between the min and the max, and
+  // the split never strands a tail smaller than the min.
+  const lo = Math.max(1, Math.min(s.minChargesPerShooter, s.chargesPerShooter));
+  const hi = Math.max(lo, s.chargesPerShooter);
   const entries: QueueEntry[] = [];
   for (const [color, count] of need) {
-    const n = Math.max(1, Math.ceil((count / s.chargesPerShooter) * s.ammoSurplus));
-    for (let i = 0; i < n; i++) entries.push({ color, charges: s.chargesPerShooter });
+    let remaining = count;
+    while (remaining > 0) {
+      if (remaining <= hi) {
+        entries.push({ color, charges: remaining });
+        break;
+      }
+      // Cap the draw so whatever is left is still worth a shooter of its own.
+      const top = Math.min(hi, remaining - lo);
+      const charges = lo + Math.floor(rnd() * (top - lo + 1));
+      entries.push({ color, charges });
+      remaining -= charges;
+    }
   }
 
   const deck = shuffle(entries, rnd);
