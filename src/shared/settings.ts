@@ -71,7 +71,7 @@ export const DEFAULT_SETTINGS: Settings = {
   carouselRadius: 2.6,
   autoRotateDegPerSec: 0,
   dragSensitivity: 0.9,
-  spinDamping: 2.2,
+  spinDamping: 10,
   resumeAutoDelay: 1.8,
 
   cellSize: 0.22,
