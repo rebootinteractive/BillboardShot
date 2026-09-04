@@ -1,4 +1,12 @@
-export type ColorKey = 'red' | 'blue' | 'green' | 'yellow' | 'purple';
+export type ColorKey =
+  | 'red'
+  | 'blue'
+  | 'green'
+  | 'yellow'
+  | 'purple'
+  | 'orange'
+  | 'cyan'
+  | 'pink';
 
 export interface ShapeDef {
   id: string;

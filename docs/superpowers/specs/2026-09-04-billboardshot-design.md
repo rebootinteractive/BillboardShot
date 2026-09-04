@@ -60,9 +60,10 @@ is reachable.
 
 - **Win** — every billboard tile destroyed.
 - **Lose (deadlock)** — nothing new can join the deck AND no shooter on it can reach
-  a pixel any more, "reachable" meaning its color sits at the bottom of some column
-  somewhere. The arc does not enter this test: the player can always rotate a column
-  into it.
+  a pixel any more. A shooter that is retiring, or that has just spent its last charge,
+  suspends the test: its slot frees a frame later and the jam is not real. Reachable
+  means its color sits at the bottom of some column somewhere. The arc does not enter
+  this test: the player can always rotate a column into it.
 - **Lose (out of ammo)** — queues empty, deck empty, tiles still standing.
 
 ## v1 scope

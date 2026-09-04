@@ -97,7 +97,7 @@ export const DEFAULT_SETTINGS: Settings = {
   ammoSurplus: 1.15,
   seed: 7,
 
-  fireCooldown: 0.35,
+  fireCooldown: 0.05,
   projectileSpeed: 9,
   projectileArc: 1.1,
 

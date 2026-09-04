@@ -644,7 +644,13 @@ export class GameApp {
     if (!queueEmpty && !deckFull) return;
 
     const onDeck = this.allShooters.filter((sh) => sh.state === 'deck' || sh.state === 'walking');
-    if (this.allShooters.some((sh) => sh.state === 'retiring')) return;
+    // A shooter that is leaving, or that has just spent its last charge, is about to
+    // hand its slot back. Calling the game before it does declares a jam the player
+    // can plainly see is not one — the slot frees a frame later.
+    const slotAboutToFree = this.allShooters.some(
+      (sh) => sh.state === 'retiring' || (sh.state === 'deck' && sh.charges <= 0),
+    );
+    if (slotAboutToFree) return;
 
     // Nothing new can join the deck, so if no shooter on it can ever fire again the
     // board is frozen. "Can ever fire" = its color is at the bottom of some column.
