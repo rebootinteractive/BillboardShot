@@ -448,7 +448,7 @@ export class GameApp {
     // Matrices must be current before we map shooters into board space.
     this.world.updateMatrixWorld(true);
 
-    this.buildTargets(s);
+    this.buildTargets();
     this.updateShooters(dt, s);
     this.updateProjectiles(dt, s);
     this.hud.tick(dt);
@@ -533,44 +533,45 @@ export class GameApp {
   }
 
   /**
-   * Every shootable pixel currently inside the firing arc. The arc is fixed in
-   * world space in front of the camera, so spinning the carousel is what decides
-   * which pixels are reachable.
+   * Every shootable pixel on the carousel, tagged with its world angle. There is no
+   * global window any more — each shooter decides for itself what is within reach.
    */
-  private buildTargets(s: Settings) {
+  private buildTargets() {
     this.targets.length = 0;
     for (const bb of this.billboards) {
       if (bb.aliveCount === 0) continue;
       bb.collectEligible(this.targets);
     }
-    const half = THREE.MathUtils.degToRad(s.shootArcDeg) / 2;
-    let write = 0;
-    for (let i = 0; i < this.targets.length; i++) {
-      const t = this.targets[i];
+    for (const t of this.targets) {
       t.tile.mesh.getWorldPosition(this.scratch);
-      const angle = Math.atan2(this.scratch.x, this.scratch.z);
-      if (Math.abs(angle) > half) continue;
-      t.angle = angle;
-      this.targets[write++] = t;
+      t.angle = Math.atan2(this.scratch.x, this.scratch.z);
     }
-    this.targets.length = write;
+  }
+
+  /** Shortest signed angle from a to b, so the wrap behind the carousel is handled. */
+  private static angleBetween(a: number, b: number) {
+    const d = b - a;
+    return Math.atan2(Math.sin(d), Math.cos(d));
   }
 
   /**
-   * One shot spends one charge on one pixel: the lowest row available in the
-   * shooter's color, nearest slot breaking ties. Shapes erode from the bottom
-   * edge upward rather than being carved into vertical stripes.
+   * One shot spends one charge on one pixel. A shooter only reaches pixels within
+   * its own wedge, measured from where it stands on the deck arc — so which slot a
+   * shooter occupies decides what it can hit. Within reach it takes the lowest row
+   * available in its color, nearest angle breaking ties.
    */
   private tryFire(sh: Shooter, s: Settings) {
     const shooterAngle = Math.atan2(sh.group.position.x, sh.group.position.z);
+    const reach = THREE.MathUtils.degToRad(s.shooterArcDeg) / 2;
     let best = -1;
     let bestRow = Infinity;
     let bestSpread = Infinity;
     for (let i = 0; i < this.targets.length; i++) {
       const t = this.targets[i];
       if (t.color !== sh.color) continue;
+      const spread = Math.abs(GameApp.angleBetween(shooterAngle, t.angle));
+      if (spread > reach) continue;
       const row = t.tile.row;
-      const spread = Math.abs(t.angle - shooterAngle);
       if (row > bestRow || (row === bestRow && spread >= bestSpread)) continue;
       best = i;
       bestRow = row;

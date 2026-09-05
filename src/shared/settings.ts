@@ -32,7 +32,8 @@ export interface Settings {
   ambientSway: number;
 
   // --- Shooting ---
-  shootArcDeg: number;
+  /** How far to either side of itself a shooter can reach, in degrees. */
+  shooterArcDeg: number;
   /** Shooters hold fire while the player is dragging the carousel. */
   holdFireWhileDragging: boolean;
 
@@ -63,12 +64,12 @@ export interface Settings {
 
 export const DEFAULT_SETTINGS: Settings = {
   camFov: 50,
-  camDistance: 15,
+  camDistance: 13,
   camPitchDeg: 24,
-  camTargetY: 4,
+  camTargetY: 5,
 
   billboardCount: 6,
-  carouselRadius: 2.6,
+  carouselRadius: 2.4,
   autoRotateDegPerSec: 0,
   dragSensitivity: 0.9,
   spinDamping: 10,
@@ -83,26 +84,26 @@ export const DEFAULT_SETTINGS: Settings = {
   swingImpulse: 0,
   ambientSway: 0,
 
-  shootArcDeg: 80,
+  shooterArcDeg: 55,
   holdFireWhileDragging: true,
 
   deckSlots: 6,
   deckArcDeg: 76,
-  deckGap: 0.55,
+  deckGap: 2.2,
 
   queueLines: 3,
   queueVisible: 4,
   queueLaneSpacing: 1.15,
-  queueHeadZ: 3.2,
+  queueHeadZ: 2.8,
   queueSpacing: 0.7,
-  queueY: 0.3,
+  queueY: 2.25,
   minChargesPerShooter: 3,
   chargesPerShooter: 20,
   seed: 7,
 
   fireCooldown: 0.05,
   projectileSpeed: 9,
-  projectileArc: 0.35,
+  projectileArc: 1.1,
 
   shapes: ['heart', 'tree', 'star', 'mushroom', 'smiley', 'ghost'],
 };
@@ -156,7 +157,7 @@ export const FIELDS: FieldDef[] = [
   { key: 'swingImpulse', label: 'Hit impulse', group: 'Swing', min: 0, max: 3, step: 0.05 },
   { key: 'ambientSway', label: 'Ambient sway', group: 'Swing', min: 0, max: 3, step: 0.05 },
 
-  { key: 'shootArcDeg', label: 'Shooting arc °', group: 'Shooting', min: 10, max: 180, step: 2, structural: true },
+  { key: 'shooterArcDeg', label: 'Shooter reach °', group: 'Shooting', min: 10, max: 120, step: 2 },
 
   { key: 'deckSlots', label: 'Deck slots', group: 'Deck', min: 1, max: 10, step: 1, structural: true },
   { key: 'deckArcDeg', label: 'Deck arc °', group: 'Deck', min: 10, max: 180, step: 2, structural: true },

@@ -39,14 +39,14 @@ The open bottom states the rule: a pixel is only shootable if it has a clear pat
 and out — in grid terms, the lowest surviving tile of its column. The shooting arc is
 deliberately **not drawn**.
 
-Shooters do **not** fire straight up. There is one **shooting arc**: a global angular
-window fixed in world space on the camera-facing side of the carousel. Any deck
-shooter can hit any shootable pixel whose world angle falls inside that arc, wherever
-it happens to be standing. Spinning the carousel is therefore the act of choosing what
-is reachable.
+Shooters do **not** fire straight up, but nor do they all share one window. Each has
+its **own wedge**, measured to either side of where it stands on the deck arc, and it
+can only hit shootable pixels whose world angle falls inside that wedge. Which slot a
+shooter occupies therefore decides what it can reach, and spinning the carousel is the
+act of moving pixels into somebody's reach.
 
-- Each frame the game collects the shootable pixel of every column, keeps the ones
-  inside the arc, and offers them to the shooters.
+- Each frame the game collects the shootable pixel of every column and tags it with
+  its world angle; each shooter then filters that list down to its own wedge.
 - **Nobody fires while the player is dragging the carousel** (option "Hold fire while
   dragging", on by default), so aiming and shooting are separate acts. Momentum after
   release still counts as free time — firing resumes the moment the finger lifts.
