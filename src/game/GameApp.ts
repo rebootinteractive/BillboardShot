@@ -62,6 +62,8 @@ export class GameApp {
   private lastMoveTime = 0;
   private dragVel = 0;
   private spinVel = 0;
+  /** Rotation the carousel is easing onto so a board lands on the focus point. */
+  private snapTarget: number | null = null;
   private autoResumeAt = 0;
   private tapCandidate: Shooter | null = null;
   private readonly raycaster = new THREE.Raycaster();
@@ -274,6 +276,7 @@ export class GameApp {
     this.staticStage.clear();
     this.carousel.rotation.y = 0;
     this.spinVel = 0;
+    this.snapTarget = null;
   }
 
   private restart() {
@@ -286,6 +289,10 @@ export class GameApp {
     if (!structural) return;
     window.clearTimeout(this.rebuildTimer);
     this.rebuildTimer = window.setTimeout(() => this.restart(), 140);
+  }
+
+  private spinDampingRate() {
+    return Math.max(0.2, this.settings.spinDamping);
   }
 
   private applyCamera() {
@@ -316,6 +323,7 @@ export class GameApp {
     this.lastX = e.clientX;
     this.lastMoveTime = performance.now();
     this.dragVel = 0;
+    this.snapTarget = null;
     this.tapCandidate = this.pickShooter(e);
     try {
       this.renderer.domElement.setPointerCapture(e.pointerId);
@@ -356,8 +364,13 @@ export class GameApp {
       /* ignore */
     }
     if (this.dragging) {
-      this.spinVel = this.dragVel;
-      // Hand control back to the idle rotation only after a hand-spin.
+      // Let the throw decide which board it was heading for, then settle onto it
+      // exactly, so a board always ends up on the focus point.
+      const spacing = (Math.PI * 2) / Math.max(1, this.billboards.length);
+      const coast = this.spinDampingRate() > 0 ? this.dragVel / this.spinDampingRate() : 0;
+      const predicted = this.carousel.rotation.y + coast;
+      this.snapTarget = Math.round(predicted / spacing) * spacing;
+      this.spinVel = 0;
       this.autoResumeAt = performance.now() + this.settings.resumeAutoDelay * 1000;
     } else if (this.tapCandidate) {
       this.sendToDeck(this.tapCandidate);
@@ -438,11 +451,21 @@ export class GameApp {
 
     // --- carousel spin ---
     if (!this.dragging) {
-      this.carousel.rotation.y += this.spinVel * dt;
-      this.spinVel *= Math.exp(-s.spinDamping * dt);
-      if (Math.abs(this.spinVel) < 0.02) this.spinVel = 0;
-      if (performance.now() >= this.autoResumeAt) {
-        this.carousel.rotation.y += THREE.MathUtils.degToRad(s.autoRotateDegPerSec) * dt;
+      if (this.snapTarget !== null) {
+        const gap = this.snapTarget - this.carousel.rotation.y;
+        if (Math.abs(gap) < 0.0015) {
+          this.carousel.rotation.y = this.snapTarget;
+          this.snapTarget = null;
+        } else {
+          this.carousel.rotation.y += gap * (1 - Math.exp(-s.snapSpeed * dt));
+        }
+      } else {
+        this.carousel.rotation.y += this.spinVel * dt;
+        this.spinVel *= Math.exp(-s.spinDamping * dt);
+        if (Math.abs(this.spinVel) < 0.02) this.spinVel = 0;
+        if (performance.now() >= this.autoResumeAt) {
+          this.carousel.rotation.y += THREE.MathUtils.degToRad(s.autoRotateDegPerSec) * dt;
+        }
       }
     }
 
@@ -451,7 +474,7 @@ export class GameApp {
     // Matrices must be current before we map shooters into board space.
     this.world.updateMatrixWorld(true);
 
-    this.updateFocus(s);
+    this.updateFocus();
     this.buildTargets();
     this.updateShooters(dt, s);
     this.updateProjectiles(dt, s);
@@ -536,26 +559,13 @@ export class GameApp {
     }
   }
 
-  /**
-   * Focus follows rotation exactly: every board's scale is a direct function of how
-   * far its angle sits from the camera, with no smoothing, so the sizes track the
-   * drag one-to-one. Neighbours cross at equal scale halfway between slots, and the
-   * board nearest the camera is the focused one.
-   */
-  private updateFocus(s: Settings) {
-    if (this.billboards.length === 0) {
-      this.focused = null;
-      return;
-    }
-    const spacing = (Math.PI * 2) / this.billboards.length;
-    const half = s.focusScaleRange / 200;
+  /** The board nearest the camera. Focus is shown by the snap, not by scale. */
+  private updateFocus() {
     const spin = this.carousel.rotation.y;
     let best: Billboard | null = null;
     let bestOff = Infinity;
     for (const bb of this.billboards) {
       const off = Math.abs(GameApp.angleBetween(0, bb.angle + spin));
-      const k = Math.max(0, 1 - off / spacing);
-      bb.setFocusScale(1 - half + k * half * 2);
       if (off < bestOff) {
         bestOff = off;
         best = bb;

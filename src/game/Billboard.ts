@@ -270,14 +270,6 @@ export class Billboard {
     this.aliveCount--;
   }
 
-  /**
-   * Focus scale. Applied at the ceiling pivot so the whole sign grows and shrinks
-   * from where it hangs, rather than about the middle of the artwork.
-   */
-  setFocusScale(v: number) {
-    this.pivot.scale.setScalar(v);
-  }
-
   /** Kick from a projectile landing at local x offset `hitX`. */
   impulse(hitX: number, s: Settings) {
     const dir = hitX >= 0 ? 1 : -1;

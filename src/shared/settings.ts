@@ -18,6 +18,8 @@ export interface Settings {
   autoRotateDegPerSec: number;
   dragSensitivity: number;
   spinDamping: number;
+  /** How quickly the carousel settles onto the focus point after a drag. */
+  snapSpeed: number;
   resumeAutoDelay: number;
 
   // --- Billboards ---
@@ -31,9 +33,6 @@ export interface Settings {
   swingImpulse: number;
   ambientSway: number;
 
-  // --- Shooting ---
-  /** Total spread between the focused board's scale and a fully unfocused one, in %. */
-  focusScaleRange: number;
   /** Shooters hold fire while the player is dragging the carousel. */
   holdFireWhileDragging: boolean;
 
@@ -63,8 +62,8 @@ export interface Settings {
 }
 
 export const DEFAULT_SETTINGS: Settings = {
-  camFov: 50,
-  camDistance: 13,
+  camFov: 30,
+  camDistance: 21,
   camPitchDeg: 24,
   camTargetY: 5,
 
@@ -73,6 +72,7 @@ export const DEFAULT_SETTINGS: Settings = {
   autoRotateDegPerSec: 0,
   dragSensitivity: 0.9,
   spinDamping: 10,
+  snapSpeed: 12,
   resumeAutoDelay: 1.8,
 
   cellSize: 0.22,
@@ -84,7 +84,6 @@ export const DEFAULT_SETTINGS: Settings = {
   swingImpulse: 0,
   ambientSway: 0,
 
-  focusScaleRange: 30,
   holdFireWhileDragging: true,
 
   deckSlots: 6,
@@ -146,6 +145,7 @@ export const FIELDS: FieldDef[] = [
   { key: 'autoRotateDegPerSec', label: 'Auto-rotate °/s', group: 'Carousel', min: 0, max: 60, step: 1 },
   { key: 'dragSensitivity', label: 'Drag sensitivity', group: 'Carousel', min: 0.1, max: 3, step: 0.05 },
   { key: 'spinDamping', label: 'Spin damping', group: 'Carousel', min: 0.2, max: 10, step: 0.1 },
+  { key: 'snapSpeed', label: 'Snap speed', group: 'Carousel', min: 1, max: 30, step: 0.5 },
   { key: 'resumeAutoDelay', label: 'Auto resume delay (s)', group: 'Carousel', min: 0, max: 8, step: 0.1 },
 
   { key: 'cellSize', label: 'Pixel size', group: 'Billboards', min: 0.1, max: 0.6, step: 0.01, structural: true },
@@ -157,7 +157,6 @@ export const FIELDS: FieldDef[] = [
   { key: 'swingImpulse', label: 'Hit impulse', group: 'Swing', min: 0, max: 3, step: 0.05 },
   { key: 'ambientSway', label: 'Ambient sway', group: 'Swing', min: 0, max: 3, step: 0.05 },
 
-  { key: 'focusScaleRange', label: 'Focus scale range %', group: 'Shooting', min: 0, max: 100, step: 1 },
 
   { key: 'deckSlots', label: 'Deck slots', group: 'Deck', min: 1, max: 10, step: 1, structural: true },
   { key: 'deckArcDeg', label: 'Deck arc °', group: 'Deck', min: 10, max: 180, step: 2, structural: true },

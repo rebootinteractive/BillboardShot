@@ -21,7 +21,7 @@ ceiling height, rope length or pixel size are tuned. Below that, on the ground,
 
 1. **Tap the front shooter of a queue line** -> it walks to the first free deck slot.
 2. **Drag the upper area** -> spin the carousel by hand. Idle auto-rotation pauses
-   while steering, resumes after a delay. Release imparts momentum.
+   while steering, resumes after a delay. Release snaps to the nearest slot.
 
 ## Firing (automatic)
 
@@ -43,13 +43,12 @@ Exactly one billboard is **focused** at a time — whichever sits nearest the ca
 and it is the only one anything can shoot. Spinning the carousel is the act of
 choosing which board is live.
 
-Focus is shown by **scale**, driven straight off rotation with no smoothing so the
-sizes track a drag one-to-one. Each board's scale is a linear function of how far its
-angle sits from the camera, applied at the ceiling pivot so a board grows and shrinks
-from where it hangs rather than about its middle. Neighbours cross at exactly equal
-scale halfway between slots, which is the moment focus hands over. The total spread
-between focused and fully unfocused is one setting, 30% by default — 1.15 down to
-0.85.
+Focus is shown by **snapping**. Let go of a drag and the carousel eases onto the
+nearest slot, so a board always comes to rest square on the focus point and there is
+never any doubt which one is live. The throw decides how far it travels: the release
+velocity is projected forward through the spin damping, and whichever slot that lands
+nearest becomes the target. A nudge springs back to where it started, a firm drag
+advances one board, a hard flick two.
 
 - Each frame the game collects the shootable pixel of every column **on the focused
   board only**, and offers that list to the shooters.
