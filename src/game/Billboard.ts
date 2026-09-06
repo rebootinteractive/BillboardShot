@@ -43,6 +43,8 @@ export class Billboard {
   readonly rows: number;
   readonly cell: number;
   readonly halfWidth: number;
+  /** Fixed angle of this board around the ring, before carousel rotation. */
+  readonly angle: number;
   /** Bottom edge of the pixel grid, relative to the ceiling pivot (negative). */
   readonly bottomOffset: number;
 
@@ -75,6 +77,7 @@ export class Billboard {
     this.halfWidth = ((this.cols - 1) / 2) * this.cell;
     this.phase = index * 1.7;
 
+    this.angle = angle;
     this.arm.rotation.y = angle;
     this.arm.add(this.pivot);
     this.pivot.position.set(0, s.ceilingHeight, s.carouselRadius);
@@ -265,6 +268,14 @@ export class Billboard {
     t.alive = false;
     t.popT = 0;
     this.aliveCount--;
+  }
+
+  /**
+   * Focus scale. Applied at the ceiling pivot so the whole sign grows and shrinks
+   * from where it hangs, rather than about the middle of the artwork.
+   */
+  setFocusScale(v: number) {
+    this.pivot.scale.setScalar(v);
   }
 
   /** Kick from a projectile landing at local x offset `hitX`. */

@@ -39,14 +39,20 @@ The open bottom states the rule: a pixel is only shootable if it has a clear pat
 and out — in grid terms, the lowest surviving tile of its column. The shooting arc is
 deliberately **not drawn**.
 
-Shooters do **not** fire straight up, but nor do they all share one window. Each has
-its **own wedge**, measured to either side of where it stands on the deck arc, and it
-can only hit shootable pixels whose world angle falls inside that wedge. Which slot a
-shooter occupies therefore decides what it can reach, and spinning the carousel is the
-act of moving pixels into somebody's reach.
+Exactly one billboard is **focused** at a time — whichever sits nearest the camera —
+and it is the only one anything can shoot. Spinning the carousel is the act of
+choosing which board is live.
 
-- Each frame the game collects the shootable pixel of every column and tags it with
-  its world angle; each shooter then filters that list down to its own wedge.
+Focus is shown by **scale**, driven straight off rotation with no smoothing so the
+sizes track a drag one-to-one. Each board's scale is a linear function of how far its
+angle sits from the camera, applied at the ceiling pivot so a board grows and shrinks
+from where it hangs rather than about its middle. Neighbours cross at exactly equal
+scale halfway between slots, which is the moment focus hands over. The total spread
+between focused and fully unfocused is one setting, 30% by default — 1.15 down to
+0.85.
+
+- Each frame the game collects the shootable pixel of every column **on the focused
+  board only**, and offers that list to the shooters.
 - **Nobody fires while the player is dragging the carousel** (option "Hold fire while
   dragging", on by default), so aiming and shooting are separate acts. Momentum after
   release still counts as free time — firing resumes the moment the finger lifts.

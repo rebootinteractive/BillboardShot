@@ -36,6 +36,8 @@ export class GameApp {
   private readonly carousel = new THREE.Group();
   private readonly staticStage = new THREE.Group();
   private billboards: Billboard[] = [];
+  /** The one board nearest the camera — the only one anything can shoot. */
+  private focused: Billboard | null = null;
   private deckSlots: DeckSlot[] = [];
   /** Height of the deck, sat just under the lowest hanging billboard. */
   private deckY = 0;
@@ -265,6 +267,7 @@ export class GameApp {
     this.deckOccupants = [];
     for (const bb of this.billboards) bb.dispose();
     this.billboards = [];
+    this.focused = null;
     for (const d of this.disposables) d.dispose();
     this.disposables = [];
     this.carousel.clear();
@@ -448,6 +451,7 @@ export class GameApp {
     // Matrices must be current before we map shooters into board space.
     this.world.updateMatrixWorld(true);
 
+    this.updateFocus(s);
     this.buildTargets();
     this.updateShooters(dt, s);
     this.updateProjectiles(dt, s);
@@ -533,15 +537,39 @@ export class GameApp {
   }
 
   /**
-   * Every shootable pixel on the carousel, tagged with its world angle. There is no
-   * global window any more — each shooter decides for itself what is within reach.
+   * Focus follows rotation exactly: every board's scale is a direct function of how
+   * far its angle sits from the camera, with no smoothing, so the sizes track the
+   * drag one-to-one. Neighbours cross at equal scale halfway between slots, and the
+   * board nearest the camera is the focused one.
    */
+  private updateFocus(s: Settings) {
+    if (this.billboards.length === 0) {
+      this.focused = null;
+      return;
+    }
+    const spacing = (Math.PI * 2) / this.billboards.length;
+    const half = s.focusScaleRange / 200;
+    const spin = this.carousel.rotation.y;
+    let best: Billboard | null = null;
+    let bestOff = Infinity;
+    for (const bb of this.billboards) {
+      const off = Math.abs(GameApp.angleBetween(0, bb.angle + spin));
+      const k = Math.max(0, 1 - off / spacing);
+      bb.setFocusScale(1 - half + k * half * 2);
+      if (off < bestOff) {
+        bestOff = off;
+        best = bb;
+      }
+    }
+    this.focused = best;
+  }
+
+  /** Every shootable pixel on the focused board. Nothing else can be hit. */
   private buildTargets() {
     this.targets.length = 0;
-    for (const bb of this.billboards) {
-      if (bb.aliveCount === 0) continue;
-      bb.collectEligible(this.targets);
-    }
+    const bb = this.focused;
+    if (!bb || bb.aliveCount === 0) return;
+    bb.collectEligible(this.targets);
     for (const t of this.targets) {
       t.tile.mesh.getWorldPosition(this.scratch);
       t.angle = Math.atan2(this.scratch.x, this.scratch.z);
@@ -555,14 +583,12 @@ export class GameApp {
   }
 
   /**
-   * One shot spends one charge on one pixel. A shooter only reaches pixels within
-   * its own wedge, measured from where it stands on the deck arc — so which slot a
-   * shooter occupies decides what it can hit. Within reach it takes the lowest row
-   * available in its color, nearest angle breaking ties.
+   * One shot spends one charge on one pixel, and only ever on the focused board.
+   * It takes the lowest row available in its color, the target nearest its own slot
+   * breaking ties.
    */
   private tryFire(sh: Shooter, s: Settings) {
     const shooterAngle = Math.atan2(sh.group.position.x, sh.group.position.z);
-    const reach = THREE.MathUtils.degToRad(s.shooterArcDeg) / 2;
     let best = -1;
     let bestRow = Infinity;
     let bestSpread = Infinity;
@@ -570,7 +596,6 @@ export class GameApp {
       const t = this.targets[i];
       if (t.color !== sh.color) continue;
       const spread = Math.abs(GameApp.angleBetween(shooterAngle, t.angle));
-      if (spread > reach) continue;
       const row = t.tile.row;
       if (row > bestRow || (row === bestRow && spread >= bestSpread)) continue;
       best = i;

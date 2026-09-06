@@ -32,8 +32,8 @@ export interface Settings {
   ambientSway: number;
 
   // --- Shooting ---
-  /** How far to either side of itself a shooter can reach, in degrees. */
-  shooterArcDeg: number;
+  /** Total spread between the focused board's scale and a fully unfocused one, in %. */
+  focusScaleRange: number;
   /** Shooters hold fire while the player is dragging the carousel. */
   holdFireWhileDragging: boolean;
 
@@ -84,7 +84,7 @@ export const DEFAULT_SETTINGS: Settings = {
   swingImpulse: 0,
   ambientSway: 0,
 
-  shooterArcDeg: 55,
+  focusScaleRange: 30,
   holdFireWhileDragging: true,
 
   deckSlots: 6,
@@ -157,7 +157,7 @@ export const FIELDS: FieldDef[] = [
   { key: 'swingImpulse', label: 'Hit impulse', group: 'Swing', min: 0, max: 3, step: 0.05 },
   { key: 'ambientSway', label: 'Ambient sway', group: 'Swing', min: 0, max: 3, step: 0.05 },
 
-  { key: 'shooterArcDeg', label: 'Shooter reach °', group: 'Shooting', min: 10, max: 120, step: 2 },
+  { key: 'focusScaleRange', label: 'Focus scale range %', group: 'Shooting', min: 0, max: 100, step: 1 },
 
   { key: 'deckSlots', label: 'Deck slots', group: 'Deck', min: 1, max: 10, step: 1, structural: true },
   { key: 'deckArcDeg', label: 'Deck arc °', group: 'Deck', min: 10, max: 180, step: 2, structural: true },
