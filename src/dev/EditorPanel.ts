@@ -1,98 +1,79 @@
 import {
   FIELDS,
   TOGGLES,
-  DEFAULT_SETTINGS,
   saveSettings,
-  clearSettings,
   sanitizeSettings,
+  onSaveStatus,
+  type SaveStatus,
   type Settings,
 } from '../shared/settings';
 import { SHAPES } from '../game/shapes';
 
-export interface DebugCallbacks {
+export interface EditorCallbacks {
   /** structural = the level needs rebuilding; otherwise apply live. */
   onChange(structural: boolean): void;
   onRestart(): void;
 }
 
 /**
- * Right-hand drawer of sliders over every tunable. Mutates the live Settings
- * object in place and writes it to localStorage on every change.
+ * The local development editor. Mutates the live Settings object in place and
+ * writes it straight back to src/shared/defaults.json, which is the tuning the
+ * deployed build ships. Dev only — never reaches a production bundle.
  */
-export class DebugPanel {
-  private readonly root: HTMLDivElement;
-  private readonly panel: HTMLDivElement;
-  private readonly toggle: HTMLButtonElement;
+export class EditorPanel {
   private readonly rows = new Map<string, { input: HTMLInputElement; out: HTMLElement }>();
   private readonly toggleBtns = new Map<string, HTMLButtonElement>();
-  private open = false;
+  private readonly status: HTMLElement;
+  /** The tuning as it was on the file when the page loaded, for Revert. */
+  private readonly opened: Settings;
   private jsonModal: HTMLDivElement | null = null;
 
   constructor(
-    parent: HTMLElement,
+    private readonly root: HTMLElement,
     private readonly settings: Settings,
-    private readonly cb: DebugCallbacks,
+    private readonly cb: EditorCallbacks,
   ) {
-    this.root = document.createElement('div');
-    this.root.className = 'dbg-layer';
-
-    this.toggle = document.createElement('button');
-    this.toggle.className = 'dbg-toggle';
-    this.toggle.textContent = 'Tune';
-    this.toggle.addEventListener('click', () => this.setOpen(!this.open));
-    this.root.appendChild(this.toggle);
-
-    this.panel = document.createElement('div');
-    this.panel.className = 'dbg-panel';
-    this.root.appendChild(this.panel);
+    this.opened = { ...settings, shapes: [...settings.shapes] };
 
     const head = document.createElement('div');
-    head.className = 'dbg-head';
-    head.innerHTML = `<span>Tuning</span>`;
-    const close = document.createElement('button');
-    close.className = 'dbg-x';
-    close.textContent = '×';
-    close.addEventListener('click', () => this.setOpen(false));
-    head.appendChild(close);
-    this.panel.appendChild(head);
+    head.className = 'ed-head';
+    head.innerHTML = `<span class="ed-title">Editor</span><span class="ed-status" data-status></span>`;
+    root.appendChild(head);
+    this.status = head.querySelector('[data-status]') as HTMLElement;
+    this.setStatus('saved');
+    onSaveStatus((s, detail) => this.setStatus(s, detail));
 
     const body = document.createElement('div');
-    body.className = 'dbg-body';
-    this.panel.appendChild(body);
-
-    body.appendChild(this.buildShapeGroup());
+    body.className = 'ed-body';
+    root.appendChild(body);
 
     const groupEls = new Map<string, HTMLDivElement>();
     const groupFor = (name: string) => {
       let el = groupEls.get(name);
       if (!el) {
         el = document.createElement('div');
-        el.className = 'dbg-group';
-        el.innerHTML = `<div class="dbg-group-title">${name}</div>`;
+        el.className = 'ed-group';
+        el.innerHTML = `<div class="ed-group-title">${name}</div>`;
         body.appendChild(el);
         groupEls.set(name, el);
       }
       return el;
     };
 
-    let currentGroup = '';
-    let groupEl: HTMLDivElement | null = null;
+    body.appendChild(this.buildShapeGroup());
+
     for (const f of FIELDS) {
-      if (f.group !== currentGroup) {
-        currentGroup = f.group;
-        groupEl = groupFor(f.group);
-      }
       const row = document.createElement('label');
-      row.className = 'dbg-row';
-      const decimals = f.step < 1 ? String(f.step).split('.')[1]?.length ?? 1 : 0;
-      row.innerHTML = `<span class="dbg-label">${f.label}</span><output class="dbg-out"></output>`;
+      row.className = 'ed-row';
+      const decimals = f.step < 1 ? (String(f.step).split('.')[1]?.length ?? 1) : 0;
+      row.innerHTML = `<span class="ed-label">${f.label}</span><output class="ed-out"></output>`;
       const input = document.createElement('input');
       input.type = 'range';
       input.min = String(f.min);
       input.max = String(f.max);
       input.step = String(f.step);
       input.value = String(this.settings[f.key]);
-      const out = row.querySelector('.dbg-out') as HTMLElement;
+      const out = row.querySelector('.ed-out') as HTMLElement;
       out.textContent = Number(this.settings[f.key]).toFixed(decimals);
       input.addEventListener('input', () => {
         const v = Number(input.value);
@@ -103,15 +84,15 @@ export class DebugPanel {
       });
       row.appendChild(input);
       this.rows.set(f.key, { input, out });
-      groupEl!.appendChild(row);
+      groupFor(f.group).appendChild(row);
     }
 
     for (const t of TOGGLES) {
       const row = document.createElement('div');
-      row.className = 'dbg-row dbg-toggle-row';
-      row.innerHTML = `<span class="dbg-label">${t.label}</span>`;
+      row.className = 'ed-row ed-toggle-row';
+      row.innerHTML = `<span class="ed-label">${t.label}</span>`;
       const btn = document.createElement('button');
-      btn.className = 'dbg-chip';
+      btn.className = 'ed-chip';
       const sync = () => {
         const on = this.settings[t.key];
         btn.classList.toggle('on', on);
@@ -130,45 +111,44 @@ export class DebugPanel {
     }
 
     const actions = document.createElement('div');
-    actions.className = 'dbg-actions';
-    const restart = document.createElement('button');
-    restart.className = 'btn small';
-    restart.textContent = 'Restart level';
-    restart.addEventListener('click', () => this.cb.onRestart());
-    const reset = document.createElement('button');
-    reset.className = 'btn small ghost';
-    reset.textContent = 'Reset defaults';
-    reset.addEventListener('click', () => {
-      clearSettings();
-      Object.assign(this.settings, structuredClone(DEFAULT_SETTINGS));
-      this.syncInputs();
-      saveSettings(this.settings);
-      this.cb.onChange(true);
-    });
-    actions.append(restart, reset);
+    actions.className = 'ed-actions';
+    actions.append(
+      this.button('Restart level', 'btn small', () => this.cb.onRestart()),
+      this.button('Revert', 'btn small ghost', () => {
+        Object.assign(this.settings, { ...this.opened, shapes: [...this.opened.shapes] });
+        this.syncInputs();
+        saveSettings(this.settings);
+        this.cb.onChange(true);
+      }),
+      this.button('Tuning JSON', 'btn small ghost', () => this.openJsonModal()),
+    );
     body.appendChild(actions);
+  }
 
-    const jsonActions = document.createElement('div');
-    jsonActions.className = 'dbg-actions';
-    const jsonBtn = document.createElement('button');
-    jsonBtn.className = 'btn small ghost';
-    jsonBtn.textContent = 'Tuning JSON';
-    jsonBtn.addEventListener('click', () => this.openJsonModal());
-    jsonActions.append(jsonBtn);
-    body.appendChild(jsonActions);
+  private button(label: string, className: string, onClick: () => void) {
+    const b = document.createElement('button');
+    b.className = className;
+    b.textContent = label;
+    b.addEventListener('click', onClick);
+    return b;
+  }
 
-    parent.appendChild(this.root);
+  private setStatus(s: SaveStatus, detail?: string) {
+    const text =
+      s === 'saving' ? 'saving…' : s === 'saved' ? 'saved to defaults.json' : `save failed — ${detail ?? ''}`;
+    this.status.textContent = text;
+    this.status.classList.toggle('bad', s === 'failed');
   }
 
   private buildShapeGroup(): HTMLDivElement {
     const g = document.createElement('div');
-    g.className = 'dbg-group';
-    g.innerHTML = `<div class="dbg-group-title">Shapes in play</div>`;
+    g.className = 'ed-group';
+    g.innerHTML = `<div class="ed-group-title">Shapes in play</div>`;
     const chips = document.createElement('div');
-    chips.className = 'dbg-chips';
+    chips.className = 'ed-chips';
     for (const shape of SHAPES) {
       const chip = document.createElement('button');
-      chip.className = 'dbg-chip';
+      chip.className = 'ed-chip';
       chip.textContent = shape.name;
       const sync = () => chip.classList.toggle('on', this.settings.shapes.includes(shape.id));
       sync();
@@ -190,23 +170,19 @@ export class DebugPanel {
     return g;
   }
 
-  /**
-   * Two-way tuning JSON: read out the current settings to copy, download or
-   * share, and paste a set back in to apply it.
-   */
+  /** Read the tuning out to share, or paste one in to apply it. */
   private openJsonModal() {
     this.closeJsonModal();
     const el = document.createElement('div');
-    el.className = 'modal dbg-modal';
+    el.className = 'modal ed-modal';
     el.innerHTML = `
       <div class="modal-card">
         <h2>Tuning JSON</h2>
-        <p>Copy or download this to save a setup. Paste one in and hit Apply to load it.</p>
+        <p>This is what lives in src/shared/defaults.json. Paste one in and hit Apply to load it.</p>
         <textarea class="json" spellcheck="false"></textarea>
-        <div class="dbg-status" data-status></div>
+        <div class="ed-modal-status" data-status></div>
         <div class="modal-actions">
           <button class="btn small ghost" data-copy>Copy</button>
-          <button class="btn small ghost" data-download>Download</button>
           <button class="btn small" data-apply>Apply</button>
           <button class="btn small ghost" data-close>Close</button>
         </div>
@@ -215,7 +191,6 @@ export class DebugPanel {
     const ta = el.querySelector('textarea') as HTMLTextAreaElement;
     const status = el.querySelector('[data-status]') as HTMLElement;
     ta.value = JSON.stringify(this.settings, null, 2);
-
     const say = (msg: string, bad = false) => {
       status.textContent = msg;
       status.classList.toggle('bad', bad);
@@ -229,17 +204,6 @@ export class DebugPanel {
         ta.select();
         say('Selected — press Cmd/Ctrl+C to copy.');
       }
-    });
-
-    el.querySelector('[data-download]')!.addEventListener('click', () => {
-      const blob = new Blob([ta.value], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'billboardshot-tuning.json';
-      a.click();
-      URL.revokeObjectURL(url);
-      say('Downloaded billboardshot-tuning.json');
     });
 
     el.querySelector('[data-apply]')!.addEventListener('click', () => {
@@ -259,12 +223,11 @@ export class DebugPanel {
       saveSettings(this.settings);
       this.syncInputs();
       this.cb.onChange(true);
-      say('Applied — level rebuilt.');
+      say('Applied and written to defaults.json.');
     });
 
     el.querySelector('[data-close]')!.addEventListener('click', () => this.closeJsonModal());
-
-    (this.root.parentElement ?? document.body).appendChild(el);
+    document.body.appendChild(el);
     this.jsonModal = el;
   }
 
@@ -279,10 +242,10 @@ export class DebugPanel {
       if (!row) continue;
       const v = Number(this.settings[f.key]);
       row.input.value = String(v);
-      const decimals = f.step < 1 ? String(f.step).split('.')[1]?.length ?? 1 : 0;
+      const decimals = f.step < 1 ? (String(f.step).split('.')[1]?.length ?? 1) : 0;
       row.out.textContent = v.toFixed(decimals);
     }
-    this.root.querySelectorAll<HTMLButtonElement>('.dbg-chips .dbg-chip').forEach((chip, i) => {
+    this.root.querySelectorAll<HTMLButtonElement>('.ed-chips .ed-chip').forEach((chip, i) => {
       chip.classList.toggle('on', this.settings.shapes.includes(SHAPES[i].id));
     });
     for (const t of TOGGLES) {
@@ -294,14 +257,9 @@ export class DebugPanel {
     }
   }
 
-  setOpen(open: boolean) {
-    this.open = open;
-    this.panel.classList.toggle('open', open);
-    this.toggle.classList.toggle('hidden', open);
-  }
-
   dispose() {
+    onSaveStatus(null);
     this.closeJsonModal();
-    this.root.remove();
+    this.root.replaceChildren();
   }
 }

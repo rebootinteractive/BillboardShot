@@ -1,10 +1,16 @@
 /**
- * Every tunable in the prototype. Edited from the in-game debug panel and
- * auto-saved to localStorage on every change.
+ * Every tunable in the prototype.
+ *
+ * The values live in `defaults.json`, which is version controlled and is what the
+ * deployed build ships. Running locally, the editor panel writes that same file
+ * through a dev-server endpoint, so tuning is a matter of dragging a slider and
+ * committing the diff. Nothing is kept in localStorage: a visitor to the deployed
+ * link always sees exactly the committed tuning.
  *
  * `structural` fields change the shape of the level and trigger a rebuild.
  * Everything else applies live on the next frame.
  */
+import tuning from './defaults.json';
 export interface Settings {
   // --- Camera ---
   camFov: number;
@@ -61,51 +67,8 @@ export interface Settings {
   shapes: string[];
 }
 
-export const DEFAULT_SETTINGS: Settings = {
-  camFov: 30,
-  camDistance: 21,
-  camPitchDeg: 24,
-  camTargetY: 5,
-
-  billboardCount: 6,
-  carouselRadius: 2.4,
-  autoRotateDegPerSec: 0,
-  dragSensitivity: 0.9,
-  spinDamping: 10,
-  snapSpeed: 12,
-  resumeAutoDelay: 1.8,
-
-  cellSize: 0.22,
-  ceilingHeight: 8.7,
-  ropeLength: 0.6,
-
-  swingStiffness: 2,
-  swingDamping: 10,
-  swingImpulse: 0,
-  ambientSway: 0,
-
-  holdFireWhileDragging: true,
-
-  deckSlots: 6,
-  deckArcDeg: 76,
-  deckGap: 2.2,
-
-  queueLines: 3,
-  queueVisible: 4,
-  queueLaneSpacing: 1.15,
-  queueHeadZ: 2.8,
-  queueSpacing: 0.7,
-  queueY: 2.25,
-  minChargesPerShooter: 3,
-  chargesPerShooter: 20,
-  seed: 7,
-
-  fireCooldown: 0.05,
-  projectileSpeed: 9,
-  projectileArc: 1.1,
-
-  shapes: ['heart', 'tree', 'star', 'mushroom', 'smiley', 'ghost'],
-};
+/** The committed tuning. Typed against Settings, so a missing key fails the build. */
+export const DEFAULT_SETTINGS: Settings = tuning;
 
 export interface ToggleDef {
   key: BooleanKey;
@@ -177,32 +140,49 @@ export const FIELDS: FieldDef[] = [
   { key: 'projectileArc', label: 'Projectile arc ×', group: 'Firing', min: 0, max: 2, step: 0.05 },
 ];
 
-const KEY = 'billboardshot:settings:v1';
+export type SaveStatus = 'saving' | 'saved' | 'failed';
 
-export function loadSettings(): Settings {
-  try {
-    const raw = localStorage.getItem(KEY);
-    if (!raw) return { ...DEFAULT_SETTINGS };
-    const parsed = JSON.parse(raw) as Record<string, unknown>;
-    // Copy only keys we still recognise, so retired settings don't linger in storage.
-    const merged: Settings = { ...DEFAULT_SETTINGS, shapes: [...DEFAULT_SETTINGS.shapes] };
-    for (const key of Object.keys(DEFAULT_SETTINGS) as (keyof Settings)[]) {
-      if (key in parsed) (merged as unknown as Record<string, unknown>)[key] = parsed[key];
-    }
-    if (!Array.isArray(merged.shapes) || merged.shapes.length === 0) {
-      merged.shapes = [...DEFAULT_SETTINGS.shapes];
-    }
-    return merged;
-  } catch {
-    return { ...DEFAULT_SETTINGS };
-  }
+let statusHandler: ((status: SaveStatus, detail?: string) => void) | null = null;
+
+/** The editor panel subscribes so a failed write is visible rather than silent. */
+export function onSaveStatus(fn: ((status: SaveStatus, detail?: string) => void) | null) {
+  statusHandler = fn;
 }
 
+export function loadSettings(): Settings {
+  return { ...DEFAULT_SETTINGS, shapes: [...DEFAULT_SETTINGS.shapes] };
+}
+
+let pending: Settings | null = null;
+let flushTimer: number | undefined;
+
+/**
+ * Dev only: write the tuning back to `src/shared/defaults.json` through the dev
+ * server. Debounced, because dragging a slider fires on every pixel. In a built
+ * bundle this compiles away to nothing.
+ */
 export function saveSettings(s: Settings) {
+  if (!import.meta.env.DEV) return;
+  pending = { ...s, shapes: [...s.shapes] };
+  statusHandler?.('saving');
+  window.clearTimeout(flushTimer);
+  flushTimer = window.setTimeout(flushSettings, 250);
+}
+
+async function flushSettings() {
+  const body = pending;
+  pending = null;
+  if (!body) return;
   try {
-    localStorage.setItem(KEY, JSON.stringify(s));
-  } catch {
-    /* private mode / quota — settings just won't persist */
+    const res = await fetch('/__settings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body, null, 2),
+    });
+    if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
+    statusHandler?.('saved');
+  } catch (err) {
+    statusHandler?.('failed', err instanceof Error ? err.message : String(err));
   }
 }
 
@@ -241,12 +221,4 @@ export function sanitizeSettings(raw: unknown, knownShapeIds: string[]): Setting
   }
 
   return matched > 0 ? out : null;
-}
-
-export function clearSettings() {
-  try {
-    localStorage.removeItem(KEY);
-  } catch {
-    /* ignore */
-  }
 }

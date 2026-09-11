@@ -1,8 +1,7 @@
 import * as THREE from 'three';
 import type { ColorKey } from '../shared/types';
 import { COLOR_HEX } from '../shared/colors';
-import { loadSettings, saveSettings, type Settings } from '../shared/settings';
-import { DebugPanel } from '../ui/DebugPanel';
+import { loadSettings, type Settings } from '../shared/settings';
 import { Billboard, type EligibleTarget, type Tile } from './Billboard';
 import { Shooter } from './Shooter';
 import { Projectile } from './Projectile';
@@ -19,7 +18,8 @@ interface DeckSlot {
 }
 
 export class GameApp {
-  private readonly settings: Settings = loadSettings();
+  /** Live tuning. The dev editor mutates this object in place. */
+  readonly settings: Settings = loadSettings();
 
   private readonly renderer: THREE.WebGLRenderer;
   private readonly scene = new THREE.Scene();
@@ -27,7 +27,6 @@ export class GameApp {
   private readonly clock = new THREE.Clock();
   private readonly ro: ResizeObserver;
   private readonly hud: Hud;
-  private readonly panel: DebugPanel;
   private rafId = 0;
   private elapsed = 0;
 
@@ -97,10 +96,6 @@ export class GameApp {
     this.scene.add(this.world);
 
     this.hud = new Hud(parent, { onRestart: () => this.restart() });
-    this.panel = new DebugPanel(parent, this.settings, {
-      onChange: (structural) => this.onSettingsChanged(structural),
-      onRestart: () => this.restart(),
-    });
 
     this.buildWorld();
     this.applyCamera();
@@ -279,12 +274,14 @@ export class GameApp {
     this.snapTarget = null;
   }
 
-  private restart() {
+  /** Rebuild the level from the current tuning. */
+  restart() {
     this.destroyWorld();
     this.buildWorld();
   }
 
-  private onSettingsChanged(structural: boolean) {
+  /** Called by the dev editor when a value changes. */
+  applySettingsChange(structural: boolean) {
     this.applyCamera();
     if (!structural) return;
     window.clearTimeout(this.rebuildTimer);
@@ -741,12 +738,10 @@ export class GameApp {
     window.clearTimeout(this.rebuildTimer);
     this.detachInput();
     this.ro.disconnect();
-    saveSettings(this.settings);
     this.destroyWorld();
     this.shotGeo.dispose();
     for (const m of this.shotMats.values()) m.dispose();
     this.shotMats.clear();
-    this.panel.dispose();
     this.hud.dispose();
     this.renderer.dispose();
     this.renderer.domElement.remove();

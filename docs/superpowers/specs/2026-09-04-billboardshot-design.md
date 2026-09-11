@@ -88,10 +88,25 @@ the split never strands a tail smaller than the min.
 
 ## v1 scope
 
-Single tunable level. No menu, no level editor. A collapsible debug panel with live
-sliders for camera (fov / distance / pitch / target height), carousel, billboards,
-swing, deck, queue and firing. **All debug settings auto-save to localStorage.**
-Structural changes rebuild the level; feel/camera changes apply live.
+Single tunable level. No menu, no level editor.
+
+## Local vs deployed
+
+One game, two surfaces, and the game view is identical in both.
+
+- **Local (`npm run dev`)** is a development shell: the phone at its true 393x852 on
+  the left, the editor panel beside it on the right. The phone is never restyled, only
+  scaled down to fit a short window, so what is on screen is what a visitor sees.
+- **Deployed** is the phone alone. The editor is behind `import.meta.env.DEV`, reached
+  through a dynamic import, so the whole branch — its script and its stylesheet — is
+  dropped from the built bundle rather than merely hidden.
+
+The tuning lives in `src/shared/defaults.json`, version controlled, and is what the
+deployed build ships. Moving a slider writes that file directly through a dev-only
+endpoint, so tuning is a matter of dragging and committing the diff. **Nothing is kept
+in localStorage**: a visitor always sees exactly the committed tuning, and there is no
+stale per-browser state to mask a change. Structural changes rebuild the level;
+feel and camera changes apply live.
 
 ## Known open concern
 
