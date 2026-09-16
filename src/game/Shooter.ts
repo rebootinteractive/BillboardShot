@@ -7,6 +7,11 @@ export type ShooterState = 'queue' | 'walking' | 'deck' | 'retiring' | 'gone';
 
 let SHOOTER_ID = 0;
 const FACE_ROTATION = new THREE.Quaternion();
+const HIDDEN_HEX = 0xb3bac3;
+
+export interface ContainerTraits {
+  hidden?: boolean;
+}
 
 /**
  * A container. It carries a capacity — `charges` is the room it has left — and on
@@ -22,6 +27,8 @@ export class Shooter {
 
   /** Room left. The container leaves the deck once this reaches 0. */
   charges: number;
+  /** Room it started with: the pixels it holds once full. */
+  readonly capacity: number;
   state: ShooterState = 'queue';
   /** Deck slot index while on the deck, else -1. */
   slot = -1;
@@ -33,6 +40,13 @@ export class Shooter {
   retireT = 0;
   /** Seconds spent full, so the last cube is seen landing before it leaves. */
   fullT = 0;
+  /** Color and charges are hidden until it reaches the head of its lane. */
+  hidden: boolean;
+  /** The container it is linked to, sent together from the queue. */
+  partner: Shooter | null = null;
+  /** The link id from the level file, used to pair partners while building. */
+  userLink: string | null = null;
+  private revealT = 1;
   private active = false;
   private readonly visual = new THREE.Group();
   private spring = 0;
@@ -60,7 +74,30 @@ export class Shooter {
     this.bounce(0.8);
   }
 
+  /** Show the real color and charges, as it reaches the head of its lane. */
+  reveal() {
+    if (!this.hidden) return;
+    this.hidden = false;
+    this.revealT = 0;
+    this.refreshBadge();
+    this.bounce(1.2);
+  }
+
+  private tintMaterials(amount: number) {
+    const real = new THREE.Color(COLOR_HEX[this.color]);
+    const hidden = new THREE.Color(HIDDEN_HEX);
+    const base = hidden.clone().lerp(real, amount);
+    this.bodyMat.color.copy(base);
+    this.rimMat.color.copy(base).lerp(new THREE.Color(0xffffff), 0.22);
+    this.lidMat.color.copy(base).lerp(new THREE.Color(0xffffff), 0.12);
+    this.holeMat.color.copy(base).multiplyScalar(0.35);
+  }
+
   updateVisual(dt: number, cameraRotation: THREE.Quaternion) {
+    if (this.revealT < 1) {
+      this.revealT = Math.min(1, this.revealT + dt / 0.3);
+      this.tintMaterials(THREE.MathUtils.smoothstep(this.revealT, 0, 1));
+    }
     this.springVelocity += (-160 * this.spring - 16 * this.springVelocity) * dt;
     this.spring += this.springVelocity * dt;
     const compression = this.spring - (this.pressed ? 0.1 : 0);
@@ -99,7 +136,7 @@ export class Shooter {
   private readonly badgeCanvas: HTMLCanvasElement;
   private readonly badgeTex: THREE.CanvasTexture;
   private readonly badgeMat: THREE.MeshBasicMaterial;
-  private badgeShown = -1;
+  private badgeShown = '';
   private readonly hitMesh: THREE.Mesh;
   private readonly hitGeo: THREE.BoxGeometry;
 
@@ -138,9 +175,11 @@ export class Shooter {
     );
   }
 
-  constructor(color: ColorKey, charges: number, scale: number) {
+  constructor(color: ColorKey, charges: number, scale: number, traits: ContainerTraits = {}) {
     this.color = color;
     this.charges = charges;
+    this.capacity = charges;
+    this.hidden = !!traits.hidden;
     this.width = 0.72 * scale;
     const height = 0.5 * scale;
     this.rimY = height;
@@ -209,11 +248,14 @@ export class Shooter {
     this.badge.renderOrder = 5;
     this.visual.add(this.badge);
     this.refreshBadge();
+    if (this.hidden) this.tintMaterials(0);
   }
 
+  /** The counter above the container: charges, or "?" while hidden. */
   refreshBadge() {
-    if (this.badgeShown === this.charges) return;
-    this.badgeShown = this.charges;
+    const shown = this.hidden ? '?' : String(this.charges);
+    if (this.badgeShown === shown) return;
+    this.badgeShown = shown;
     const ctx = this.badgeCanvas.getContext('2d');
     if (!ctx) return;
     ctx.clearRect(0, 0, 96, 96);
@@ -228,7 +270,7 @@ export class Shooter {
     ctx.font = 'bold 54px -apple-system, Helvetica, Arial, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(String(this.charges), 48, 52);
+    ctx.fillText(shown, 48, 52);
     this.badgeTex.needsUpdate = true;
   }
 

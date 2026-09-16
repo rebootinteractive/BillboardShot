@@ -1,0 +1,103 @@
+{
+  "name": "Resolution 11",
+  "deckSlots": 6,
+  "cellSize": 0.22,
+  "boards": [
+    {
+      "name": "Fox",
+      "art": [
+        "..KK...KK..",
+        "..OOO.OOO..",
+        ".OOOOOOOOO.",
+        ".OOOOOOOOO.",
+        ".OOOOOOOOO.",
+        ".OOOOOOOOO.",
+        ".OOOOOOOOO.",
+        "OOOOOOOOOOO",
+        ".WWWWKWWWW.",
+        ".WWWWKWWWW.",
+        "...WWWWW..."
+      ]
+    },
+    {
+      "name": "Frog",
+      "art": [
+        ".GGG...GGG.",
+        ".GKKG.GKKG.",
+        ".GKKGGGKKG.",
+        ".GGGGGGGGG.",
+        "GGGGGGGGGGG",
+        "GGGGYYYGGGG",
+        "GGYYYYYYYGG",
+        "YYYYYYYYYYY",
+        ".YYYYYYYYY.",
+        "..YYYYYYY.."
+      ]
+    },
+    {
+      "name": "Owl",
+      "art": [
+        "NNNNNNNNN",
+        "NKKNNNKKN",
+        "KYYNNNYYK",
+        "KKKYNNKKK",
+        "NYYNONYYN",
+        "NNNNNNNNN",
+        "NWWWWWWWN",
+        "NWWWWWWWN",
+        "NWWWWWWWN",
+        ".NWWWWWN.",
+        "..NWWWN..",
+        "..OOOOO.."
+      ]
+    },
+    {
+      "name": "Penguin",
+      "art": [
+        "....KKK....",
+        "...KWWWK...",
+        "..KWWWWWK..",
+        "..KWWOWWK..",
+        ".KKWWWWWKK.",
+        ".KKWWWWWKK.",
+        "KKWWWWWWWKK",
+        "KKWWWWWWWKK",
+        "..KWWWWWK..",
+        "..KKWWWKK..",
+        "..OOKKKOO.."
+      ]
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "yellow", "charges": 16 },
+      { "color": "green", "charges": 16 },
+      { "color": "white", "charges": 16 },
+      { "color": "green", "charges": 16 },
+      { "color": "white", "charges": 16 },
+      { "color": "green", "charges": 15 },
+      { "color": "brown", "charges": 14 },
+      { "color": "white", "charges": 15 }
+    ],
+    [
+      { "color": "white", "charges": 16 },
+      { "color": "yellow", "charges": 15 },
+      { "color": "brown", "charges": 14 },
+      { "color": "yellow", "charges": 15 },
+      { "color": "brown", "charges": 14 },
+      { "color": "black", "charges": 15 },
+      { "color": "orange", "charges": 14 },
+      { "color": "orange", "charges": 14 }
+    ],
+    [
+      { "color": "orange", "charges": 15 },
+      { "color": "black", "charges": 15 },
+      { "color": "orange", "charges": 15 },
+      { "color": "black", "charges": 15 },
+      { "color": "orange", "charges": 15 },
+      { "color": "white", "charges": 16 },
+      { "color": "black", "charges": 15 },
+      { "color": "white", "charges": 15 }
+    ]
+  ]
+}

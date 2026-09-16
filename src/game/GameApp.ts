@@ -5,7 +5,13 @@ import { loadSettings, type Settings } from '../shared/settings';
 import { Billboard, type EligibleTarget, type Tile } from './Billboard';
 import { Shooter } from './Shooter';
 import { PulledCube } from './PulledCube';
-import { buildLevel } from './level';
+import { LEVELS, SANDBOX, levelFileForNumber, type LevelData } from './level';
+import { KeyFlight } from './keys';
+import { PICTURES } from '../art/library';
+import { previewLevel } from '../art/preview';
+import { LinkChain } from './LinkChain';
+import { ProgressShot } from './ProgressShot';
+import { loadLevelNumber, saveLevelNumber } from './progress';
 import { Hud } from './Hud';
 import { Feedback } from './Feedback';
 import { roundedBox, pastelBackground, shadowTexture } from './visuals';
@@ -24,6 +30,13 @@ interface DeckSlot {
 export class GameApp {
   /** Live tuning. The dev editor mutates this object in place. */
   readonly settings: Settings = loadSettings();
+  /** The number the player sees. It keeps climbing after the level list wraps. */
+  levelNumber = loadLevelNumber();
+  /** A sandbox level being played instead of the numbered ones, from `?sandbox=` or the debug picker. */
+  private sandboxName = new URLSearchParams(location.search).get('sandbox');
+  /** A library picture previewed as a one-board level, from `?art=`. */
+  private artPreview = new URLSearchParams(location.search).get('art');
+  private level: { file: string; data: LevelData } = this.resolveLevel();
 
   private readonly renderer: THREE.WebGLRenderer;
   private readonly scene = new THREE.Scene();
@@ -52,8 +65,14 @@ export class GameApp {
   private deckY = 0;
   private deckOccupants: (Shooter | null)[] = [];
   private lanes: Shooter[][] = [];
+  private laneCount = 0;
   /** Cubes currently on their way from a billboard into a container. */
   private pulls: PulledCube[] = [];
+  /** Collected keys on their way to the padlock they open. */
+  private keyFlights: Array<{ flight: KeyFlight; board: Billboard }> = [];
+  private chains: LinkChain[] = [];
+  /** Finished containers' loads on their way to frozen billboards. */
+  private progressShots: ProgressShot[] = [];
   private allShooters: Shooter[] = [];
   /** Shootable pixels inside the firing arc, rebuilt once per frame. */
   private targets: EligibleTarget[] = [];
@@ -120,7 +139,12 @@ export class GameApp {
     this.world.add(this.carousel, this.staticStage);
     this.scene.add(this.world);
 
-    this.hud = new Hud(parent, { onRestart: () => this.restart() });
+    this.hud = new Hud(parent, {
+      onRestart: () => this.restart(),
+      // A feature test level is not part of progress: Next returns to the player's level.
+      onNext: () => this.goToLevel(this.isSideLevel() ? this.levelNumber : this.levelNumber + 1),
+    });
+    if (new URLSearchParams(location.search).has('debug')) this.enableLevelPicker();
     this.feedback = new Feedback(this.world);
 
     this.buildWorld();
@@ -153,11 +177,17 @@ export class GameApp {
 
   private buildWorld() {
     const s = this.settings;
-    const plan = buildLevel(s);
+    this.level = this.resolveLevel();
+    const level = this.level.data;
+    this.laneCount = level.lanes.length;
     this.over = 'none';
     this.winReveal = 0;
     this.reflowTime = 0;
     this.hud.dismiss();
+    this.hud.setLevel(
+      this.isSideLevel() ? `· ${level.name}` : String(this.levelNumber),
+      this.sandboxName ? `sandbox:${this.sandboxName}` : `level:${((this.levelNumber - 1) % LEVELS.length) + 1}`,
+    );
 
     // --- carousel structure ---
     const ringGeo = new THREE.TorusGeometry(s.carouselRadius, 0.09, 12, 96);
@@ -177,16 +207,16 @@ export class GameApp {
     this.disposables.push({ dispose: () => { poleGeo.dispose(); poleMat.dispose(); spokeGeo.dispose(); } });
 
     // --- billboards ---
-    for (let i = 0; i < s.billboardCount; i++) {
-      const angle = (i / s.billboardCount) * Math.PI * 2;
-      const bb = new Billboard(plan.boards[i], angle, s, i);
+    level.boards.forEach((data, i) => {
+      const angle = (i / level.boards.length) * Math.PI * 2;
+      const bb = new Billboard(data, angle, s, i, level.cellSize ?? s.cellSize);
       const spoke = new THREE.Mesh(spokeGeo, ringMat);
       spoke.position.set(0, s.ceilingHeight, s.carouselRadius / 2);
       spoke.rotation.y = Math.PI / 2;
       bb.arm.add(spoke);
       this.carousel.add(bb.arm);
       this.billboards.push(bb);
-    }
+    });
 
     // --- deck arc ---
     // Sits directly beneath the near arc of the ring, just under where the artwork
@@ -196,20 +226,23 @@ export class GameApp {
     for (const bb of this.billboards) lowest = Math.min(lowest, bb.bottomOffset);
     this.deckY = s.ceilingHeight + lowest - s.deckGap;
 
-    const arc = THREE.MathUtils.degToRad(s.deckArcDeg);
-    const railGeo = new THREE.TorusGeometry(s.carouselRadius, 0.06, 8, 48, arc);
+    // Slots keep the same spacing whatever their number, so the arc grows with the deck.
+    const spacing = THREE.MathUtils.degToRad(s.deckSlotSpacingDeg);
+    const arc = spacing * (level.deckSlots - 1);
+    const railArc = Math.max(arc, spacing);
+    const railGeo = new THREE.TorusGeometry(s.carouselRadius, 0.06, 8, 48, railArc);
     const railMat = new THREE.MeshStandardMaterial({ color: 0xe5b885, roughness: 0.65, metalness: 0 });
     const rail = new THREE.Mesh(railGeo, railMat);
     rail.rotation.x = -Math.PI / 2;
-    rail.rotation.z = -Math.PI / 2 - arc / 2;
+    rail.rotation.z = -Math.PI / 2 - railArc / 2;
     rail.position.y = this.deckY - 0.12;
     this.staticStage.add(rail);
     this.disposables.push({ dispose: () => { railGeo.dispose(); railMat.dispose(); } });
 
     const padGeo = roundedBox(0.68, 0.13, 0.68, 0.065);
     const padMat = new THREE.MeshStandardMaterial({ color: 0xfff5df, roughness: 0.5 });
-    for (let i = 0; i < s.deckSlots; i++) {
-      const a = s.deckSlots === 1 ? 0 : -arc / 2 + (i / (s.deckSlots - 1)) * arc;
+    for (let i = 0; i < level.deckSlots; i++) {
+      const a = -arc / 2 + i * spacing;
       const pos = new THREE.Vector3(Math.sin(a) * s.carouselRadius, this.deckY, Math.cos(a) * s.carouselRadius);
       this.deckSlots.push({ pos, angle: a });
       this.deckOccupants.push(null);
@@ -228,8 +261,8 @@ export class GameApp {
     const headRingGeo = new THREE.RingGeometry(0.34, 0.44, 24);
     const headRingMat = new THREE.MeshBasicMaterial({ color: 0xfff9e7, transparent: true, opacity: 0.7, side: THREE.DoubleSide });
     this.disposables.push({ dispose: () => { headRingGeo.dispose(); headRingMat.dispose(); } });
-    for (let k = 0; k < s.queueLines; k++) {
-      const entries = plan.lanes[k] ?? [];
+    for (let k = 0; k < this.laneCount; k++) {
+      const entries = level.lanes[k];
       const laneLen = Math.max(1, Math.min(entries.length, s.queueVisible));
       const laneGeo = roundedBox(0.9, 0.12, laneLen * s.queueSpacing + 0.5, 0.06);
       const laneMesh = new THREE.Mesh(laneGeo, laneMat);
@@ -248,7 +281,8 @@ export class GameApp {
 
       const lane: Shooter[] = [];
       entries.forEach((e, j) => {
-        const sh = new Shooter(e.color, e.charges, SHOOTER_SCALE);
+        const sh = new Shooter(e.color, e.charges, SHOOTER_SCALE, { hidden: e.hidden });
+        if (e.link) sh.userLink = e.link;
         sh.lane = k;
         // Everyone past the visible window waits stacked at the back of the line.
         const p = this.lanePosition(k, Math.min(j, s.queueVisible));
@@ -260,6 +294,18 @@ export class GameApp {
         this.allShooters.push(sh);
       });
       this.lanes.push(lane);
+    }
+
+    // Pair linked containers and hang a chain between each pair.
+    const byLink = new Map<string, Shooter[]>();
+    for (const sh of this.allShooters) {
+      if (sh.userLink) byLink.set(sh.userLink, [...(byLink.get(sh.userLink) ?? []), sh]);
+    }
+    for (const pair of byLink.values()) {
+      if (pair.length !== 2) continue;
+      pair[0].partner = pair[1];
+      pair[1].partner = pair[0];
+      this.chains.push(new LinkChain(this.staticStage, pair[0], pair[1], 0.24 * SHOOTER_SCALE));
     }
     this.disposables.push({ dispose: () => laneMat.dispose() });
 
@@ -281,7 +327,7 @@ export class GameApp {
       this.staticStage.add(shadow);
     };
     addShadow(0, 0, 4.5, 4.5);
-    for (let k = 0; k < s.queueLines; k++) {
+    for (let k = 0; k < this.laneCount; k++) {
       const p = this.lanePosition(k, 1.5);
       addShadow(p.x, p.z, 1.4, 4.1);
     }
@@ -292,13 +338,19 @@ export class GameApp {
   private lanePosition(lane: number, index: number): THREE.Vector3 {
     const s = this.settings;
     return new THREE.Vector3(
-      (lane - (s.queueLines - 1) / 2) * s.queueLaneSpacing,
+      (lane - (this.laneCount - 1) / 2) * s.queueLaneSpacing,
       s.queueY,
       s.queueHeadZ + index * s.queueSpacing,
     );
   }
 
   private destroyWorld() {
+    for (const { flight } of this.keyFlights) flight.dispose();
+    this.keyFlights = [];
+    for (const chain of this.chains) chain.dispose();
+    this.chains = [];
+    for (const shot of this.progressShots) shot.dispose();
+    this.progressShots = [];
     for (const p of this.pulls) {
       p.tile.mesh.parent?.remove(p.tile.mesh);
     }
@@ -330,6 +382,15 @@ export class GameApp {
   restart() {
     this.destroyWorld();
     this.buildWorld();
+  }
+
+  /** Jump to a level number and remember it as the player's progress. */
+  goToLevel(n: number) {
+    this.sandboxName = null;
+    this.artPreview = null;
+    this.levelNumber = Math.max(1, n);
+    saveLevelNumber(this.levelNumber);
+    this.restart();
   }
 
   /** Called by the dev editor when a value changes. */
@@ -477,26 +538,92 @@ export class GameApp {
     return null;
   }
 
+  /** Why a lane head cannot be sent right now, or null if it can. */
+  private sendBlocker(sh: Shooter): string | null {
+    if (this.lanes[sh.lane]?.[0] !== sh) return 'Only the front of a line can go';
+    const partner = sh.partner?.state === 'queue' ? sh.partner : null;
+    if (partner) {
+      if (this.lanes[partner.lane][0] !== partner) return 'Its linked partner has to reach the front too';
+    }
+    const free = this.deckOccupants.filter((o) => o === null).length;
+    if (partner && free < 2) return 'Linked containers need two free slots';
+    if (free < 1) return 'Deck is full';
+    return null;
+  }
+
   private sendToDeck(sh: Shooter) {
     if (sh.state !== 'queue') return;
-    const lane = this.lanes[sh.lane];
-    if (!lane || lane[0] !== sh) {
-      this.hud.flash('Only the front of a line can go');
-      return;
-    }
-    const slot = this.deckOccupants.indexOf(null);
-    if (slot < 0) {
+    const blocker = this.sendBlocker(sh);
+    const partner = sh.partner?.state === 'queue' ? sh.partner : null;
+    if (blocker) {
       sh.reject();
-      this.hud.flash('Deck is full');
+      if (partner) {
+        partner.reject();
+        this.chains.find((c) => c.a === sh || c.b === sh)?.flash();
+      }
+      this.hud.flash(blocker);
       return;
     }
-    lane.shift();
-    this.deckOccupants[slot] = sh;
-    sh.slot = slot;
-    sh.state = 'walking';
-    sh.target.copy(this.deckSlots[slot].pos);
-    sh.beginTravel();
+    const group = partner ? [sh, partner] : [sh];
+    for (const member of group) {
+      const slot = this.deckOccupants.indexOf(null);
+      this.lanes[member.lane].shift();
+      this.deckOccupants[slot] = member;
+      member.slot = slot;
+      member.state = 'walking';
+      member.target.copy(this.deckSlots[slot].pos);
+      member.beginTravel();
+    }
     this.feedback.note('tap');
+  }
+
+  /** A feature test level or art preview: outside the numbered levels and progress. */
+  private isSideLevel() {
+    return this.level.file.includes('/');
+  }
+
+  /** The level for the current number, or the sandbox level being played. */
+  private resolveLevel(): { file: string; data: LevelData } {
+    const name = this.sandboxName;
+    const sandbox = name ? SANDBOX.get(name) : undefined;
+    if (name && !sandbox) {
+      console.error(`No sandbox level '${name}'. Available: ${[...SANDBOX.keys()].join(', ')}`);
+      this.sandboxName = null;
+    }
+    if (sandbox) return { file: `sandbox/${name}.json`, data: sandbox };
+    // `?art=<picture id>` previews a library picture as a one-board level.
+    const picture = this.artPreview ? PICTURES.get(this.artPreview) : undefined;
+    if (this.artPreview && !picture) console.error(`No picture '${this.artPreview}' in the art library.`);
+    if (picture && !sandbox) return { file: `art/${picture.id}`, data: previewLevel(picture) };
+    return levelFileForNumber(this.levelNumber);
+  }
+
+  /**
+   * Debug mode (`?debug`): the level pill becomes a dropdown of every level and every
+   * feature test level. The choice is written to the address so a reload keeps it.
+   */
+  private enableLevelPicker() {
+    const options = [
+      ...LEVELS.map(({ data }, i) => ({ value: `level:${i + 1}`, label: `${i + 1}. ${data.name}`, group: 'Levels' })),
+      ...[...SANDBOX].map(([name, data]) => ({ value: `sandbox:${name}`, label: data.name, group: 'Feature tests' })),
+    ];
+    this.hud.enableLevelPicker(options, (value) => {
+      const [kind, id] = value.split(':');
+      const params = new URLSearchParams(location.search);
+      params.delete('level');
+      params.delete('sandbox');
+      params.delete('art');
+      this.artPreview = null;
+      if (kind === 'sandbox') {
+        this.sandboxName = id;
+        params.set('sandbox', id);
+        this.restart();
+      } else {
+        params.set('level', id);
+        this.goToLevel(Number(id));
+      }
+      history.replaceState(null, '', `${location.pathname}?${params.toString().replace(/=(?=&|$)/g, '')}`);
+    });
   }
 
   // ------------------------------------------------------------------ loop
@@ -549,7 +676,11 @@ export class GameApp {
       pad.material.color.lerp(color, 1 - Math.exp(-8 * dt));
     });
     this.feedback.update(dt);
+    for (const bb of this.billboards) if (bb.frameState === 'hanging') bb.revealExposed();
     this.buildTargets();
+    this.updateKeyFlights(dt);
+    this.updateProgressShots(dt);
+    for (const chain of this.chains) chain.update(dt, this.elapsed);
     this.updateShooters(dt, s);
     this.updatePulls(dt, s);
     this.retireClearedBoards();
@@ -564,7 +695,7 @@ export class GameApp {
     if (this.over === 'none') this.checkEnd();
     if (this.winReveal > 0) {
       this.winReveal -= dt;
-      if (this.winReveal <= 0) this.hud.showEnd(true, 'Every pixel collected. Beautifully sorted.');
+      if (this.winReveal <= 0) this.hud.showEnd(true, `Level ${this.levelNumber} complete. Every pixel collected.`);
     }
   }
 
@@ -600,6 +731,8 @@ export class GameApp {
         sh.group.visible = true;
         sh.target.copy(this.lanePosition(k, j));
         sh.moveToward(dt, WALK_SPEED);
+        // A hidden container shows itself once it is the one a tap would send.
+        if (j === 0) sh.reveal();
         sh.refreshBadge();
       }
       for (let j = visible; j < lane.length; j++) {
@@ -626,6 +759,7 @@ export class GameApp {
             if (sh.fullT >= FULL_HOLD) {
               sh.state = 'retiring';
               sh.retireT = 0;
+              this.launchProgress(sh);
               this.feedback.burst(sh.group.position.clone().add(new THREE.Vector3(0, 0.5, 0)), COLOR_HEX[sh.color], true);
               this.feedback.note('complete');
             }
@@ -756,6 +890,7 @@ export class GameApp {
     // The real pixel leaves the artwork. Reserving it makes the one above it
     // pullable straight away, exactly as a shot used to.
     tile.reserved = true;
+    tile.board.showTrueColor(tile);
     tile.board.impulse(tile.mesh.position.x, s);
     this.pulls.push(new PulledCube(this.world, tile, sh, s.containerVisibleCubes, s.projectileSpeed, s.projectileArc));
     sh.inFlight++;
@@ -773,6 +908,7 @@ export class GameApp {
       this.feedback.burst(landing, COLOR_HEX[tile.color]);
       this.feedback.note('land');
       tile.board.releaseTile(tile);
+      this.onCollected(tile, landing);
       if (tile.board.aliveCount === 0) {
         tile.board.board.getWorldPosition(this.scratch);
         this.feedback.burst(this.scratch, COLOR_HEX[tile.color], true);
@@ -808,23 +944,79 @@ export class GameApp {
     this.hud.setStats(tiles, deckUsed, this.deckSlots.length, ammo);
   }
 
+  /** A pixel has landed in its container: collect its key. */
+  private onCollected(tile: Tile, landing: THREE.Vector3) {
+    if (tile.key) {
+      const target = this.billboards.find((bb) => bb.lock?.type === 'key' && bb.lock.color === tile.key);
+      tile.board.takeKey(tile);
+      if (target) {
+        const from = this.world.worldToLocal(landing.clone());
+        this.keyFlights.push({ flight: new KeyFlight(this.world, from, target.lockAnchor, tile.key, this.camera), board: target });
+      }
+    }
+  }
+
+  /**
+   * A full container is leaving the deck. Frozen billboards of its color only count
+   * finished containers: its whole load flies over as a few cubes, each taking its
+   * share off the counter as it lands.
+   */
+  private launchProgress(sh: Shooter) {
+    const from = sh.group.position.clone().add(new THREE.Vector3(0, 0.5, 0));
+    for (const bb of this.billboards) {
+      if (bb.frameState !== 'hanging' || bb.lock?.type !== 'frozen' || bb.lock.color !== sh.color) continue;
+      const count = Math.min(sh.capacity, 6);
+      for (let i = 0; i < count; i++) {
+        const share = Math.floor(sh.capacity / count) + (i < sh.capacity % count ? 1 : 0);
+        this.progressShots.push(new ProgressShot(this.world, from, bb, sh.color, share, i * 0.08));
+      }
+    }
+  }
+
+  private updateProgressShots(dt: number) {
+    for (let i = this.progressShots.length - 1; i >= 0; i--) {
+      const shot = this.progressShots[i];
+      if (!shot.update(dt)) continue;
+      shot.dispose();
+      this.progressShots.splice(i, 1);
+      shot.board.lockAnchor.getWorldPosition(this.scratch2);
+      const thawed = shot.board.addFrozenProgress(shot.amount);
+      this.feedback.burst(this.scratch2.clone(), thawed ? 0xbfeaff : 0xffffff, thawed);
+      this.feedback.note(thawed ? 'complete' : 'land');
+    }
+  }
+
+  private updateKeyFlights(dt: number) {
+    for (let i = this.keyFlights.length - 1; i >= 0; i--) {
+      const { flight, board } = this.keyFlights[i];
+      if (!flight.update(dt)) continue;
+      flight.dispose();
+      this.keyFlights.splice(i, 1);
+      board.unlock();
+      board.lockAnchor.getWorldPosition(this.scratch2);
+      this.feedback.burst(this.scratch2.clone(), 0xf5d36b, true);
+      this.feedback.note('complete');
+    }
+  }
+
   private checkEnd() {
     let tiles = 0;
     for (const bb of this.billboards) tiles += bb.aliveCount;
     if (tiles === 0) {
       this.over = 'win';
       this.winReveal = 0.85;
+      // Progress is kept the moment the level is won, even if the page closes before Next.
+      if (!this.isSideLevel()) saveLevelNumber(this.levelNumber + 1);
       for (const sh of this.deckOccupants) {
         if (sh) this.feedback.burst(sh.group.position, COLOR_HEX[sh.color], true);
       }
       this.feedback.note('complete');
       return;
     }
-    if (this.pulls.length > 0) return;
+    // Something in the air may still unlock or thaw a board when it lands.
+    if (this.pulls.length > 0 || this.keyFlights.length > 0 || this.progressShots.length > 0) return;
 
     const queueEmpty = this.lanes.every((l) => l.length === 0);
-    const deckFull = this.deckOccupants.every((o) => o !== null);
-    if (!queueEmpty && !deckFull) return;
 
     const onDeck = this.allShooters.filter((sh) => sh.state === 'deck' || sh.state === 'walking');
     // A shooter that is leaving, or that has just spent its last charge, is about to
@@ -835,18 +1027,22 @@ export class GameApp {
     );
     if (slotAboutToFree) return;
 
-    // Nothing new can join the deck, so if no shooter on it can ever fire again the
-    // board is frozen. "Can ever fire" = its color is at the bottom of some column.
+    // Stuck means no action can ever change anything again: no container on the deck
+    // can pull (its color is not at the bottom of a column on an open board), and no
+    // lane head can be sent. Locked boards only open by collecting and frozen boards
+    // only by finishing containers, so neither can come to the rescue on its own.
     const firable = this.firableColors();
     const anyUsable = onDeck.some((sh) => sh.charges > 0 && firable.has(sh.color));
     if (anyUsable) return;
+    const anySendable = this.lanes.some((lane) => lane[0] && this.sendBlocker(lane[0]) === null);
+    if (anySendable) return;
 
     this.over = 'lose';
     this.hud.showEnd(
       false,
       queueEmpty && onDeck.length === 0
         ? 'Out of containers with pixels still standing.'
-        : 'Deck jammed — none of these containers can reach a pixel any more.',
+        : 'Stuck: no container can reach a pixel, and none can be sent.',
     );
   }
 
@@ -873,18 +1069,26 @@ export class GameApp {
   private renderGameToText() {
     return JSON.stringify({
       mode: this.over,
+      level: { number: this.levelNumber, name: this.level.data.name, file: this.level.file },
       coordinates: 'Screen positions are CSS pixels, origin top-left. World: +Y up, +Z toward camera.',
       focusedBoard: this.billboards.indexOf(this.focused!),
       rotation: Number(this.carousel.rotation.y.toFixed(3)),
       dragging: this.dragging,
       remaining: this.billboards.reduce((sum, board) => sum + board.aliveCount, 0),
       boards: this.billboards.map(board => ({ remaining: board.aliveCount, frame: board.frameState,
+        lock: board.lock ? { ...board.lock } : null,
+        mystery: board.tiles.filter(t => t.alive && t.hidden).length,
+        keys: board.tiles.filter(t => t.alive && t.key).map(t => ({ color: t.key, col: t.col, row: t.row })),
         angle: Number(board.angle.toFixed(5)), targetAngle: Number(board.targetAngle.toFixed(5)),
         frameY: Number(board.pivot.position.y.toFixed(3)) })),
       activeBoards: this.billboards.filter(board => board.frameState === 'hanging').length,
       redistributing: this.reflowTime > 0,
       exposedColors: [...new Set(this.targets.map(target => target.color))],
       pulls: this.pulls.length,
+      keyFlights: this.keyFlights.length,
+      progressShots: this.progressShots.length,
+      queue: this.lanes.map(lane => lane.map(sh => ({ color: sh.hidden ? '?' : sh.color, charges: sh.hidden ? '?' : sh.charges,
+        linked: !!sh.partner && sh.partner.state === 'queue' }))),
       lanes: this.headScreenPositions().map(head => ({ ...head, color: this.lanes[head.lane][0].color, charges: this.lanes[head.lane][0].charges, count: this.lanes[head.lane].length })),
       deck: this.deckOccupants.map(sh => sh ? ({ color: sh.color, charges: sh.charges, inFlight: sh.inFlight, state: sh.state, packing: sh.packingState() }) : null),
     });

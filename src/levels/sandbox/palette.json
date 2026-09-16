@@ -1,0 +1,98 @@
+{
+  "name": "Palette Check",
+  "cellSize": 0.22,
+  "deckSlots": 6,
+  "boards": [
+    {
+      "name": "Swatches",
+      "art": [
+        "rrr.www.kkk",
+        "RRR.WWW.KKK",
+        "RRR.WWW.KKK",
+        "RRR.WWW.KKK",
+        "...........",
+        "OOO.NNN.YYY",
+        "OOO.NNN.YYY",
+        "OOO.NNN.YYY",
+        "...........",
+        "GGG.LLL.CCC",
+        "GGG.LLL.CCC",
+        "GGG.LLL.CCC"
+      ]
+    },
+    {
+      "name": "Neighbors",
+      "art": [
+        "NNNNOOOORRR",
+        "NNNNOOOORRR",
+        "LLLLGGGGYYY",
+        "LLLLGGGGYYY",
+        "KKKKPPPPBBB",
+        "KKKKPPPPBBB",
+        "WWWWCCCCMMM",
+        "WWWWwwwwMMM",
+        "WWWWCCCCMMM"
+      ],
+      "keys": [{ "col": 1, "row": 0, "color": "bronze" }, { "col": 9, "row": 2, "color": "gold" }, { "col": 1, "row": 6, "color": "silver" }]
+    },
+    {
+      "name": "Brown Orange",
+      "art": [
+        "NONON",
+        "ONONO",
+        "NONON",
+        "ONONO"
+      ],
+      "lock": { "type": "key", "color": "gold" }
+    },
+    {
+      "name": "Lime Green",
+      "art": [
+        "LGLGL",
+        "GLGLG",
+        "LGLGL",
+        "GLGLG"
+      ],
+      "lock": { "type": "key", "color": "silver" }
+    },
+    {
+      "name": "Black Purple",
+      "art": [
+        "KPKPK",
+        "PKPKP",
+        "KPKPK",
+        "PKPKP"
+      ],
+      "lock": { "type": "key", "color": "bronze" }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "cyan", "charges": 9 },
+      { "color": "cyan", "charges": 8 },
+      { "color": "green", "charges": 14 },
+      { "color": "purple", "charges": 9 },
+      { "color": "black", "charges": 15 },
+      { "color": "lime", "charges": 13 },
+      { "color": "brown", "charges": 13 }
+    ],
+    [
+      { "color": "pink", "charges": 9 },
+      { "color": "white", "charges": 14 },
+      { "color": "lime", "charges": 14 },
+      { "color": "orange", "charges": 14 },
+      { "color": "red", "charges": 9 },
+      { "color": "purple", "charges": 9 },
+      { "color": "black", "charges": 15 }
+    ],
+    [
+      { "color": "blue", "charges": 6 },
+      { "color": "yellow", "charges": 15 },
+      { "color": "white", "charges": 14 },
+      { "color": "brown", "charges": 14 },
+      { "color": "green", "charges": 13 },
+      { "color": "orange", "charges": 13 },
+      { "color": "red", "charges": 9 }
+    ]
+  ]
+}

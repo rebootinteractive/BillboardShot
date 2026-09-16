@@ -1,0 +1,26 @@
+{
+  "id": "carrot",
+  "name": "Carrot",
+  "tags": ["food"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Carrot" },
+  "art": [
+    "........2222.",
+    ".......222222",
+    ".....1.222222",
+    "...1111122222",
+    "..11111112222",
+    "..1111111122.",
+    "..11111111...",
+    ".1111111111..",
+    ".1111111111..",
+    ".111111111...",
+    "111111111....",
+    "111111.......",
+    "111.........."
+  ],
+  "groups": {
+    "1": { "part": "root", "suggest": ["orange"] },
+    "2": { "part": "leaves", "suggest": ["green"] }
+  }
+}

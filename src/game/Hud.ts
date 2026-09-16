@@ -1,5 +1,12 @@
 export interface HudCallbacks {
   onRestart(): void;
+  onNext(): void;
+}
+
+export interface LevelOption {
+  value: string;
+  label: string;
+  group: string;
 }
 
 export class Hud {
@@ -8,6 +15,8 @@ export class Hud {
   private readonly ammoEl: HTMLElement;
   private readonly deckEl: HTMLElement;
   private readonly hintEl: HTMLElement;
+  private readonly levelEl: HTMLElement;
+  private levelSelect: HTMLSelectElement | null = null;
   private modalEl: HTMLDivElement | null = null;
   private hintTimer = 0;
 
@@ -15,6 +24,7 @@ export class Hud {
     this.root = document.createElement('div');
     this.root.className = 'overlay hud-layer';
     this.root.innerHTML = `
+      <div class="hud-level">Level <strong data-level>1</strong></div>
       <div class="hud-top">
         <div class="hud-stat"><span class="lbl">Pixels</span><strong data-tiles>0</strong></div>
         <div class="hud-stat"><span class="lbl">Deck</span><strong data-deck>0/0</strong></div>
@@ -27,6 +37,42 @@ export class Hud {
     this.ammoEl = this.root.querySelector('[data-ammo]')!;
     this.deckEl = this.root.querySelector('[data-deck]')!;
     this.hintEl = this.root.querySelector('[data-hint]')!;
+    this.levelEl = this.root.querySelector('[data-level]')!;
+  }
+
+  /** `value` marks the matching entry in the debug level picker, when it is enabled. */
+  setLevel(label: string, value?: string) {
+    this.levelEl.textContent = label;
+    if (this.levelSelect && value !== undefined) this.levelSelect.value = value;
+  }
+
+  /**
+   * Debug only: turns the level pill into a dropdown of every level. The native select
+   * sits invisibly over the pill, so a tap opens the system picker on a phone too.
+   */
+  enableLevelPicker(options: LevelOption[], onPick: (value: string) => void) {
+    const pill = this.root.querySelector('.hud-level')!;
+    pill.classList.add('pickable');
+    const select = document.createElement('select');
+    select.className = 'hud-level-select';
+    select.setAttribute('aria-label', 'Choose level');
+    const groups = new Map<string, HTMLOptGroupElement>();
+    for (const option of options) {
+      let group = groups.get(option.group);
+      if (!group) {
+        group = document.createElement('optgroup');
+        group.label = option.group;
+        select.appendChild(group);
+        groups.set(option.group, group);
+      }
+      group.appendChild(new Option(option.label, option.value));
+    }
+    select.addEventListener('change', () => {
+      select.blur();
+      onPick(select.value);
+    });
+    pill.appendChild(select);
+    this.levelSelect = select;
   }
 
   setStats(tiles: number, deckUsed: number, deckTotal: number, ammo: number) {
@@ -58,12 +104,13 @@ export class Hud {
         <h1>${win ? 'Cleared!' : 'Stuck'}</h1>
         <p>${subtitle}</p>
         <div class="modal-actions">
-          <button class="btn" data-restart>Play again</button>
+          <button class="btn" data-action>${win ? 'Next level' : 'Try again'}</button>
         </div>
       </div>`;
-    el.querySelector('[data-restart]')!.addEventListener('click', () => {
+    el.querySelector('[data-action]')!.addEventListener('click', () => {
       this.dismiss();
-      this.cb.onRestart();
+      if (win) this.cb.onNext();
+      else this.cb.onRestart();
     });
     this.root.parentElement!.appendChild(el);
     this.modalEl = el;

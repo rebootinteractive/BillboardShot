@@ -1,0 +1,33 @@
+{
+  "id": "rainbow",
+  "name": "Rainbow",
+  "tags": ["nature"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Rainbow" },
+  "art": [
+    "............1111",
+    ".........1111111",
+    ".......111122222",
+    "......1112222224",
+    ".....11122244444",
+    "....112224444333",
+    "...1122244433333",
+    "..11122443333555",
+    "..11224433355555",
+    ".112244333556666",
+    ".11224433556666.",
+    ".122443355666...",
+    "112244335666....",
+    "11224335566.....",
+    "11224335566.....",
+    "1124433556......"
+  ],
+  "groups": {
+    "1": { "part": "red band", "suggest": ["red"] },
+    "2": { "part": "orange band", "suggest": ["orange"] },
+    "3": { "part": "green band", "suggest": ["green"] },
+    "4": { "part": "yellow band", "suggest": ["yellow"] },
+    "5": { "part": "blue band", "suggest": ["blue"] },
+    "6": { "part": "purple band", "suggest": ["purple"] }
+  }
+}

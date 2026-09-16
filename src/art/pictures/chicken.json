@@ -1,0 +1,34 @@
+{
+  "id": "chicken",
+  "name": "Chicken",
+  "tags": ["animal"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Chicken" },
+  "art": [
+    ".........222....",
+    ".....22222222...",
+    "....222222222...",
+    "....221111222...",
+    "...2211111113...",
+    "..221111111113..",
+    "...11111111111..",
+    "..411111111111..",
+    ".44116611111113.",
+    "444111111111113.",
+    "555111111111111.",
+    ".55111111111111.",
+    ".221111111111113",
+    ".221111111111113",
+    "..21111111111113",
+    "..31111111111113",
+    "...333333333333."
+  ],
+  "groups": {
+    "1": { "part": "white", "suggest": ["white"] },
+    "2": { "part": "red", "suggest": ["red"] },
+    "3": { "part": "purple", "suggest": ["purple"] },
+    "4": { "part": "yellow", "suggest": ["yellow"] },
+    "5": { "part": "orange", "suggest": ["orange"] },
+    "6": { "part": "black", "suggest": ["black"] }
+  }
+}

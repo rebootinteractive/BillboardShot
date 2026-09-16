@@ -1,0 +1,32 @@
+{
+  "id": "alarm-clock",
+  "name": "Alarm Clock",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Alarm%20clock" },
+  "art": [
+    ".3333.....3333.",
+    "33333.....33333",
+    "33333.222..3333",
+    "333.2222222.333",
+    "33.222111222333",
+    "..22111111122..",
+    "..22111411122..",
+    ".2211114111122.",
+    ".2211114111122.",
+    ".2211114211122.",
+    ".2211111221122.",
+    "..22111111122..",
+    "..22211111222..",
+    "...222222222...",
+    "..11122222111..",
+    ".111111111111..",
+    ".111111111111.."
+  ],
+  "groups": {
+    "1": { "part": "white", "suggest": ["white"] },
+    "2": { "part": "red", "suggest": ["red"] },
+    "3": { "part": "yellow", "suggest": ["yellow"] },
+    "4": { "part": "black", "suggest": ["black"] }
+  }
+}

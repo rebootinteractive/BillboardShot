@@ -1,0 +1,26 @@
+{
+  "id": "soccer-ball",
+  "name": "Soccer Ball",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Soccer%20ball" },
+  "art": [
+    "....22122....",
+    "..221111222..",
+    ".21111112222.",
+    ".11222111221.",
+    "2112221111112",
+    "2112221111112",
+    "2112211111112",
+    "2111111122212",
+    "2111111122212",
+    ".11211112211.",
+    ".21222111112.",
+    "..222211112..",
+    "....22122...."
+  ],
+  "groups": {
+    "1": { "part": "white", "suggest": ["white"] },
+    "2": { "part": "blue", "suggest": ["blue"] }
+  }
+}

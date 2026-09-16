@@ -1,0 +1,27 @@
+{
+  "id": "car",
+  "name": "Car",
+  "tags": ["vehicle"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Automobile" },
+  "art": [
+    "......11111111..",
+    "......221222112.",
+    ".....2221222212.",
+    "....222212222122",
+    "...1332211221122",
+    "1111111111111111",
+    "5111111111111111",
+    "1133311111133311",
+    "4435334444335344",
+    "..3533....3353..",
+    "..333......333.."
+  ],
+  "groups": {
+    "1": { "part": "body", "suggest": ["red", "blue", "yellow"] },
+    "2": { "part": "windows", "suggest": ["cyan"] },
+    "3": { "part": "wheels", "suggest": ["black"] },
+    "4": { "part": "lights", "suggest": ["yellow", "purple"] },
+    "5": { "part": "hubcaps", "suggest": ["white"] }
+  }
+}

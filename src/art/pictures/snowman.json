@@ -1,0 +1,33 @@
+{
+  "id": "snowman",
+  "name": "Snowman",
+  "tags": ["nature"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Snowman%20without%20snow" },
+  "art": [
+    "....44........",
+    "...44244......",
+    "...2441113....",
+    "...41111113...",
+    "...11111111...",
+    "..3111155113..",
+    "..3111111113..",
+    "44.11111111344",
+    ".432222222234.",
+    ".412222222214.",
+    ".111122222211.",
+    ".111111122211.",
+    "31111111222113",
+    ".111111111111.",
+    ".311111111113.",
+    "..3111111111..",
+    "...33333333..."
+  ],
+  "groups": {
+    "1": { "part": "white", "suggest": ["white"] },
+    "2": { "part": "blue", "suggest": ["blue"] },
+    "3": { "part": "purple", "suggest": ["purple"] },
+    "4": { "part": "black", "suggest": ["black"] },
+    "5": { "part": "orange", "suggest": ["orange"] }
+  }
+}

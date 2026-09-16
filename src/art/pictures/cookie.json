@@ -1,0 +1,26 @@
+{
+  "id": "cookie",
+  "name": "Cookie",
+  "tags": ["food"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Cookie" },
+  "art": [
+    "....11111....",
+    "..111111111..",
+    ".11221112111.",
+    ".11221111111.",
+    "1112111111111",
+    "1111112211211",
+    "1111112211111",
+    "1121111111111",
+    "1111111111111",
+    ".11121112211.",
+    ".11122111211.",
+    "..111111111..",
+    "....11111...."
+  ],
+  "groups": {
+    "1": { "part": "dough", "suggest": ["yellow", "orange"] },
+    "2": { "part": "chips", "suggest": ["brown", "black"] }
+  }
+}

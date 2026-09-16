@@ -1,0 +1,32 @@
+{
+  "id": "unicorn",
+  "name": "Unicorn",
+  "tags": ["animal"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Unicorn" },
+  "art": [
+    "................",
+    "......1.........",
+    "...22211222.....",
+    "...232113222....",
+    "...2211113223...",
+    "...21111132233..",
+    "...115111122333.",
+    "..11111111223334",
+    "..11111113223334",
+    ".111111112223344",
+    "1111111112233344",
+    "111511.122233344",
+    "......1122233344",
+    "......1122233344",
+    ".....11122233344",
+    ".....11122233344"
+  ],
+  "groups": {
+    "1": { "part": "white", "suggest": ["white"] },
+    "2": { "part": "blue", "suggest": ["blue"] },
+    "3": { "part": "purple", "suggest": ["purple"] },
+    "4": { "part": "pink", "suggest": ["pink"] },
+    "5": { "part": "black", "suggest": ["black"] }
+  }
+}

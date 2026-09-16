@@ -1,0 +1,25 @@
+{
+  "id": "snowflake",
+  "name": "Snowflake",
+  "tags": ["nature"],
+  "status": "approved",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Snowflake" },
+  "art": [
+    "......1......",
+    ".....111.....",
+    "..1...1...1..",
+    ".11...1...11.",
+    ".111.111.111.",
+    "11..11.11..11",
+    ".1..1...1..1.",
+    "11.111.111.11",
+    ".111.111.111.",
+    ".11...1...11.",
+    "..1...1...1..",
+    ".....111.....",
+    "......1......"
+  ],
+  "groups": {
+    "1": { "part": "snowflake", "suggest": ["blue", "cyan", "white"] }
+  }
+}

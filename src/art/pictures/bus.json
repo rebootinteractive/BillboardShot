@@ -1,0 +1,30 @@
+{
+  "id": "bus",
+  "name": "Bus",
+  "tags": ["vehicle"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Bus" },
+  "art": [
+    "3333333333333333",
+    "4433113311331133",
+    "4431111111111113",
+    "1141111111111113",
+    "1141111111111113",
+    "1131111111111113",
+    "1133113311331133",
+    "2222222222222222",
+    "5222222222222226",
+    "5244422222244422",
+    "2243442222443422",
+    "..4344....4434..",
+    "...44......44..."
+  ],
+  "groups": {
+    "1": { "part": "windows", "suggest": ["cyan"] },
+    "2": { "part": "body", "suggest": ["orange", "yellow"] },
+    "3": { "part": "roof", "suggest": ["white"] },
+    "4": { "part": "wheels", "suggest": ["black"] },
+    "5": { "part": "lights", "suggest": ["yellow"] },
+    "6": { "part": "red", "suggest": ["red"] }
+  }
+}

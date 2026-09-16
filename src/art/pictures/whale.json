@@ -1,0 +1,31 @@
+{
+  "id": "whale",
+  "name": "Whale",
+  "tags": ["animal"],
+  "status": "approved",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Spouting%20whale" },
+  "art": [
+    "...33.3.....1...",
+    "..333333....11..",
+    "..33.333...11...",
+    ".....3....1111..",
+    ".....3...11.111.",
+    "..1111111....11.",
+    ".111111111...111",
+    "11111111111..111",
+    "11111111111..111",
+    "22222221111..111",
+    "2222222211111111",
+    ".222222221111111",
+    ".222222221111111",
+    "..2222222111111.",
+    "..2222222111111.",
+    ".11122222211111.",
+    ".....222222....."
+  ],
+  "groups": {
+    "1": { "part": "body", "suggest": ["blue"] },
+    "2": { "part": "belly", "suggest": ["white"] },
+    "3": { "part": "spout", "suggest": ["cyan"] }
+  }
+}

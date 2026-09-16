@@ -1,0 +1,27 @@
+{
+  "id": "cactus",
+  "name": "Cactus",
+  "tags": ["nature"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Cactus" },
+  "art": [
+    ".....111.....",
+    "....12111....",
+    "....12111..21",
+    "....12111.111",
+    "11..12111.111",
+    "121.121111121",
+    "121.11111121.",
+    "121.1111111..",
+    "121.12111....",
+    "111112111....",
+    ".11122111....",
+    "...112111....",
+    "....12111....",
+    "....12111...."
+  ],
+  "groups": {
+    "1": { "part": "lime", "suggest": ["lime"] },
+    "2": { "part": "brown", "suggest": ["brown"] }
+  }
+}

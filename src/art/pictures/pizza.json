@@ -1,0 +1,31 @@
+{
+  "id": "pizza",
+  "name": "Pizza",
+  "tags": ["food"],
+  "status": "approved",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Pizza" },
+  "art": [
+    "...........1133",
+    "........1111133",
+    "......111111133",
+    ".....1111111133",
+    "...111111111133",
+    "..1111111111133",
+    ".11111111122233",
+    "111111111122223",
+    "111111111122223",
+    "111111111112233",
+    ".11111222111133",
+    "...111222111133",
+    ".....1121112233",
+    ".......11112233",
+    "........1111133",
+    "..........11133",
+    "............33."
+  ],
+  "groups": {
+    "1": { "part": "cheese", "suggest": ["yellow"] },
+    "2": { "part": "pepperoni", "suggest": ["red"] },
+    "3": { "part": "crust", "suggest": ["orange", "brown"] }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "cat",
+  "name": "Cat",
+  "tags": ["animal"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Cat%20face" },
+  "art": [
+    ".11..........11.",
+    ".141........141.",
+    ".1441......1441.",
+    ".11111111111111.",
+    ".11111111111111.",
+    ".11111111111111.",
+    ".11111111111111.",
+    ".11113111131111.",
+    ".11111111111111.",
+    ".11111111111111.",
+    ".11111111111111.",
+    ".11111222211111.",
+    ".11111122111111.",
+    "..111111111111.."
+  ],
+  "groups": {
+    "1": { "part": "fur", "suggest": ["orange", "brown", "white", "black"] },
+    "2": { "part": "nose and mouth", "suggest": ["red", "pink"] },
+    "3": { "part": "eyes", "suggest": ["black", "green"] },
+    "4": { "part": "inner ears", "suggest": ["pink"] }
+  }
+}

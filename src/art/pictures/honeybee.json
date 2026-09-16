@@ -1,0 +1,29 @@
+{
+  "id": "honeybee",
+  "name": "Honeybee",
+  "tags": ["animal"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Honeybee" },
+  "art": [
+    "........333.....",
+    ".......33333....",
+    "......333333....",
+    ".....3333333....",
+    ".1..23333331....",
+    ".112221112211...",
+    "11112211122111..",
+    "111122111221112.",
+    "111122111221112.",
+    "11112211122111..",
+    ".111221112211...",
+    "...2221112211...",
+    ".....1111221....",
+    ".....1...1.11...",
+    ".........1......"
+  ],
+  "groups": {
+    "1": { "part": "black", "suggest": ["black"] },
+    "2": { "part": "orange", "suggest": ["orange"] },
+    "3": { "part": "white", "suggest": ["white"] }
+  }
+}

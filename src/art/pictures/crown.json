@@ -1,0 +1,25 @@
+{
+  "id": "crown",
+  "name": "Crown",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Crown" },
+  "art": [
+    "......1......",
+    "......1......",
+    "1..1..11.1..1",
+    "11.1.111.1.11",
+    ".11111111111.",
+    ".11111111111.",
+    ".11111111111.",
+    ".11213331211.",
+    ".11211311211.",
+    "..111111111..",
+    "..111111111.."
+  ],
+  "groups": {
+    "1": { "part": "orange", "suggest": ["orange"] },
+    "2": { "part": "red", "suggest": ["red"] },
+    "3": { "part": "blue", "suggest": ["blue"] }
+  }
+}

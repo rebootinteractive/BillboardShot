@@ -1,0 +1,32 @@
+{
+  "id": "birthday-cake",
+  "name": "Birthday Cake",
+  "tags": ["food"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Birthday%20cake" },
+  "art": [
+    "....4......4....",
+    "...42..44..24...",
+    "....3..33..3....",
+    "....3..33..3....",
+    ".111111111111111",
+    "1111111111111111",
+    "1111111111111111",
+    "1111111111511111",
+    "1111111111111111",
+    "2221222112221222",
+    ".22222222222222.",
+    ".11111111111111.",
+    ".11111111111111.",
+    ".22222222222222.",
+    ".22222222222222.",
+    ".22222222222222."
+  ],
+  "groups": {
+    "1": { "part": "white", "suggest": ["white"] },
+    "2": { "part": "orange", "suggest": ["orange"] },
+    "3": { "part": "cyan", "suggest": ["cyan"] },
+    "4": { "part": "yellow", "suggest": ["yellow"] },
+    "5": { "part": "pink", "suggest": ["pink"] }
+  }
+}

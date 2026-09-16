@@ -1,0 +1,32 @@
+{
+  "id": "house",
+  "name": "House",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/House" },
+  "art": [
+    "...1...33.......",
+    "..111.3333......",
+    "..111331133.....",
+    "..1133111133....",
+    "..13311111133...",
+    "..331111111133..",
+    ".33111111111133.",
+    "3311222215551133",
+    "..122222155551..",
+    "..122222155551..",
+    "..122222155511..",
+    "..122222111111..",
+    "..122222111111..",
+    "..162222111111..",
+    "4444444444444444"
+  ],
+  "groups": {
+    "1": { "part": "yellow", "suggest": ["yellow"] },
+    "2": { "part": "brown", "suggest": ["brown"] },
+    "3": { "part": "red", "suggest": ["red"] },
+    "4": { "part": "green", "suggest": ["green"] },
+    "5": { "part": "cyan", "suggest": ["cyan"] },
+    "6": { "part": "white", "suggest": ["white"] }
+  }
+}

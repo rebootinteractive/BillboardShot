@@ -1,0 +1,27 @@
+{
+  "id": "watermelon",
+  "name": "Watermelon",
+  "tags": ["food"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Watermelon" },
+  "art": [
+    "..22.........",
+    "..231........",
+    ".23111.......",
+    "2231111......",
+    "23111111.....",
+    "231111111....",
+    "2311211111...",
+    "23111111111..",
+    "221111211111.",
+    ".231111111132",
+    "..23111111322",
+    "...223333222.",
+    "....222222..."
+  ],
+  "groups": {
+    "1": { "part": "red", "suggest": ["red"] },
+    "2": { "part": "black", "suggest": ["black"] },
+    "3": { "part": "white", "suggest": ["white"] }
+  }
+}

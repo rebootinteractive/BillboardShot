@@ -1,0 +1,76 @@
+{
+  "name": "Frozen Board",
+  "cellSize": 0.22,
+  "deckSlots": 6,
+  "boards": [
+    {
+      "name": "Star",
+      "art": [
+        ".....O.....",
+        ".....O.....",
+        "....OOO....",
+        "....YYY....",
+        "OOOOYYYOOOO",
+        ".OOOYYYOOO.",
+        "..OOYYYOO..",
+        "...OYYYO...",
+        "..OOO.OOO..",
+        ".OOO...OOO.",
+        "OO.......OO"
+      ]
+    },
+    {
+      "name": "Mushroom",
+      "art": [
+        "...BBBBB...",
+        "..BBBBBBB..",
+        ".BBMBBBMBB.",
+        "BBBBBBBBBBB",
+        "BBMBBBBBMBB",
+        ".BBBBBBBBB.",
+        "...YYYYY...",
+        "...YYYYY...",
+        "..YYYYYYY..",
+        "..YYYYYYY.."
+      ],
+      "lock": { "type": "frozen", "color": "yellow", "count": 12 }
+    },
+    {
+      "name": "Apple",
+      "art": [
+        ".....GG..",
+        "....GG...",
+        "..RRGRR..",
+        ".RRRRRRR.",
+        "RRRRRRRRR",
+        "RRRRRRRRR",
+        "RRRRRRRRR",
+        ".RRRRRRR.",
+        "..RR.RR.."
+      ]
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "red", "charges": 13 },
+      { "color": "orange", "charges": 14 },
+      { "color": "red", "charges": 12 },
+      { "color": "red", "charges": 12 },
+      { "color": "blue", "charges": 16 }
+    ],
+    [
+      { "color": "orange", "charges": 14 },
+      { "color": "green", "charges": 5 },
+      { "color": "orange", "charges": 13 },
+      { "color": "yellow", "charges": 13 },
+      { "color": "blue", "charges": 16 }
+    ],
+    [
+      { "color": "red", "charges": 12 },
+      { "color": "yellow", "charges": 13 },
+      { "color": "yellow", "charges": 13 },
+      { "color": "pink", "charges": 4 },
+      { "color": "blue", "charges": 16 }
+    ]
+  ]
+}

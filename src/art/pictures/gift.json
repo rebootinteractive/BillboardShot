@@ -1,0 +1,28 @@
+{
+  "id": "gift",
+  "name": "Gift",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Wrapped%20gift" },
+  "art": [
+    "..11..1..11..",
+    ".11111111111.",
+    ".11111111111.",
+    "3333311133333",
+    "3333311133333",
+    "3333311133333",
+    ".33331113333.",
+    ".22221112222.",
+    ".22221112222.",
+    ".22221112222.",
+    ".22221112222.",
+    ".22221112222.",
+    ".22221112222.",
+    ".22221112222."
+  ],
+  "groups": {
+    "1": { "part": "ribbon", "suggest": ["red"] },
+    "2": { "part": "box", "suggest": ["yellow", "blue"] },
+    "3": { "part": "lid", "suggest": ["orange", "blue"] }
+  }
+}

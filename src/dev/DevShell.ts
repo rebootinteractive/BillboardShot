@@ -29,6 +29,7 @@ export function mountDevShell(game: GameApp) {
   const panel = new EditorPanel(panelEl, game.settings, {
     onChange: (structural) => game.applySettingsChange(structural),
     onRestart: () => game.restart(),
+    onLevelStep: (step) => game.goToLevel(game.levelNumber + step),
   });
 
   const fit = () => {

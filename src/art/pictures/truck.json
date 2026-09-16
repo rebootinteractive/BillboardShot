@@ -1,0 +1,30 @@
+{
+  "id": "truck",
+  "name": "Truck",
+  "tags": ["vehicle"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Delivery%20truck" },
+  "art": [
+    ".......111111111",
+    ".......111111111",
+    ".......111111111",
+    "..44555111111111",
+    ".444455111111111",
+    ".444455111111111",
+    "4444555111111111",
+    "2222222222222222",
+    "1222222222222222",
+    "1223322222233226",
+    "2235332222335322",
+    ".23533....33532.",
+    "..333......333.."
+  ],
+  "groups": {
+    "1": { "part": "yellow", "suggest": ["yellow"] },
+    "2": { "part": "orange", "suggest": ["orange"] },
+    "3": { "part": "black", "suggest": ["black"] },
+    "4": { "part": "cyan", "suggest": ["cyan"] },
+    "5": { "part": "white", "suggest": ["white"] },
+    "6": { "part": "red", "suggest": ["red"] }
+  }
+}

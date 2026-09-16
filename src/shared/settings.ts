@@ -7,7 +7,9 @@
  * committing the diff. Nothing is kept in localStorage: a visitor to the deployed
  * link always sees exactly the committed tuning.
  *
- * `structural` fields change the shape of the level and trigger a rebuild.
+ * Level content (boards, lanes, containers, deck size) lives in src/levels instead.
+ *
+ * `structural` fields change the layout of the stage and trigger a rebuild.
  * Everything else applies live on the next frame.
  */
 import tuning from './defaults.json';
@@ -19,7 +21,6 @@ export interface Settings {
   camTargetY: number;
 
   // --- Carousel ---
-  billboardCount: number;
   carouselRadius: number;
   autoRotateDegPerSec: number;
   dragSensitivity: number;
@@ -43,20 +44,16 @@ export interface Settings {
   holdFireWhileDragging: boolean;
 
   // --- Deck ---
-  deckSlots: number;
-  deckArcDeg: number;
+  /** Angle between neighboring deck slots; the arc grows with the level's slot count. */
+  deckSlotSpacingDeg: number;
   deckGap: number;
 
   // --- Queue ---
-  queueLines: number;
   queueVisible: number;
   queueLaneSpacing: number;
   queueHeadZ: number;
   queueSpacing: number;
   queueY: number;
-  minChargesPerShooter: number;
-  chargesPerShooter: number;
-  seed: number;
 
   // --- Pulling ---
   /** Maximum visible collected pixels, rounded up to complete 3×3 layers. */
@@ -64,9 +61,6 @@ export interface Settings {
   fireCooldown: number;
   projectileSpeed: number;
   projectileArc: number;
-
-  // --- Content ---
-  shapes: string[];
 }
 
 /** The committed tuning. Typed against Settings, so a missing key fails the build. */
@@ -90,7 +84,7 @@ export const TOGGLES: ToggleDef[] = [
 ];
 
 export interface FieldDef {
-  key: Exclude<keyof Settings, 'shapes' | BooleanKey>;
+  key: Exclude<keyof Settings, BooleanKey>;
   label: string;
   group: string;
   min: number;
@@ -105,7 +99,6 @@ export const FIELDS: FieldDef[] = [
   { key: 'camPitchDeg', label: 'Pitch (look-down)', group: 'Camera', min: -20, max: 70, step: 1 },
   { key: 'camTargetY', label: 'Aim height', group: 'Camera', min: -2, max: 10, step: 0.1 },
 
-  { key: 'billboardCount', label: 'Billboards', group: 'Carousel', min: 1, max: 10, step: 1, structural: true },
   { key: 'carouselRadius', label: 'Ring radius', group: 'Carousel', min: 1.5, max: 9, step: 0.1, structural: true },
   { key: 'autoRotateDegPerSec', label: 'Auto-rotate °/s', group: 'Carousel', min: 0, max: 60, step: 1 },
   { key: 'dragSensitivity', label: 'Drag sensitivity', group: 'Carousel', min: 0.1, max: 3, step: 0.05 },
@@ -123,19 +116,14 @@ export const FIELDS: FieldDef[] = [
   { key: 'ambientSway', label: 'Ambient sway', group: 'Swing', min: 0, max: 3, step: 0.05 },
 
 
-  { key: 'deckSlots', label: 'Deck slots', group: 'Deck', min: 1, max: 10, step: 1, structural: true },
-  { key: 'deckArcDeg', label: 'Deck arc °', group: 'Deck', min: 10, max: 180, step: 2, structural: true },
+  { key: 'deckSlotSpacingDeg', label: 'Deck slot spacing °', group: 'Deck', min: 8, max: 30, step: 0.2, structural: true },
   { key: 'deckGap', label: 'Deck gap under boards', group: 'Deck', min: 0, max: 4, step: 0.05, structural: true },
 
-  { key: 'queueLines', label: 'Queue lines', group: 'Queue', min: 1, max: 6, step: 1, structural: true },
   { key: 'queueVisible', label: 'Visible per line', group: 'Queue', min: 1, max: 12, step: 1, structural: true },
   { key: 'queueLaneSpacing', label: 'Lane spacing', group: 'Queue', min: 0.5, max: 3, step: 0.05, structural: true },
   { key: 'queueHeadZ', label: 'Queue head Z', group: 'Queue', min: 2, max: 12, step: 0.1, structural: true },
   { key: 'queueSpacing', label: 'Queue spacing', group: 'Queue', min: 0.3, max: 2, step: 0.05, structural: true },
   { key: 'queueY', label: 'Queue height', group: 'Queue', min: -2, max: 4, step: 0.05, structural: true },
-  { key: 'minChargesPerShooter', label: 'Min charges / shooter', group: 'Queue', min: 1, max: 30, step: 1, structural: true },
-  { key: 'chargesPerShooter', label: 'Max charges / shooter', group: 'Queue', min: 1, max: 30, step: 1, structural: true },
-  { key: 'seed', label: 'Seed', group: 'Queue', min: 1, max: 999, step: 1, structural: true },
 
   { key: 'containerVisibleCubes', label: 'Visible pixels (3×3 layers)', group: 'Pulling', min: 9, max: 108, step: 9 },
   { key: 'fireCooldown', label: 'Pull cooldown (s)', group: 'Pulling', min: 0.05, max: 2, step: 0.05 },
@@ -153,7 +141,7 @@ export function onSaveStatus(fn: ((status: SaveStatus, detail?: string) => void)
 }
 
 export function loadSettings(): Settings {
-  return { ...DEFAULT_SETTINGS, shapes: [...DEFAULT_SETTINGS.shapes] };
+  return { ...DEFAULT_SETTINGS };
 }
 
 let pending: Settings | null = null;
@@ -166,7 +154,7 @@ let flushTimer: number | undefined;
  */
 export function saveSettings(s: Settings) {
   if (!import.meta.env.DEV) return;
-  pending = { ...s, shapes: [...s.shapes] };
+  pending = { ...s };
   statusHandler?.('saving');
   window.clearTimeout(flushTimer);
   flushTimer = window.setTimeout(flushSettings, 250);
@@ -191,13 +179,13 @@ async function flushSettings() {
 
 /**
  * Coerce an arbitrary parsed object into valid Settings: unknown keys dropped,
- * numbers clamped to each field's slider range, shapes checked against the
- * known shape ids. Returns null if nothing usable was found.
+ * numbers clamped to each field's slider range. Returns null if nothing usable
+ * was found.
  */
-export function sanitizeSettings(raw: unknown, knownShapeIds: string[]): Settings | null {
+export function sanitizeSettings(raw: unknown): Settings | null {
   if (typeof raw !== 'object' || raw === null || Array.isArray(raw)) return null;
   const src = raw as Record<string, unknown>;
-  const out: Settings = { ...DEFAULT_SETTINGS, shapes: [...DEFAULT_SETTINGS.shapes] };
+  const out: Settings = { ...DEFAULT_SETTINGS };
   let matched = 0;
 
   for (const f of FIELDS) {
@@ -212,15 +200,6 @@ export function sanitizeSettings(raw: unknown, knownShapeIds: string[]): Setting
     if (typeof v !== 'boolean') continue;
     out[t.key] = v;
     matched++;
-  }
-
-  const shapes = src.shapes;
-  if (Array.isArray(shapes)) {
-    const valid = shapes.filter((x): x is string => typeof x === 'string' && knownShapeIds.includes(x));
-    if (valid.length > 0) {
-      out.shapes = [...new Set(valid)];
-      matched++;
-    }
   }
 
   return matched > 0 ? out : null;

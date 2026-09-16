@@ -8,6 +8,12 @@ function start() {
   unmountDevShell?.();
   unmountDevShell = undefined;
   game?.dispose();
+
+  // Local only: the art library review page replaces the game.
+  if (import.meta.env.DEV && new URLSearchParams(location.search).has('gallery')) {
+    void import('./dev/Gallery').then(({ mountGallery }) => mountGallery(document.body.appendChild(document.createElement('div'))));
+    return;
+  }
   game = new GameApp(app);
 
   // Local only. `import.meta.env.DEV` is substituted at build time, so the whole

@@ -1,0 +1,27 @@
+{
+  "id": "pear",
+  "name": "Pear",
+  "tags": ["food"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Pear" },
+  "art": [
+    ".222.........",
+    "2222211......",
+    "....1111.....",
+    "...111111....",
+    "...1111111...",
+    "....1111111..",
+    "....11111111.",
+    "....111111111",
+    "...1111111111",
+    "...1111111111",
+    "...1111111111",
+    "....11111111.",
+    ".....1111111.",
+    "......1111..."
+  ],
+  "groups": {
+    "1": { "part": "pear", "suggest": ["lime", "yellow", "green"] },
+    "2": { "part": "stem and leaf", "suggest": ["green", "brown"] }
+  }
+}

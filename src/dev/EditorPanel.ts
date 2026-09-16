@@ -7,12 +7,13 @@ import {
   type SaveStatus,
   type Settings,
 } from '../shared/settings';
-import { SHAPES } from '../game/shapes';
 
 export interface EditorCallbacks {
   /** structural = the level needs rebuilding; otherwise apply live. */
   onChange(structural: boolean): void;
   onRestart(): void;
+  /** Move to the previous (-1) or next (+1) level number. */
+  onLevelStep(step: number): void;
 }
 
 /**
@@ -33,7 +34,7 @@ export class EditorPanel {
     private readonly settings: Settings,
     private readonly cb: EditorCallbacks,
   ) {
-    this.opened = { ...settings, shapes: [...settings.shapes] };
+    this.opened = { ...settings };
 
     const head = document.createElement('div');
     head.className = 'ed-head';
@@ -59,8 +60,6 @@ export class EditorPanel {
       }
       return el;
     };
-
-    body.appendChild(this.buildShapeGroup());
 
     for (const f of FIELDS) {
       const row = document.createElement('label');
@@ -113,9 +112,11 @@ export class EditorPanel {
     const actions = document.createElement('div');
     actions.className = 'ed-actions';
     actions.append(
+      this.button('◀ Level', 'btn small ghost', () => this.cb.onLevelStep(-1)),
+      this.button('Level ▶', 'btn small ghost', () => this.cb.onLevelStep(1)),
       this.button('Restart level', 'btn small', () => this.cb.onRestart()),
       this.button('Revert', 'btn small ghost', () => {
-        Object.assign(this.settings, { ...this.opened, shapes: [...this.opened.shapes] });
+        Object.assign(this.settings, this.opened);
         this.syncInputs();
         saveSettings(this.settings);
         this.cb.onChange(true);
@@ -138,36 +139,6 @@ export class EditorPanel {
       s === 'saving' ? 'saving…' : s === 'saved' ? 'saved to defaults.json' : `save failed — ${detail ?? ''}`;
     this.status.textContent = text;
     this.status.classList.toggle('bad', s === 'failed');
-  }
-
-  private buildShapeGroup(): HTMLDivElement {
-    const g = document.createElement('div');
-    g.className = 'ed-group';
-    g.innerHTML = `<div class="ed-group-title">Shapes in play</div>`;
-    const chips = document.createElement('div');
-    chips.className = 'ed-chips';
-    for (const shape of SHAPES) {
-      const chip = document.createElement('button');
-      chip.className = 'ed-chip';
-      chip.textContent = shape.name;
-      const sync = () => chip.classList.toggle('on', this.settings.shapes.includes(shape.id));
-      sync();
-      chip.addEventListener('click', () => {
-        const i = this.settings.shapes.indexOf(shape.id);
-        if (i >= 0) {
-          if (this.settings.shapes.length === 1) return; // keep at least one
-          this.settings.shapes.splice(i, 1);
-        } else {
-          this.settings.shapes.push(shape.id);
-        }
-        sync();
-        saveSettings(this.settings);
-        this.cb.onChange(true);
-      });
-      chips.appendChild(chip);
-    }
-    g.appendChild(chips);
-    return g;
   }
 
   /** Read the tuning out to share, or paste one in to apply it. */
@@ -214,7 +185,7 @@ export class EditorPanel {
         say('That is not valid JSON.', true);
         return;
       }
-      const clean = sanitizeSettings(parsed, SHAPES.map((sh) => sh.id));
+      const clean = sanitizeSettings(parsed);
       if (!clean) {
         say('No recognisable tuning values in there.', true);
         return;
@@ -245,9 +216,6 @@ export class EditorPanel {
       const decimals = f.step < 1 ? (String(f.step).split('.')[1]?.length ?? 1) : 0;
       row.out.textContent = v.toFixed(decimals);
     }
-    this.root.querySelectorAll<HTMLButtonElement>('.ed-chips .ed-chip').forEach((chip, i) => {
-      chip.classList.toggle('on', this.settings.shapes.includes(SHAPES[i].id));
-    });
     for (const t of TOGGLES) {
       const btn = this.toggleBtns.get(t.key);
       if (!btn) continue;

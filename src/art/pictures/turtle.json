@@ -1,0 +1,24 @@
+{
+  "id": "turtle",
+  "name": "Turtle",
+  "tags": ["animal"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Turtle" },
+  "art": [
+    "......11111.....",
+    "....11111111....",
+    "...11311111311..",
+    "..111133313111..",
+    ".21111111131111.",
+    "221313111113311.",
+    "221113333331111.",
+    ".211111111111112",
+    "..2222....22222.",
+    "..2222....22222."
+  ],
+  "groups": {
+    "1": { "part": "shell", "suggest": ["green", "brown"] },
+    "2": { "part": "body", "suggest": ["lime"] },
+    "3": { "part": "eye", "suggest": ["black"] }
+  }
+}

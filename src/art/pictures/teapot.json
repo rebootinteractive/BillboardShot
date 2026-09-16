@@ -1,0 +1,27 @@
+{
+  "id": "teapot",
+  "name": "Teapot",
+  "tags": ["food"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Teapot" },
+  "art": [
+    ".......11.......",
+    "......1111......",
+    "...222222222....",
+    "11.111111111....",
+    "11.11111111111..",
+    "1111111111111111",
+    "1111111111111..1",
+    "1111111111111..1",
+    "111111111111111.",
+    ".11111111111111.",
+    "..11111111111...",
+    "...111111111....",
+    "....1111111.....",
+    ".....111111....."
+  ],
+  "groups": {
+    "1": { "part": "red", "suggest": ["red"] },
+    "2": { "part": "orange", "suggest": ["orange"] }
+  }
+}

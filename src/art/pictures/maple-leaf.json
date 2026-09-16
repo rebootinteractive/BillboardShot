@@ -1,0 +1,25 @@
+{
+  "id": "maple-leaf",
+  "name": "Maple Leaf",
+  "tags": ["nature"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Maple%20leaf" },
+  "art": [
+    "......1......",
+    "....1.1.1....",
+    "....11111....",
+    "....11111....",
+    "..1.11111.1..",
+    "1111111111111",
+    ".11111111111.",
+    "1111111111111",
+    ".11111111111.",
+    "...1111111...",
+    "...1..1..1...",
+    "......1......",
+    "......1......"
+  ],
+  "groups": {
+    "1": { "part": "red", "suggest": ["red"] }
+  }
+}

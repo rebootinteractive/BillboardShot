@@ -1,0 +1,31 @@
+{
+  "id": "dog",
+  "name": "Dog",
+  "tags": ["animal"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Dog%20face" },
+  "art": [
+    ".22222111122222.",
+    "2222211111122222",
+    "2222211111122222",
+    "2222111111112222",
+    "2221111111111222",
+    "2221115115111122",
+    "2211111111111122",
+    ".11113335331111.",
+    ".11133355333111.",
+    ".11133333333311.",
+    ".11333335333311.",
+    ".11133544533111.",
+    "..113344443311..",
+    ".....344443.....",
+    ".......44......."
+  ],
+  "groups": {
+    "1": { "part": "fur", "suggest": ["yellow", "orange"] },
+    "2": { "part": "ears", "suggest": ["brown"] },
+    "3": { "part": "muzzle", "suggest": ["white"] },
+    "4": { "part": "tongue", "suggest": ["red", "pink"] },
+    "5": { "part": "eyes and nose", "suggest": ["black"] }
+  }
+}
