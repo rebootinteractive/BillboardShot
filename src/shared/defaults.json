@@ -13,14 +13,14 @@
   "cellSize": 0.22,
   "ceilingHeight": 8.7,
   "ropeLength": 0.6,
-  "swingStiffness": 2,
-  "swingDamping": 10,
-  "swingImpulse": 0,
-  "ambientSway": 0,
+  "swingStiffness": 22,
+  "swingDamping": 6,
+  "swingImpulse": 0.045,
+  "ambientSway": 0.08,
   "holdFireWhileDragging": true,
   "deckSlots": 6,
   "deckArcDeg": 76,
-  "deckGap": 2.2,
+  "deckGap": 1.65,
   "queueLines": 3,
   "queueVisible": 4,
   "queueLaneSpacing": 1.15,
@@ -30,8 +30,16 @@
   "minChargesPerShooter": 3,
   "chargesPerShooter": 20,
   "seed": 7,
+  "containerVisibleCubes": 36,
   "fireCooldown": 0.05,
   "projectileSpeed": 9,
   "projectileArc": 1.1,
-  "shapes": ["heart", "tree", "star", "mushroom", "smiley", "ghost"]
+  "shapes": [
+    "heart",
+    "tree",
+    "star",
+    "mushroom",
+    "smiley",
+    "ghost"
+  ]
 }

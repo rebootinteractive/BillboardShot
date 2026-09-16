@@ -4,13 +4,17 @@ import { COLOR_HEX } from '../shared/colors';
 import { loadSettings, type Settings } from '../shared/settings';
 import { Billboard, type EligibleTarget, type Tile } from './Billboard';
 import { Shooter } from './Shooter';
-import { Projectile } from './Projectile';
+import { PulledCube } from './PulledCube';
 import { buildLevel } from './level';
 import { Hud } from './Hud';
+import { Feedback } from './Feedback';
+import { roundedBox, pastelBackground, shadowTexture } from './visuals';
 
 const SHOOTER_SCALE = 0.85;
 const WALK_SPEED = 4.2;
-const RETIRE_TIME = 0.36;
+const RETIRE_TIME = 0.48;
+/** How long a full container lingers before it leaves the deck. */
+const FULL_HOLD = 0.3;
 
 interface DeckSlot {
   pos: THREE.Vector3;
@@ -27,6 +31,11 @@ export class GameApp {
   private readonly clock = new THREE.Clock();
   private readonly ro: ResizeObserver;
   private readonly hud: Hud;
+  private readonly feedback: Feedback;
+  private readonly background = pastelBackground();
+  private readonly contactTexture = shadowTexture();
+  private manualTime = new URLSearchParams(location.search).has('test');
+  private slotPads: THREE.Mesh<THREE.BufferGeometry, THREE.MeshStandardMaterial>[] = [];
   private rafId = 0;
   private elapsed = 0;
 
@@ -35,6 +44,7 @@ export class GameApp {
   private readonly carousel = new THREE.Group();
   private readonly staticStage = new THREE.Group();
   private billboards: Billboard[] = [];
+  private reflowTime = 0;
   /** The one board nearest the camera — the only one anything can shoot. */
   private focused: Billboard | null = null;
   private deckSlots: DeckSlot[] = [];
@@ -42,15 +52,14 @@ export class GameApp {
   private deckY = 0;
   private deckOccupants: (Shooter | null)[] = [];
   private lanes: Shooter[][] = [];
-  private projectiles: Projectile[] = [];
+  /** Cubes currently on their way from a billboard into a container. */
+  private pulls: PulledCube[] = [];
   private allShooters: Shooter[] = [];
   /** Shootable pixels inside the firing arc, rebuilt once per frame. */
   private targets: EligibleTarget[] = [];
   private disposables: Array<{ dispose(): void }> = [];
 
   // ---- shared assets ----
-  private readonly shotGeo = new THREE.SphereGeometry(0.075, 10, 8);
-  private readonly shotMats = new Map<ColorKey, THREE.MeshBasicMaterial>();
 
   // ---- input ----
   private pointerDown = false;
@@ -71,6 +80,7 @@ export class GameApp {
   private readonly scratch2 = new THREE.Vector3();
 
   private over: 'none' | 'win' | 'lose' = 'none';
+  private winReveal = 0;
   private rebuildTimer: number | undefined;
 
   constructor(private readonly parent: HTMLElement) {
@@ -79,16 +89,31 @@ export class GameApp {
     this.renderer.setSize(parent.clientWidth || 393, parent.clientHeight || 852, false);
     parent.appendChild(this.renderer.domElement);
 
-    this.scene.background = new THREE.Color(0x151824);
-    this.scene.fog = new THREE.Fog(0x151824, 18, 34);
+    this.renderer.outputColorSpace = THREE.SRGBColorSpace;
+    this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    this.renderer.toneMappingExposure = 1.05;
+    this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMap.type = THREE.VSMShadowMap;
+    this.scene.background = this.background;
     this.camera = new THREE.PerspectiveCamera(52, 393 / 852, 0.1, 100);
 
-    const hemi = new THREE.HemisphereLight(0xcfe0ff, 0x1a1d2a, 1.15);
+    const hemi = new THREE.HemisphereLight(0xfff5df, 0xc39b79, 1.6);
     this.scene.add(hemi);
-    const key = new THREE.DirectionalLight(0xffffff, 1.5);
-    key.position.set(4, 10, 8);
+    const key = new THREE.DirectionalLight(0xfff6e7, 2.3);
+    key.position.set(-3, 12, 7);
+    key.castShadow = true;
+    key.shadow.mapSize.set(1024, 1024);
+    key.shadow.camera.left = -7;
+    key.shadow.camera.right = 7;
+    key.shadow.camera.top = 10;
+    key.shadow.camera.bottom = -7;
+    key.shadow.normalBias = 0.035;
+    key.shadow.bias = -0.0002;
+    key.shadow.intensity = 0.4;
+    key.shadow.radius = 7;
+    key.shadow.blurSamples = 8;
     this.scene.add(key);
-    const rim = new THREE.DirectionalLight(0x6f8cff, 0.6);
+    const rim = new THREE.DirectionalLight(0xd8eaff, 0.8);
     rim.position.set(-6, 4, -6);
     this.scene.add(rim);
 
@@ -96,6 +121,7 @@ export class GameApp {
     this.scene.add(this.world);
 
     this.hud = new Hud(parent, { onRestart: () => this.restart() });
+    this.feedback = new Feedback(this.world);
 
     this.buildWorld();
     this.applyCamera();
@@ -109,54 +135,55 @@ export class GameApp {
     this.loop();
 
     // Handy for poking at the prototype from the browser console.
-    (window as unknown as Record<string, unknown>).__game = this;
+    const debug = window as unknown as Record<string, unknown>;
+    debug.__game = this;
+    debug.render_game_to_text = () => this.renderGameToText();
+    debug.advanceTime = (ms: number) => {
+      this.manualTime = true;
+      for (let remaining = Math.min(ms / 1000, 60); remaining > 0; remaining -= 1 / 60) {
+        const dt = Math.min(remaining, 1 / 60);
+        this.elapsed += dt;
+        this.tick(dt);
+      }
+      this.renderer.render(this.scene, this.camera);
+    };
   }
 
   // ------------------------------------------------------------------ build
-
-  private shotMaterial(c: ColorKey) {
-    let m = this.shotMats.get(c);
-    if (!m) {
-      m = new THREE.MeshBasicMaterial({ color: COLOR_HEX[c] });
-      this.shotMats.set(c, m);
-    }
-    return m;
-  }
 
   private buildWorld() {
     const s = this.settings;
     const plan = buildLevel(s);
     this.over = 'none';
+    this.winReveal = 0;
+    this.reflowTime = 0;
     this.hud.dismiss();
 
     // --- carousel structure ---
-    const ringGeo = new THREE.TorusGeometry(s.carouselRadius, 0.055, 8, 64);
-    const ringMat = new THREE.MeshStandardMaterial({ color: 0x59617d, roughness: 0.5, metalness: 0.4 });
+    const ringGeo = new THREE.TorusGeometry(s.carouselRadius, 0.09, 12, 96);
+    const ringMat = new THREE.MeshStandardMaterial({ color: 0xffedce, roughness: 0.38, metalness: 0 });
     const ring = new THREE.Mesh(ringGeo, ringMat);
     ring.rotation.x = Math.PI / 2;
     ring.position.y = s.ceilingHeight;
     this.carousel.add(ring);
     this.disposables.push({ dispose: () => { ringGeo.dispose(); ringMat.dispose(); } });
 
-    const poleGeo = new THREE.CylinderGeometry(0.07, 0.07, s.ceilingHeight + 1.5, 10);
-    const poleMat = new THREE.MeshStandardMaterial({ color: 0x3a4056, roughness: 0.6 });
+    const poleGeo = new THREE.CylinderGeometry(0.085, 0.12, s.ceilingHeight - s.queueY, 16);
+    const poleMat = new THREE.MeshStandardMaterial({ color: 0xe1b784, roughness: 0.6 });
     const pole = new THREE.Mesh(poleGeo, poleMat);
-    pole.position.y = (s.ceilingHeight + 1.5) / 2 - 1.5;
+    pole.position.y = (s.ceilingHeight + s.queueY) / 2;
     this.carousel.add(pole);
-    const spokeGeo = new THREE.BoxGeometry(s.carouselRadius, 0.05, 0.05);
-    for (let i = 0; i < s.billboardCount; i++) {
-      const a = (i / s.billboardCount) * Math.PI * 2;
-      const spoke = new THREE.Mesh(spokeGeo, ringMat);
-      spoke.position.set((Math.sin(a) * s.carouselRadius) / 2, s.ceilingHeight, (Math.cos(a) * s.carouselRadius) / 2);
-      spoke.rotation.y = a + Math.PI / 2;
-      this.carousel.add(spoke);
-    }
+    const spokeGeo = roundedBox(s.carouselRadius, 0.065, 0.065, 0.025);
     this.disposables.push({ dispose: () => { poleGeo.dispose(); poleMat.dispose(); spokeGeo.dispose(); } });
 
     // --- billboards ---
     for (let i = 0; i < s.billboardCount; i++) {
       const angle = (i / s.billboardCount) * Math.PI * 2;
       const bb = new Billboard(plan.boards[i], angle, s, i);
+      const spoke = new THREE.Mesh(spokeGeo, ringMat);
+      spoke.position.set(0, s.ceilingHeight, s.carouselRadius / 2);
+      spoke.rotation.y = Math.PI / 2;
+      bb.arm.add(spoke);
       this.carousel.add(bb.arm);
       this.billboards.push(bb);
     }
@@ -171,7 +198,7 @@ export class GameApp {
 
     const arc = THREE.MathUtils.degToRad(s.deckArcDeg);
     const railGeo = new THREE.TorusGeometry(s.carouselRadius, 0.06, 8, 48, arc);
-    const railMat = new THREE.MeshStandardMaterial({ color: 0x424a63, roughness: 0.6, metalness: 0.2 });
+    const railMat = new THREE.MeshStandardMaterial({ color: 0xe5b885, roughness: 0.65, metalness: 0 });
     const rail = new THREE.Mesh(railGeo, railMat);
     rail.rotation.x = -Math.PI / 2;
     rail.rotation.z = -Math.PI / 2 - arc / 2;
@@ -179,14 +206,17 @@ export class GameApp {
     this.staticStage.add(rail);
     this.disposables.push({ dispose: () => { railGeo.dispose(); railMat.dispose(); } });
 
-    const padGeo = new THREE.CylinderGeometry(0.36, 0.4, 0.1, 16);
-    const padMat = new THREE.MeshStandardMaterial({ color: 0x2e3548, roughness: 0.8 });
+    const padGeo = roundedBox(0.68, 0.13, 0.68, 0.065);
+    const padMat = new THREE.MeshStandardMaterial({ color: 0xfff5df, roughness: 0.5 });
     for (let i = 0; i < s.deckSlots; i++) {
       const a = s.deckSlots === 1 ? 0 : -arc / 2 + (i / (s.deckSlots - 1)) * arc;
       const pos = new THREE.Vector3(Math.sin(a) * s.carouselRadius, this.deckY, Math.cos(a) * s.carouselRadius);
       this.deckSlots.push({ pos, angle: a });
       this.deckOccupants.push(null);
-      const pad = new THREE.Mesh(padGeo, padMat);
+      const pad = new THREE.Mesh(padGeo, padMat.clone());
+      this.slotPads.push(pad);
+      pad.receiveShadow = true;
+      this.disposables.push(pad.material);
       pad.position.copy(pos);
       pad.position.y -= 0.04;
       this.staticStage.add(pad);
@@ -194,17 +224,18 @@ export class GameApp {
     this.disposables.push({ dispose: () => { padGeo.dispose(); padMat.dispose(); } });
 
     // --- queue lines ---
-    const laneMat = new THREE.MeshStandardMaterial({ color: 0x232a3b, roughness: 0.9 });
+    const laneMat = new THREE.MeshStandardMaterial({ color: 0xd6dfe6, roughness: 0.8 });
     const headRingGeo = new THREE.RingGeometry(0.34, 0.44, 24);
-    const headRingMat = new THREE.MeshBasicMaterial({ color: 0x58e1c4, transparent: true, opacity: 0.55, side: THREE.DoubleSide });
+    const headRingMat = new THREE.MeshBasicMaterial({ color: 0xfff9e7, transparent: true, opacity: 0.7, side: THREE.DoubleSide });
     this.disposables.push({ dispose: () => { headRingGeo.dispose(); headRingMat.dispose(); } });
     for (let k = 0; k < s.queueLines; k++) {
       const entries = plan.lanes[k] ?? [];
       const laneLen = Math.max(1, Math.min(entries.length, s.queueVisible));
-      const laneGeo = new THREE.BoxGeometry(0.9, 0.06, laneLen * s.queueSpacing + 0.5);
+      const laneGeo = roundedBox(0.9, 0.12, laneLen * s.queueSpacing + 0.5, 0.06);
       const laneMesh = new THREE.Mesh(laneGeo, laneMat);
       const lanePos = this.lanePosition(k, (laneLen - 1) / 2);
       laneMesh.position.set(lanePos.x, s.queueY - 0.03, lanePos.z);
+      laneMesh.receiveShadow = true;
       this.staticStage.add(laneMesh);
       this.disposables.push({ dispose: () => laneGeo.dispose() });
 
@@ -232,13 +263,29 @@ export class GameApp {
     }
     this.disposables.push({ dispose: () => laneMat.dispose() });
 
-    const floorGeo = new THREE.CircleGeometry(s.carouselRadius * 2.6, 48);
-    const floorMat = new THREE.MeshStandardMaterial({ color: 0x191d2b, roughness: 1 });
+    // A shallow cream plinth and soft contact shadows ground the miniature carousel.
+    const floorGeo = new THREE.CylinderGeometry(s.carouselRadius * 1.95, s.carouselRadius * 1.95, 0.18, 96);
+    const floorMat = new THREE.MeshStandardMaterial({ color: 0xcbd3dc, roughness: 0.85 });
     const floor = new THREE.Mesh(floorGeo, floorMat);
-    floor.rotation.x = -Math.PI / 2;
-    floor.position.y = s.queueY - 0.09;
+    floor.position.set(0, s.queueY - 0.2, 1.35);
+    floor.receiveShadow = true;
     this.staticStage.add(floor);
     this.disposables.push({ dispose: () => { floorGeo.dispose(); floorMat.dispose(); } });
+    const shadowGeo = new THREE.PlaneGeometry(1, 1);
+    const shadowMat = new THREE.MeshBasicMaterial({ map: this.contactTexture, transparent: true, depthWrite: false });
+    const addShadow = (x: number, z: number, w: number, d: number) => {
+      const shadow = new THREE.Mesh(shadowGeo, shadowMat);
+      shadow.rotation.x = -Math.PI / 2;
+      shadow.position.set(x, s.queueY - 0.1 + 0.002, z);
+      shadow.scale.set(w, d, 1);
+      this.staticStage.add(shadow);
+    };
+    addShadow(0, 0, 4.5, 4.5);
+    for (let k = 0; k < s.queueLines; k++) {
+      const p = this.lanePosition(k, 1.5);
+      addShadow(p.x, p.z, 1.4, 4.1);
+    }
+    this.disposables.push({ dispose: () => { shadowGeo.dispose(); shadowMat.dispose(); } });
   }
 
   /** Index 0 is the head of the line — nearest the deck. The rest trail toward the camera. */
@@ -252,11 +299,13 @@ export class GameApp {
   }
 
   private destroyWorld() {
-    for (const p of this.projectiles) {
-      p.mesh.parent?.remove(p.mesh);
+    for (const p of this.pulls) {
+      p.tile.mesh.parent?.remove(p.tile.mesh);
     }
-    this.projectiles = [];
+    this.pulls = [];
     this.targets.length = 0;
+    this.feedback.clear();
+    this.slotPads = [];
     for (const sh of this.allShooters) sh.dispose();
     this.allShooters = [];
     this.lanes = [];
@@ -272,6 +321,9 @@ export class GameApp {
     this.carousel.rotation.y = 0;
     this.spinVel = 0;
     this.snapTarget = null;
+    this.pointerDown = false;
+    this.dragging = false;
+    this.tapCandidate = null;
   }
 
   /** Rebuild the level from the current tuning. */
@@ -313,6 +365,7 @@ export class GameApp {
 
   private readonly onDown = (e: PointerEvent) => {
     if (this.over !== 'none') return;
+    this.feedback.unlock();
     this.pointerDown = true;
     this.dragging = false;
     this.startX = e.clientX;
@@ -322,6 +375,7 @@ export class GameApp {
     this.dragVel = 0;
     this.snapTarget = null;
     this.tapCandidate = this.pickShooter(e);
+    this.tapCandidate?.press(true);
     try {
       this.renderer.domElement.setPointerCapture(e.pointerId);
     } catch {
@@ -338,6 +392,7 @@ export class GameApp {
       if (moved <= 9) return;
       // Only a real drag takes the wheel — a tap must not disturb the spin.
       this.dragging = true;
+      this.tapCandidate?.press(false);
       this.spinVel = 0;
       this.lastMoveTime = performance.now();
       return;
@@ -360,20 +415,26 @@ export class GameApp {
     } catch {
       /* ignore */
     }
+    this.tapCandidate?.press(false);
     if (this.dragging) {
       // Let the throw decide which board it was heading for, then settle onto it
       // exactly, so a board always ends up on the focus point.
-      const spacing = (Math.PI * 2) / Math.max(1, this.billboards.length);
       const coast = this.spinDampingRate() > 0 ? this.dragVel / this.spinDampingRate() : 0;
       const predicted = this.carousel.rotation.y + coast;
-      this.snapTarget = Math.round(predicted / spacing) * spacing;
+      this.snapTarget = this.nearestBoardSnap(predicted);
       this.spinVel = 0;
       this.autoResumeAt = performance.now() + this.settings.resumeAutoDelay * 1000;
-    } else if (this.tapCandidate) {
+    } else if (this.tapCandidate && e.type !== 'pointercancel') {
       this.sendToDeck(this.tapCandidate);
     }
     this.tapCandidate = null;
     this.dragging = false;
+  };
+
+  private readonly onKey = (e: KeyboardEvent) => {
+    if (e.key.toLowerCase() !== 'f' || e.repeat || (e.target instanceof HTMLElement && /INPUT|TEXTAREA/.test(e.target.tagName))) return;
+    if (document.fullscreenElement) void document.exitFullscreen().catch(() => {});
+    else void this.parent.parentElement?.requestFullscreen?.().catch(() => {});
   };
 
   private attachInput() {
@@ -383,6 +444,7 @@ export class GameApp {
     el.addEventListener('pointermove', this.onMove);
     el.addEventListener('pointerup', this.onUp);
     el.addEventListener('pointercancel', this.onUp);
+    window.addEventListener('keydown', this.onKey);
   }
 
   private detachInput() {
@@ -391,6 +453,7 @@ export class GameApp {
     el.removeEventListener('pointermove', this.onMove);
     el.removeEventListener('pointerup', this.onUp);
     el.removeEventListener('pointercancel', this.onUp);
+    window.removeEventListener('keydown', this.onKey);
   }
 
   /**
@@ -423,6 +486,7 @@ export class GameApp {
     }
     const slot = this.deckOccupants.indexOf(null);
     if (slot < 0) {
+      sh.reject();
       this.hud.flash('Deck is full');
       return;
     }
@@ -431,6 +495,8 @@ export class GameApp {
     sh.slot = slot;
     sh.state = 'walking';
     sh.target.copy(this.deckSlots[slot].pos);
+    sh.beginTravel();
+    this.feedback.note('tap');
   }
 
   // ------------------------------------------------------------------ loop
@@ -438,13 +504,16 @@ export class GameApp {
   private readonly loop = () => {
     this.rafId = requestAnimationFrame(this.loop);
     const dt = Math.min(0.05, this.clock.getDelta());
-    this.elapsed += dt;
-    this.tick(dt);
+    if (!this.manualTime) {
+      this.elapsed += dt;
+      this.tick(dt);
+    }
     this.renderer.render(this.scene, this.camera);
   };
 
   private tick(dt: number) {
     const s = this.settings;
+    this.reflowTime = Math.max(0, this.reflowTime - dt);
 
     // --- carousel spin ---
     if (!this.dragging) {
@@ -460,7 +529,7 @@ export class GameApp {
         this.carousel.rotation.y += this.spinVel * dt;
         this.spinVel *= Math.exp(-s.spinDamping * dt);
         if (Math.abs(this.spinVel) < 0.02) this.spinVel = 0;
-        if (performance.now() >= this.autoResumeAt) {
+        if (this.reflowTime === 0 && performance.now() >= this.autoResumeAt) {
           this.carousel.rotation.y += THREE.MathUtils.degToRad(s.autoRotateDegPerSec) * dt;
         }
       }
@@ -472,12 +541,31 @@ export class GameApp {
     this.world.updateMatrixWorld(true);
 
     this.updateFocus();
+    for (const bb of this.billboards) bb.setFocus(bb === this.focused, dt);
+    this.slotPads.forEach((pad, i) => {
+      const occupant = this.deckOccupants[i];
+      const color = new THREE.Color(occupant ? COLOR_HEX[occupant.color] : 0xfff5df);
+      if (occupant) color.lerp(new THREE.Color(0xffffff), 0.6);
+      pad.material.color.lerp(color, 1 - Math.exp(-8 * dt));
+    });
+    this.feedback.update(dt);
     this.buildTargets();
     this.updateShooters(dt, s);
-    this.updateProjectiles(dt, s);
+    this.updatePulls(dt, s);
+    this.retireClearedBoards();
+    // After this frame's arrivals, so a cube that just landed is already counted
+    // when the pile decides which of the older ones have left the window.
+    for (const sh of this.allShooters) {
+      sh.updateStack(dt, s.containerVisibleCubes);
+      sh.updateVisual(dt, this.camera.quaternion);
+    }
     this.hud.tick(dt);
     this.updateHud();
     if (this.over === 'none') this.checkEnd();
+    if (this.winReveal > 0) {
+      this.winReveal -= dt;
+      if (this.winReveal <= 0) this.hud.showEnd(true, 'Every pixel collected. Beautifully sorted.');
+    }
   }
 
   /**
@@ -501,8 +589,8 @@ export class GameApp {
 
   private updateShooters(dt: number, s: Settings) {
     const firers = this.pickFirers();
-    // Aiming and shooting are separate acts: nobody fires mid-drag.
-    const holdFire = s.holdFireWhileDragging && this.dragging;
+    // Aiming and pulling are separate acts: nobody pulls mid-drag.
+    const holdFire = this.reflowTime > 0 || (s.holdFireWhileDragging && this.dragging);
     // Queue shuffling forward.
     for (let k = 0; k < this.lanes.length; k++) {
       const lane = this.lanes[k];
@@ -532,9 +620,15 @@ export class GameApp {
         const isFirer = firers.get(sh.color) === sh.id;
         sh.setActive(isFirer && !holdFire);
         if (sh.charges <= 0) {
+          // Hold a beat once the last cube lands, so the full container is seen.
           if (sh.inFlight === 0) {
-            sh.state = 'retiring';
-            sh.retireT = 0;
+            sh.fullT += dt;
+            if (sh.fullT >= FULL_HOLD) {
+              sh.state = 'retiring';
+              sh.retireT = 0;
+              this.feedback.burst(sh.group.position.clone().add(new THREE.Vector3(0, 0.5, 0)), COLOR_HEX[sh.color], true);
+              this.feedback.note('complete');
+            }
           }
         } else if (isFirer && !holdFire && sh.cooldown <= 0) {
           this.tryFire(sh, s);
@@ -542,8 +636,8 @@ export class GameApp {
       } else if (sh.state === 'retiring') {
         sh.retireT += dt / RETIRE_TIME;
         const t = Math.min(1, sh.retireT);
-        sh.group.position.y = this.deckY + t * 1.1;
-        sh.group.scale.setScalar(Math.max(0.001, 1 - t));
+        sh.group.position.y = this.deckY + t * t * 1.4;
+        sh.group.scale.setScalar(Math.max(0.001, (1 - t * t) * (1 + Math.sin(t * Math.PI) * 0.12)));
         if (t >= 1) {
           sh.state = 'gone';
           if (sh.slot >= 0 && this.deckOccupants[sh.slot] === sh) this.deckOccupants[sh.slot] = null;
@@ -556,12 +650,57 @@ export class GameApp {
     }
   }
 
+  /** Pick a real remaining board, including the offset introduced by a reflow. */
+  private nearestBoardSnap(rotation: number): number | null {
+    let target: number | null = null;
+    let closest = Infinity;
+    for (const board of this.billboards) {
+      if (board.frameState !== 'hanging' || board.aliveCount === 0) continue;
+      const delta = GameApp.angleBetween(rotation, -board.targetAngle);
+      if (Math.abs(delta) < closest) {
+        closest = Math.abs(delta);
+        target = rotation + delta;
+      }
+    }
+    return target;
+  }
+
+  private retireClearedBoards() {
+    const cleared = this.billboards.filter(board => board.frameState === 'hanging' && board.aliveCount === 0);
+    if (!cleared.length) return;
+    for (const board of cleared) board.dropFrame(this.world);
+    const remaining = this.billboards.filter(board => board.frameState === 'hanging');
+    this.snapTarget = null;
+    this.spinVel = 0;
+    if (!remaining.length) {
+      this.focused = null;
+      this.targets.length = 0;
+      return;
+    }
+    // Keep the focused survivor at the front, or bring its nearest neighbor in.
+    // Preserve cyclic order while distributing survivors around the full circle.
+    const anchor = this.focused && remaining.includes(this.focused) ? this.focused : remaining.reduce((best, board) =>
+      Math.abs(GameApp.angleBetween(0, board.angle + this.carousel.rotation.y)) <
+      Math.abs(GameApp.angleBetween(0, best.angle + this.carousel.rotation.y)) ? board : best,
+    );
+    const start = remaining.indexOf(anchor);
+    const spacing = Math.PI * 2 / remaining.length;
+    for (let i = 0; i < remaining.length; i++) {
+      remaining[(start + i) % remaining.length].moveToAngle(-this.carousel.rotation.y + i * spacing);
+    }
+    this.focused = anchor;
+    this.targets.length = 0;
+    this.reflowTime = 0.65;
+    this.autoResumeAt = performance.now() + this.settings.resumeAutoDelay * 1000;
+  }
+
   /** The board nearest the camera. Focus is shown by the snap, not by scale. */
   private updateFocus() {
     const spin = this.carousel.rotation.y;
     let best: Billboard | null = null;
     let bestOff = Infinity;
     for (const bb of this.billboards) {
+      if (bb.frameState !== 'hanging' || bb.aliveCount === 0) continue;
       const off = Math.abs(GameApp.angleBetween(0, bb.angle + spin));
       if (off < bestOff) {
         bestOff = off;
@@ -614,42 +753,38 @@ export class GameApp {
     const tile = this.targets[best].tile;
     this.targets.splice(best, 1);
 
-    const origin = this.scratch2.copy(sh.group.position);
-    origin.y += 0.7 * SHOOTER_SCALE;
-
+    // The real pixel leaves the artwork. Reserving it makes the one above it
+    // pullable straight away, exactly as a shot used to.
     tile.reserved = true;
-    tile.mesh.scale.setScalar(0.8);
-    const p = new Projectile(
-      this.shotGeo,
-      this.shotMaterial(sh.color),
-      origin,
-      tile,
-      sh,
-      s.projectileSpeed,
-      s.projectileArc,
-      0,
-    );
-    this.world.add(p.mesh);
-    this.projectiles.push(p);
+    tile.board.impulse(tile.mesh.position.x, s);
+    this.pulls.push(new PulledCube(this.world, tile, sh, s.containerVisibleCubes, s.projectileSpeed, s.projectileArc));
     sh.inFlight++;
     sh.charges -= 1;
     sh.refreshBadge();
     sh.cooldown = s.fireCooldown;
   }
 
-  private updateProjectiles(dt: number, s: Settings) {
-    for (let i = this.projectiles.length - 1; i >= 0; i--) {
-      const p = this.projectiles[i];
+  private updatePulls(dt: number, s: Settings) {
+    for (let i = this.pulls.length - 1; i >= 0; i--) {
+      const p = this.pulls[i];
       if (!p.update(dt)) continue;
       const tile: Tile = p.tile;
-      tile.mesh.scale.setScalar(1);
-      tile.board.destroyTile(tile);
-      tile.board.impulse(tile.mesh.position.x, s);
-      p.shooter.inFlight = Math.max(0, p.shooter.inFlight - 1);
-      p.mesh.parent?.remove(p.mesh);
-      this.projectiles.splice(i, 1);
+      const landing = tile.mesh.getWorldPosition(new THREE.Vector3());
+      this.feedback.burst(landing, COLOR_HEX[tile.color]);
+      this.feedback.note('land');
+      tile.board.releaseTile(tile);
+      if (tile.board.aliveCount === 0) {
+        tile.board.board.getWorldPosition(this.scratch);
+        this.feedback.burst(this.scratch, COLOR_HEX[tile.color], true);
+      }
+      // Each flight owns a distinct 3×3 cell, regardless of arrival order.
+      p.container.receiveCube(tile.mesh, tile.board.cell, p.stackIndex);
+      p.container.inFlight = Math.max(0, p.container.inFlight - 1);
+      this.pulls.splice(i, 1);
     }
+    void s;
   }
+
 
   private remainingByColor(): Map<ColorKey, number> {
     const m = new Map<ColorKey, number>();
@@ -678,10 +813,14 @@ export class GameApp {
     for (const bb of this.billboards) tiles += bb.aliveCount;
     if (tiles === 0) {
       this.over = 'win';
-      this.hud.showEnd(true, 'Every pixel knocked off the carousel.');
+      this.winReveal = 0.85;
+      for (const sh of this.deckOccupants) {
+        if (sh) this.feedback.burst(sh.group.position, COLOR_HEX[sh.color], true);
+      }
+      this.feedback.note('complete');
       return;
     }
-    if (this.projectiles.length > 0) return;
+    if (this.pulls.length > 0) return;
 
     const queueEmpty = this.lanes.every((l) => l.length === 0);
     const deckFull = this.deckOccupants.every((o) => o !== null);
@@ -706,8 +845,8 @@ export class GameApp {
     this.hud.showEnd(
       false,
       queueEmpty && onDeck.length === 0
-        ? 'Out of shooters with pixels still standing.'
-        : 'Deck jammed — none of these shooters can reach a pixel any more.',
+        ? 'Out of containers with pixels still standing.'
+        : 'Deck jammed — none of these containers can reach a pixel any more.',
     );
   }
 
@@ -731,6 +870,26 @@ export class GameApp {
     return out;
   }
 
+  private renderGameToText() {
+    return JSON.stringify({
+      mode: this.over,
+      coordinates: 'Screen positions are CSS pixels, origin top-left. World: +Y up, +Z toward camera.',
+      focusedBoard: this.billboards.indexOf(this.focused!),
+      rotation: Number(this.carousel.rotation.y.toFixed(3)),
+      dragging: this.dragging,
+      remaining: this.billboards.reduce((sum, board) => sum + board.aliveCount, 0),
+      boards: this.billboards.map(board => ({ remaining: board.aliveCount, frame: board.frameState,
+        angle: Number(board.angle.toFixed(5)), targetAngle: Number(board.targetAngle.toFixed(5)),
+        frameY: Number(board.pivot.position.y.toFixed(3)) })),
+      activeBoards: this.billboards.filter(board => board.frameState === 'hanging').length,
+      redistributing: this.reflowTime > 0,
+      exposedColors: [...new Set(this.targets.map(target => target.color))],
+      pulls: this.pulls.length,
+      lanes: this.headScreenPositions().map(head => ({ ...head, color: this.lanes[head.lane][0].color, charges: this.lanes[head.lane][0].charges, count: this.lanes[head.lane].length })),
+      deck: this.deckOccupants.map(sh => sh ? ({ color: sh.color, charges: sh.charges, inFlight: sh.inFlight, state: sh.state, packing: sh.packingState() }) : null),
+    });
+  }
+
   // ------------------------------------------------------------------ teardown
 
   dispose() {
@@ -739,10 +898,10 @@ export class GameApp {
     this.detachInput();
     this.ro.disconnect();
     this.destroyWorld();
-    this.shotGeo.dispose();
-    for (const m of this.shotMats.values()) m.dispose();
-    this.shotMats.clear();
     this.hud.dispose();
+    this.feedback.dispose();
+    this.background.dispose();
+    this.contactTexture.dispose();
     this.renderer.dispose();
     this.renderer.domElement.remove();
   }

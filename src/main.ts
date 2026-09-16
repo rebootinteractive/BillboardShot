@@ -12,7 +12,7 @@ function start() {
 
   // Local only. `import.meta.env.DEV` is substituted at build time, so the whole
   // branch — and the editor chunk it pulls in — is dropped from the deployed bundle.
-  if (import.meta.env.DEV) {
+  if (import.meta.env.DEV && new URLSearchParams(location.search).has('editor')) {
     void import('./dev/DevShell').then(({ mountDevShell }) => {
       if (game) unmountDevShell = mountDevShell(game);
     });
