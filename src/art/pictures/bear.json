@@ -1,0 +1,25 @@
+{
+  "id": "bear",
+  "name": "Bear",
+  "tags": ["animal", "face"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "11.......11",
+    "121.....121",
+    "11111111111",
+    "11111111111",
+    "11311111311",
+    "11111111111",
+    "11222222211",
+    ".122444221.",
+    ".122242221.",
+    "..1222221.."
+  ],
+  "groups": {
+    "1": { "part": "fur", "suggest": ["brown", "orange"] },
+    "2": { "part": "muzzle and ears", "suggest": ["white", "yellow"] },
+    "3": { "part": "eyes", "suggest": ["black"] },
+    "4": { "part": "nose", "suggest": ["black"] }
+  }
+}

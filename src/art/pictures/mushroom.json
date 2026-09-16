@@ -1,0 +1,24 @@
+{
+  "id": "mushroom",
+  "name": "Mushroom",
+  "tags": ["nature", "food"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "...11111...",
+    "..1111111..",
+    ".112111211.",
+    "11111111111",
+    "11211111211",
+    ".111111111.",
+    "...33333...",
+    "...33333...",
+    "..3333333..",
+    "..3333333.."
+  ],
+  "groups": {
+    "1": { "part": "cap", "suggest": ["red", "blue", "brown"] },
+    "2": { "part": "spots", "suggest": ["white", "pink"] },
+    "3": { "part": "stem", "suggest": ["white", "yellow"] }
+  }
+}

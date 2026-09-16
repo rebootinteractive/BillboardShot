@@ -1,0 +1,24 @@
+{
+  "id": "hamburger",
+  "name": "Hamburger",
+  "tags": ["food"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Hamburger" },
+  "art": [
+    "...11111...",
+    "..11111111.",
+    ".111111111.",
+    ".222212222.",
+    "24444244442",
+    ".2111111122",
+    "22222222222",
+    ".333333333.",
+    ".333333333."
+  ],
+  "groups": {
+    "1": { "part": "top bun", "suggest": ["yellow", "orange"] },
+    "2": { "part": "patty", "suggest": ["brown"] },
+    "3": { "part": "bottom bun", "suggest": ["orange", "yellow"] },
+    "4": { "part": "tomato", "suggest": ["red"] }
+  }
+}

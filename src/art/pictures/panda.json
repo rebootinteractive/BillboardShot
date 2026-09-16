@@ -1,0 +1,23 @@
+{
+  "id": "panda",
+  "name": "Panda",
+  "tags": ["animal", "face"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Panda" },
+  "art": [
+    ".22.222.22.",
+    "22211111222",
+    "22111111122",
+    "21121112112",
+    "11222122211",
+    "11121212111",
+    "11111111111",
+    "21111111112",
+    ".111111111.",
+    "...21112..."
+  ],
+  "groups": {
+    "1": { "part": "fur", "suggest": ["white"] },
+    "2": { "part": "patches", "suggest": ["black"] }
+  }
+}

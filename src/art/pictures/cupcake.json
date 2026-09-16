@@ -1,0 +1,25 @@
+{
+  "id": "cupcake",
+  "name": "Cupcake",
+  "tags": ["food", "sweet"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Cupcake" },
+  "art": [
+    "....11....",
+    "...1111...",
+    "..111111..",
+    ".11111111.",
+    ".11111111.",
+    "1111111111",
+    "1111111111",
+    "1111111111",
+    "1111111111",
+    "2222222222",
+    ".22222222.",
+    ".22222222."
+  ],
+  "groups": {
+    "1": { "part": "frosting", "suggest": ["pink", "white", "brown"] },
+    "2": { "part": "wrapper", "suggest": ["blue", "cyan", "yellow"] }
+  }
+}

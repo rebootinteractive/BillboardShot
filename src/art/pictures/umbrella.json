@@ -1,0 +1,26 @@
+{
+  "id": "umbrella",
+  "name": "Umbrella",
+  "tags": ["object", "weather"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "....111....",
+    "..1122211..",
+    ".112222211.",
+    "11122222111",
+    "11122222111",
+    ".....3.....",
+    ".....3.....",
+    ".....3.....",
+    ".....3.....",
+    ".....3.....",
+    "...3.3.....",
+    "....3......"
+  ],
+  "groups": {
+    "1": { "part": "outer panels", "suggest": ["red", "blue", "purple"] },
+    "2": { "part": "middle panel", "suggest": ["white", "yellow"] },
+    "3": { "part": "handle", "suggest": ["brown", "black"] }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "alarm-clock",
+  "name": "Alarm Clock",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "22.......22",
+    "22.11111.22",
+    ".111111111.",
+    "11333333311",
+    "13333433331",
+    "13333433331",
+    "13333444331",
+    "13333333331",
+    "11333333311",
+    ".111111111.",
+    "..1.....1..",
+    ".11.....11."
+  ],
+  "groups": {
+    "1": { "part": "case", "suggest": ["red", "blue"] },
+    "2": { "part": "bells", "suggest": ["yellow", "black"] },
+    "3": { "part": "face", "suggest": ["white"] },
+    "4": { "part": "hands", "suggest": ["black"] }
+  }
+}

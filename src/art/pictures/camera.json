@@ -1,0 +1,24 @@
+{
+  "id": "camera",
+  "name": "Camera",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "...2222....",
+    "11111111141",
+    "11133333111",
+    "11335553311",
+    "11355555311",
+    "11335553311",
+    "11133333111",
+    "11111111111"
+  ],
+  "groups": {
+    "1": { "part": "body", "suggest": ["black", "brown"] },
+    "2": { "part": "top", "suggest": ["black", "white"] },
+    "3": { "part": "lens ring", "suggest": ["white", "yellow"] },
+    "4": { "part": "flash", "suggest": ["yellow", "red"] },
+    "5": { "part": "lens", "suggest": ["blue", "cyan", "purple"] }
+  }
+}

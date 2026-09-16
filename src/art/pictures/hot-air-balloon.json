@@ -1,0 +1,27 @@
+{
+  "id": "hot-air-balloon",
+  "name": "Hot Air Balloon",
+  "tags": ["vehicle", "sky"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "..12221..",
+    ".1122211.",
+    "112222211",
+    "112222211",
+    "112222211",
+    ".1122211.",
+    "..12221..",
+    "...121...",
+    "...3.3...",
+    "...3.3...",
+    "...444...",
+    "...444..."
+  ],
+  "groups": {
+    "1": { "part": "outer stripes", "suggest": ["red", "blue"] },
+    "2": { "part": "middle stripe", "suggest": ["yellow", "white"] },
+    "3": { "part": "ropes", "suggest": ["black", "brown"] },
+    "4": { "part": "basket", "suggest": ["brown"] }
+  }
+}

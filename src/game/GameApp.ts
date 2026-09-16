@@ -7,6 +7,8 @@ import { Shooter } from './Shooter';
 import { PulledCube } from './PulledCube';
 import { LEVELS, SANDBOX, levelFileForNumber, type LevelData } from './level';
 import { KeyFlight } from './keys';
+import { PICTURES } from '../art/library';
+import { previewLevel } from '../art/preview';
 import { LinkChain } from './LinkChain';
 import { ProgressShot } from './ProgressShot';
 import { loadLevelNumber, saveLevelNumber } from './progress';
@@ -32,6 +34,8 @@ export class GameApp {
   levelNumber = loadLevelNumber();
   /** A sandbox level being played instead of the numbered ones, from `?sandbox=` or the debug picker. */
   private sandboxName = new URLSearchParams(location.search).get('sandbox');
+  /** A library picture previewed as a one-board level, from `?art=`. */
+  private artPreview = new URLSearchParams(location.search).get('art');
   private level: { file: string; data: LevelData } = this.resolveLevel();
 
   private readonly renderer: THREE.WebGLRenderer;
@@ -138,7 +142,7 @@ export class GameApp {
     this.hud = new Hud(parent, {
       onRestart: () => this.restart(),
       // A feature test level is not part of progress: Next returns to the player's level.
-      onNext: () => this.goToLevel(this.sandboxName ? this.levelNumber : this.levelNumber + 1),
+      onNext: () => this.goToLevel(this.isSideLevel() ? this.levelNumber : this.levelNumber + 1),
     });
     if (new URLSearchParams(location.search).has('debug')) this.enableLevelPicker();
     this.feedback = new Feedback(this.world);
@@ -181,7 +185,7 @@ export class GameApp {
     this.reflowTime = 0;
     this.hud.dismiss();
     this.hud.setLevel(
-      this.sandboxName ? `· ${level.name}` : String(this.levelNumber),
+      this.isSideLevel() ? `· ${level.name}` : String(this.levelNumber),
       this.sandboxName ? `sandbox:${this.sandboxName}` : `level:${((this.levelNumber - 1) % LEVELS.length) + 1}`,
     );
 
@@ -383,6 +387,7 @@ export class GameApp {
   /** Jump to a level number and remember it as the player's progress. */
   goToLevel(n: number) {
     this.sandboxName = null;
+    this.artPreview = null;
     this.levelNumber = Math.max(1, n);
     saveLevelNumber(this.levelNumber);
     this.restart();
@@ -572,6 +577,11 @@ export class GameApp {
     this.feedback.note('tap');
   }
 
+  /** A feature test level or art preview: outside the numbered levels and progress. */
+  private isSideLevel() {
+    return this.level.file.includes('/');
+  }
+
   /** The level for the current number, or the sandbox level being played. */
   private resolveLevel(): { file: string; data: LevelData } {
     const name = this.sandboxName;
@@ -581,6 +591,10 @@ export class GameApp {
       this.sandboxName = null;
     }
     if (sandbox) return { file: `sandbox/${name}.json`, data: sandbox };
+    // `?art=<picture id>` previews a library picture as a one-board level.
+    const picture = this.artPreview ? PICTURES.get(this.artPreview) : undefined;
+    if (this.artPreview && !picture) console.error(`No picture '${this.artPreview}' in the art library.`);
+    if (picture && !sandbox) return { file: `art/${picture.id}`, data: previewLevel(picture) };
     return levelFileForNumber(this.levelNumber);
   }
 
@@ -598,6 +612,8 @@ export class GameApp {
       const params = new URLSearchParams(location.search);
       params.delete('level');
       params.delete('sandbox');
+      params.delete('art');
+      this.artPreview = null;
       if (kind === 'sandbox') {
         this.sandboxName = id;
         params.set('sandbox', id);
@@ -990,7 +1006,7 @@ export class GameApp {
       this.over = 'win';
       this.winReveal = 0.85;
       // Progress is kept the moment the level is won, even if the page closes before Next.
-      if (!this.sandboxName) saveLevelNumber(this.levelNumber + 1);
+      if (!this.isSideLevel()) saveLevelNumber(this.levelNumber + 1);
       for (const sh of this.deckOccupants) {
         if (sh) this.feedback.burst(sh.group.position, COLOR_HEX[sh.color], true);
       }

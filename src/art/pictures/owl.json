@@ -1,0 +1,28 @@
+{
+  "id": "owl",
+  "name": "Owl",
+  "tags": ["animal", "bird"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Owl" },
+  "art": [
+    "111111111",
+    "133111331",
+    "344111443",
+    "333411333",
+    "144151441",
+    "111111111",
+    "122222221",
+    "122222221",
+    "122222221",
+    ".1222221.",
+    "..12221..",
+    "..55555.."
+  ],
+  "groups": {
+    "1": { "part": "feathers", "suggest": ["brown"] },
+    "2": { "part": "belly", "suggest": ["white"] },
+    "3": { "part": "pupils", "suggest": ["black"] },
+    "4": { "part": "eyes", "suggest": ["yellow"] },
+    "5": { "part": "beak and feet", "suggest": ["orange"] }
+  }
+}

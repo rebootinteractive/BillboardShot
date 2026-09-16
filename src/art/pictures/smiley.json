@@ -1,0 +1,25 @@
+{
+  "id": "smiley",
+  "name": "Smiley",
+  "tags": ["face", "symbol"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "...11111...",
+    "..1111111..",
+    ".111111111.",
+    "11121112111",
+    "11121112111",
+    "11111111111",
+    "13111111131",
+    "11333333311",
+    ".111333111.",
+    "..1111111..",
+    "...11111..."
+  ],
+  "groups": {
+    "1": { "part": "face", "suggest": ["yellow", "cyan", "orange"] },
+    "2": { "part": "eyes", "suggest": ["black", "blue"] },
+    "3": { "part": "mouth", "suggest": ["black", "red"] }
+  }
+}

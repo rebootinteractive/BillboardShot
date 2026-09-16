@@ -1,0 +1,30 @@
+{
+  "id": "christmas-tree",
+  "name": "Christmas Tree",
+  "tags": ["nature", "holiday"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    ".....2.....",
+    "....111....",
+    "...11411...",
+    "..1111111..",
+    "...11511...",
+    "..1116111..",
+    ".111141111.",
+    "..1151161..",
+    ".117111151.",
+    "11111111111",
+    "....333....",
+    "....333...."
+  ],
+  "groups": {
+    "1": { "part": "branches", "suggest": ["green"] },
+    "2": { "part": "star", "suggest": ["yellow"] },
+    "3": { "part": "trunk", "suggest": ["brown"] },
+    "4": { "part": "orange baubles", "suggest": ["orange", "red"] },
+    "5": { "part": "cyan baubles", "suggest": ["cyan", "white"] },
+    "6": { "part": "blue baubles", "suggest": ["blue", "purple"] },
+    "7": { "part": "pink bauble", "suggest": ["pink", "red"] }
+  }
+}

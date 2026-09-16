@@ -1,0 +1,23 @@
+{
+  "id": "mouse",
+  "name": "Mouse",
+  "tags": ["animal", "face"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    ".111...111.",
+    "12221.12221",
+    "12221112221",
+    ".111111111.",
+    "..1311131..",
+    "..1111111..",
+    "...11411...",
+    "....111...."
+  ],
+  "groups": {
+    "1": { "part": "fur", "suggest": ["white", "brown"] },
+    "2": { "part": "inner ears", "suggest": ["pink"] },
+    "3": { "part": "eyes", "suggest": ["black"] },
+    "4": { "part": "nose", "suggest": ["pink", "black"] }
+  }
+}

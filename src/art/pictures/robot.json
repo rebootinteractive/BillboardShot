@@ -1,0 +1,28 @@
+{
+  "id": "robot",
+  "name": "Robot",
+  "tags": ["character"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    ".....2.....",
+    ".....1.....",
+    "..1111111..",
+    "..1311131..",
+    "..1111111..",
+    "..1444441..",
+    "..1111111..",
+    ".111111111.",
+    "11155555111",
+    "11155555111",
+    ".111111111.",
+    ".11.....11."
+  ],
+  "groups": {
+    "1": { "part": "metal", "suggest": ["white", "blue"] },
+    "2": { "part": "antenna light", "suggest": ["red"] },
+    "3": { "part": "eyes", "suggest": ["cyan", "yellow"] },
+    "4": { "part": "mouth", "suggest": ["black"] },
+    "5": { "part": "chest panel", "suggest": ["yellow", "red"] }
+  }
+}

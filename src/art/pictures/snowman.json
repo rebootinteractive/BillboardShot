@@ -1,0 +1,27 @@
+{
+  "id": "snowman",
+  "name": "Snowman",
+  "tags": ["holiday", "winter"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "...222...",
+    "...222...",
+    "..22222..",
+    "...111...",
+    "..13131..",
+    "..11411..",
+    "...111...",
+    "..11111..",
+    ".1113111.",
+    ".1111111.",
+    ".1113111.",
+    "..11111.."
+  ],
+  "groups": {
+    "1": { "part": "snow", "suggest": ["white"] },
+    "2": { "part": "hat", "suggest": ["black", "red"] },
+    "3": { "part": "eyes and buttons", "suggest": ["black"] },
+    "4": { "part": "nose", "suggest": ["orange"] }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "gem",
+  "name": "Gem",
+  "tags": ["object", "treasure"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "..1111111..",
+    ".112222211.",
+    "11232222211",
+    ".122222221.",
+    "..1222221..",
+    "...12221...",
+    "....121....",
+    ".....1....."
+  ],
+  "groups": {
+    "1": { "part": "facets", "suggest": ["blue", "cyan"] },
+    "2": { "part": "body", "suggest": ["cyan", "pink", "green"] },
+    "3": { "part": "sparkle", "suggest": ["white"] }
+  }
+}

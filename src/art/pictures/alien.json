@@ -1,0 +1,25 @@
+{
+  "id": "alien",
+  "name": "Alien",
+  "tags": ["character", "space"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "..1.....1..",
+    "...1...1...",
+    "..1111111..",
+    ".111111111.",
+    "11221112211",
+    "12221112221",
+    "11111111111",
+    ".111111111.",
+    "..1133311..",
+    "...11111...",
+    "....111...."
+  ],
+  "groups": {
+    "1": { "part": "skin", "suggest": ["green", "lime", "purple"] },
+    "2": { "part": "eyes", "suggest": ["black"] },
+    "3": { "part": "mouth", "suggest": ["black", "pink"] }
+  }
+}

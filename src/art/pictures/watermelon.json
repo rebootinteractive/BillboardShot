@@ -1,0 +1,22 @@
+{
+  "id": "watermelon",
+  "name": "Watermelon Slice",
+  "tags": ["food", "fruit"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "11111111111",
+    "12111211121",
+    "41111111114",
+    "34111211143",
+    ".341111143.",
+    "..3444443..",
+    "...33333..."
+  ],
+  "groups": {
+    "1": { "part": "flesh", "suggest": ["red", "pink"] },
+    "2": { "part": "seeds", "suggest": ["black", "brown"] },
+    "3": { "part": "rind", "suggest": ["green"] },
+    "4": { "part": "pale rind", "suggest": ["white", "lime"] }
+  }
+}

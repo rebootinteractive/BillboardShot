@@ -1,0 +1,27 @@
+{
+  "id": "ice-cream",
+  "name": "Ice Cream",
+  "tags": ["food", "sweet"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "....3....",
+    "...111...",
+    "..11111..",
+    ".1111111.",
+    "111111111",
+    "111111111",
+    ".2222222.",
+    ".2422242.",
+    "..22422..",
+    "..24242..",
+    "...222...",
+    "....2...."
+  ],
+  "groups": {
+    "1": { "part": "scoop", "suggest": ["pink", "white", "brown"] },
+    "2": { "part": "cone", "suggest": ["orange", "yellow"] },
+    "3": { "part": "cherry", "suggest": ["red"] },
+    "4": { "part": "cone pattern", "suggest": ["brown"] }
+  }
+}

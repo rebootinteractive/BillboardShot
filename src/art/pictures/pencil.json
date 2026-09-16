@@ -1,0 +1,29 @@
+{
+  "id": "pencil",
+  "name": "Pencil",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    ".333.",
+    ".333.",
+    ".444.",
+    "11211",
+    "11211",
+    "11211",
+    "11211",
+    "11211",
+    "11211",
+    ".555.",
+    ".555.",
+    "..6.."
+  ],
+  "groups": {
+    "1": { "part": "body", "suggest": ["yellow"] },
+    "2": { "part": "stripe", "suggest": ["orange"] },
+    "3": { "part": "eraser", "suggest": ["pink"] },
+    "4": { "part": "ferrule", "suggest": ["white", "black"] },
+    "5": { "part": "wood", "suggest": ["brown", "orange"] },
+    "6": { "part": "tip", "suggest": ["black"] }
+  }
+}

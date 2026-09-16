@@ -1,0 +1,26 @@
+{
+  "id": "strawberry",
+  "name": "Strawberry",
+  "tags": ["food", "fruit"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "...22.22...",
+    "....222....",
+    "..1122211..",
+    ".111111111.",
+    "11131111311",
+    "11111111111",
+    "11131113111",
+    ".111111111.",
+    ".111131111.",
+    "..1111111..",
+    "...11111...",
+    "....111...."
+  ],
+  "groups": {
+    "1": { "part": "berry", "suggest": ["red", "pink"] },
+    "2": { "part": "leaves", "suggest": ["green", "lime"] },
+    "3": { "part": "seeds", "suggest": ["yellow", "white"] }
+  }
+}

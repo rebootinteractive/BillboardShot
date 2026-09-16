@@ -1,0 +1,22 @@
+{
+  "id": "envelope",
+  "name": "Envelope",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "11111111111",
+    "12111111121",
+    "11211111211",
+    "11121112111",
+    "11112121111",
+    "11111311111",
+    "11111111111",
+    "11111111111"
+  ],
+  "groups": {
+    "1": { "part": "paper", "suggest": ["white", "yellow"] },
+    "2": { "part": "flap lines", "suggest": ["black", "brown", "red"] },
+    "3": { "part": "seal", "suggest": ["red"] }
+  }
+}

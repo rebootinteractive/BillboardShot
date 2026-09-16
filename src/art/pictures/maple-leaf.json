@@ -1,0 +1,26 @@
+{
+  "id": "maple-leaf",
+  "name": "Maple Leaf",
+  "tags": ["nature", "autumn"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    ".....1.....",
+    "....111....",
+    ".1..111..1.",
+    ".111131111.",
+    "..1113111..",
+    "11111311111",
+    ".111131111.",
+    "..1113111..",
+    "...11311...",
+    ".....2.....",
+    ".....2.....",
+    ".....2....."
+  ],
+  "groups": {
+    "1": { "part": "leaf", "suggest": ["red", "orange", "yellow", "green"] },
+    "2": { "part": "stem", "suggest": ["brown"] },
+    "3": { "part": "veins", "suggest": ["orange", "brown", "yellow"] }
+  }
+}

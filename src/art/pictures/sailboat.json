@@ -1,0 +1,26 @@
+{
+  "id": "sailboat",
+  "name": "Sailboat",
+  "tags": ["vehicle", "sea"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    ".....1.....",
+    "....31.....",
+    "....312....",
+    "...3312....",
+    "...33122...",
+    "..333122...",
+    "..3331222..",
+    ".33331222..",
+    ".....1.....",
+    "44444444444",
+    ".444444444."
+  ],
+  "groups": {
+    "1": { "part": "mast", "suggest": ["brown", "black"] },
+    "2": { "part": "right sail", "suggest": ["white", "yellow"] },
+    "3": { "part": "left sail", "suggest": ["red", "white"] },
+    "4": { "part": "hull", "suggest": ["brown", "blue", "red"] }
+  }
+}

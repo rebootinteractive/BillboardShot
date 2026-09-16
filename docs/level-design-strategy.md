@@ -115,9 +115,35 @@ lot: it blocks its column until a container of its color comes, it splits a colo
 and inside a mystery group it stays hidden and interrupts the flood. Overrides should
 stay few enough that the picture is still recognizable.
 
-The level file keeps the final art the game plays, plus a record of the source picture,
-group colors and overrides, so a reviewer can see what was changed and the checker can
-confirm the art matches its source. The exact fields are settled in Phase 3.
+The level file keeps the final art the game plays, plus a `source` record, so a reviewer
+can see what was changed and the checker can confirm the art still matches its source:
+
+```json
+{
+  "name": "Apple",
+  "art": ["....."],
+  "source": {
+    "picture": "apple",
+    "colors": { "1": "red", "2": "green" },
+    "hidden": ["2"],
+    "overrides": [{ "col": 4, "row": 5, "color": "blue" }]
+  }
+}
+```
+
+- `colors` gives every group a color. `hidden` lists groups shown as mystery pixels.
+- An override's `hidden` defaults to its group's; set it to show or hide just that pixel.
+
+### Where the library lives
+
+- Pictures: `src/art/pictures/<id>.json`, one file per picture. `origin` records whether a
+  picture was drawn or converted; converted pictures carry their source, license and URL,
+  and the license notices live in `src/art/THIRD_PARTY_NOTICES.md`. Only sources licensed
+  for commercial use are converted (currently Fluent Emoji, MIT).
+- Checks and rendering: `src/art/library.ts`. Computed facts: `src/art/analyze.ts`.
+- Review page: `?gallery` on the local dev server. Approve and Reject save the status and
+  note straight into the picture file. "Play preview" opens `?art=<id>`, the picture as a
+  playable one-board level in its first suggested colors.
 
 ### Merging groups
 

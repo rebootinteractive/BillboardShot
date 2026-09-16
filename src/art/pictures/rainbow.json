@@ -1,0 +1,28 @@
+{
+  "id": "rainbow",
+  "name": "Rainbow",
+  "tags": ["sky", "weather"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Rainbow" },
+  "art": [
+    "........111",
+    ".....111222",
+    "....1122233",
+    "...11223333",
+    "..112334444",
+    ".1123344555",
+    ".1223445566",
+    ".12344566..",
+    "12234556...",
+    "1233456....",
+    "1233456...."
+  ],
+  "groups": {
+    "1": { "part": "red band", "suggest": ["red"] },
+    "2": { "part": "orange band", "suggest": ["orange"] },
+    "3": { "part": "yellow band", "suggest": ["yellow"] },
+    "4": { "part": "green band", "suggest": ["green"] },
+    "5": { "part": "blue band", "suggest": ["blue"] },
+    "6": { "part": "purple band", "suggest": ["purple"] }
+  }
+}

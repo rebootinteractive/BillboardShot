@@ -1,0 +1,25 @@
+{
+  "id": "fox",
+  "name": "Fox",
+  "tags": ["animal", "face"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Fox" },
+  "art": [
+    "..33...33..",
+    "..111.111..",
+    ".111111111.",
+    ".111111111.",
+    ".111111111.",
+    ".111111111.",
+    ".111111111.",
+    "11111111111",
+    ".222232222.",
+    ".222232222.",
+    "...22222..."
+  ],
+  "groups": {
+    "1": { "part": "fur", "suggest": ["orange"] },
+    "2": { "part": "face", "suggest": ["white"] },
+    "3": { "part": "eyes and nose", "suggest": ["black"] }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "avocado",
+  "name": "Avocado",
+  "tags": ["food", "fruit"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Avocado" },
+  "art": [
+    "......313..",
+    "...3311113.",
+    ".3311111112",
+    ".1111111112",
+    "31122211132",
+    "3112221132.",
+    "3112221132.",
+    "3111111122.",
+    ".31111132..",
+    "..3313322..",
+    "...22222..."
+  ],
+  "groups": {
+    "1": { "part": "flesh", "suggest": ["lime"] },
+    "2": { "part": "pit", "suggest": ["brown"] },
+    "3": { "part": "skin", "suggest": ["green", "black"] }
+  }
+}

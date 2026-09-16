@@ -1,0 +1,25 @@
+{
+  "id": "sunflower",
+  "name": "Sunflower",
+  "tags": ["nature", "flower"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Sunflower" },
+  "art": [
+    "....1....",
+    "..11111..",
+    "111222111",
+    "112222211",
+    "112222211",
+    "112222211",
+    ".1122211.",
+    ".1111111.",
+    "...111...",
+    "....2....",
+    ".2222222.",
+    "..22222.."
+  ],
+  "groups": {
+    "1": { "part": "petals", "suggest": ["yellow"] },
+    "2": { "part": "center and stem", "suggest": ["brown"] }
+  }
+}

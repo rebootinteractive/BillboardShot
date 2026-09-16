@@ -1,0 +1,22 @@
+{
+  "id": "heart",
+  "name": "Heart",
+  "tags": ["symbol"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "..11...22..",
+    ".1111.2222.",
+    "11111222222",
+    "11111222222",
+    ".111122222.",
+    "..1112222..",
+    "...11222...",
+    "....122....",
+    ".....2....."
+  ],
+  "groups": {
+    "1": { "part": "left half", "suggest": ["pink", "red"] },
+    "2": { "part": "right half", "suggest": ["red", "pink"] }
+  }
+}

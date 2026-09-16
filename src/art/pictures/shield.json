@@ -1,0 +1,26 @@
+{
+  "id": "shield",
+  "name": "Shield",
+  "tags": ["object", "royal"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "11111111111",
+    "12222133331",
+    "12222133331",
+    "12222133331",
+    "11111111111",
+    "13333122221",
+    ".133312221.",
+    ".133312221.",
+    "..1331221..",
+    "...13121...",
+    "....111....",
+    ".....1....."
+  ],
+  "groups": {
+    "1": { "part": "rim and cross", "suggest": ["yellow", "white"] },
+    "2": { "part": "field", "suggest": ["red", "blue"] },
+    "3": { "part": "field", "suggest": ["blue", "white", "black"] }
+  }
+}

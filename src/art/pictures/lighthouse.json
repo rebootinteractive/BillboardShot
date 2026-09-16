@@ -1,0 +1,28 @@
+{
+  "id": "lighthouse",
+  "name": "Lighthouse",
+  "tags": ["building", "sea"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "....2....",
+    "...222...",
+    "..23332..",
+    "..22222..",
+    "...111...",
+    "...444...",
+    "...111...",
+    "..11111..",
+    "..44444..",
+    "..11111..",
+    ".1111111.",
+    "555555555"
+  ],
+  "groups": {
+    "1": { "part": "tower", "suggest": ["white"] },
+    "2": { "part": "roof", "suggest": ["red", "black"] },
+    "3": { "part": "light", "suggest": ["yellow"] },
+    "4": { "part": "stripes", "suggest": ["red"] },
+    "5": { "part": "rocks", "suggest": ["brown", "black", "blue"] }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "kite",
+  "name": "Kite",
+  "tags": ["object", "sky"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "....1....",
+    "...112...",
+    "..11122..",
+    ".1111222.",
+    "111112222",
+    ".3333444.",
+    "..33344..",
+    "...334...",
+    "....3....",
+    "....5....",
+    "...5.....",
+    "....5...."
+  ],
+  "groups": {
+    "1": { "part": "top left", "suggest": ["red"] },
+    "2": { "part": "top right", "suggest": ["yellow"] },
+    "3": { "part": "bottom left", "suggest": ["blue"] },
+    "4": { "part": "bottom right", "suggest": ["green"] },
+    "5": { "part": "tail", "suggest": ["black", "red"] }
+  }
+}

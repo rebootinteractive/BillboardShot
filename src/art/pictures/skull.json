@@ -1,0 +1,24 @@
+{
+  "id": "skull",
+  "name": "Skull",
+  "tags": ["spooky"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "..1111111..",
+    ".111111111.",
+    "11111111111",
+    "11222122211",
+    "11222122211",
+    "11111311111",
+    ".111111111.",
+    "..1111111..",
+    "..1212121..",
+    "..1111111.."
+  ],
+  "groups": {
+    "1": { "part": "bone", "suggest": ["white"] },
+    "2": { "part": "eyes and teeth", "suggest": ["black"] },
+    "3": { "part": "nose", "suggest": ["black", "red"] }
+  }
+}

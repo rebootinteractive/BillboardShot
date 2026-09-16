@@ -1,0 +1,26 @@
+{
+  "id": "cactus",
+  "name": "Cactus",
+  "tags": ["nature", "plant"],
+  "status": "approved",
+  "origin": { "method": "drawn" },
+  "art": [
+    ".....1.....",
+    "....111....",
+    ".....2.....",
+    "....222....",
+    ".2..222....",
+    ".2..222..2.",
+    ".22.222..2.",
+    "..22222.22.",
+    "....22222..",
+    "33333333333",
+    ".333333333.",
+    "..3333333.."
+  ],
+  "groups": {
+    "1": { "part": "flower", "suggest": ["pink", "yellow"] },
+    "2": { "part": "cactus", "suggest": ["green", "lime"] },
+    "3": { "part": "pot", "suggest": ["brown", "orange"] }
+  }
+}

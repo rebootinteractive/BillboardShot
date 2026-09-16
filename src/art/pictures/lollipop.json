@@ -1,0 +1,26 @@
+{
+  "id": "lollipop",
+  "name": "Lollipop",
+  "tags": ["food", "sweet"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "..11111..",
+    ".1222221.",
+    "122111221",
+    "121222121",
+    "121222121",
+    "122111221",
+    ".1222221.",
+    "..11111..",
+    "....3....",
+    "....3....",
+    "....3....",
+    "....3...."
+  ],
+  "groups": {
+    "1": { "part": "swirl", "suggest": ["pink", "red"] },
+    "2": { "part": "swirl", "suggest": ["white", "yellow"] },
+    "3": { "part": "stick", "suggest": ["white", "brown"] }
+  }
+}

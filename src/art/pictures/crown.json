@@ -1,0 +1,23 @@
+{
+  "id": "crown",
+  "name": "Crown",
+  "tags": ["object", "royal"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "2....2....2",
+    "1....1....1",
+    "11..111..11",
+    "111.111.111",
+    "11111111111",
+    "11311311311",
+    "11111111111",
+    "44444444444"
+  ],
+  "groups": {
+    "1": { "part": "gold", "suggest": ["yellow", "orange"] },
+    "2": { "part": "pearls", "suggest": ["white"] },
+    "3": { "part": "jewels", "suggest": ["red", "blue", "green"] },
+    "4": { "part": "band", "suggest": ["red", "purple"] }
+  }
+}

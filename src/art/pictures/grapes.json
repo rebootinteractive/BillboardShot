@@ -1,0 +1,26 @@
+{
+  "id": "grapes",
+  "name": "Grapes",
+  "tags": ["food", "fruit"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Grapes" },
+  "art": [
+    "......3....",
+    ".....3.....",
+    "...2.3.....",
+    "222223..11.",
+    ".2222111111",
+    "...11111111",
+    "...11111111",
+    "...11111111",
+    "...11111111",
+    ".....11111.",
+    "......1111.",
+    ".......111."
+  ],
+  "groups": {
+    "1": { "part": "grapes", "suggest": ["purple", "green"] },
+    "2": { "part": "stem", "suggest": ["brown"] },
+    "3": { "part": "leaf", "suggest": ["lime", "green"] }
+  }
+}

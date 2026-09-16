@@ -1,6 +1,7 @@
 import type { ColorKey } from '../shared/types';
 import { CHAR_TO_COLOR, COLOR_KEYS } from '../shared/colors';
 import { KEY_COLORS, type KeyColor } from './keys';
+import { validateSource, type BoardSource } from '../art/library';
 
 /**
  * Levels are hand-authored JSON files in src/levels, played in filename order.
@@ -35,6 +36,8 @@ export interface BoardData {
   art: string[];
   keys?: KeyData[];
   lock?: LockData;
+  /** The library picture this art was built from, with its colors and overrides. */
+  source?: BoardSource;
 }
 
 export interface LevelData {
@@ -100,6 +103,7 @@ export function validateLevel(level: LevelData): string[] {
       errors.push(`${label} has no art.`);
       return;
     }
+    if (board.source) for (const e of validateSource(board.source, board.art)) errors.push(`${label}: ${e}`);
     const width = board.art[0].length;
     board.art.forEach((row, r) => {
       if (row.length !== width) errors.push(`${label} row ${r} is ${row.length} wide, expected ${width}.`);

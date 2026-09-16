@@ -1,0 +1,26 @@
+{
+  "id": "cake",
+  "name": "Birthday Cake",
+  "tags": ["food", "sweet", "party"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "...1.1.1...",
+    "...2.2.2...",
+    "..3333333..",
+    "..4444444..",
+    "..4444444..",
+    ".333333333.",
+    ".444444444.",
+    ".444444444.",
+    ".444444444.",
+    "55555555555"
+  ],
+  "groups": {
+    "1": { "part": "flames", "suggest": ["orange"] },
+    "2": { "part": "candles", "suggest": ["blue", "pink"] },
+    "3": { "part": "frosting", "suggest": ["white", "pink"] },
+    "4": { "part": "cake", "suggest": ["brown", "yellow", "pink"] },
+    "5": { "part": "plate", "suggest": ["white", "cyan"] }
+  }
+}

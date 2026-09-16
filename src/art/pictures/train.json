@@ -1,0 +1,23 @@
+{
+  "id": "train",
+  "name": "Train",
+  "tags": ["vehicle"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "..2.....111",
+    "..2.....131",
+    "11111111131",
+    "11111111111",
+    "11111111111",
+    "11111111111",
+    ".44.44..44.",
+    ".44.44..44."
+  ],
+  "groups": {
+    "1": { "part": "engine", "suggest": ["red", "blue", "green"] },
+    "2": { "part": "smokestack", "suggest": ["black"] },
+    "3": { "part": "window", "suggest": ["cyan", "yellow"] },
+    "4": { "part": "wheels", "suggest": ["black"] }
+  }
+}

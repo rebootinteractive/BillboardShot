@@ -1,0 +1,27 @@
+{
+  "id": "house",
+  "name": "House",
+  "tags": ["building"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    ".....1.....",
+    "....111....",
+    "...11111...",
+    "..1111111..",
+    ".111111111.",
+    "11111111111",
+    ".222222222.",
+    ".233222332.",
+    ".233222332.",
+    ".222244222.",
+    ".222244222.",
+    ".222244222."
+  ],
+  "groups": {
+    "1": { "part": "roof", "suggest": ["red", "brown"] },
+    "2": { "part": "walls", "suggest": ["white", "yellow"] },
+    "3": { "part": "windows", "suggest": ["cyan", "blue"] },
+    "4": { "part": "door", "suggest": ["brown"] }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "penguin",
+  "name": "Penguin",
+  "tags": ["animal", "bird"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Penguin" },
+  "art": [
+    "....222....",
+    "...21112...",
+    "..2111112..",
+    "..2113112..",
+    ".221111122.",
+    ".221111122.",
+    "22111111122",
+    "22111111122",
+    "..2111112..",
+    "..2211122..",
+    "..3322233.."
+  ],
+  "groups": {
+    "1": { "part": "belly", "suggest": ["white"] },
+    "2": { "part": "back", "suggest": ["black", "blue"] },
+    "3": { "part": "beak and feet", "suggest": ["orange"] }
+  }
+}

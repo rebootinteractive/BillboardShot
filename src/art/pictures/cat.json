@@ -1,0 +1,25 @@
+{
+  "id": "cat",
+  "name": "Cat",
+  "tags": ["animal", "face"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "1.........1",
+    "11.......11",
+    "111.....111",
+    "11111111111",
+    "11211111211",
+    "11211111211",
+    "11111311111",
+    "11111111111",
+    ".111444111.",
+    "..1111111.."
+  ],
+  "groups": {
+    "1": { "part": "head", "suggest": ["orange", "brown", "black", "white"] },
+    "2": { "part": "eyes", "suggest": ["green", "black", "yellow"] },
+    "3": { "part": "nose", "suggest": ["pink"] },
+    "4": { "part": "mouth", "suggest": ["pink", "black"] }
+  }
+}

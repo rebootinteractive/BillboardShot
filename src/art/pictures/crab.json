@@ -1,0 +1,22 @@
+{
+  "id": "crab",
+  "name": "Crab",
+  "tags": ["animal", "sea"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Crab" },
+  "art": [
+    "...11..1...",
+    "..11...11..",
+    "..1.....1..",
+    "..1111111..",
+    "11111111111",
+    ".111111111.",
+    "11111111111",
+    "..1111111..",
+    ".111111111.",
+    "..........."
+  ],
+  "groups": {
+    "1": { "part": "crab", "suggest": ["red", "orange"] }
+  }
+}

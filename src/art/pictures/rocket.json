@@ -1,0 +1,28 @@
+{
+  "id": "rocket",
+  "name": "Rocket",
+  "tags": ["vehicle", "space"],
+  "status": "draft",
+  "origin": { "method": "drawn" },
+  "art": [
+    "....5....",
+    "...555...",
+    "...111...",
+    "..11111..",
+    "..12221..",
+    "..12221..",
+    "..11111..",
+    ".3111113.",
+    "331111133",
+    "33.444.33",
+    "...444...",
+    "....4...."
+  ],
+  "groups": {
+    "1": { "part": "body", "suggest": ["white"] },
+    "2": { "part": "window", "suggest": ["cyan", "blue"] },
+    "3": { "part": "fins", "suggest": ["red", "blue"] },
+    "4": { "part": "flame", "suggest": ["orange", "yellow"] },
+    "5": { "part": "nose", "suggest": ["red"] }
+  }
+}
