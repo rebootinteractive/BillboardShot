@@ -44,7 +44,8 @@ export interface Settings {
   holdFireWhileDragging: boolean;
 
   // --- Deck ---
-  deckArcDeg: number;
+  /** Angle between neighboring deck slots; the arc grows with the level's slot count. */
+  deckSlotSpacingDeg: number;
   deckGap: number;
 
   // --- Queue ---
@@ -115,7 +116,7 @@ export const FIELDS: FieldDef[] = [
   { key: 'ambientSway', label: 'Ambient sway', group: 'Swing', min: 0, max: 3, step: 0.05 },
 
 
-  { key: 'deckArcDeg', label: 'Deck arc °', group: 'Deck', min: 10, max: 180, step: 2, structural: true },
+  { key: 'deckSlotSpacingDeg', label: 'Deck slot spacing °', group: 'Deck', min: 8, max: 30, step: 0.2, structural: true },
   { key: 'deckGap', label: 'Deck gap under boards', group: 'Deck', min: 0, max: 4, step: 0.05, structural: true },
 
   { key: 'queueVisible', label: 'Visible per line', group: 'Queue', min: 1, max: 12, step: 1, structural: true },

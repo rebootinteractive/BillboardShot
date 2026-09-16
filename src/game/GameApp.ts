@@ -222,12 +222,15 @@ export class GameApp {
     for (const bb of this.billboards) lowest = Math.min(lowest, bb.bottomOffset);
     this.deckY = s.ceilingHeight + lowest - s.deckGap;
 
-    const arc = THREE.MathUtils.degToRad(s.deckArcDeg);
-    const railGeo = new THREE.TorusGeometry(s.carouselRadius, 0.06, 8, 48, arc);
+    // Slots keep the same spacing whatever their number, so the arc grows with the deck.
+    const spacing = THREE.MathUtils.degToRad(s.deckSlotSpacingDeg);
+    const arc = spacing * (level.deckSlots - 1);
+    const railArc = Math.max(arc, spacing);
+    const railGeo = new THREE.TorusGeometry(s.carouselRadius, 0.06, 8, 48, railArc);
     const railMat = new THREE.MeshStandardMaterial({ color: 0xe5b885, roughness: 0.65, metalness: 0 });
     const rail = new THREE.Mesh(railGeo, railMat);
     rail.rotation.x = -Math.PI / 2;
-    rail.rotation.z = -Math.PI / 2 - arc / 2;
+    rail.rotation.z = -Math.PI / 2 - railArc / 2;
     rail.position.y = this.deckY - 0.12;
     this.staticStage.add(rail);
     this.disposables.push({ dispose: () => { railGeo.dispose(); railMat.dispose(); } });
@@ -235,7 +238,7 @@ export class GameApp {
     const padGeo = roundedBox(0.68, 0.13, 0.68, 0.065);
     const padMat = new THREE.MeshStandardMaterial({ color: 0xfff5df, roughness: 0.5 });
     for (let i = 0; i < level.deckSlots; i++) {
-      const a = level.deckSlots === 1 ? 0 : -arc / 2 + (i / (level.deckSlots - 1)) * arc;
+      const a = -arc / 2 + i * spacing;
       const pos = new THREE.Vector3(Math.sin(a) * s.carouselRadius, this.deckY, Math.cos(a) * s.carouselRadius);
       this.deckSlots.push({ pos, angle: a });
       this.deckOccupants.push(null);

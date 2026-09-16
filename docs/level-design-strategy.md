@@ -18,11 +18,12 @@ never beyond it.
 | Parameter | Range | Notes |
 |---|---|---|
 | Boards | 1–6 | |
-| Board size | up to 11 wide × 12 tall | The largest art on screen so far. Six full-size boards together checked in Phase 2 *(to verify)*. |
-| Colors in a level | up to 12 | 8 today; 4 more added in Phase 1 *(to verify)*. |
-| Lanes | 1–4 | 4 *(to verify, Phase 2)*. |
-| Deck slots | 3–7 | 7 *(to verify, Phase 2)*. The strongest difficulty lever. |
+| Board size | up to 11 wide × 12 tall | Six boards at full width close the carousel into a crowded ring; with 5–6 boards prefer art with a silhouette over full rectangles. |
+| Colors in a level | up to 12 | |
+| Lanes | 1–4 | |
+| Deck slots | 3–7 | The strongest difficulty lever. Slot spacing is fixed, so the deck widens with more slots. |
 | Container charges | 3–20 per container | Charges per color must still equal that color's pixels. |
+| Pixels in a level | up to 500 | Keeps levels to a few minutes; level 3 has 464. Calibrated against play time in Phase 4. |
 
 Fixed for every level (tuning, not level design):
 

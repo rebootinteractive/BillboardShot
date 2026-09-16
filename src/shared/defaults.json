@@ -17,7 +17,7 @@
   "swingImpulse": 0.045,
   "ambientSway": 0.08,
   "holdFireWhileDragging": true,
-  "deckArcDeg": 76,
+  "deckSlotSpacingDeg": 15.2,
   "deckGap": 1.65,
   "queueVisible": 4,
   "queueLaneSpacing": 1.15,

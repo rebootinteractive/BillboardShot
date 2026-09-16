@@ -1,0 +1,166 @@
+{
+  "name": "Limits",
+  "deckSlots": 7,
+  "boards": [
+    {
+      "name": "Full 1",
+      "art": [
+        "RRRRRRRRRRR",
+        "RRRRRRRRRRR",
+        "RRRRRRRRRRR",
+        "RRRRRRRRRRR",
+        "BBBBBBBBBBB",
+        "BBBBBBBBBBB",
+        "BBBBBBBBBBB",
+        "BBBBBBBBBBB",
+        "GGGGGGGGGGG",
+        "GGGGGGGGGGG",
+        "GGGGGGGGGGG",
+        "GGGGGGGGGGG"
+      ]
+    },
+    {
+      "name": "Full 2",
+      "art": [
+        "GGGGGGGGGGG",
+        "GGGGGGGGGGG",
+        "GGGGGGGGGGG",
+        "GGGGGGGGGGG",
+        "YYYYYYYYYYY",
+        "YYYYYYYYYYY",
+        "YYYYYYYYYYY",
+        "YYYYYYYYYYY",
+        "PPPPPPPPPPP",
+        "PPPPPPPPPPP",
+        "PPPPPPPPPPP",
+        "PPPPPPPPPPP"
+      ]
+    },
+    {
+      "name": "Full 3",
+      "art": [
+        "PPPPPPPPPPP",
+        "PPPPPPPPPPP",
+        "PPPPPPPPPPP",
+        "PPPPPPPPPPP",
+        "OOOOOOOOOOO",
+        "OOOOOOOOOOO",
+        "OOOOOOOOOOO",
+        "OOOOOOOOOOO",
+        "CCCCCCCCCCC",
+        "CCCCCCCCCCC",
+        "CCCCCCCCCCC",
+        "CCCCCCCCCCC"
+      ]
+    },
+    {
+      "name": "Full 4",
+      "art": [
+        "CCCCCCCCCCC",
+        "CCCCCCCCCCC",
+        "CCCCCCCCCCC",
+        "CCCCCCCCCCC",
+        "MMMMMMMMMMM",
+        "MMMMMMMMMMM",
+        "MMMMMMMMMMM",
+        "MMMMMMMMMMM",
+        "NNNNNNNNNNN",
+        "NNNNNNNNNNN",
+        "NNNNNNNNNNN",
+        "NNNNNNNNNNN"
+      ]
+    },
+    {
+      "name": "Full 5",
+      "art": [
+        "NNNNNNNNNNN",
+        "NNNNNNNNNNN",
+        "NNNNNNNNNNN",
+        "NNNNNNNNNNN",
+        "LLLLLLLLLLL",
+        "LLLLLLLLLLL",
+        "LLLLLLLLLLL",
+        "LLLLLLLLLLL",
+        "KKKKKKKKKKK",
+        "KKKKKKKKKKK",
+        "KKKKKKKKKKK",
+        "KKKKKKKKKKK"
+      ]
+    },
+    {
+      "name": "Full 6",
+      "art": [
+        "KKKKKKKKKKK",
+        "KKKKKKKKKKK",
+        "KKKKKKKKKKK",
+        "KKKKKKKKKKK",
+        "WWWWWWWWWWW",
+        "WWWWWWWWWWW",
+        "WWWWWWWWWWW",
+        "WWWWWWWWWWW",
+        "RRRRRRRRRRR",
+        "RRRRRRRRRRR",
+        "RRRRRRRRRRR",
+        "RRRRRRRRRRR"
+      ]
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "red", "charges": 18 },
+      { "color": "purple", "charges": 18 },
+      { "color": "brown", "charges": 18 },
+      { "color": "red", "charges": 18 },
+      { "color": "purple", "charges": 18 },
+      { "color": "brown", "charges": 18 },
+      { "color": "red", "charges": 18 },
+      { "color": "purple", "charges": 18 },
+      { "color": "brown", "charges": 18 },
+      { "color": "red", "charges": 17 },
+      { "color": "brown", "charges": 17 },
+      { "color": "purple", "charges": 17 }
+    ],
+    [
+      { "color": "blue", "charges": 15 },
+      { "color": "orange", "charges": 15 },
+      { "color": "lime", "charges": 15 },
+      { "color": "blue", "charges": 15 },
+      { "color": "orange", "charges": 15 },
+      { "color": "lime", "charges": 15 },
+      { "color": "blue", "charges": 14 },
+      { "color": "orange", "charges": 14 },
+      { "color": "lime", "charges": 14 },
+      { "color": "green", "charges": 17 },
+      { "color": "black", "charges": 17 },
+      { "color": "cyan", "charges": 17 }
+    ],
+    [
+      { "color": "green", "charges": 18 },
+      { "color": "cyan", "charges": 18 },
+      { "color": "black", "charges": 18 },
+      { "color": "green", "charges": 18 },
+      { "color": "cyan", "charges": 18 },
+      { "color": "black", "charges": 18 },
+      { "color": "green", "charges": 18 },
+      { "color": "cyan", "charges": 18 },
+      { "color": "black", "charges": 18 },
+      { "color": "purple", "charges": 17 },
+      { "color": "red", "charges": 17 },
+      { "color": "brown", "charges": 17 }
+    ],
+    [
+      { "color": "yellow", "charges": 15 },
+      { "color": "pink", "charges": 15 },
+      { "color": "white", "charges": 15 },
+      { "color": "yellow", "charges": 15 },
+      { "color": "pink", "charges": 15 },
+      { "color": "white", "charges": 15 },
+      { "color": "yellow", "charges": 14 },
+      { "color": "pink", "charges": 14 },
+      { "color": "white", "charges": 14 },
+      { "color": "cyan", "charges": 17 },
+      { "color": "green", "charges": 17 },
+      { "color": "black", "charges": 17 }
+    ]
+  ]
+}
