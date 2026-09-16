@@ -1,8 +1,8 @@
-import { defineConfig, type Plugin } from 'vite';
+import { defineConfig, normalizePath, type Plugin } from 'vite';
 import { writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
-const TUNING_FILE = fileURLToPath(new URL('./src/shared/defaults.json', import.meta.url));
+const TUNING_FILE = normalizePath(fileURLToPath(new URL('./src/shared/defaults.json', import.meta.url)));
 
 /**
  * Dev-only endpoint the editor panel posts to, so dragging a slider writes the
@@ -10,9 +10,20 @@ const TUNING_FILE = fileURLToPath(new URL('./src/shared/defaults.json', import.m
  * and the path it writes is fixed here rather than taken from the request.
  */
 function tuningWriter(): Plugin {
+  // What the editor itself last wrote. A change on disk matching this is our own
+  // write and is ignored; anything else — a hand edit, or checking out another
+  // branch — reloads the page, so the running game never serves a stale file.
+  let lastWritten: string | null = null;
+
   return {
     name: 'billboardshot-tuning-writer',
     apply: 'serve',
+    async handleHotUpdate(ctx) {
+      if (normalizePath(ctx.file) !== TUNING_FILE) return;
+      if ((await ctx.read()) === lastWritten) return [];
+      ctx.server.ws.send({ type: 'full-reload' });
+      return [];
+    },
     configureServer(server) {
       server.middlewares.use('/__settings', (req, res) => {
         if (req.method !== 'POST') {
@@ -30,7 +41,9 @@ function tuningWriter(): Plugin {
             if (typeof parsed !== 'object' || parsed === null || !Array.isArray(parsed.shapes)) {
               throw new Error('not a settings object');
             }
-            await writeFile(TUNING_FILE, `${JSON.stringify(parsed, null, 2)}\n`, 'utf8');
+            const text = `${JSON.stringify(parsed, null, 2)}\n`;
+            lastWritten = text;
+            await writeFile(TUNING_FILE, text, 'utf8');
             res.statusCode = 204;
             res.end();
           } catch (err) {
@@ -46,11 +59,6 @@ function tuningWriter(): Plugin {
 export default defineConfig({
   base: './',
   plugins: [tuningWriter()],
-  server: {
-    port: 5173,
-    // The editor writes this file constantly; reloading the page on every slider
-    // drag would be unusable, and the values are already live in memory.
-    watch: { ignored: ['**/src/shared/defaults.json'] },
-  },
+  server: { port: 5173 },
   build: { target: 'es2022' },
 });
