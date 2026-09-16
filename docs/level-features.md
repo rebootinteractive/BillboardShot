@@ -59,7 +59,7 @@ orientation: `col` from the left, `row` from the top, both starting at 0.
 ```
 
 Art characters: `R` red, `B` blue, `G` green, `Y` yellow, `P` purple, `O` orange,
-`C` cyan, `M` pink, `.` empty. The lowercase letter is a mystery pixel of that color.
+`C` cyan, `M` pink, `N` brown, `L` lime, `K` black, `W` white, `.` empty. The lowercase letter is a mystery pixel of that color.
 
 Checked on load: equal row widths, known characters and colors, whole-number charges,
 zero-sum charges per color, key and lock pairing (one of each per key color, not on the

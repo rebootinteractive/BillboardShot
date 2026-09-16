@@ -6,4 +6,8 @@ export type ColorKey =
   | 'purple'
   | 'orange'
   | 'cyan'
-  | 'pink';
+  | 'pink'
+  | 'brown'
+  | 'lime'
+  | 'black'
+  | 'white';
