@@ -1,0 +1,79 @@
+{
+  "name": "Mystery Pixels",
+  "deckSlots": 6,
+  "boards": [
+    {
+      "name": "Cactus",
+      "art": [
+        ".....y.....",
+        "....yyy....",
+        ".....g.....",
+        "....ggg....",
+        ".g..ggg....",
+        ".g..ggg..g.",
+        ".gg.ggg..g.",
+        "..ggggg.gg.",
+        "....ggggg..",
+        "BBBBBBBBBBB",
+        ".BBBBBBBBB.",
+        "..BBBBBBB.."
+      ]
+    },
+    {
+      "name": "Ghost",
+      "art": [
+        "...PPPPP...",
+        "..PPPPPPP..",
+        ".PPPPPPPPP.",
+        "PPccPPPccPP",
+        "PPccPPPccPP",
+        "PPPPPPPPPPP",
+        "PPPPPPPPPPP",
+        "PPPPmmmPPPP",
+        "PPPPPPPPPPP",
+        "PPPPPPPPPPP",
+        "P.PP.PPP.PP"
+      ]
+    },
+    {
+      "name": "Mushroom",
+      "art": [
+        "...bbbbb...",
+        "..bbbbbbb..",
+        ".bbmbbbmbb.",
+        "bbbbbbbbbbb",
+        "BBMBBBBBMBB",
+        ".BBBBBBBBB.",
+        "...YYYYY...",
+        "...YYYYY...",
+        "..YYYYYYY..",
+        "..YYYYYYY.."
+      ]
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "yellow", "charges": 14 },
+      { "color": "pink", "charges": 7 },
+      { "color": "cyan", "charges": 8 },
+      { "color": "green", "charges": 15 },
+      { "color": "blue", "charges": 15 },
+      { "color": "purple", "charges": 16 }
+    ],
+    [
+      { "color": "blue", "charges": 15 },
+      { "color": "green", "charges": 16 },
+      { "color": "blue", "charges": 15 },
+      { "color": "blue", "charges": 15 },
+      { "color": "purple", "charges": 16 },
+      { "color": "purple", "charges": 15 }
+    ],
+    [
+      { "color": "purple", "charges": 16 },
+      { "color": "yellow", "charges": 14 },
+      { "color": "purple", "charges": 16 },
+      { "color": "purple", "charges": 16 },
+      { "color": "blue", "charges": 15 }
+    ]
+  ]
+}

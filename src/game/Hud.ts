@@ -3,6 +3,12 @@ export interface HudCallbacks {
   onNext(): void;
 }
 
+export interface LevelOption {
+  value: string;
+  label: string;
+  group: string;
+}
+
 export class Hud {
   private readonly root: HTMLDivElement;
   private readonly tilesEl: HTMLElement;
@@ -10,6 +16,7 @@ export class Hud {
   private readonly deckEl: HTMLElement;
   private readonly hintEl: HTMLElement;
   private readonly levelEl: HTMLElement;
+  private levelSelect: HTMLSelectElement | null = null;
   private modalEl: HTMLDivElement | null = null;
   private hintTimer = 0;
 
@@ -33,8 +40,39 @@ export class Hud {
     this.levelEl = this.root.querySelector('[data-level]')!;
   }
 
-  setLevel(n: number) {
-    this.levelEl.textContent = String(n);
+  /** `value` marks the matching entry in the debug level picker, when it is enabled. */
+  setLevel(label: string, value?: string) {
+    this.levelEl.textContent = label;
+    if (this.levelSelect && value !== undefined) this.levelSelect.value = value;
+  }
+
+  /**
+   * Debug only: turns the level pill into a dropdown of every level. The native select
+   * sits invisibly over the pill, so a tap opens the system picker on a phone too.
+   */
+  enableLevelPicker(options: LevelOption[], onPick: (value: string) => void) {
+    const pill = this.root.querySelector('.hud-level')!;
+    pill.classList.add('pickable');
+    const select = document.createElement('select');
+    select.className = 'hud-level-select';
+    select.setAttribute('aria-label', 'Choose level');
+    const groups = new Map<string, HTMLOptGroupElement>();
+    for (const option of options) {
+      let group = groups.get(option.group);
+      if (!group) {
+        group = document.createElement('optgroup');
+        group.label = option.group;
+        select.appendChild(group);
+        groups.set(option.group, group);
+      }
+      group.appendChild(new Option(option.label, option.value));
+    }
+    select.addEventListener('change', () => {
+      select.blur();
+      onPick(select.value);
+    });
+    pill.appendChild(select);
+    this.levelSelect = select;
   }
 
   setStats(tiles: number, deckUsed: number, deckTotal: number, ammo: number) {

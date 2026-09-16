@@ -1,8 +1,10 @@
 import * as THREE from 'three';
 import { roundedBox, beveledBorder } from './visuals';
 import type { ColorKey } from '../shared/types';
-import { CHAR_TO_COLOR, COLOR_HEX } from '../shared/colors';
+import { COLOR_HEX } from '../shared/colors';
 import type { Settings } from '../shared/settings';
+import { artColor, isMysteryChar, type BoardData } from './level';
+import { KEY_HEX, drawCounter, keyTexture, mysteryTexture, type KeyColor } from './keys';
 
 const DISTANT_TINT = new THREE.Color(0xd2d6da);
 
@@ -26,7 +28,20 @@ export interface Tile {
   /** >= 0 while playing the pop-out animation. */
   popT: number;
   board: Billboard;
+  /** Mystery pixel whose color group has not been revealed yet. */
+  hidden: boolean;
+  /** Seconds until a revealed mystery pixel shows its color; < 0 when nothing is pending. */
+  revealDelay: number;
+  /** 0→1 while the reveal pop plays. */
+  revealT: number;
+  /** The key sitting on this pixel, collected when the pixel lands. */
+  key: KeyColor | null;
+  keyIcon: THREE.Mesh | null;
 }
+
+export type BoardLock =
+  | { type: 'key'; color: KeyColor }
+  | { type: 'frozen'; color: ColorKey; remaining: number };
 
 /**
  * One pixel-art billboard hanging from the ceiling ring on two ropes.
@@ -64,6 +79,30 @@ export class Billboard {
 
   aliveCount = 0;
 
+  /** While set, nothing can be pulled from this board. */
+  lock: BoardLock | null = null;
+  /** Where a flying key heads for: the padlock, or the middle of the board. */
+  readonly lockAnchor = new THREE.Object3D();
+  private overlay: THREE.Group | null = null;
+  private overlayMats: THREE.Material[] = [];
+  private overlayGeos: THREE.BufferGeometry[] = [];
+  private shackle: THREE.Object3D | null = null;
+  private counterCanvas: HTMLCanvasElement | null = null;
+  private counterTex: THREE.CanvasTexture | null = null;
+  private counterLabel: THREE.Object3D | null = null;
+  /** 1→0 while the counter bumps after a delivery. */
+  private counterPulse = 0;
+  private unlockT = -1;
+  /** Each overlay material's opacity when the unlock began, so the fade starts from it. */
+  private overlayOpacity: number[] = [];
+  private readonly mysteryTex = mysteryTexture();
+  private readonly mysteryMat = new THREE.MeshStandardMaterial({ map: this.mysteryTex, roughness: 0.4 });
+  private readonly keyTextures = new Map<KeyColor, THREE.CanvasTexture>();
+  private readonly keyMats = new Map<KeyColor, THREE.MeshBasicMaterial>();
+  private readonly keyGeo: THREE.PlaneGeometry;
+
+  get locked() { return this.lock !== null; }
+
   private swingZ = 0;
   private swingZv = 0;
   private swingX = 0;
@@ -77,6 +116,7 @@ export class Billboard {
     for (const [color, material] of this.mats) {
       material.color.setHex(COLOR_HEX[color]).lerp(DISTANT_TINT, (1 - this.focus) * 0.12);
     }
+    this.mysteryMat.color.setHex(0xffffff).lerp(DISTANT_TINT, (1 - this.focus) * 0.12);
   }
 
   private readonly tileGeo: THREE.BufferGeometry;
@@ -88,8 +128,8 @@ export class Billboard {
   private readonly outlineMat: THREE.MeshStandardMaterial;
   private readonly mats = new Map<ColorKey, THREE.MeshStandardMaterial>();
 
-  /** `art` rows run top-to-bottom, one character per pixel. */
-  constructor(art: string[], angle: number, s: Settings, index: number) {
+  constructor(data: BoardData, angle: number, s: Settings, index: number) {
+    const art = data.art;
     this.cols = art[0].length;
     this.rows = art.length;
     this.cell = s.cellSize;
@@ -127,14 +167,19 @@ export class Billboard {
     // Tiles.
     this.tileGeo = roundedBox(this.cell * 0.94, this.cell * 0.94, this.cell * 0.7, this.cell * 0.12);
     for (let c = 0; c < this.cols; c++) this.grid.push(new Array(this.rows).fill(null));
+    // Larger than a pixel, so the key reads at a glance from across the carousel.
+    this.keyGeo = new THREE.PlaneGeometry(this.cell * 1.6, this.cell * 1.6);
+    // Keys are written with rows from the top, like the art.
+    const keyAt = new Map((data.keys ?? []).map((k) => [`${k.col},${this.rows - 1 - k.row}`, k.color]));
 
     for (let r = 0; r < this.rows; r++) {
       const srcRow = art[this.rows - 1 - r]; // row 0 = bottom
       for (let c = 0; c < this.cols; c++) {
         const ch = srcRow[c];
-        const color = CHAR_TO_COLOR[ch];
+        const color = artColor(ch);
         if (!color) continue;
-        const mesh = new THREE.Mesh(this.tileGeo, this.material(color));
+        const hidden = isMysteryChar(ch);
+        const mesh = new THREE.Mesh(this.tileGeo, hidden ? this.mysteryMat : this.material(color));
         mesh.position.set(
           (c - (this.cols - 1) / 2) * this.cell,
           (r - (this.rows - 1) / 2) * this.cell,
@@ -143,7 +188,18 @@ export class Billboard {
         mesh.castShadow = true;
         mesh.receiveShadow = true;
         this.board.add(mesh);
-        const tile: Tile = { col: c, row: r, color, mesh, alive: true, reserved: false, popT: -1, board: this };
+        const key = keyAt.get(`${c},${r}`) ?? null;
+        let keyIcon: THREE.Mesh | null = null;
+        if (key) {
+          keyIcon = new THREE.Mesh(this.keyGeo, this.keyMaterial(key));
+          keyIcon.position.z = this.cell * 0.4;
+          keyIcon.renderOrder = 3;
+          mesh.add(keyIcon);
+        }
+        const tile: Tile = {
+          col: c, row: r, color, mesh, alive: true, reserved: false, popT: -1, board: this,
+          hidden, revealDelay: -1, revealT: 1, key, keyIcon,
+        };
         this.grid[c][r] = tile;
         this.tiles.push(tile);
         this.aliveCount++;
@@ -155,6 +211,178 @@ export class Billboard {
     const border = new THREE.Mesh(this.outlineGeo, this.outlineMat);
     border.name = 'billboard-border';
     this.board.add(border);
+
+    this.board.add(this.lockAnchor);
+    this.lockAnchor.position.z = this.cell * 0.9;
+    if (data.lock?.type === 'key') {
+      this.lock = { type: 'key', color: data.lock.color };
+      this.buildPadlock(data.lock.color);
+    } else if (data.lock?.type === 'frozen') {
+      this.lock = { type: 'frozen', color: data.lock.color, remaining: data.lock.count };
+      this.buildIce();
+    }
+  }
+
+  private keyMaterial(color: KeyColor) {
+    let m = this.keyMats.get(color);
+    if (!m) {
+      const tex = keyTexture(color);
+      this.keyTextures.set(color, tex);
+      m = new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, toneMapped: false });
+      this.keyMats.set(color, m);
+    }
+    return m;
+  }
+
+  private overlayMesh(geo: THREE.BufferGeometry, mat: THREE.Material) {
+    this.overlayGeos.push(geo);
+    if (!this.overlayMats.includes(mat)) this.overlayMats.push(mat);
+    return new THREE.Mesh(geo, mat);
+  }
+
+  /** Two straps across the artwork and a padlock in the key's color. */
+  private buildPadlock(color: KeyColor) {
+    const cell = this.cell;
+    const w = this.cols * cell;
+    const h = this.rows * cell;
+    const group = new THREE.Group();
+    const metal = new THREE.MeshStandardMaterial({ color: KEY_HEX[color], roughness: 0.3, metalness: 0.35 });
+    const strap = new THREE.MeshStandardMaterial({
+      color: new THREE.Color(KEY_HEX[color]).multiplyScalar(0.72), roughness: 0.5, metalness: 0.2,
+    });
+    const diagonal = Math.hypot(w, h);
+    for (const sign of [-1, 1]) {
+      const band = this.overlayMesh(roundedBox(diagonal, cell * 0.55, cell * 0.2, cell * 0.08), strap);
+      band.rotation.z = sign * Math.atan2(h, w);
+      band.position.z = cell * 0.5;
+      band.castShadow = true;
+      group.add(band);
+    }
+    const body = this.overlayMesh(roundedBox(cell * 2.6, cell * 2.2, cell * 0.9, cell * 0.3), metal);
+    body.position.z = cell * 0.95;
+    body.castShadow = true;
+    group.add(body);
+    const shackle = this.overlayMesh(new THREE.TorusGeometry(cell * 0.8, cell * 0.22, 10, 24, Math.PI), metal);
+    const shackleHolder = new THREE.Group();
+    shackleHolder.position.set(0, cell * 1.05, cell * 0.95);
+    shackleHolder.add(shackle);
+    group.add(shackleHolder);
+    this.shackle = shackleHolder;
+    const holeMat = new THREE.MeshBasicMaterial({ color: new THREE.Color(KEY_HEX[color]).multiplyScalar(0.3) });
+    const hole = this.overlayMesh(new THREE.CircleGeometry(cell * 0.28, 16), holeMat);
+    hole.position.set(0, cell * 0.15, cell * 1.42);
+    group.add(hole);
+    const slot = this.overlayMesh(new THREE.PlaneGeometry(cell * 0.18, cell * 0.55), holeMat);
+    slot.position.set(0, -cell * 0.25, cell * 1.42);
+    group.add(slot);
+    this.lockAnchor.position.set(0, 0, cell * 1.5);
+    this.overlay = group;
+    this.board.add(group);
+  }
+
+  /** A sheet of ice over the artwork with the color and count still needed. */
+  private buildIce() {
+    if (this.lock?.type !== 'frozen') return;
+    const cell = this.cell;
+    const group = new THREE.Group();
+    const iceMat = new THREE.MeshStandardMaterial({
+      color: 0xdff5ff, roughness: 0.12, metalness: 0, transparent: true, opacity: 0.66,
+      emissive: 0x6fb8d8, emissiveIntensity: 0.12,
+    });
+    const ice = this.overlayMesh(
+      roundedBox(this.cols * cell + cell * 0.5, this.rows * cell + cell * 0.5, cell * 0.3, cell * 0.3), iceMat);
+    ice.position.z = cell * 0.52;
+    group.add(ice);
+    this.counterCanvas = document.createElement('canvas');
+    this.counterCanvas.width = 256;
+    this.counterCanvas.height = 128;
+    this.counterTex = new THREE.CanvasTexture(this.counterCanvas);
+    this.counterTex.colorSpace = THREE.SRGBColorSpace;
+    const labelMat = new THREE.MeshBasicMaterial({ map: this.counterTex, transparent: true, toneMapped: false });
+    const label = this.overlayMesh(new THREE.PlaneGeometry(cell * 4.4, cell * 2.2), labelMat);
+    label.position.z = cell * 0.72;
+    label.renderOrder = 4;
+    group.add(label);
+    this.counterLabel = label;
+    this.refreshCounter();
+    this.lockAnchor.position.set(0, 0, cell * 0.8);
+    this.overlay = group;
+    this.board.add(group);
+  }
+
+  private refreshCounter() {
+    if (this.lock?.type !== 'frozen' || !this.counterCanvas || !this.counterTex) return;
+    drawCounter(this.counterCanvas.getContext('2d')!, String(this.lock.remaining), { swatch: this.lock.color, icy: true });
+    this.counterTex.needsUpdate = true;
+  }
+
+  /**
+   * Pixels delivered by a finished container of the frozen color. Returns true if this
+   * thawed the board.
+   */
+  addFrozenProgress(amount: number): boolean {
+    if (this.lock?.type !== 'frozen') return false;
+    this.lock.remaining = Math.max(0, this.lock.remaining - amount);
+    this.refreshCounter();
+    this.counterPulse = 1;
+    if (this.lock.remaining > 0) return false;
+    this.unlock();
+    return true;
+  }
+
+  /** Lift the lock now; the cover animates away over the next half second. */
+  unlock() {
+    if (!this.lock) return;
+    this.lock = null;
+    this.unlockT = 0;
+    this.overlayOpacity = this.overlayMats.map((m) => m.opacity);
+    for (const m of this.overlayMats) {
+      m.transparent = true;
+      m.needsUpdate = true;
+    }
+  }
+
+  /**
+   * Reveal any mystery pixel that has become the lowest standing one in its column,
+   * flooding through its connected same-color group.
+   */
+  revealExposed() {
+    for (let c = 0; c < this.cols; c++) {
+      const tile = this.lowestStanding(c);
+      if (tile?.hidden) this.revealGroup(tile);
+    }
+  }
+
+  private revealGroup(start: Tile) {
+    const queue: Array<[Tile, number]> = [[start, 0]];
+    const seen = new Set<Tile>([start]);
+    while (queue.length) {
+      const [tile, distance] = queue.shift()!;
+      if (tile.hidden) {
+        tile.hidden = false;
+        tile.revealDelay = distance * 0.045;
+      }
+      for (const [dc, dr] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        const next = this.grid[tile.col + dc]?.[tile.row + dr];
+        // Pixels still in flight count as present; collected ones do not connect.
+        if (!next || !next.alive || next.color !== start.color || seen.has(next)) continue;
+        seen.add(next);
+        queue.push([next, distance + 1]);
+      }
+    }
+  }
+
+  /** Show a revealed pixel's color straight away, e.g. as it is pulled. */
+  showTrueColor(tile: Tile) {
+    if (tile.revealDelay < 0) return;
+    tile.revealDelay = -1;
+    tile.mesh.material = this.material(tile.color);
+  }
+
+  /** Remove the key icon from a pixel whose key has been collected. */
+  takeKey(tile: Tile) {
+    tile.keyIcon?.removeFromParent();
+    tile.keyIcon = null;
   }
 
   moveToAngle(angle: number) {
@@ -234,6 +462,7 @@ export class Billboard {
    * that is nowhere at the bottom of a column is unreachable, not just misaligned.
    */
   addFirableColors(into: Set<ColorKey>) {
+    if (this.locked) return;
     for (let c = 0; c < this.cols; c++) {
       for (let r = 0; r < this.rows; r++) {
         const t = this.grid[c][r];
@@ -260,6 +489,7 @@ export class Billboard {
 
   /** One entry per column that currently has something shootable at its bottom. */
   collectEligible(out: EligibleTarget[]) {
+    if (this.locked) return;
     for (let c = 0; c < this.cols; c++) {
       const tile = this.lowestStanding(c);
       if (!tile) continue;
@@ -326,6 +556,27 @@ export class Billboard {
     this.pivot.rotation.z = this.swingZ;
     this.pivot.rotation.x = this.swingX;
 
+    // Mystery pixels flipping to their color, one ring of the flood at a time.
+    for (const t of this.tiles) {
+      if (t.revealDelay >= 0) {
+        t.revealDelay -= dt;
+        if (t.revealDelay < 0) {
+          t.mesh.material = this.material(t.color);
+          t.revealT = 0;
+        }
+      }
+      if (t.revealT < 1) {
+        t.revealT = Math.min(1, t.revealT + dt / 0.28);
+        if (!t.reserved) t.mesh.scale.setScalar(1 + Math.sin(t.revealT * Math.PI) * 0.22);
+      }
+    }
+
+    if (this.counterPulse > 0 && this.counterLabel) {
+      this.counterPulse = Math.max(0, this.counterPulse - dt / 0.3);
+      this.counterLabel.scale.setScalar(1 + Math.sin(this.counterPulse * Math.PI) * 0.25);
+    }
+    this.updateUnlock(dt);
+
     // Pop animation for destroyed tiles.
     for (const t of this.tiles) {
       if (t.popT < 0) continue;
@@ -342,7 +593,41 @@ export class Billboard {
     }
   }
 
+  private updateUnlock(dt: number) {
+    if (this.unlockT < 0 || !this.overlay) return;
+    this.unlockT = Math.min(1, this.unlockT + dt / 0.55);
+    const t = this.unlockT;
+    if (this.shackle) this.shackle.position.y = this.cell * (1.05 + THREE.MathUtils.smoothstep(t, 0, 0.3) * 0.7);
+    const fade = THREE.MathUtils.smoothstep(t, 0.3, 1);
+    this.overlay.scale.setScalar(1 + fade * 0.18);
+    this.overlayMats.forEach((m, i) => { m.opacity = this.overlayOpacity[i] * (1 - fade); });
+    if (t >= 1) {
+      this.overlay.removeFromParent();
+      this.disposeOverlay();
+      this.unlockT = -1;
+    }
+  }
+
+  private disposeOverlay() {
+    for (const g of this.overlayGeos) g.dispose();
+    for (const m of this.overlayMats) m.dispose();
+    this.counterTex?.dispose();
+    this.overlayGeos = [];
+    this.overlayMats = [];
+    this.overlay = null;
+    this.shackle = null;
+    this.counterTex = null;
+    this.counterCanvas = null;
+    this.counterLabel = null;
+  }
+
   dispose() {
+    this.disposeOverlay();
+    this.mysteryTex.dispose();
+    this.mysteryMat.dispose();
+    this.keyGeo.dispose();
+    for (const m of this.keyMats.values()) m.dispose();
+    for (const t of this.keyTextures.values()) t.dispose();
     this.arm.parent?.remove(this.arm);
     this.pivot.removeFromParent();
     this.tileGeo.dispose();

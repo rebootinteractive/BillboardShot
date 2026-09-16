@@ -1,0 +1,76 @@
+{
+  "name": "Key Locks",
+  "deckSlots": 6,
+  "boards": [
+    {
+      "name": "Apple",
+      "art": [
+        ".....GG..",
+        "....GG...",
+        "..RRGRR..",
+        ".RRRRRRR.",
+        "RRRRRRRRR",
+        "RRRRRRRRR",
+        "RRRRRRRRR",
+        ".RRRRRRR.",
+        "..RR.RR.."
+      ],
+      "keys": [{ "col": 4, "row": 5, "color": "gold" }]
+    },
+    {
+      "name": "Fish",
+      "art": [
+        "....BBB....",
+        "..BBBBBB..Y",
+        ".BBYBBBBBYY",
+        "BBBBBBBBYYY",
+        "BBBBBBBBYYY",
+        ".BBBBBBBBYY",
+        "..BBBBBB..Y",
+        "....BBB...."
+      ],
+      "keys": [{ "col": 5, "row": 3, "color": "silver" }],
+      "lock": { "type": "key", "color": "gold" }
+    },
+    {
+      "name": "Cactus",
+      "art": [
+        ".....Y.....",
+        "....YYY....",
+        ".....G.....",
+        "....GGG....",
+        ".G..GGG....",
+        ".G..GGG..G.",
+        ".GG.GGG..G.",
+        "..GGGGG.GG.",
+        "....GGGGG..",
+        "BBBBBBBBBBB",
+        ".BBBBBBBBB.",
+        "..BBBBBBB.."
+      ],
+      "lock": { "type": "key", "color": "silver" }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "red", "charges": 13 },
+      { "color": "red", "charges": 12 },
+      { "color": "yellow", "charges": 9 },
+      { "color": "yellow", "charges": 8 },
+      { "color": "blue", "charges": 15 }
+    ],
+    [
+      { "color": "red", "charges": 12 },
+      { "color": "blue", "charges": 16 },
+      { "color": "blue", "charges": 15 },
+      { "color": "blue", "charges": 15 },
+      { "color": "blue", "charges": 15 }
+    ],
+    [
+      { "color": "red", "charges": 12 },
+      { "color": "green", "charges": 12 },
+      { "color": "green", "charges": 12 },
+      { "color": "green", "charges": 12 }
+    ]
+  ]
+}

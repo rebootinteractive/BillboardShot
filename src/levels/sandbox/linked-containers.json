@@ -1,0 +1,56 @@
+{
+  "name": "Linked Containers",
+  "deckSlots": 6,
+  "boards": [
+    {
+      "name": "Fish",
+      "art": [
+        "....BBB....",
+        "..BBBBBB..Y",
+        ".BBYBBBBBYY",
+        "BBBBBBBBYYY",
+        "BBBBBBBBYYY",
+        ".BBBBBBBBYY",
+        "..BBBBBB..Y",
+        "....BBB...."
+      ]
+    },
+    {
+      "name": "Cactus",
+      "art": [
+        ".....Y.....",
+        "....YYY....",
+        ".....G.....",
+        "....GGG....",
+        ".G..GGG....",
+        ".G..GGG..G.",
+        ".GG.GGG..G.",
+        "..GGGGG.GG.",
+        "....GGGGG..",
+        "BBBBBBBBBBB",
+        ".BBBBBBBBB.",
+        "..BBBBBBB.."
+      ]
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "blue", "charges": 11 },
+      { "color": "blue", "charges": 11, "link": "a" },
+      { "color": "blue", "charges": 11 },
+      { "color": "blue", "charges": 11 }
+    ],
+    [
+      { "color": "yellow", "charges": 9 },
+      { "color": "yellow", "charges": 8, "link": "a" },
+      { "color": "green", "charges": 10 },
+      { "color": "blue", "charges": 11, "link": "b" }
+    ],
+    [
+      { "color": "green", "charges": 11 },
+      { "color": "green", "charges": 10 },
+      { "color": "blue", "charges": 11, "link": "b" },
+      { "color": "blue", "charges": 10 }
+    ]
+  ]
+}
