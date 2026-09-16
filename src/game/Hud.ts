@@ -18,7 +18,7 @@ export class Hud {
       <div class="hud-top">
         <div class="hud-stat"><span class="lbl">Pixels</span><strong data-tiles>0</strong></div>
         <div class="hud-stat"><span class="lbl">Deck</span><strong data-deck>0/0</strong></div>
-        <div class="hud-stat"><span class="lbl">Shooters</span><strong data-ammo>0</strong></div>
+        <div class="hud-stat"><span class="lbl">Containers</span><strong data-ammo>0</strong></div>
       </div>
       <div class="hud-hint" data-hint></div>
     `;

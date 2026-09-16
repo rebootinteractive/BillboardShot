@@ -4,13 +4,15 @@ import { COLOR_HEX } from '../shared/colors';
 import { loadSettings, type Settings } from '../shared/settings';
 import { Billboard, type EligibleTarget, type Tile } from './Billboard';
 import { Shooter } from './Shooter';
-import { Projectile } from './Projectile';
+import { PulledCube } from './PulledCube';
 import { buildLevel } from './level';
 import { Hud } from './Hud';
 
 const SHOOTER_SCALE = 0.85;
 const WALK_SPEED = 4.2;
 const RETIRE_TIME = 0.36;
+/** How long a full container lingers before it leaves the deck. */
+const FULL_HOLD = 0.3;
 
 interface DeckSlot {
   pos: THREE.Vector3;
@@ -42,15 +44,14 @@ export class GameApp {
   private deckY = 0;
   private deckOccupants: (Shooter | null)[] = [];
   private lanes: Shooter[][] = [];
-  private projectiles: Projectile[] = [];
+  /** Cubes currently on their way from a billboard into a container. */
+  private pulls: PulledCube[] = [];
   private allShooters: Shooter[] = [];
   /** Shootable pixels inside the firing arc, rebuilt once per frame. */
   private targets: EligibleTarget[] = [];
   private disposables: Array<{ dispose(): void }> = [];
 
   // ---- shared assets ----
-  private readonly shotGeo = new THREE.SphereGeometry(0.075, 10, 8);
-  private readonly shotMats = new Map<ColorKey, THREE.MeshBasicMaterial>();
 
   // ---- input ----
   private pointerDown = false;
@@ -113,15 +114,6 @@ export class GameApp {
   }
 
   // ------------------------------------------------------------------ build
-
-  private shotMaterial(c: ColorKey) {
-    let m = this.shotMats.get(c);
-    if (!m) {
-      m = new THREE.MeshBasicMaterial({ color: COLOR_HEX[c] });
-      this.shotMats.set(c, m);
-    }
-    return m;
-  }
 
   private buildWorld() {
     const s = this.settings;
@@ -252,10 +244,10 @@ export class GameApp {
   }
 
   private destroyWorld() {
-    for (const p of this.projectiles) {
-      p.mesh.parent?.remove(p.mesh);
+    for (const p of this.pulls) {
+      p.tile.mesh.parent?.remove(p.tile.mesh);
     }
-    this.projectiles = [];
+    this.pulls = [];
     this.targets.length = 0;
     for (const sh of this.allShooters) sh.dispose();
     this.allShooters = [];
@@ -474,7 +466,10 @@ export class GameApp {
     this.updateFocus();
     this.buildTargets();
     this.updateShooters(dt, s);
-    this.updateProjectiles(dt, s);
+    this.updatePulls(dt, s);
+    // After this frame's arrivals, so a cube that just landed is already counted
+    // when the pile decides which of the older ones have left the window.
+    for (const sh of this.allShooters) sh.updateStack(dt, s.containerVisibleCubes);
     this.hud.tick(dt);
     this.updateHud();
     if (this.over === 'none') this.checkEnd();
@@ -501,7 +496,7 @@ export class GameApp {
 
   private updateShooters(dt: number, s: Settings) {
     const firers = this.pickFirers();
-    // Aiming and shooting are separate acts: nobody fires mid-drag.
+    // Aiming and pulling are separate acts: nobody pulls mid-drag.
     const holdFire = s.holdFireWhileDragging && this.dragging;
     // Queue shuffling forward.
     for (let k = 0; k < this.lanes.length; k++) {
@@ -532,9 +527,13 @@ export class GameApp {
         const isFirer = firers.get(sh.color) === sh.id;
         sh.setActive(isFirer && !holdFire);
         if (sh.charges <= 0) {
+          // Hold a beat once the last cube lands, so the full container is seen.
           if (sh.inFlight === 0) {
-            sh.state = 'retiring';
-            sh.retireT = 0;
+            sh.fullT += dt;
+            if (sh.fullT >= FULL_HOLD) {
+              sh.state = 'retiring';
+              sh.retireT = 0;
+            }
           }
         } else if (isFirer && !holdFire && sh.cooldown <= 0) {
           this.tryFire(sh, s);
@@ -614,42 +613,31 @@ export class GameApp {
     const tile = this.targets[best].tile;
     this.targets.splice(best, 1);
 
-    const origin = this.scratch2.copy(sh.group.position);
-    origin.y += 0.7 * SHOOTER_SCALE;
-
+    // The real pixel leaves the artwork. Reserving it makes the one above it
+    // pullable straight away, exactly as a shot used to.
     tile.reserved = true;
-    tile.mesh.scale.setScalar(0.8);
-    const p = new Projectile(
-      this.shotGeo,
-      this.shotMaterial(sh.color),
-      origin,
-      tile,
-      sh,
-      s.projectileSpeed,
-      s.projectileArc,
-      0,
-    );
-    this.world.add(p.mesh);
-    this.projectiles.push(p);
+    tile.board.impulse(tile.mesh.position.x, s);
+    this.pulls.push(new PulledCube(this.world, tile, sh, s.containerVisibleCubes, s.projectileSpeed, s.projectileArc));
     sh.inFlight++;
     sh.charges -= 1;
     sh.refreshBadge();
     sh.cooldown = s.fireCooldown;
   }
 
-  private updateProjectiles(dt: number, s: Settings) {
-    for (let i = this.projectiles.length - 1; i >= 0; i--) {
-      const p = this.projectiles[i];
+  private updatePulls(dt: number, s: Settings) {
+    for (let i = this.pulls.length - 1; i >= 0; i--) {
+      const p = this.pulls[i];
       if (!p.update(dt)) continue;
       const tile: Tile = p.tile;
-      tile.mesh.scale.setScalar(1);
-      tile.board.destroyTile(tile);
-      tile.board.impulse(tile.mesh.position.x, s);
-      p.shooter.inFlight = Math.max(0, p.shooter.inFlight - 1);
-      p.mesh.parent?.remove(p.mesh);
-      this.projectiles.splice(i, 1);
+      tile.board.releaseTile(tile);
+      // Stack on the billboard's own cell pitch, so the pile reads cube by cube like the artwork.
+      p.container.receiveCube(tile.mesh, tile.board.cell);
+      p.container.inFlight = Math.max(0, p.container.inFlight - 1);
+      this.pulls.splice(i, 1);
     }
+    void s;
   }
+
 
   private remainingByColor(): Map<ColorKey, number> {
     const m = new Map<ColorKey, number>();
@@ -681,7 +669,7 @@ export class GameApp {
       this.hud.showEnd(true, 'Every pixel knocked off the carousel.');
       return;
     }
-    if (this.projectiles.length > 0) return;
+    if (this.pulls.length > 0) return;
 
     const queueEmpty = this.lanes.every((l) => l.length === 0);
     const deckFull = this.deckOccupants.every((o) => o !== null);
@@ -706,8 +694,8 @@ export class GameApp {
     this.hud.showEnd(
       false,
       queueEmpty && onDeck.length === 0
-        ? 'Out of shooters with pixels still standing.'
-        : 'Deck jammed — none of these shooters can reach a pixel any more.',
+        ? 'Out of containers with pixels still standing.'
+        : 'Deck jammed — none of these containers can reach a pixel any more.',
     );
   }
 
@@ -739,9 +727,6 @@ export class GameApp {
     this.detachInput();
     this.ro.disconnect();
     this.destroyWorld();
-    this.shotGeo.dispose();
-    for (const m of this.shotMats.values()) m.dispose();
-    this.shotMats.clear();
     this.hud.dispose();
     this.renderer.dispose();
     this.renderer.domElement.remove();

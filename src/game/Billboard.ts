@@ -263,6 +263,17 @@ export class Billboard {
     }
   }
 
+  /**
+   * The tile has been pulled out of the grid into a container. Unlike destroyTile
+   * there is no pop — the mesh left the board and lives on in the container.
+   */
+  releaseTile(t: Tile) {
+    if (!t.alive) return;
+    t.alive = false;
+    t.popT = -1;
+    this.aliveCount--;
+  }
+
   destroyTile(t: Tile) {
     if (!t.alive) return;
     t.alive = false;

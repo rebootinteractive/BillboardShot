@@ -58,7 +58,9 @@ export interface Settings {
   chargesPerShooter: number;
   seed: number;
 
-  // --- Firing ---
+  // --- Pulling ---
+  /** How many caught cubes stay visible stacked out of a container's top. */
+  containerVisibleCubes: number;
   fireCooldown: number;
   projectileSpeed: number;
   projectileArc: number;
@@ -84,7 +86,7 @@ type BooleanKey = {
 }[keyof Settings];
 
 export const TOGGLES: ToggleDef[] = [
-  { key: 'holdFireWhileDragging', label: 'Hold fire while dragging', group: 'Shooting' },
+  { key: 'holdFireWhileDragging', label: 'Hold pulls while dragging', group: 'Pulling' },
 ];
 
 export interface FieldDef {
@@ -135,9 +137,10 @@ export const FIELDS: FieldDef[] = [
   { key: 'chargesPerShooter', label: 'Max charges / shooter', group: 'Queue', min: 1, max: 30, step: 1, structural: true },
   { key: 'seed', label: 'Seed', group: 'Queue', min: 1, max: 999, step: 1, structural: true },
 
-  { key: 'fireCooldown', label: 'Fire cooldown (s)', group: 'Firing', min: 0.05, max: 2, step: 0.05 },
-  { key: 'projectileSpeed', label: 'Projectile speed', group: 'Firing', min: 2, max: 30, step: 0.5 },
-  { key: 'projectileArc', label: 'Projectile arc ×', group: 'Firing', min: 0, max: 2, step: 0.05 },
+  { key: 'containerVisibleCubes', label: 'Visible cubes in container', group: 'Pulling', min: 1, max: 12, step: 1 },
+  { key: 'fireCooldown', label: 'Pull cooldown (s)', group: 'Pulling', min: 0.05, max: 2, step: 0.05 },
+  { key: 'projectileSpeed', label: 'Pull speed', group: 'Pulling', min: 2, max: 30, step: 0.5 },
+  { key: 'projectileArc', label: 'Pull arc ×', group: 'Pulling', min: 0, max: 2, step: 0.05 },
 ];
 
 export type SaveStatus = 'saving' | 'saved' | 'failed';

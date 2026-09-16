@@ -1,5 +1,10 @@
 # BillboardShot — approved design (2026-09-04)
 
+> **Branch `feature/container-pull`.** An alternative to the shooter mechanic on
+> `main`: the queue blocks are containers that pull cubes down out of the billboards
+> instead of shooters firing up at them. Availability, focus, capacity and every end
+> condition are unchanged — only the direction and the fiction are reversed.
+
 Inspired by Cube Land (Rotate Lab) for the queue/deck bottleneck, and Pixel Flow for
 pixel-grid billboard targets. Not a clone of either — selected mechanics only.
 
@@ -19,11 +24,11 @@ ceiling height, rope length or pixel size are tuned. Below that, on the ground,
 
 ## Inputs (two)
 
-1. **Tap the front shooter of a queue line** -> it walks to the first free deck slot.
+1. **Tap the front container of a queue line** -> it walks to the first free deck slot.
 2. **Drag the upper area** -> spin the carousel by hand. Idle auto-rotation pauses
    while steering, resumes after a delay. Release snaps to the nearest slot.
 
-## Firing (automatic)
+## Pulling (automatic)
 
 Each billboard carries an **outline hugging its own silhouette** — top and side edges
 only, never the bottom. The outline is traced downward from the top row and stops at
@@ -35,12 +40,11 @@ A gap inside a row that drains out of the bottom gets no side edges either, so t
 ghost's feet do not sprout teeth. A gap that is closed off below — the notch between
 the heart's lobes — is still traced.
 
-The open bottom states the rule: a pixel is only shootable if it has a clear path down
-and out — in grid terms, the lowest surviving tile of its column. The shooting arc is
-deliberately **not drawn**.
+The open bottom states the rule: a pixel can only be pulled if it has a clear path down
+and out — in grid terms, the lowest surviving tile of its column.
 
 Exactly one billboard is **focused** at a time — whichever sits nearest the camera —
-and it is the only one anything can shoot. Spinning the carousel is the act of
+and it is the only one anything can pull from. Spinning the carousel is the act of
 choosing which board is live.
 
 Focus is shown by **snapping**. Let go of a drag and the carousel eases onto the
@@ -50,23 +54,28 @@ velocity is projected forward through the spin damping, and whichever slot that 
 nearest becomes the target. A nudge springs back to where it started, a firm drag
 advances one board, a hard flick two.
 
-- Each frame the game collects the shootable pixel of every column **on the focused
-  board only**, and offers that list to the shooters.
-- **Nobody fires while the player is dragging the carousel** (option "Hold fire while
-  dragging", on by default), so aiming and shooting are separate acts. Momentum after
-  release still counts as free time — firing resumes the moment the finger lifts.
-- **Only one shooter per color may fire**: the one with the fewest charges left, ties
-  going to the lower slot. Concentrating fire empties that shooter sooner and hands its
-  deck slot back, rather than draining a color's shooters in lockstep. The active one
-  is lit; the rest sit dark.
-- **One shot spends one charge on one pixel.** A shooter takes the lowest-row target
-  available in its color, the target nearest its own slot breaking ties, then waits
-  out its cooldown and picks again. Shapes erode from the bottom edge upward in a
-  level front rather than being carved into vertical stripes.
-- Tiles are reserved the moment they are targeted, so two shooters cannot claim the
-  same pixel and the one above it becomes shootable straight away.
-- Shots are arcing homing projectiles (the target swings and rotates).
-- A shooter that spends its **last charge leaves the deck**, freeing the slot.
+- Each frame the game collects the pullable pixel of every column **on the focused
+  board only**, and offers that list to the containers.
+- **Nobody pulls while the player is dragging the carousel** (option "Hold pulls while
+  dragging", on by default), so aiming and pulling are separate acts.
+- **Only one container per color may pull**: the one with the least room left, ties
+  going to the lower slot. Concentrating on it fills it sooner and hands its deck slot
+  back. The active one is lit; the rest sit dark.
+- **One pull moves one pixel.** A container takes the lowest-row pixel available in its
+  color, nearest angle breaking ties, then waits out its cooldown and picks again.
+- The pixel is reserved the moment it is chosen, so two containers cannot claim it and
+  the one above it becomes pullable straight away.
+- **The real cube travels.** The tile mesh is lifted out of the grid into world space,
+  leaving its gap in the artwork, and flies down into the container on an arc whose
+  lift grows with sideways reach.
+- **Caught cubes stack out of the container's open top**, on the billboard's own cell
+  pitch so the pile reads cube by cube. Only the newest few stay in view (setting
+  "Visible cubes in container", 4): each arrival pushes the pile down, and a cube
+  pushed out of the window shrinks as it sinks into the container and is gone. It
+  starts shrinking the moment it leaves the window, so a fast burst never shows more
+  than that many at full size.
+- A container with **no room left** holds for a beat so its last cube is seen landing,
+  then leaves the deck and frees the slot.
 
 ## Ammo
 

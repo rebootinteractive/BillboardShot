@@ -30,8 +30,16 @@
   "minChargesPerShooter": 3,
   "chargesPerShooter": 20,
   "seed": 7,
+  "containerVisibleCubes": 4,
   "fireCooldown": 0.05,
   "projectileSpeed": 9,
   "projectileArc": 1.1,
-  "shapes": ["heart", "tree", "star", "mushroom", "smiley", "ghost"]
+  "shapes": [
+    "heart",
+    "tree",
+    "star",
+    "mushroom",
+    "smiley",
+    "ghost"
+  ]
 }
