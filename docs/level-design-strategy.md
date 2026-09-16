@@ -18,12 +18,12 @@ never beyond it.
 | Parameter | Range | Notes |
 |---|---|---|
 | Boards | 1–6 | |
-| Board size | up to 11 wide × 12 tall | Six boards at full width close the carousel into a crowded ring; with 5–6 boards prefer art with a silhouette over full rectangles. |
+| Board size | up to 16 wide × 17 tall | Pixels are 0.15 world units, so a full board is the same size as the earlier 11×12 boards at 0.22. Levels 1–3 and the feature test levels still use 11×12 art and set `cellSize: 0.22`. With 5–6 boards prefer art with a silhouette over full rectangles. |
 | Colors in a level | up to 12 | |
 | Lanes | 1–4 | |
 | Deck slots | 3–7 | The strongest difficulty lever. Slot spacing is fixed, so the deck widens with more slots. |
 | Container charges | 3–20 per container | Charges per color must still equal that color's pixels. |
-| Pixels in a level | up to 500 | Keeps levels to a few minutes; level 3 has 464. Calibrated against play time in Phase 4. |
+| Pixels in a level | up to 1000 *(provisional)* | Raised for the 16×17 resolution, where a picture has about 140 pixels (median). Calibrated against play time in Phase 4. |
 
 Fixed for every level (tuning, not level design):
 
@@ -87,6 +87,9 @@ the main difficulty lever.
 
 - Group ids are digits `1`–`9`, so they are never confused with color letters or
   lowercase mystery letters. `.` is empty.
+- A picture is one connected shape: every pixel reaches every other through up, down,
+  left or right neighbors. Separate islands are rejected by the checker, because a board
+  should not start in pieces.
 - `suggest` keeps a picture recognizable (a leaf stays green) without forcing one color.
 - `status` is `draft`, `approved` or `rejected`. Only approved pictures are used.
 

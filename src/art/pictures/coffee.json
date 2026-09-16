@@ -1,0 +1,31 @@
+{
+  "id": "coffee",
+  "name": "Coffee",
+  "tags": ["food"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Hot%20beverage" },
+  "art": [
+    ".....1111.......",
+    "...11333311.....",
+    "..1332222331....",
+    "..132222223111..",
+    ".13222222223111.",
+    ".122222222221.11",
+    ".122222222221..1",
+    "11222222222211.1",
+    "1112222222211111",
+    "111222222221111.",
+    "11111222211111..",
+    "11111111111111..",
+    ".1111111111111..",
+    ".111111111111...",
+    "..1111111111....",
+    "...11111111.....",
+    ".....1111......."
+  ],
+  "groups": {
+    "1": { "part": "white", "suggest": ["white"] },
+    "2": { "part": "brown", "suggest": ["brown"] },
+    "3": { "part": "purple", "suggest": ["purple"] }
+  }
+}

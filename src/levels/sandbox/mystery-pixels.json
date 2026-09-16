@@ -1,5 +1,6 @@
 {
   "name": "Mystery Pixels",
+  "cellSize": 0.22,
   "deckSlots": 6,
   "boards": [
     {

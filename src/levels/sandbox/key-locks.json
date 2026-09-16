@@ -1,5 +1,6 @@
 {
   "name": "Key Locks",
+  "cellSize": 0.22,
   "deckSlots": 6,
   "boards": [
     {

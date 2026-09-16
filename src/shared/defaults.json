@@ -9,7 +9,7 @@
   "spinDamping": 10,
   "snapSpeed": 12,
   "resumeAutoDelay": 1.8,
-  "cellSize": 0.22,
+  "cellSize": 0.15,
   "ceilingHeight": 8.7,
   "ropeLength": 0.6,
   "swingStiffness": 22,

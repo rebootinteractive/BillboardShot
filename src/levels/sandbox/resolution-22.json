@@ -1,0 +1,149 @@
+{
+  "name": "Resolution 22",
+  "deckSlots": 6,
+  "cellSize": 0.11,
+  "boards": [
+    {
+      "name": "Fox",
+      "art": [
+        "......K........K......",
+        ".....KKK......KKK.....",
+        "....KKKKK....KKKKK....",
+        "....OOOOO....OOOOO....",
+        "...OOOOOOO..OOOOOOO...",
+        "...OOOOOOOOOOOOOOOO...",
+        "...OOOOOOOOOOOOOOOO...",
+        "...OOOOOOOOOOOOOOOO...",
+        "...OOOOOOOOOOOOOOOO...",
+        "...OOOOOOOOOOOOOOOO...",
+        "...OOOOOOOOOOOOOOOO...",
+        "...OOOOOOOOOOOOOOOO...",
+        "...OOOOOOOOOOKOOOOO...",
+        "...OOOOKKOOOOKKOOOO...",
+        "OOOOOOOOKOOOOKOOOOOOOO",
+        "OOOOOOOOOOOOOOOOOOOOOO",
+        ".WWWWWWWWKKKKWWWWWWWW.",
+        ".WWWWWWWWWKKWWWWWWWWW.",
+        "..WWWWWWWWKKWWWWWWWW..",
+        "...WWWWWWWKKWWWWWWW...",
+        "....WWWWWWWWWWWWWW....",
+        ".....WWWWWWWWWWWW.....",
+        "........WWWWWW........"
+      ]
+    },
+    {
+      "name": "Frog",
+      "art": [
+        "...GGGGG......GGGGG...",
+        "..GGGYYGG....GGYYGGG..",
+        "..GGYKKYGG..GGYKKYGG..",
+        "..GYKKKKYG..GYKKKKYG..",
+        "..GYKKKKYGGGGYKKKKYG..",
+        "..GGYKKYGGGGGGYKKKGG..",
+        "..GGGYYGGGGGGGGYYGGG..",
+        ".GGGGGGGGGGGGGGGGGGGG.",
+        ".GGGGGGGGGGGGGGGGGGGG.",
+        "GGGGGGGGGGGGGGGGGGGGGG",
+        "GGGGGGGGGYYYYGGGGGGGGG",
+        "GGGGGGYYYYYYYYYYGGGGGG",
+        "GGGGGYYYYYYYYYYYYGGGGG",
+        "GYYYYYYYYYYYYYYYYYYYYG",
+        "YYYYYYYYYYYYYYYYYYYYYY",
+        ".YYYYYYYYYYYYYYYYYYYY.",
+        ".YYYYYYYYYYYYYYYYYYYY.",
+        "..YYYYYYYYYYYYYYYYYY..",
+        "...YYYYYYYYYYYYYYYY...",
+        ".....YYYYYYYYYYYY....."
+      ]
+    },
+    {
+      "name": "Owl",
+      "art": [
+        "NNNNNNN.....NNNNNNN",
+        ".NNNNNNNNNNNNNNNNN.",
+        ".NNNNNNNNNNNNNNNNN.",
+        ".NKKKKKNNNNNKKKKKN.",
+        "NKKYYYYNNNNNYYYYKKN",
+        "NKYKKKYYNNNKYKKKYKN",
+        "NKYKKKYYNNNYYKKKYKN",
+        "NKYKKKYNNNNNYKKKYKN",
+        ".NKYYYYNNONNYYYYKNN",
+        ".NNNNNNNNNNNNNNNNN.",
+        "NNNNNNNNNNNNNNNNNNN",
+        "NNWWNNNNNNNNNNNWWNN",
+        "NNWWWWWWWWWWWWWWWNN",
+        "NNWWWWWWWWWWWWWWWNN",
+        "NNWWWWWWWWWWWWWWWNN",
+        "NNWWWWWWWWWWWWWWWNN",
+        ".NNWWWWWWWWWWWWWNN.",
+        ".NNWWWWWWWWWWWWWNN.",
+        "..NNWWWWWWWWWWWNN..",
+        "...NNWWWWWWWWWWN...",
+        "....NWWWWWWWWWN....",
+        ".....ONWWWWWNO.....",
+        ".....OOOOOOOOO.....",
+        "....OOOOOOOOOOO...."
+      ]
+    },
+    {
+      "name": "Penguin",
+      "art": [
+        ".........KKKK.........",
+        ".......KKKKKKKK.......",
+        "......KKWWKKWWKK......",
+        ".....KKWWWWWWWWKK.....",
+        ".....KWWWKWWKWWWK.....",
+        "....KKWWWWWWWWWWKK....",
+        "....KKWWWWOOWWWWKK....",
+        "....KKWWWOOOOWWWKK....",
+        "...KKKWWWWWWWWWWKKK...",
+        "...KKKWWWWWWWWWWKKK...",
+        "..KKKKWWWWWWWWWWKKKK..",
+        ".KKKKWWWWWWWWWWWWKKKK.",
+        ".KKKKWWWWWWWWWWWWKKKK.",
+        "KKKKKWWWWWWWWWWWWKKKKK",
+        "KKKKKWWWWWWWWWWWWKKKKK",
+        "KKKKKWWWWWWWWWWWWKKKKK",
+        "...KKWWWWWWWWWWWWKK...",
+        "....KKWWWWWWWWWWKK....",
+        "....KKWWWWWWWWWWKK....",
+        "....OKKKWWWWWWKKKO....",
+        "....OOOKKKKKKKKKOO....",
+        "...OOOOOKKKKKKOOOOO..."
+      ]
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "yellow", "charges": 52 },
+      { "color": "white", "charges": 56 },
+      { "color": "black", "charges": 60 },
+      { "color": "orange", "charges": 63 },
+      { "color": "black", "charges": 60 },
+      { "color": "orange", "charges": 63 },
+      { "color": "black", "charges": 59 },
+      { "color": "brown", "charges": 57 },
+      { "color": "white", "charges": 56 }
+    ],
+    [
+      { "color": "white", "charges": 57 },
+      { "color": "orange", "charges": 63 },
+      { "color": "yellow", "charges": 52 },
+      { "color": "green", "charges": 55 },
+      { "color": "yellow", "charges": 52 },
+      { "color": "green", "charges": 55 },
+      { "color": "white", "charges": 56 },
+      { "color": "black", "charges": 59 }
+    ],
+    [
+      { "color": "yellow", "charges": 52 },
+      { "color": "green", "charges": 56 },
+      { "color": "white", "charges": 56 },
+      { "color": "brown", "charges": 58 },
+      { "color": "white", "charges": 56 },
+      { "color": "brown", "charges": 57 },
+      { "color": "orange", "charges": 62 },
+      { "color": "white", "charges": 56 }
+    ]
+  ]
+}

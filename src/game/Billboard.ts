@@ -128,11 +128,11 @@ export class Billboard {
   private readonly outlineMat: THREE.MeshStandardMaterial;
   private readonly mats = new Map<ColorKey, THREE.MeshStandardMaterial>();
 
-  constructor(data: BoardData, angle: number, s: Settings, index: number) {
+  constructor(data: BoardData, angle: number, s: Settings, index: number, cellSize = s.cellSize) {
     const art = data.art;
     this.cols = art[0].length;
     this.rows = art.length;
-    this.cell = s.cellSize;
+    this.cell = cellSize;
     this.halfWidth = ((this.cols - 1) / 2) * this.cell;
     this.phase = index * 1.7;
 

@@ -1,26 +1,31 @@
 {
   "id": "sailboat",
   "name": "Sailboat",
-  "tags": ["vehicle", "sea"],
+  "tags": ["vehicle"],
   "status": "draft",
-  "origin": { "method": "drawn" },
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Sailboat" },
   "art": [
-    ".....1.....",
-    "....31.....",
-    "....312....",
-    "...3312....",
-    "...33122...",
-    "..333122...",
-    "..3331222..",
-    ".33331222..",
-    ".....1.....",
-    "44444444444",
-    ".444444444."
+    "......4.........",
+    "......4.........",
+    "......43........",
+    "......43........",
+    ".....3433.......",
+    ".....34333......",
+    "....334333......",
+    "....3343333.....",
+    "....3343333.....",
+    "...444444444....",
+    ".22222222222222.",
+    "..2222222222222.",
+    "...22222222222..",
+    "1111111111111111",
+    "1111111111111111",
+    "1111111111111111"
   ],
   "groups": {
-    "1": { "part": "mast", "suggest": ["brown", "black"] },
-    "2": { "part": "right sail", "suggest": ["white", "yellow"] },
-    "3": { "part": "left sail", "suggest": ["red", "white"] },
-    "4": { "part": "hull", "suggest": ["brown", "blue", "red"] }
+    "1": { "part": "blue", "suggest": ["blue"] },
+    "2": { "part": "orange", "suggest": ["orange"] },
+    "3": { "part": "yellow", "suggest": ["yellow"] },
+    "4": { "part": "white", "suggest": ["white"] }
   }
 }

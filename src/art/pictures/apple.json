@@ -1,22 +1,26 @@
 {
   "id": "apple",
   "name": "Apple",
-  "tags": ["food", "fruit"],
-  "status": "approved",
-  "origin": { "method": "drawn" },
+  "tags": ["food"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Red%20apple" },
   "art": [
-    ".....22..",
-    "....22...",
-    "..11211..",
-    ".1111111.",
-    "111111111",
-    "111111111",
-    "111111111",
-    ".1111111.",
-    "..11.11.."
+    ".2222........",
+    ".22222.......",
+    "..11122111...",
+    ".11111111111.",
+    ".11111111111.",
+    "1111111111111",
+    "1111111111111",
+    "1111111111111",
+    "1111111111111",
+    "1111111111111",
+    ".11111111111.",
+    ".11111111111.",
+    "..111111111.."
   ],
   "groups": {
-    "1": { "part": "fruit", "suggest": ["red", "green", "yellow"] },
-    "2": { "part": "leaf", "suggest": ["green", "lime"] }
+    "1": { "part": "red", "suggest": ["red"] },
+    "2": { "part": "green", "suggest": ["green"] }
   }
 }

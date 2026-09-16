@@ -209,7 +209,7 @@ export class GameApp {
     // --- billboards ---
     level.boards.forEach((data, i) => {
       const angle = (i / level.boards.length) * Math.PI * 2;
-      const bb = new Billboard(data, angle, s, i);
+      const bb = new Billboard(data, angle, s, i, level.cellSize ?? s.cellSize);
       const spoke = new THREE.Mesh(spokeGeo, ringMat);
       spoke.position.set(0, s.ceilingHeight, s.carouselRadius / 2);
       spoke.rotation.y = Math.PI / 2;

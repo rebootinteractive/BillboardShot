@@ -1,22 +1,23 @@
 {
   "id": "fish",
   "name": "Fish",
-  "tags": ["animal", "sea"],
+  "tags": ["animal"],
   "status": "draft",
-  "origin": { "method": "drawn" },
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Fish" },
   "art": [
-    "....111....",
-    "..111111..2",
-    ".1131111122",
-    "11111111222",
-    "11111111222",
-    ".1111111122",
-    "..111111..2",
-    "....111...."
+    ".....1111....",
+    ".....1111....",
+    "...11111....1",
+    ".111111111.11",
+    ".111111111111",
+    "1111111111111",
+    "111111111111.",
+    ".111111111111",
+    ".111111111.11",
+    "..1111111..11",
+    ".....11......"
   ],
   "groups": {
-    "1": { "part": "body", "suggest": ["blue", "orange", "cyan"] },
-    "2": { "part": "tail", "suggest": ["yellow", "orange"] },
-    "3": { "part": "eye", "suggest": ["black", "white"] }
+    "1": { "part": "blue", "suggest": ["blue"] }
   }
 }

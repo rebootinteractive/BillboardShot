@@ -1,28 +1,33 @@
 {
   "id": "rocket",
   "name": "Rocket",
-  "tags": ["vehicle", "space"],
+  "tags": ["vehicle"],
   "status": "draft",
-  "origin": { "method": "drawn" },
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Rocket" },
   "art": [
-    "....5....",
-    "...555...",
-    "...111...",
-    "..11111..",
-    "..12221..",
-    "..12221..",
-    "..11111..",
-    ".3111113.",
-    "331111133",
-    "33.444.33",
-    "...444...",
-    "....4...."
+    ".............11.",
+    "..........111111",
+    ".........1222111",
+    ".......122222211",
+    "......122455422.",
+    ".....1222455421.",
+    "....1222224422..",
+    "...12222222221..",
+    ".111222222221...",
+    ".11111112221....",
+    "..111112221.....",
+    "..61111221......",
+    ".33611111.......",
+    "333361111.......",
+    "33336.11........",
+    "333....1........"
   ],
   "groups": {
-    "1": { "part": "body", "suggest": ["white"] },
-    "2": { "part": "window", "suggest": ["cyan", "blue"] },
-    "3": { "part": "fins", "suggest": ["red", "blue"] },
-    "4": { "part": "flame", "suggest": ["orange", "yellow"] },
-    "5": { "part": "nose", "suggest": ["red"] }
+    "1": { "part": "red", "suggest": ["red"] },
+    "2": { "part": "white", "suggest": ["white"] },
+    "3": { "part": "orange", "suggest": ["orange"] },
+    "4": { "part": "purple", "suggest": ["purple"] },
+    "5": { "part": "cyan", "suggest": ["cyan"] },
+    "6": { "part": "black", "suggest": ["black"] }
   }
 }

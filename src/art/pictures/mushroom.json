@@ -1,24 +1,27 @@
 {
   "id": "mushroom",
   "name": "Mushroom",
-  "tags": ["nature", "food"],
+  "tags": ["nature"],
   "status": "draft",
-  "origin": { "method": "drawn" },
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Mushroom" },
   "art": [
-    "...11111...",
-    "..1111111..",
-    ".112111211.",
-    "11111111111",
-    "11211111211",
-    ".111111111.",
-    "...33333...",
-    "...33333...",
-    "..3333333..",
-    "..3333333.."
+    "....21111....",
+    "..222111122..",
+    ".22211112222.",
+    ".11111111222.",
+    "1111122112222",
+    "1111222111222",
+    "1111122111111",
+    "1111111111111",
+    ".11111111111.",
+    ".....333.....",
+    "....33333....",
+    "....33333....",
+    "....33333...."
   ],
   "groups": {
-    "1": { "part": "cap", "suggest": ["red", "blue", "brown"] },
-    "2": { "part": "spots", "suggest": ["white", "pink"] },
-    "3": { "part": "stem", "suggest": ["white", "yellow"] }
+    "1": { "part": "red", "suggest": ["red"] },
+    "2": { "part": "pink", "suggest": ["pink"] },
+    "3": { "part": "yellow", "suggest": ["yellow"] }
   }
 }

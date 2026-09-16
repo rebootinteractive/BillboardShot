@@ -1,22 +1,21 @@
 {
   "id": "heart",
   "name": "Heart",
-  "tags": ["symbol"],
+  "tags": ["object"],
   "status": "draft",
-  "origin": { "method": "drawn" },
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Red%20heart" },
   "art": [
-    "..11...22..",
-    ".1111.2222.",
-    "11111222222",
-    "11111222222",
-    ".111122222.",
-    "..1112222..",
-    "...11222...",
-    "....122....",
-    ".....2....."
+    ".111..111.",
+    "1111111111",
+    "1111111111",
+    "1111111111",
+    "1111111111",
+    ".11111111.",
+    "..111111..",
+    "...1111...",
+    "....11...."
   ],
   "groups": {
-    "1": { "part": "left half", "suggest": ["pink", "red"] },
-    "2": { "part": "right half", "suggest": ["red", "pink"] }
+    "1": { "part": "red", "suggest": ["red"] }
   }
 }

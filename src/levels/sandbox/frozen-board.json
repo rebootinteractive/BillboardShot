@@ -1,5 +1,6 @@
 {
   "name": "Frozen Board",
+  "cellSize": 0.22,
   "deckSlots": 6,
   "boards": [
     {

@@ -1,0 +1,125 @@
+{
+  "name": "Resolution 16",
+  "deckSlots": 6,
+  "cellSize": 0.151,
+  "boards": [
+    {
+      "name": "Fox",
+      "art": [
+        "....K......K....",
+        "...KKK....KKK...",
+        "...KKKK..KKKK...",
+        "..OOOOO..OOOOO..",
+        "..OOOOOOOOOOOO..",
+        "..OOOOOOOOOOOO..",
+        "..OOOOOOOOOOOO..",
+        "..OOOOOOOOOOOO..",
+        "..OOOOOOOOOOOO..",
+        "..OOOKOOOOOOOO..",
+        "OOOOOKOOOOOOOOOO",
+        "OWWWWOOKKOOWWWWO",
+        ".WWWWWWKKWWWWWW.",
+        ".WWWWWWWWWWWWWW.",
+        "..WWWWWKKWWWWW..",
+        "....WWWWWWWWW...",
+        "......WWWW......"
+      ]
+    },
+    {
+      "name": "Frog",
+      "art": [
+        "...GGG....GGG...",
+        "..GYYGG..GGYYG..",
+        ".GYKKYG..GYKKYG.",
+        ".GYKKKGGGGKKKYG.",
+        ".GGYKYGGGGYKYGG.",
+        ".GGGGGGGGGGGGGG.",
+        "GGGGGGGGGGGGGGGG",
+        "GGGGGGGGGGGGGGGG",
+        "GGGGGYYYYYYGGGGG",
+        "GGGYYYYYYYYYYGGG",
+        "YYYYYYYYYYYYYYYY",
+        ".YYYYYYYYYYYYYY.",
+        ".YYYYYYYYYYYYYY.",
+        "..YYYYYYYYYYYY..",
+        "....YYYYYYYY...."
+      ]
+    },
+    {
+      "name": "Owl",
+      "art": [
+        "NNNNN...NNNNN",
+        "NNNNNNNNNNNNN",
+        "NKKKKNNNNKKKN",
+        "NYYKYNNNYKYYN",
+        "KYKKYNNNYKKYK",
+        "NYKKYNNNYKKYN",
+        "NNYYNNONNYYNN",
+        "NNNNNNNNNNNNN",
+        "NWWWWNNNWWWWN",
+        "NWWWWWWWWWWWN",
+        "NWWWWWWWWWWWN",
+        "NNWWWWWWWWWNN",
+        ".NWWWWWWWWWN.",
+        ".NNWWWWWWWNN.",
+        "..NNWWWWWNN..",
+        "...OOWWWOO...",
+        "...OOOOOOO..."
+      ]
+    },
+    {
+      "name": "Penguin",
+      "art": [
+        "......KKKK......",
+        ".....KWKKWK.....",
+        "....KWWWWWWK....",
+        "...KKWWWWWWKK...",
+        "...KWWWWWWWWK...",
+        "...KWWOOOOWWK...",
+        "..KKKWWWWWWKKK..",
+        ".KKKWWWWWWWWKKK.",
+        ".KKKWWWWWWWWKKK.",
+        "KKKWWWWWWWWWWKKK",
+        "KKKWWWWWWWWWWKKK",
+        "KKKKWWWWWWWWKKKK",
+        "...KWWWWWWWWK...",
+        "...KKWWWWWWKK...",
+        "...OKKWWWWKKO...",
+        "..OOOOKKKKOOO..."
+      ]
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "white", "charges": 31 },
+      { "color": "white", "charges": 31 },
+      { "color": "black", "charges": 32 },
+      { "color": "white", "charges": 31 },
+      { "color": "black", "charges": 31 },
+      { "color": "white", "charges": 31 },
+      { "color": "black", "charges": 31 },
+      { "color": "white", "charges": 30 },
+      { "color": "white", "charges": 30 }
+    ],
+    [
+      { "color": "yellow", "charges": 28 },
+      { "color": "yellow", "charges": 28 },
+      { "color": "brown", "charges": 29 },
+      { "color": "yellow", "charges": 28 },
+      { "color": "brown", "charges": 29 },
+      { "color": "yellow", "charges": 28 },
+      { "color": "brown", "charges": 28 },
+      { "color": "black", "charges": 31 }
+    ],
+    [
+      { "color": "orange", "charges": 32 },
+      { "color": "green", "charges": 31 },
+      { "color": "orange", "charges": 32 },
+      { "color": "green", "charges": 31 },
+      { "color": "orange", "charges": 32 },
+      { "color": "green", "charges": 30 },
+      { "color": "orange", "charges": 31 },
+      { "color": "white", "charges": 30 }
+    ]
+  ]
+}

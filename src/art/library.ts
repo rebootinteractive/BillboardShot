@@ -48,8 +48,8 @@ export interface BoardSource {
   overrides?: Array<{ col: number; row: number; color: ColorKey; hidden?: boolean }>;
 }
 
-export const MAX_WIDTH = 11;
-export const MAX_HEIGHT = 12;
+export const MAX_WIDTH = 16;
+export const MAX_HEIGHT = 17;
 
 const files = import.meta.glob<Picture>('./pictures/*.json', { eager: true, import: 'default' });
 
@@ -91,6 +91,8 @@ export function validatePicture(p: Picture, fileName?: string): string[] {
       else used.add(ch);
     }
   });
+  const islands = countIslands(p.art);
+  if (islands > 1) errors.push(`art is ${islands} separate islands; a board must start as one connected shape (up/down/left/right).`);
   for (const id of used) if (!p.groups?.[id]) errors.push(`group ${id} is drawn but not described in groups.`);
   for (const [id, g] of Object.entries(p.groups ?? {})) {
     if (!used.has(id)) errors.push(`group ${id} is described but never drawn.`);
@@ -98,6 +100,30 @@ export function validatePicture(p: Picture, fileName?: string): string[] {
     for (const c of g.suggest ?? []) if (!COLOR_KEYS.includes(c)) errors.push(`group ${id} suggests unknown color '${c}'.`);
   }
   return errors;
+}
+
+/** Connected pieces of non-empty pixels, joined through up/down/left/right neighbors. */
+export function countIslands(art: string[]): number {
+  const seen = new Set<string>();
+  let islands = 0;
+  art.forEach((row, r) => [...row].forEach((ch, c) => {
+    if (ch === '.' || seen.has(`${r},${c}`)) return;
+    islands++;
+    const stack = [[r, c]];
+    seen.add(`${r},${c}`);
+    while (stack.length) {
+      const [y, x] = stack.pop()!;
+      for (const [dy, dx] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        const k = `${y + dy},${x + dx}`;
+        const n = art[y + dy]?.[x + dx];
+        if (n && n !== '.' && !seen.has(k)) {
+          seen.add(k);
+          stack.push([y + dy, x + dx]);
+        }
+      }
+    }
+  }));
+  return islands;
 }
 
 /**

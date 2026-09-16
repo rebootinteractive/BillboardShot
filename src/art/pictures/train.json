@@ -3,21 +3,29 @@
   "name": "Train",
   "tags": ["vehicle"],
   "status": "draft",
-  "origin": { "method": "drawn" },
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Locomotive" },
   "art": [
-    "..2.....111",
-    "..2.....131",
-    "11111111131",
-    "11111111111",
-    "11111111111",
-    "11111111111",
-    ".44.44..44.",
-    ".44.44..44."
+    "...111111.......",
+    "...111111.......",
+    "...555555.22222.",
+    "...111111.2...2.",
+    "...11111..2...2.",
+    "....1111..2...2.",
+    "...111111122222.",
+    "..1111111122222.",
+    "..1111111122222.",
+    "..1111111122222.",
+    "..1111111122222.",
+    "..33333333333333",
+    "..24444441331331",
+    ".224133341331331",
+    "222211311111.11."
   ],
   "groups": {
-    "1": { "part": "engine", "suggest": ["red", "blue", "green"] },
-    "2": { "part": "smokestack", "suggest": ["black"] },
-    "3": { "part": "window", "suggest": ["cyan", "yellow"] },
-    "4": { "part": "wheels", "suggest": ["black"] }
+    "1": { "part": "brown", "suggest": ["brown"] },
+    "2": { "part": "red", "suggest": ["red"] },
+    "3": { "part": "white", "suggest": ["white"] },
+    "4": { "part": "black", "suggest": ["black"] },
+    "5": { "part": "orange", "suggest": ["orange"] }
   }
 }

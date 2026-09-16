@@ -1,26 +1,27 @@
 {
   "id": "cactus",
   "name": "Cactus",
-  "tags": ["nature", "plant"],
-  "status": "approved",
-  "origin": { "method": "drawn" },
+  "tags": ["nature"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Cactus" },
   "art": [
-    ".....1.....",
-    "....111....",
-    ".....2.....",
-    "....222....",
-    ".2..222....",
-    ".2..222..2.",
-    ".22.222..2.",
-    "..22222.22.",
-    "....22222..",
-    "33333333333",
-    ".333333333.",
-    "..3333333.."
+    ".....111.....",
+    "....12111....",
+    "....12111..21",
+    "....12111.111",
+    "11..12111.111",
+    "121.121111121",
+    "121.11111121.",
+    "121.1111111..",
+    "121.12111....",
+    "111112111....",
+    ".11122111....",
+    "...112111....",
+    "....12111....",
+    "....12111...."
   ],
   "groups": {
-    "1": { "part": "flower", "suggest": ["pink", "yellow"] },
-    "2": { "part": "cactus", "suggest": ["green", "lime"] },
-    "3": { "part": "pot", "suggest": ["brown", "orange"] }
+    "1": { "part": "lime", "suggest": ["lime"] },
+    "2": { "part": "brown", "suggest": ["brown"] }
   }
 }

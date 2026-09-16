@@ -1,24 +1,26 @@
 {
   "id": "ladybug",
   "name": "Ladybug",
-  "tags": ["animal", "insect"],
+  "tags": ["animal"],
   "status": "draft",
   "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Lady%20beetle" },
   "art": [
-    "...........",
-    "....222....",
-    "...22222...",
-    "..1112111..",
-    "..21222122.",
-    "22212221222",
-    ".111121111.",
-    ".122111221.",
-    ".122111221.",
-    ".211121112.",
-    "...11111..."
+    ".....1.1.....",
+    ".....111.....",
+    "....11111....",
+    "..111111111..",
+    "..222212222..",
+    "..122111221..",
+    "1112211122111",
+    ".22221112222.",
+    ".22122222122.",
+    "..211222112..",
+    ".12112121121.",
+    ".1.2221222.1.",
+    ".1..22222..1."
   ],
   "groups": {
-    "1": { "part": "shell", "suggest": ["red", "orange", "yellow"] },
-    "2": { "part": "spots and head", "suggest": ["black"] }
+    "1": { "part": "spots and head", "suggest": ["black"] },
+    "2": { "part": "shell", "suggest": ["red", "orange", "yellow"] }
   }
 }

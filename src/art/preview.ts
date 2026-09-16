@@ -45,6 +45,6 @@ export function previewLevel(picture: Picture): LevelData {
     name: picture.name,
     deckSlots: 6,
     boards: [{ name: picture.name, art, source }],
-    lanes: dealContainers([art], 3),
+    lanes: dealContainers([art], 3, 30),
   };
 }

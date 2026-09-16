@@ -1,27 +1,33 @@
 {
   "id": "hot-air-balloon",
   "name": "Hot Air Balloon",
-  "tags": ["vehicle", "sky"],
+  "tags": ["vehicle"],
   "status": "draft",
   "origin": { "method": "drawn" },
   "art": [
-    "..12221..",
-    ".1122211.",
-    "112222211",
-    "112222211",
-    "112222211",
-    ".1122211.",
-    "..12221..",
-    "...121...",
-    "...3.3...",
-    "...3.3...",
-    "...444...",
-    "...444..."
+    "....12321....",
+    "..112232211..",
+    ".11122322111.",
+    "1112223222111",
+    "1112223222111",
+    "1112223222111",
+    ".11122322111.",
+    "..112232211..",
+    "...1223221...",
+    "....12321....",
+    ".....232.....",
+    ".....4.4.....",
+    ".....4.4.....",
+    "....55555....",
+    "....56565....",
+    "....55555...."
   ],
   "groups": {
-    "1": { "part": "outer stripes", "suggest": ["red", "blue"] },
-    "2": { "part": "middle stripe", "suggest": ["yellow", "white"] },
-    "3": { "part": "ropes", "suggest": ["black", "brown"] },
-    "4": { "part": "basket", "suggest": ["brown"] }
+    "1": { "part": "outer panels", "suggest": ["red", "blue"] },
+    "2": { "part": "middle panels", "suggest": ["yellow", "white"] },
+    "3": { "part": "center stripe", "suggest": ["red", "orange"] },
+    "4": { "part": "ropes", "suggest": ["black", "brown"] },
+    "5": { "part": "basket", "suggest": ["brown"] },
+    "6": { "part": "weave", "suggest": ["orange", "yellow"] }
   }
 }

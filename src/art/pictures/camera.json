@@ -3,22 +3,23 @@
   "name": "Camera",
   "tags": ["object"],
   "status": "draft",
-  "origin": { "method": "drawn" },
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Camera" },
   "art": [
-    "...2222....",
-    "11111111141",
-    "11133333111",
-    "11335553311",
-    "11355555311",
-    "11335553311",
-    "11133333111",
-    "11111111111"
+    ".222.......2222.",
+    "2222222222222222",
+    "2222222332222222",
+    "1111133333311111",
+    "1111331111331111",
+    "1111311112131111",
+    "1111311111131111",
+    "1111311111131111",
+    "1111131111311111",
+    "1111133333311111",
+    "2222222222222222"
   ],
   "groups": {
-    "1": { "part": "body", "suggest": ["black", "brown"] },
-    "2": { "part": "top", "suggest": ["black", "white"] },
-    "3": { "part": "lens ring", "suggest": ["white", "yellow"] },
-    "4": { "part": "flash", "suggest": ["yellow", "red"] },
-    "5": { "part": "lens", "suggest": ["blue", "cyan", "purple"] }
+    "1": { "part": "black", "suggest": ["black"] },
+    "2": { "part": "white", "suggest": ["white"] },
+    "3": { "part": "purple", "suggest": ["purple"] }
   }
 }

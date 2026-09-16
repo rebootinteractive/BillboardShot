@@ -1,30 +1,31 @@
 {
   "id": "christmas-tree",
   "name": "Christmas Tree",
-  "tags": ["nature", "holiday"],
+  "tags": ["nature"],
   "status": "draft",
-  "origin": { "method": "drawn" },
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Christmas%20tree" },
   "art": [
     ".....2.....",
+    "....222....",
+    ".....2.....",
+    ".....1.....",
     "....111....",
-    "...11411...",
+    "...11111...",
+    "...11121...",
+    "...11111...",
+    "..1121131..",
+    "..1111131..",
     "..1111111..",
-    "...11511...",
-    "..1116111..",
-    ".111141111.",
-    "..1151161..",
-    ".117111151.",
+    ".111121111.",
+    "11111211111",
+    "11311111331",
     "11111111111",
-    "....333....",
-    "....333...."
+    "...11111...",
+    "...11111..."
   ],
   "groups": {
-    "1": { "part": "branches", "suggest": ["green"] },
-    "2": { "part": "star", "suggest": ["yellow"] },
-    "3": { "part": "trunk", "suggest": ["brown"] },
-    "4": { "part": "orange baubles", "suggest": ["orange", "red"] },
-    "5": { "part": "cyan baubles", "suggest": ["cyan", "white"] },
-    "6": { "part": "blue baubles", "suggest": ["blue", "purple"] },
-    "7": { "part": "pink bauble", "suggest": ["pink", "red"] }
+    "1": { "part": "brown", "suggest": ["brown"] },
+    "2": { "part": "yellow", "suggest": ["yellow"] },
+    "3": { "part": "red", "suggest": ["red"] }
   }
 }

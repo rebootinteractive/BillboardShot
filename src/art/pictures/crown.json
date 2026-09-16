@@ -1,23 +1,25 @@
 {
   "id": "crown",
   "name": "Crown",
-  "tags": ["object", "royal"],
+  "tags": ["object"],
   "status": "draft",
-  "origin": { "method": "drawn" },
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Crown" },
   "art": [
-    "2....2....2",
-    "1....1....1",
-    "11..111..11",
-    "111.111.111",
-    "11111111111",
-    "11311311311",
-    "11111111111",
-    "44444444444"
+    "......1......",
+    "......1......",
+    "1..1..11.1..1",
+    "11.1.111.1.11",
+    ".11111111111.",
+    ".11111111111.",
+    ".11111111111.",
+    ".11213331211.",
+    ".11211311211.",
+    "..111111111..",
+    "..111111111.."
   ],
   "groups": {
-    "1": { "part": "gold", "suggest": ["yellow", "orange"] },
-    "2": { "part": "pearls", "suggest": ["white"] },
-    "3": { "part": "jewels", "suggest": ["red", "blue", "green"] },
-    "4": { "part": "band", "suggest": ["red", "purple"] }
+    "1": { "part": "orange", "suggest": ["orange"] },
+    "2": { "part": "red", "suggest": ["red"] },
+    "3": { "part": "blue", "suggest": ["blue"] }
   }
 }

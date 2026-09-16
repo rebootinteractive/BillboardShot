@@ -1,25 +1,28 @@
 {
   "id": "bear",
   "name": "Bear",
-  "tags": ["animal", "face"],
+  "tags": ["animal"],
   "status": "draft",
-  "origin": { "method": "drawn" },
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Bear" },
   "art": [
-    "11.......11",
-    "121.....121",
-    "11111111111",
-    "11111111111",
-    "11311111311",
-    "11111111111",
-    "11222222211",
-    ".122444221.",
-    ".122242221.",
-    "..1222221.."
+    "..111.1111.111..",
+    ".12211111111221.",
+    ".12111111111121.",
+    ".11111111111111.",
+    ".11111111111111.",
+    ".11111111111111.",
+    "1111131111311111",
+    "1111111111111111",
+    "1111122332211111",
+    "1111122222211111",
+    "1111123332211111",
+    ".11111222211111.",
+    "..111111111111..",
+    "....11111111...."
   ],
   "groups": {
-    "1": { "part": "fur", "suggest": ["brown", "orange"] },
-    "2": { "part": "muzzle and ears", "suggest": ["white", "yellow"] },
-    "3": { "part": "eyes", "suggest": ["black"] },
-    "4": { "part": "nose", "suggest": ["black"] }
+    "1": { "part": "brown", "suggest": ["brown"] },
+    "2": { "part": "yellow", "suggest": ["yellow"] },
+    "3": { "part": "black", "suggest": ["black"] }
   }
 }

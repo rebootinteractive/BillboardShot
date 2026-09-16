@@ -1,0 +1,28 @@
+{
+  "id": "tropical-fish",
+  "name": "Tropical Fish",
+  "tags": ["animal"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Tropical%20fish" },
+  "art": [
+    "....111111222...",
+    "...11111111222..",
+    "..311111111122..",
+    ".3331111111112..",
+    ".3333111111111..",
+    "3333311221111122",
+    "4333311221111122",
+    "4333311221111122",
+    ".333311111111122",
+    ".3331111111112..",
+    "..311111111122..",
+    "...11111111222..",
+    "....111111222..."
+  ],
+  "groups": {
+    "1": { "part": "blue", "suggest": ["blue"] },
+    "2": { "part": "yellow", "suggest": ["yellow"] },
+    "3": { "part": "purple", "suggest": ["purple"] },
+    "4": { "part": "black", "suggest": ["black"] }
+  }
+}

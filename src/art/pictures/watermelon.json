@@ -1,22 +1,27 @@
 {
   "id": "watermelon",
-  "name": "Watermelon Slice",
-  "tags": ["food", "fruit"],
+  "name": "Watermelon",
+  "tags": ["food"],
   "status": "draft",
-  "origin": { "method": "drawn" },
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Watermelon" },
   "art": [
-    "11111111111",
-    "12111211121",
-    "41111111114",
-    "34111211143",
-    ".341111143.",
-    "..3444443..",
-    "...33333..."
+    "..22.........",
+    "..231........",
+    ".23111.......",
+    "2231111......",
+    "23111111.....",
+    "231111111....",
+    "2311211111...",
+    "23111111111..",
+    "221111211111.",
+    ".231111111132",
+    "..23111111322",
+    "...223333222.",
+    "....222222..."
   ],
   "groups": {
-    "1": { "part": "flesh", "suggest": ["red", "pink"] },
-    "2": { "part": "seeds", "suggest": ["black", "brown"] },
-    "3": { "part": "rind", "suggest": ["green"] },
-    "4": { "part": "pale rind", "suggest": ["white", "lime"] }
+    "1": { "part": "red", "suggest": ["red"] },
+    "2": { "part": "black", "suggest": ["black"] },
+    "3": { "part": "white", "suggest": ["white"] }
   }
 }

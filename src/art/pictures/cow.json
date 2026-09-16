@@ -1,0 +1,31 @@
+{
+  "id": "cow",
+  "name": "Cow",
+  "tags": ["animal"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Cow%20face" },
+  "art": [
+    "......3...3.....",
+    "222..33...3..222",
+    "2112233322222112",
+    "2212223332222122",
+    "..222223333222..",
+    "...2222233333...",
+    "...2242233433...",
+    "...2242233433...",
+    "...2222233333...",
+    "...1111111111...",
+    "...1111111111...",
+    "..111111111111..",
+    "..111111111111..",
+    "...1111111111...",
+    "....11111111....",
+    "......1111......"
+  ],
+  "groups": {
+    "1": { "part": "pink", "suggest": ["pink"] },
+    "2": { "part": "brown", "suggest": ["brown"] },
+    "3": { "part": "white", "suggest": ["white"] },
+    "4": { "part": "black", "suggest": ["black"] }
+  }
+}

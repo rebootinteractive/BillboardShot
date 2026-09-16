@@ -43,6 +43,11 @@ export interface BoardData {
 export interface LevelData {
   name: string;
   deckSlots: number;
+  /**
+   * Size of one pixel in world units, overriding the tuning value. Used to try higher
+   * resolution art at the same billboard size.
+   */
+  cellSize?: number;
   boards: BoardData[];
   /** One array per lane; index 0 is the head of the line. */
   lanes: ContainerData[][];
@@ -87,6 +92,7 @@ export function validateLevel(level: LevelData): string[] {
   const errors: string[] = [];
   if (!Number.isInteger(level.deckSlots) || level.deckSlots < 1) errors.push('deckSlots must be a whole number of at least 1.');
   if (!Array.isArray(level.boards) || level.boards.length === 0) errors.push('A level needs at least one board.');
+  if (level.cellSize !== undefined && !(level.cellSize > 0)) errors.push('cellSize must be a positive number.');
   if (!Array.isArray(level.lanes) || level.lanes.length === 0) errors.push('A level needs at least one lane.');
   if (errors.length) return errors;
 

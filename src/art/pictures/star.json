@@ -1,24 +1,24 @@
 {
   "id": "star",
   "name": "Star",
-  "tags": ["symbol", "sky"],
+  "tags": ["nature"],
   "status": "draft",
-  "origin": { "method": "drawn" },
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Star" },
   "art": [
-    ".....1.....",
-    ".....1.....",
-    "....111....",
-    "....222....",
-    "11112221111",
-    ".111222111.",
-    "..1122211..",
-    "...12221...",
-    "..111.111..",
-    ".111...111.",
-    "11.......11"
+    ".....111.....",
+    ".....111.....",
+    "....11111....",
+    ".11111111111.",
+    "1111111111111",
+    "1111111111111",
+    ".11111111111.",
+    "..111111111..",
+    "..111111111..",
+    "..111111111..",
+    "..111111111..",
+    "..111...111.."
   ],
   "groups": {
-    "1": { "part": "points", "suggest": ["orange", "yellow"] },
-    "2": { "part": "core", "suggest": ["yellow", "white"] }
+    "1": { "part": "yellow", "suggest": ["yellow"] }
   }
 }

@@ -1,0 +1,28 @@
+{
+  "id": "hibiscus",
+  "name": "Hibiscus",
+  "tags": ["nature"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Hibiscus" },
+  "art": [
+    ".....11......",
+    "....1111.....",
+    "...11111.....",
+    ".1111221111..",
+    "111242222111.",
+    "112224422211.",
+    "111224422111.",
+    ".112222221133",
+    "..11222221133",
+    "..111111111..",
+    "..111111113..",
+    "...11..11333.",
+    "........3333."
+  ],
+  "groups": {
+    "1": { "part": "pink", "suggest": ["pink"] },
+    "2": { "part": "red", "suggest": ["red"] },
+    "3": { "part": "lime", "suggest": ["lime"] },
+    "4": { "part": "yellow", "suggest": ["yellow"] }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "tractor",
+  "name": "Tractor",
+  "tags": ["vehicle"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Tractor" },
+  "art": [
+    ".......1111111..",
+    ".......3333332..",
+    ".......3333332..",
+    "......33333332..",
+    "....5.33333332..",
+    ".11111111111112.",
+    "111111111121111.",
+    "111111111212222.",
+    "2112211111222222",
+    "2122121111224422",
+    "1224211111224422",
+    ".2442.....222222",
+    "..222......2222."
+  ],
+  "groups": {
+    "1": { "part": "green", "suggest": ["green"] },
+    "2": { "part": "black", "suggest": ["black"] },
+    "3": { "part": "cyan", "suggest": ["cyan"] },
+    "4": { "part": "white", "suggest": ["white"] },
+    "5": { "part": "purple", "suggest": ["purple"] }
+  }
+}
