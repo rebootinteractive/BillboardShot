@@ -3,7 +3,6 @@
   "camDistance": 21,
   "camPitchDeg": 24,
   "camTargetY": 5,
-  "billboardCount": 6,
   "carouselRadius": 2.4,
   "autoRotateDegPerSec": 0,
   "dragSensitivity": 0.9,
@@ -18,28 +17,15 @@
   "swingImpulse": 0.045,
   "ambientSway": 0.08,
   "holdFireWhileDragging": true,
-  "deckSlots": 6,
   "deckArcDeg": 76,
   "deckGap": 1.65,
-  "queueLines": 3,
   "queueVisible": 4,
   "queueLaneSpacing": 1.15,
   "queueHeadZ": 2.8,
   "queueSpacing": 0.7,
   "queueY": 2.25,
-  "minChargesPerShooter": 3,
-  "chargesPerShooter": 20,
-  "seed": 7,
   "containerVisibleCubes": 36,
   "fireCooldown": 0.05,
   "projectileSpeed": 9,
-  "projectileArc": 1.1,
-  "shapes": [
-    "heart",
-    "tree",
-    "star",
-    "mushroom",
-    "smiley",
-    "ghost"
-  ]
+  "projectileArc": 1.1
 }

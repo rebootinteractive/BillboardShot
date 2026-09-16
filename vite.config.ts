@@ -38,7 +38,7 @@ function tuningWriter(): Plugin {
         req.on('end', async () => {
           try {
             const parsed = JSON.parse(body);
-            if (typeof parsed !== 'object' || parsed === null || !Array.isArray(parsed.shapes)) {
+            if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
               throw new Error('not a settings object');
             }
             const text = `${JSON.stringify(parsed, null, 2)}\n`;

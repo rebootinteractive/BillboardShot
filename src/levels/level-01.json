@@ -1,0 +1,30 @@
+{
+  "name": "First Bite",
+  "deckSlots": 6,
+  "boards": [
+    {
+      "name": "Apple",
+      "art": [
+        ".....GG..",
+        "....GG...",
+        "..RRGRR..",
+        ".RRRRRRR.",
+        "RRRRRRRRR",
+        "RRRRRRRRR",
+        "RRRRRRRRR",
+        ".RRRRRRR.",
+        "..RR.RR.."
+      ]
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "red", "charges": 16 },
+      { "color": "red", "charges": 16 }
+    ],
+    [
+      { "color": "red", "charges": 17 },
+      { "color": "green", "charges": 5 }
+    ]
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "name": "Picture Gallery",
+  "deckSlots": 6,
+  "boards": [
+    {
+      "name": "Heart",
+      "art": [
+        "..MM...RR..",
+        ".MMMM.RRRR.",
+        "MMMMMRRRRRR",
+        "MMMMMRRRRRR",
+        ".MMMMRRRRR.",
+        "..MMMRRRR..",
+        "...MMRRR...",
+        "....MRR....",
+        ".....R....."
+      ]
+    },
+    {
+      "name": "Ghost",
+      "art": [
+        "...PPPPP...",
+        "..PPPPPPP..",
+        ".PPPPPPPPP.",
+        "PPCCPPPCCPP",
+        "PPCCPPPCCPP",
+        "PPPPPPPPPPP",
+        "PPPPPPPPPPP",
+        "PPPPMMMPPPP",
+        "PPPPPPPPPPP",
+        "PPPPPPPPPPP",
+        "P.PP.PPP.PP"
+      ]
+    },
+    {
+      "name": "Mushroom",
+      "art": [
+        "...BBBBB...",
+        "..BBBBBBB..",
+        ".BBMBBBMBB.",
+        "BBBBBBBBBBB",
+        "BBMBBBBBMBB",
+        ".BBBBBBBBB.",
+        "...YYYYY...",
+        "...YYYYY...",
+        "..YYYYYYY..",
+        "..YYYYYYY.."
+      ]
+    },
+    {
+      "name": "Star",
+      "art": [
+        ".....O.....",
+        ".....O.....",
+        "....OOO....",
+        "....YYY....",
+        "OOOOYYYOOOO",
+        ".OOOYYYOOO.",
+        "..OOYYYOO..",
+        "...OYYYO...",
+        "..OOO.OOO..",
+        ".OOO...OOO.",
+        "OO.......OO"
+      ]
+    },
+    {
+      "name": "Tree",
+      "art": [
+        ".....Y.....",
+        "....GGG....",
+        "...GGOGG...",
+        "..GGGGGGG..",
+        "...GGCGG...",
+        "..GGGBGGG..",
+        ".GGGGOGGGG.",
+        "..GGCGGBG..",
+        ".GGMGGGGCG.",
+        "GGGGGGGGGGG",
+        "....YYY....",
+        "....YYY...."
+      ]
+    },
+    {
+      "name": "Smiley",
+      "art": [
+        "...CCCCC...",
+        "..CCCCCCC..",
+        ".CCCCCCCCC.",
+        "CCCBCCCBCCC",
+        "CCCBCCCBCCC",
+        "CCCCCCCCCCC",
+        "CRCCCCCCCRC",
+        "CCRRRRRRRCC",
+        ".CCCRRRCCC.",
+        "..CCCCCCC..",
+        "...CCCCC..."
+      ]
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "cyan", "charges": 20 },
+      { "color": "cyan", "charges": 5 },
+      { "color": "cyan", "charges": 7 },
+      { "color": "red", "charges": 16 },
+      { "color": "green", "charges": 14 },
+      { "color": "yellow", "charges": 12 },
+      { "color": "green", "charges": 17 },
+      { "color": "purple", "charges": 7 },
+      { "color": "orange", "charges": 20 },
+      { "color": "cyan", "charges": 18 },
+      { "color": "purple", "charges": 12 },
+      { "color": "blue", "charges": 16 },
+      { "color": "purple", "charges": 20 },
+      { "color": "pink", "charges": 11 }
+    ],
+    [
+      { "color": "purple", "charges": 12 },
+      { "color": "pink", "charges": 13 },
+      { "color": "cyan", "charges": 5 },
+      { "color": "green", "charges": 5 },
+      { "color": "cyan", "charges": 8 },
+      { "color": "purple", "charges": 6 },
+      { "color": "yellow", "charges": 20 },
+      { "color": "blue", "charges": 4 },
+      { "color": "purple", "charges": 16 },
+      { "color": "cyan", "charges": 6 },
+      { "color": "green", "charges": 19 },
+      { "color": "red", "charges": 7 },
+      { "color": "purple", "charges": 8 }
+    ],
+    [
+      { "color": "red", "charges": 12 },
+      { "color": "blue", "charges": 4 },
+      { "color": "blue", "charges": 12 },
+      { "color": "yellow", "charges": 14 },
+      { "color": "orange", "charges": 15 },
+      { "color": "orange", "charges": 8 },
+      { "color": "cyan", "charges": 8 },
+      { "color": "cyan", "charges": 15 },
+      { "color": "purple", "charges": 5 },
+      { "color": "blue", "charges": 18 },
+      { "color": "purple", "charges": 9 },
+      { "color": "pink", "charges": 10 },
+      { "color": "red", "charges": 10 }
+    ]
+  ]
+}

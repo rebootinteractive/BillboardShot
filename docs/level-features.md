@@ -1,0 +1,229 @@
+# Level Features
+
+The six level features that 40 levels are built from. Each one is described as
+exact rules, the fields it adds to a level file, and notes for whoever designs levels
+with it (human or AI). These rules are the contract: the game, the level validator and
+the level-designer agent all follow this document.
+
+Status: the level system (level files, progression) is built. The six features are
+not built yet.
+
+## Base game, for reference
+
+- A carousel of billboards; the player swipes to bring one to the front (focus).
+- Containers wait in lanes. Tapping a lane sends its head container to a free deck slot.
+- Each deck container pulls pixels of its own color from the focused board, one charge
+  per pixel. Only the lowest standing pixel in each column can be pulled.
+- A pixel counts as **collected** when it lands in its container.
+- Charges are zero-sum: per color, the charges across all containers equal the pixels
+  across all boards.
+- **Win:** every pixel collected. **Loss:** the game is stuck (see the end).
+
+## Level file
+
+One JSON file per level in `src/levels/`, played in filename order (`level-01.json`,
+`level-02.json`, …). Adding a file adds a level; no code changes. When the player beats
+the last file the list starts again from the first, while the level number they see
+keeps counting up. `?level=N` in the address jumps to a level for testing.
+
+Art rows are written top to bottom. Coordinates in a level file use the same
+orientation: `col` from the left, `row` from the top, both starting at 0.
+
+Fields marked *(planned)* belong to features that are not built yet.
+
+```json
+{
+  "name": "Locked Garden",
+  "deckSlots": 6,
+  "boards": [
+    {
+      "name": "Fish",
+      "art": ["..RR..", ".RrrR.", "BBBBBB"],
+      "keys": [{ "col": 2, "row": 2, "color": "gold" }]
+    },
+    { "name": "Cactus", "art": ["..."], "lock": { "type": "key", "color": "gold" } },
+    { "name": "Sun", "art": ["..."], "lock": { "type": "frozen", "color": "red", "count": 20 } }
+  ],
+  "lanes": [
+    [
+      { "color": "red", "charges": 12 },
+      { "color": "blue", "charges": 8, "hidden": true, "link": "a" }
+    ],
+    [
+      { "color": "green", "charges": 10, "frozen": 3 },
+      { "color": "red", "charges": 9, "link": "a" }
+    ]
+  ]
+}
+```
+
+Art characters: `R` red, `B` blue, `G` green, `Y` yellow, `P` purple, `O` orange,
+`C` cyan, `M` pink, `.` empty. The lowercase letter is a mystery pixel of that color
+*(planned)*. `keys`, `lock`, `hidden`, `frozen` and `link` are *(planned)*.
+
+Checked on load today: equal row widths, known characters and colors, whole-number
+charges, and zero-sum charges per color. Problems are logged to the browser console.
+
+---
+
+## 1. Mystery pixels
+
+A pixel whose color is hidden until its color group is revealed.
+
+**Rules**
+- A mystery pixel is drawn as a neutral gray `?` tile. Its true color is fixed in the
+  level file and never changes.
+- **Trigger:** the moment a mystery pixel becomes the lowest standing pixel in its
+  column (the pixel beneath it was pulled, or it starts at the bottom), it is revealed.
+- **Flood:** revealing a pixel also reveals every mystery pixel connected to it through
+  same-color pixels, using up/down/left/right adjacency (no diagonals). The flood passes
+  through already-visible pixels of that color, and through pixels already pulled but
+  still in flight. Pixels already collected do not connect anything.
+- Hiding the color changes nothing else. A mystery pixel blocks its column like any
+  other pixel, and it is always revealed before it can be pulled.
+
+**Level file:** lowercase color letter in `art`.
+
+**Design notes**
+- A mystery pixel on the bottom row reveals at the start, which is wasted. Avoid it.
+- One exposure revealing a big region is a satisfying payoff. A region of isolated
+  single mystery pixels is just noise.
+- The player plans container order around colors they can't see. Keep the hidden share
+  low enough that the visible part of the board still hints at what to send.
+
+## 2. Key pixel and locked billboard
+
+A colored key sits on one pixel. Collecting it opens the padlocked billboard of the same
+key color.
+
+**Rules**
+- A locked board shows a padlock and chains over its frame. It stays on the carousel and
+  can be rotated to the front, but nothing pulls from it while it is locked.
+- The key is drawn on its pixel as a small key icon in its key color, always visible,
+  even on a mystery pixel. The padlock is drawn in the same key color.
+- The board unlocks when the key pixel is **collected** (lands), not when it is pulled.
+  The key flies to the padlock, the padlock opens, and pulls start at once if that board
+  is in focus.
+- A key only opens the lock of its own key color.
+
+**Level file:** `keys: [{ col, row, color }]` on the board holding the key. The locked
+board has `lock: { type: "key", color }`. Key colors are their own small palette
+(for example gold, silver, bronze), separate from pixel colors, so a key never reads
+as a pixel color.
+
+**Constraints**
+- A key cannot sit on the board it unlocks.
+- Every key color used in a level appears on exactly one key and exactly one lock.
+- A board has at most one lock (key or frozen).
+- Keys may sit on locked or frozen boards, but the chain of unlocks cannot loop.
+
+**Design notes:** keep it to two key/lock pairs per level at most. Burying the key high
+on its board makes the player clear that board first.
+
+## 3. Frozen billboard
+
+A board iced over until enough pixels of one color are collected.
+
+**Rules**
+- A frozen board shows an ice cover with a color swatch and a number: how many pixels of
+  that color are still needed. It can be rotated to the front, but nothing pulls from it.
+- Every pixel of that color collected from any other board lowers the number by one.
+  Counting starts at the level start.
+- At zero the ice shatters and the board plays normally.
+
+**Level file:** `lock: { type: "frozen", color, count }`.
+
+**Constraints**
+- `count` cannot exceed the pixels of that color on boards that can be reached before
+  this one thaws.
+
+**Design notes:** a frozen board pushes the player toward one color early, so its color
+should compete with what the open boards ask for. A count equal to all of that color
+elsewhere makes the player clear everything else first. That can be intended, but it
+often isn't.
+
+## 4. Linked containers
+
+Two containers in different lanes, chained together. They are always sent together.
+
+**Rules**
+- A visible link (rope/chain) joins the two containers once both are in view.
+- Tapping either one sends both, but only if both are at the head of their lanes and
+  there are two free deck slots. Otherwise the tap is refused (shake plus link flash).
+- Once on the deck they act as two independent containers.
+
+**Level file:** matching `link` id on exactly two containers, in different lanes.
+
+**Design notes**
+- Keep the partners at similar depths in their lanes. A partner buried deep blocks the
+  other lane for a long time, and the player can't see why.
+- Links can deadlock each other (A waits behind C, C is linked to a container waiting
+  behind A). The validator rejects any level that can't be won.
+
+## 5. Hidden containers
+
+A container whose color and charge count stay hidden until it reaches the head of its
+lane.
+
+**Rules**
+- Shown as a gray container with a `?`. Reaching the lane head reveals color and charges
+  at once.
+- It plays exactly like a normal container once revealed.
+
+**Level file:** `hidden: true`.
+
+**Design notes:** the head is always visible, so this hides one step of lookahead, not
+the next move. Hiding several containers in a row in one lane makes that lane a gamble.
+
+## 6. Frozen containers
+
+A container locked in ice. It can't be sent until enough other containers are sent.
+
+**Rules**
+- An ice block around the container with a number: how many sends are still needed.
+- Every container sent to the deck from any lane lowers it by one. A linked pair counts
+  as two. Counting starts at the level start, even while the frozen container is deep
+  in its lane.
+- At the head of its lane while frozen, it blocks that lane (the tap is refused).
+- At zero the ice shatters and it is a normal container.
+
+**Level file:** `frozen: N`.
+
+**Design notes:** frozen at the head of a lane takes that lane out of play for a while,
+so the other lanes carry the level. With few lanes and few deck slots, this quickly
+leaves the player stuck.
+
+---
+
+## Combining features
+
+- Any container flags combine: `hidden`, `frozen` and `link` can all be on one container.
+- Mystery pixels can hold keys, and they count toward frozen-board targets like any
+  pixel.
+- A board has at most one lock.
+
+## Loss: the stuck rule
+
+The only way to lose is being stuck. With these features, stuck means **no possible
+action can ever change the game state**. Once nothing is in flight and no container is
+about to leave, the game is stuck when both of these hold:
+
+1. **No pull is possible:** no deck container has charges whose color is the lowest
+   standing pixel of some column on an unlocked, unfrozen board.
+2. **No send is possible:** no lane head can be sent. A head can't be sent when it is
+   frozen, when there is no free slot, or when it is linked and its partner is not at a
+   head or there are fewer than two free slots.
+
+A frozen container only thaws by sending and a board only unlocks by collecting, so if
+both of these hold, nothing can move again.
+
+## What the validator checks (pipeline step)
+
+- The file matches the schema; art rows have equal widths; colors are known.
+- Charges are zero-sum per color.
+- Keys: valid positions on non-empty pixels, one key and one lock per key color, no
+  loops, not on their own board.
+- Links: exactly two containers per id, in different lanes.
+- Frozen board counts are reachable.
+- A solver finds at least one winning line, and reports how many lines win as a
+  difficulty signal.

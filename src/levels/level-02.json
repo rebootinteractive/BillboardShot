@@ -1,0 +1,50 @@
+{
+  "name": "Two Sides",
+  "deckSlots": 6,
+  "boards": [
+    {
+      "name": "Fish",
+      "art": [
+        "....BBB....",
+        "..BBBBBB..Y",
+        ".BBYBBBBBYY",
+        "BBBBBBBBYYY",
+        "BBBBBBBBYYY",
+        ".BBBBBBBBYY",
+        "..BBBBBB..Y",
+        "....BBB...."
+      ]
+    },
+    {
+      "name": "Cactus",
+      "art": [
+        ".....Y.....",
+        "....YYY....",
+        ".....G.....",
+        "....GGG....",
+        ".G..GGG....",
+        ".G..GGG..G.",
+        ".GG.GGG..G.",
+        "..GGGGG.GG.",
+        "....GGGGG..",
+        "BBBBBBBBBBB",
+        ".BBBBBBBBB.",
+        "..BBBBBBB.."
+      ]
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "blue", "charges": 20 },
+      { "color": "yellow", "charges": 9 },
+      { "color": "blue", "charges": 18 },
+      { "color": "green", "charges": 16 }
+    ],
+    [
+      { "color": "blue", "charges": 18 },
+      { "color": "blue", "charges": 20 },
+      { "color": "yellow", "charges": 8 },
+      { "color": "green", "charges": 15 }
+    ]
+  ]
+}

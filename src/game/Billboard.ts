@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { roundedBox, beveledBorder } from './visuals';
-import type { ColorKey, ShapeDef } from '../shared/types';
+import type { ColorKey } from '../shared/types';
 import { CHAR_TO_COLOR, COLOR_HEX } from '../shared/colors';
 import type { Settings } from '../shared/settings';
 
@@ -88,9 +88,10 @@ export class Billboard {
   private readonly outlineMat: THREE.MeshStandardMaterial;
   private readonly mats = new Map<ColorKey, THREE.MeshStandardMaterial>();
 
-  constructor(shape: ShapeDef, angle: number, s: Settings, index: number) {
-    this.cols = shape.rows[0].length;
-    this.rows = shape.rows.length;
+  /** `art` rows run top-to-bottom, one character per pixel. */
+  constructor(art: string[], angle: number, s: Settings, index: number) {
+    this.cols = art[0].length;
+    this.rows = art.length;
     this.cell = s.cellSize;
     this.halfWidth = ((this.cols - 1) / 2) * this.cell;
     this.phase = index * 1.7;
@@ -128,7 +129,7 @@ export class Billboard {
     for (let c = 0; c < this.cols; c++) this.grid.push(new Array(this.rows).fill(null));
 
     for (let r = 0; r < this.rows; r++) {
-      const srcRow = shape.rows[this.rows - 1 - r]; // row 0 = bottom
+      const srcRow = art[this.rows - 1 - r]; // row 0 = bottom
       for (let c = 0; c < this.cols; c++) {
         const ch = srcRow[c];
         const color = CHAR_TO_COLOR[ch];

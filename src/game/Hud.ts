@@ -1,5 +1,6 @@
 export interface HudCallbacks {
   onRestart(): void;
+  onNext(): void;
 }
 
 export class Hud {
@@ -8,6 +9,7 @@ export class Hud {
   private readonly ammoEl: HTMLElement;
   private readonly deckEl: HTMLElement;
   private readonly hintEl: HTMLElement;
+  private readonly levelEl: HTMLElement;
   private modalEl: HTMLDivElement | null = null;
   private hintTimer = 0;
 
@@ -15,6 +17,7 @@ export class Hud {
     this.root = document.createElement('div');
     this.root.className = 'overlay hud-layer';
     this.root.innerHTML = `
+      <div class="hud-level">Level <strong data-level>1</strong></div>
       <div class="hud-top">
         <div class="hud-stat"><span class="lbl">Pixels</span><strong data-tiles>0</strong></div>
         <div class="hud-stat"><span class="lbl">Deck</span><strong data-deck>0/0</strong></div>
@@ -27,6 +30,11 @@ export class Hud {
     this.ammoEl = this.root.querySelector('[data-ammo]')!;
     this.deckEl = this.root.querySelector('[data-deck]')!;
     this.hintEl = this.root.querySelector('[data-hint]')!;
+    this.levelEl = this.root.querySelector('[data-level]')!;
+  }
+
+  setLevel(n: number) {
+    this.levelEl.textContent = String(n);
   }
 
   setStats(tiles: number, deckUsed: number, deckTotal: number, ammo: number) {
@@ -58,12 +66,13 @@ export class Hud {
         <h1>${win ? 'Cleared!' : 'Stuck'}</h1>
         <p>${subtitle}</p>
         <div class="modal-actions">
-          <button class="btn" data-restart>Play again</button>
+          <button class="btn" data-action>${win ? 'Next level' : 'Try again'}</button>
         </div>
       </div>`;
-    el.querySelector('[data-restart]')!.addEventListener('click', () => {
+    el.querySelector('[data-action]')!.addEventListener('click', () => {
       this.dismiss();
-      this.cb.onRestart();
+      if (win) this.cb.onNext();
+      else this.cb.onRestart();
     });
     this.root.parentElement!.appendChild(el);
     this.modalEl = el;

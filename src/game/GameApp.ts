@@ -5,7 +5,8 @@ import { loadSettings, type Settings } from '../shared/settings';
 import { Billboard, type EligibleTarget, type Tile } from './Billboard';
 import { Shooter } from './Shooter';
 import { PulledCube } from './PulledCube';
-import { buildLevel } from './level';
+import { LEVELS, levelForNumber, type LevelData } from './level';
+import { loadLevelNumber, saveLevelNumber } from './progress';
 import { Hud } from './Hud';
 import { Feedback } from './Feedback';
 import { roundedBox, pastelBackground, shadowTexture } from './visuals';
@@ -24,6 +25,9 @@ interface DeckSlot {
 export class GameApp {
   /** Live tuning. The dev editor mutates this object in place. */
   readonly settings: Settings = loadSettings();
+  /** The number the player sees. It keeps climbing after the level list wraps. */
+  levelNumber = loadLevelNumber();
+  private level: LevelData = levelForNumber(this.levelNumber);
 
   private readonly renderer: THREE.WebGLRenderer;
   private readonly scene = new THREE.Scene();
@@ -52,6 +56,7 @@ export class GameApp {
   private deckY = 0;
   private deckOccupants: (Shooter | null)[] = [];
   private lanes: Shooter[][] = [];
+  private laneCount = 0;
   /** Cubes currently on their way from a billboard into a container. */
   private pulls: PulledCube[] = [];
   private allShooters: Shooter[] = [];
@@ -120,7 +125,10 @@ export class GameApp {
     this.world.add(this.carousel, this.staticStage);
     this.scene.add(this.world);
 
-    this.hud = new Hud(parent, { onRestart: () => this.restart() });
+    this.hud = new Hud(parent, {
+      onRestart: () => this.restart(),
+      onNext: () => this.goToLevel(this.levelNumber + 1),
+    });
     this.feedback = new Feedback(this.world);
 
     this.buildWorld();
@@ -153,11 +161,14 @@ export class GameApp {
 
   private buildWorld() {
     const s = this.settings;
-    const plan = buildLevel(s);
+    const level = levelForNumber(this.levelNumber);
+    this.level = level;
+    this.laneCount = level.lanes.length;
     this.over = 'none';
     this.winReveal = 0;
     this.reflowTime = 0;
     this.hud.dismiss();
+    this.hud.setLevel(this.levelNumber);
 
     // --- carousel structure ---
     const ringGeo = new THREE.TorusGeometry(s.carouselRadius, 0.09, 12, 96);
@@ -177,16 +188,16 @@ export class GameApp {
     this.disposables.push({ dispose: () => { poleGeo.dispose(); poleMat.dispose(); spokeGeo.dispose(); } });
 
     // --- billboards ---
-    for (let i = 0; i < s.billboardCount; i++) {
-      const angle = (i / s.billboardCount) * Math.PI * 2;
-      const bb = new Billboard(plan.boards[i], angle, s, i);
+    level.boards.forEach((data, i) => {
+      const angle = (i / level.boards.length) * Math.PI * 2;
+      const bb = new Billboard(data.art, angle, s, i);
       const spoke = new THREE.Mesh(spokeGeo, ringMat);
       spoke.position.set(0, s.ceilingHeight, s.carouselRadius / 2);
       spoke.rotation.y = Math.PI / 2;
       bb.arm.add(spoke);
       this.carousel.add(bb.arm);
       this.billboards.push(bb);
-    }
+    });
 
     // --- deck arc ---
     // Sits directly beneath the near arc of the ring, just under where the artwork
@@ -208,8 +219,8 @@ export class GameApp {
 
     const padGeo = roundedBox(0.68, 0.13, 0.68, 0.065);
     const padMat = new THREE.MeshStandardMaterial({ color: 0xfff5df, roughness: 0.5 });
-    for (let i = 0; i < s.deckSlots; i++) {
-      const a = s.deckSlots === 1 ? 0 : -arc / 2 + (i / (s.deckSlots - 1)) * arc;
+    for (let i = 0; i < level.deckSlots; i++) {
+      const a = level.deckSlots === 1 ? 0 : -arc / 2 + (i / (level.deckSlots - 1)) * arc;
       const pos = new THREE.Vector3(Math.sin(a) * s.carouselRadius, this.deckY, Math.cos(a) * s.carouselRadius);
       this.deckSlots.push({ pos, angle: a });
       this.deckOccupants.push(null);
@@ -228,8 +239,8 @@ export class GameApp {
     const headRingGeo = new THREE.RingGeometry(0.34, 0.44, 24);
     const headRingMat = new THREE.MeshBasicMaterial({ color: 0xfff9e7, transparent: true, opacity: 0.7, side: THREE.DoubleSide });
     this.disposables.push({ dispose: () => { headRingGeo.dispose(); headRingMat.dispose(); } });
-    for (let k = 0; k < s.queueLines; k++) {
-      const entries = plan.lanes[k] ?? [];
+    for (let k = 0; k < this.laneCount; k++) {
+      const entries = level.lanes[k];
       const laneLen = Math.max(1, Math.min(entries.length, s.queueVisible));
       const laneGeo = roundedBox(0.9, 0.12, laneLen * s.queueSpacing + 0.5, 0.06);
       const laneMesh = new THREE.Mesh(laneGeo, laneMat);
@@ -281,7 +292,7 @@ export class GameApp {
       this.staticStage.add(shadow);
     };
     addShadow(0, 0, 4.5, 4.5);
-    for (let k = 0; k < s.queueLines; k++) {
+    for (let k = 0; k < this.laneCount; k++) {
       const p = this.lanePosition(k, 1.5);
       addShadow(p.x, p.z, 1.4, 4.1);
     }
@@ -292,7 +303,7 @@ export class GameApp {
   private lanePosition(lane: number, index: number): THREE.Vector3 {
     const s = this.settings;
     return new THREE.Vector3(
-      (lane - (s.queueLines - 1) / 2) * s.queueLaneSpacing,
+      (lane - (this.laneCount - 1) / 2) * s.queueLaneSpacing,
       s.queueY,
       s.queueHeadZ + index * s.queueSpacing,
     );
@@ -330,6 +341,13 @@ export class GameApp {
   restart() {
     this.destroyWorld();
     this.buildWorld();
+  }
+
+  /** Jump to a level number and remember it as the player's progress. */
+  goToLevel(n: number) {
+    this.levelNumber = Math.max(1, n);
+    saveLevelNumber(this.levelNumber);
+    this.restart();
   }
 
   /** Called by the dev editor when a value changes. */
@@ -564,7 +582,7 @@ export class GameApp {
     if (this.over === 'none') this.checkEnd();
     if (this.winReveal > 0) {
       this.winReveal -= dt;
-      if (this.winReveal <= 0) this.hud.showEnd(true, 'Every pixel collected. Beautifully sorted.');
+      if (this.winReveal <= 0) this.hud.showEnd(true, `Level ${this.levelNumber} complete. Every pixel collected.`);
     }
   }
 
@@ -814,6 +832,8 @@ export class GameApp {
     if (tiles === 0) {
       this.over = 'win';
       this.winReveal = 0.85;
+      // Progress is kept the moment the level is won, even if the page closes before Next.
+      saveLevelNumber(this.levelNumber + 1);
       for (const sh of this.deckOccupants) {
         if (sh) this.feedback.burst(sh.group.position, COLOR_HEX[sh.color], true);
       }
@@ -873,6 +893,7 @@ export class GameApp {
   private renderGameToText() {
     return JSON.stringify({
       mode: this.over,
+      level: { number: this.levelNumber, name: this.level.name, file: LEVELS[(this.levelNumber - 1) % LEVELS.length].file },
       coordinates: 'Screen positions are CSS pixels, origin top-left. World: +Y up, +Z toward camera.',
       focusedBoard: this.billboards.indexOf(this.focused!),
       rotation: Number(this.carousel.rotation.y.toFixed(3)),

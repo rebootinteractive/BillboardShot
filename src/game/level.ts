@@ -1,91 +1,91 @@
-import type { ColorKey, ShapeDef } from '../shared/types';
-import { CHAR_TO_COLOR } from '../shared/colors';
-import type { Settings } from '../shared/settings';
-import { SHAPES, SHAPE_BY_ID } from './shapes';
+import type { ColorKey } from '../shared/types';
+import { CHAR_TO_COLOR, COLOR_KEYS } from '../shared/colors';
 
-export interface QueueEntry {
+/**
+ * Levels are hand-authored JSON files in src/levels, played in filename order.
+ * The format and the rules behind it are documented in docs/level-features.md.
+ */
+export interface ContainerData {
   color: ColorKey;
   charges: number;
 }
 
-export interface LevelPlan {
-  boards: ShapeDef[];
+export interface BoardData {
+  name: string;
+  /** Rows top-to-bottom. One character per pixel: a color letter, or '.' for empty. */
+  art: string[];
+}
+
+export interface LevelData {
+  name: string;
+  deckSlots: number;
+  boards: BoardData[];
   /** One array per lane; index 0 is the head of the line. */
-  lanes: QueueEntry[][];
-  totalTiles: number;
+  lanes: ContainerData[][];
 }
 
-function mulberry32(seed: number) {
-  let a = seed >>> 0;
-  return () => {
-    a = (a + 0x6d2b79f5) >>> 0;
-    let t = Math.imul(a ^ (a >>> 15), 1 | a);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
+const files = import.meta.glob<LevelData>('../levels/*.json', { eager: true, import: 'default' });
+
+/** Every level, in play order. */
+export const LEVELS: { file: string; data: LevelData }[] = Object.keys(files)
+  .sort()
+  .map((path) => ({ file: path.split('/').pop()!, data: files[path] }));
+
+/**
+ * The level shown as "Level n". Once the last file is beaten the list starts over,
+ * while the number the player sees keeps climbing.
+ */
+export function levelForNumber(n: number): LevelData {
+  const i = (Math.max(1, Math.floor(n)) - 1) % LEVELS.length;
+  return LEVELS[i].data;
 }
 
-function shuffle<T>(arr: T[], rnd: () => number): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(rnd() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
+/** Everything wrong with a level, as readable sentences. Empty means valid. */
+export function validateLevel(level: LevelData): string[] {
+  const errors: string[] = [];
+  if (!Number.isInteger(level.deckSlots) || level.deckSlots < 1) errors.push('deckSlots must be a whole number of at least 1.');
+  if (!Array.isArray(level.boards) || level.boards.length === 0) errors.push('A level needs at least one board.');
+  if (!Array.isArray(level.lanes) || level.lanes.length === 0) errors.push('A level needs at least one lane.');
+  if (errors.length) return errors;
 
-export function buildLevel(s: Settings): LevelPlan {
-  const rnd = mulberry32(s.seed);
-
-  const pool = s.shapes.map((id) => SHAPE_BY_ID.get(id)).filter((x): x is ShapeDef => !!x);
-  const source = pool.length > 0 ? pool : SHAPES;
-
-  const boards: ShapeDef[] = [];
-  let bag: ShapeDef[] = [];
-  for (let i = 0; i < s.billboardCount; i++) {
-    if (bag.length === 0) bag = shuffle(source, rnd);
-    boards.push(bag.pop()!);
-  }
-
-  // How many tiles of each color are standing at the start.
-  const need = new Map<ColorKey, number>();
-  let totalTiles = 0;
-  for (const b of boards) {
-    for (const row of b.rows) {
+  const pixels = new Map<ColorKey, number>();
+  level.boards.forEach((board, b) => {
+    const label = `Board ${b} (${board.name})`;
+    if (!board.art?.length) {
+      errors.push(`${label} has no art.`);
+      return;
+    }
+    const width = board.art[0].length;
+    board.art.forEach((row, r) => {
+      if (row.length !== width) errors.push(`${label} row ${r} is ${row.length} wide, expected ${width}.`);
       for (const ch of row) {
-        const c = CHAR_TO_COLOR[ch];
-        if (!c) continue;
-        need.set(c, (need.get(c) ?? 0) + 1);
-        totalTiles++;
+        if (ch === '.') continue;
+        const color = CHAR_TO_COLOR[ch];
+        if (!color) errors.push(`${label} row ${r} has unknown character '${ch}'.`);
+        else pixels.set(color, (pixels.get(color) ?? 0) + 1);
       }
-    }
+    });
+  });
+
+  const charges = new Map<ColorKey, number>();
+  level.lanes.forEach((lane, k) => {
+    lane.forEach((c, j) => {
+      if (!COLOR_KEYS.includes(c.color)) errors.push(`Lane ${k} container ${j} has unknown color '${c.color}'.`);
+      if (!Number.isInteger(c.charges) || c.charges < 1) errors.push(`Lane ${k} container ${j} needs at least 1 charge.`);
+      charges.set(c.color, (charges.get(c.color) ?? 0) + c.charges);
+    });
+  });
+
+  // Zero sum: every charge has exactly one pixel waiting for it.
+  for (const color of new Set([...pixels.keys(), ...charges.keys()])) {
+    const p = pixels.get(color) ?? 0;
+    const c = charges.get(color) ?? 0;
+    if (p !== c) errors.push(`${color}: ${p} pixels but ${c} charges.`);
   }
+  return errors;
+}
 
-  // Zero sum: the charges dealt out in a color add up to exactly that color's pixel
-  // count, so every charge has a pixel waiting for it and none is spare. Loads are
-  // uneven — each shooter takes an arbitrary amount between the min and the max, and
-  // the split never strands a tail smaller than the min.
-  const lo = Math.max(1, Math.min(s.minChargesPerShooter, s.chargesPerShooter));
-  const hi = Math.max(lo, s.chargesPerShooter);
-  const entries: QueueEntry[] = [];
-  for (const [color, count] of need) {
-    let remaining = count;
-    while (remaining > 0) {
-      if (remaining <= hi) {
-        entries.push({ color, charges: remaining });
-        break;
-      }
-      // Cap the draw so whatever is left is still worth a shooter of its own.
-      const top = Math.min(hi, remaining - lo);
-      const charges = lo + Math.floor(rnd() * (top - lo + 1));
-      entries.push({ color, charges });
-      remaining -= charges;
-    }
-  }
-
-  const deck = shuffle(entries, rnd);
-  const lanes: QueueEntry[][] = Array.from({ length: s.queueLines }, () => []);
-  deck.forEach((e, i) => lanes[i % s.queueLines].push(e));
-
-  return { boards, lanes, totalTiles };
+for (const { file, data } of LEVELS) {
+  const errors = validateLevel(data);
+  if (errors.length) console.error(`Level ${file} is invalid:\n- ${errors.join('\n- ')}`);
 }
