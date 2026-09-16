@@ -473,3 +473,28 @@ textarea.json {
   opacity: 1;
   transform: translate(-50%, 0);
 }
+
+/* Warm toy-room presentation. Existing HUD only; gameplay stays unobstructed. */
+:root {
+  --bg: #d4dde6;
+  --panel: #fff4df;
+  --panel-2: #f0d4ad;
+  --text: #70503d;
+  --muted: #a27b57;
+  --accent: #64c695;
+  --danger: #dc5266;
+  --shadow: 0 22px 70px rgba(116, 73, 39, 0.15);
+}
+body { background: #c6d0da; }
+#phone { box-shadow: var(--shadow), 0 0 0 5px #fff3de; }
+.hud-top { background: none; padding: 22px 18px 10px; }
+.hud-stat { background: rgba(255, 247, 227, 0.7); backdrop-filter: none; box-shadow: 0 2px 0 rgba(164, 111, 60, 0.08); }
+.hud-stat .lbl { color: #a47e59; letter-spacing: 1px; }
+.hud-stat strong { color: #795335; }
+.hud-hint { background: #fff4df; box-shadow: 0 4px 16px #94653b26; }
+.modal { background: rgba(159, 112, 69, 0.24); }
+.modal-card { border: 3px solid #fff9ee; border-radius: 26px; }
+.btn { border-radius: 16px; color: #fffdf4; box-shadow: 0 3px 0 #3b9c7440; }
+@media (max-width: 420px), (max-height: 870px) {
+  #phone { box-shadow: none; width: min(100vw, calc(100dvh * 393 / 852)); height: 100dvh; }
+}

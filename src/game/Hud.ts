@@ -70,6 +70,8 @@ export class Hud {
   }
 
   dismiss() {
+    this.hintTimer = 0;
+    this.hintEl.classList.remove('show');
     this.modalEl?.remove();
     this.modalEl = null;
   }

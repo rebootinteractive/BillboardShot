@@ -1,7 +1,10 @@
 import * as THREE from 'three';
+import { roundedBox, beveledBorder } from './visuals';
 import type { ColorKey, ShapeDef } from '../shared/types';
 import { CHAR_TO_COLOR, COLOR_HEX } from '../shared/colors';
 import type { Settings } from '../shared/settings';
+
+const DISTANT_TINT = new THREE.Color(0xd2d6da);
 
 /** A single shootable pixel: the lowest one still standing in its column. */
 export interface EligibleTarget {
@@ -43,8 +46,15 @@ export class Billboard {
   readonly rows: number;
   readonly cell: number;
   readonly halfWidth: number;
-  /** Fixed angle of this board around the ring, before carousel rotation. */
-  readonly angle: number;
+  /** Actual and destination angles may differ while the ring closes a gap. */
+  get angle() { return this.arm.rotation.y; }
+  targetAngle: number;
+  frameState: 'hanging' | 'falling' | 'gone' = 'hanging';
+  private layoutFrom = 0;
+  private layoutT = 1;
+  private dropT = 0;
+  private readonly dropFrom = new THREE.Vector3();
+  private readonly dropRotation = new THREE.Quaternion();
   /** Bottom edge of the pixel grid, relative to the ceiling pivot (negative). */
   readonly bottomOffset: number;
 
@@ -59,14 +69,22 @@ export class Billboard {
   private swingX = 0;
   private swingXv = 0;
   private readonly phase: number;
+  private focus = 0;
 
-  private readonly tileGeo: THREE.BoxGeometry;
+  setFocus(on: boolean, dt: number) {
+    this.focus += ((on ? 1 : 0) - this.focus) * (1 - Math.exp(-8 * dt));
+    for (const tile of this.tiles) tile.mesh.castShadow = on;
+    for (const [color, material] of this.mats) {
+      material.color.setHex(COLOR_HEX[color]).lerp(DISTANT_TINT, (1 - this.focus) * 0.12);
+    }
+  }
+
+  private readonly tileGeo: THREE.BufferGeometry;
   private readonly ropeGeo: THREE.CylinderGeometry;
   private readonly ropeMat: THREE.MeshStandardMaterial;
   private readonly barMat: THREE.MeshStandardMaterial;
-  private readonly barGeo: THREE.BoxGeometry;
-  private readonly outlineHGeo: THREE.BoxGeometry;
-  private readonly outlineVGeo: THREE.BoxGeometry;
+  private readonly barGeo: THREE.BufferGeometry;
+  private readonly outlineGeo: THREE.BufferGeometry;
   private readonly outlineMat: THREE.MeshStandardMaterial;
   private readonly mats = new Map<ColorKey, THREE.MeshStandardMaterial>();
 
@@ -77,7 +95,8 @@ export class Billboard {
     this.halfWidth = ((this.cols - 1) / 2) * this.cell;
     this.phase = index * 1.7;
 
-    this.angle = angle;
+    this.targetAngle = angle;
+    this.layoutFrom = angle;
     this.arm.rotation.y = angle;
     this.arm.add(this.pivot);
     this.pivot.position.set(0, s.ceilingHeight, s.carouselRadius);
@@ -88,8 +107,8 @@ export class Billboard {
     this.bottomOffset = this.board.position.y - boardHalfH - this.cell / 2;
 
     // Hanging bar across the top of the board + two ropes up to the ceiling.
-    this.ropeGeo = new THREE.CylinderGeometry(0.015, 0.015, 1, 6);
-    this.ropeMat = new THREE.MeshStandardMaterial({ color: 0x8b7355, roughness: 0.9 });
+    this.ropeGeo = new THREE.CylinderGeometry(0.025, 0.025, 1, 8);
+    this.ropeMat = new THREE.MeshStandardMaterial({ color: 0xd1a87a, roughness: 0.9 });
     const ropeX = this.halfWidth * 0.8;
     for (const sx of [-1, 1]) {
       const rope = new THREE.Mesh(this.ropeGeo, this.ropeMat);
@@ -98,14 +117,14 @@ export class Billboard {
       this.pivot.add(rope);
     }
     // The bar the ropes tie to, sitting above the artwork.
-    this.barGeo = new THREE.BoxGeometry(this.halfWidth * 2 + this.cell * 1.2, this.cell * 0.4, this.cell * 0.9);
-    this.barMat = new THREE.MeshStandardMaterial({ color: 0x7a6553, roughness: 0.8 });
+    this.barGeo = roundedBox(this.halfWidth * 2 + this.cell * 1.2, this.cell * 0.4, this.cell * 0.9);
+    this.barMat = new THREE.MeshStandardMaterial({ color: 0xffedce, roughness: 0.8 });
     const bar = new THREE.Mesh(this.barGeo, this.barMat);
     bar.position.set(0, boardHalfH + this.cell * 0.9, 0);
     this.board.add(bar);
 
     // Tiles.
-    this.tileGeo = new THREE.BoxGeometry(this.cell * 0.92, this.cell * 0.92, this.cell * 0.55);
+    this.tileGeo = roundedBox(this.cell * 0.94, this.cell * 0.94, this.cell * 0.7, this.cell * 0.12);
     for (let c = 0; c < this.cols; c++) this.grid.push(new Array(this.rows).fill(null));
 
     for (let r = 0; r < this.rows; r++) {
@@ -120,6 +139,8 @@ export class Billboard {
           (r - (this.rows - 1) / 2) * this.cell,
           0,
         );
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
         this.board.add(mesh);
         const tile: Tile = { col: c, row: r, color, mesh, alive: true, reserved: false, popT: -1, board: this };
         this.grid[c][r] = tile;
@@ -128,89 +149,71 @@ export class Billboard {
       }
     }
 
-    const ot = this.cell * 0.34;
-    const od = this.cell * 1.05;
-    this.outlineHGeo = new THREE.BoxGeometry(this.cell + ot, ot, od);
-    this.outlineVGeo = new THREE.BoxGeometry(ot, this.cell + ot, od);
-    this.outlineMat = new THREE.MeshStandardMaterial({ color: 0x7a6553, roughness: 0.8 });
-    this.buildOutline(ot);
+    this.outlineMat = new THREE.MeshStandardMaterial({ color: 0xffedce, roughness: 0.4 });
+    this.outlineGeo = this.buildOutline();
+    const border = new THREE.Mesh(this.outlineGeo, this.outlineMat);
+    border.name = 'billboard-border';
+    this.board.add(border);
   }
 
-  /**
-   * Outline hugging the artwork's own silhouette — top and side edges only, since
-   * the bottom is open. It is traced downward from the top row and stops at the
-   * first row narrower than everything above it: the sides may widen as they
-   * descend but never pull back in. On the heart that ends the sides after its
-   * fourth row, where the lobes give way to the taper.
-   */
-  private buildOutline(ot: number) {
-    const filled = (c: number, r: number) => c >= 0 && c < this.cols && r >= 0 && r < this.rows && !!this.grid[c][r];
+  moveToAngle(angle: number) {
+    this.layoutFrom = this.angle;
+    this.targetAngle = this.angle + Math.atan2(Math.sin(angle - this.angle), Math.cos(angle - this.angle));
+    this.layoutT = 0;
+  }
 
-    const span = (r: number): [number, number] | null => {
-      let lo = -1;
-      let hi = -1;
-      for (let c = 0; c < this.cols; c++) {
-        if (!filled(c, r)) continue;
-        if (lo < 0) lo = c;
-        hi = c;
-      }
-      return lo < 0 ? null : [lo, hi];
+  /** Detach the empty hanging assembly, so swiping cannot drag a falling frame. */
+  dropFrame(world: THREE.Object3D) {
+    if (this.frameState !== 'hanging') return;
+    this.frameState = 'falling';
+    world.attach(this.pivot);
+    this.dropFrom.copy(this.pivot.position);
+    this.dropRotation.copy(this.pivot.quaternion);
+    this.arm.visible = false;
+    for (const mat of [this.ropeMat, this.barMat, this.outlineMat]) {
+      mat.transparent = true;
+      mat.depthWrite = false;
+    }
+  }
+
+  /** One uninterrupted top-and-side border. Preserve the open bottom through
+   * which pixels leave, stopping the sides where the silhouette starts tapering. */
+  private buildOutline(): THREE.BufferGeometry {
+    const span = (row: number): [number, number] | null => {
+      const columns = this.grid.flatMap((column, c) => column[row] ? [c] : []);
+      return columns.length ? [columns[0], columns[columns.length - 1]] : null;
     };
-
-    // Walk down from the top while each row is at least as wide as all above it.
     const top = this.rows - 1;
-    let cutoff = top;
     const first = span(top);
-    if (!first) return;
-    let [L, R] = first;
-    for (let r = top - 1; r >= 0; r--) {
-      const sp = span(r);
-      if (!sp || sp[0] > L || sp[1] < R) break;
-      L = sp[0];
-      R = sp[1];
-      cutoff = r;
+    if (!first) return new THREE.BufferGeometry();
+    let [left, right] = first;
+    let bottom = top;
+    for (let row = top - 1; row >= 0; row--) {
+      const current = span(row);
+      if (!current || current[0] > left || current[1] < right) break;
+      [left, right] = current;
+      bottom = row;
     }
-
-    const xOf = (c: number) => (c - (this.cols - 1) / 2) * this.cell;
-    const yOf = (r: number) => (r - (this.rows - 1) / 2) * this.cell;
-    const add = (geo: THREE.BoxGeometry, x: number, y: number) => {
-      const m = new THREE.Mesh(geo, this.outlineMat);
-      m.position.set(x, y, 0);
-      this.board.add(m);
-    };
-
-    /** Empty from this row all the way down — a gap that opens out of the bottom. */
-    const opensDownward = (c: number, r: number) => {
-      for (let k = r; k >= 0; k--) if (filled(c, k)) return false;
-      return true;
-    };
-
-    // A gap inside a row that drains out of the bottom gets no side edges, so the
-    // ghost's feet don't sprout teeth. A gap that is closed below — the notch
-    // between the heart's lobes — is still traced.
-    const skipSide = (nc: number, r: number, sp: [number, number]) =>
-      nc > sp[0] && nc < sp[1] && opensDownward(nc, r);
-
-    for (let r = cutoff; r <= top; r++) {
-      const sp = span(r);
-      if (!sp) continue;
-      for (let c = 0; c < this.cols; c++) {
-        if (!filled(c, r)) continue;
-        if (!filled(c, r + 1)) add(this.outlineHGeo, xOf(c), yOf(r) + this.cell / 2 + ot / 2);
-        if (!filled(c - 1, r) && !skipSide(c - 1, r, sp)) {
-          add(this.outlineVGeo, xOf(c) - this.cell / 2 - ot / 2, yOf(r));
-        }
-        if (!filled(c + 1, r) && !skipSide(c + 1, r, sp)) {
-          add(this.outlineVGeo, xOf(c) + this.cell / 2 + ot / 2, yOf(r));
-        }
-      }
+    const point = (col: number, row: number) => new THREE.Vector2(
+      (col - this.cols / 2) * this.cell,
+      (row - this.rows / 2) * this.cell,
+    );
+    const edge: THREE.Vector2[] = [point(left, bottom)];
+    for (let col = left; col <= right; col++) {
+      let ceiling = top;
+      while (ceiling > bottom && !this.grid[col][ceiling]) ceiling--;
+      edge.push(point(col, ceiling + 1), point(col + 1, ceiling + 1));
     }
+    edge.push(point(right + 1, bottom));
+    // Adjacent columns at the same height share an endpoint.
+    const unique = edge.filter((p, i) => i === 0 || !p.equals(edge[i - 1]));
+    return beveledBorder(unique, this.cell * 0.34, this.cell * 0.75, this.cell * 0.24);
   }
 
   private material(c: ColorKey): THREE.MeshStandardMaterial {
     let m = this.mats.get(c);
     if (!m) {
-      m = new THREE.MeshStandardMaterial({ color: COLOR_HEX[c], roughness: 0.55, metalness: 0.05 });
+      m = new THREE.MeshStandardMaterial({ color: COLOR_HEX[c], roughness: 0.32, metalness: 0 });
       this.mats.set(c, m);
     }
     return m;
@@ -289,6 +292,26 @@ export class Billboard {
   }
 
   update(dt: number, time: number, s: Settings) {
+    if (this.frameState === 'gone') return;
+    if (this.frameState === 'falling') {
+      this.dropT = Math.min(1, this.dropT + dt / 0.8);
+      const t = this.dropT;
+      this.pivot.position.copy(this.dropFrom);
+      this.pivot.position.y += Math.sin(t * Math.PI) * 0.08 - 6 * t * t;
+      this.pivot.quaternion.copy(this.dropRotation);
+      this.pivot.rotateX(-t * 0.3);
+      this.pivot.rotateZ(Math.sin(this.phase + 1) * t * 0.25);
+      const fade = 1 - THREE.MathUtils.smoothstep(t, 0.3, 1);
+      for (const mat of [this.ropeMat, this.barMat, this.outlineMat]) mat.opacity = fade;
+      if (t >= 1) {
+        this.frameState = 'gone';
+        this.pivot.removeFromParent();
+      }
+      return;
+    }
+    this.layoutT = Math.min(1, this.layoutT + dt / 0.65);
+    const eased = this.layoutT * this.layoutT * (3 - 2 * this.layoutT);
+    this.arm.rotation.y = THREE.MathUtils.lerp(this.layoutFrom, this.targetAngle, eased);
     // Damped harmonic swing about the ceiling pivot, plus a slow ambient sway.
     const sway = s.ambientSway * 0.02;
     this.swingZv += (-s.swingStiffness * this.swingZ - s.swingDamping * this.swingZv) * dt;
@@ -320,13 +343,13 @@ export class Billboard {
 
   dispose() {
     this.arm.parent?.remove(this.arm);
+    this.pivot.removeFromParent();
     this.tileGeo.dispose();
     this.ropeGeo.dispose();
     this.ropeMat.dispose();
     this.barGeo.dispose();
     this.barMat.dispose();
-    this.outlineHGeo.dispose();
-    this.outlineVGeo.dispose();
+    this.outlineGeo.dispose();
     this.outlineMat.dispose();
     for (const m of this.mats.values()) m.dispose();
     this.mats.clear();

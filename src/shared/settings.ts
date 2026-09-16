@@ -59,7 +59,7 @@ export interface Settings {
   seed: number;
 
   // --- Pulling ---
-  /** How many caught cubes stay visible stacked out of a container's top. */
+  /** Maximum visible collected pixels, rounded up to complete 3×3 layers. */
   containerVisibleCubes: number;
   fireCooldown: number;
   projectileSpeed: number;
@@ -137,7 +137,7 @@ export const FIELDS: FieldDef[] = [
   { key: 'chargesPerShooter', label: 'Max charges / shooter', group: 'Queue', min: 1, max: 30, step: 1, structural: true },
   { key: 'seed', label: 'Seed', group: 'Queue', min: 1, max: 999, step: 1, structural: true },
 
-  { key: 'containerVisibleCubes', label: 'Visible cubes in container', group: 'Pulling', min: 1, max: 12, step: 1 },
+  { key: 'containerVisibleCubes', label: 'Visible pixels (3×3 layers)', group: 'Pulling', min: 9, max: 108, step: 9 },
   { key: 'fireCooldown', label: 'Pull cooldown (s)', group: 'Pulling', min: 0.05, max: 2, step: 0.05 },
   { key: 'projectileSpeed', label: 'Pull speed', group: 'Pulling', min: 2, max: 30, step: 0.5 },
   { key: 'projectileArc', label: 'Pull arc ×', group: 'Pulling', min: 0, max: 2, step: 0.05 },
