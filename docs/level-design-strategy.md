@@ -22,7 +22,7 @@ never beyond it.
 | Colors in a level | up to 12 | |
 | Lanes | 1–4 | |
 | Deck slots | 3–7 | The strongest difficulty lever. Slot spacing is fixed, so the deck widens with more slots. |
-| Container charges | 3–20 per container | Charges per color must still equal that color's pixels. |
+| Container charges | 3–40 per container | Raised from 20 for the 16×17 resolution. Charges per color must still equal that color's pixels. |
 | Pixels in a level | up to 1000 *(provisional)* | Raised for the 16×17 resolution, where a picture has about 140 pixels (median). Calibrated against play time in Phase 4. |
 
 Fixed for every level (tuning, not level design):

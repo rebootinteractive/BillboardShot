@@ -605,7 +605,11 @@ export class GameApp {
   private enableLevelPicker() {
     const options = [
       ...LEVELS.map(({ data }, i) => ({ value: `level:${i + 1}`, label: `${i + 1}. ${data.name}`, group: 'Levels' })),
-      ...[...SANDBOX].map(([name, data]) => ({ value: `sandbox:${name}`, label: data.name, group: 'Feature tests' })),
+      ...[...SANDBOX].map(([name, data]) => ({
+        value: `sandbox:${name}`,
+        label: data.name,
+        group: name.startsWith('dev/') ? 'Development' : 'Feature tests',
+      })),
     ];
     this.hud.enableLevelPicker(options, (value) => {
       const [kind, id] = value.split(':');

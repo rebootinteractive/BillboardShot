@@ -1,31 +1,60 @@
 {
-  "name": "First Bite",
-  "cellSize": 0.22,
+  "name": "Fruit Stand",
   "deckSlots": 6,
   "boards": [
     {
       "name": "Apple",
       "art": [
-        ".....GG..",
-        "....GG...",
-        "..RRGRR..",
-        ".RRRRRRR.",
-        "RRRRRRRRR",
-        "RRRRRRRRR",
-        "RRRRRRRRR",
-        ".RRRRRRR.",
-        "..RR.RR.."
-      ]
+        ".GGGG........",
+        ".GGGGG.......",
+        "..RRRGGRRR...",
+        ".RRRRRRRRRRR.",
+        ".RRRRRRRRRRR.",
+        "RRRRRRRRRRRRR",
+        "RRRRRRRRRRRRR",
+        "RRRRRRRRRRRRR",
+        "RRRRRRRRRRRRR",
+        "RRRRRRRRRRRRR",
+        ".RRRRRRRRRRR.",
+        ".RRRRRRRRRRR.",
+        "..RRRRRRRRR.."
+      ],
+      "source": { "picture": "apple", "colors": { "1": "red", "2": "green" } }
+    },
+    {
+      "name": "Lemon",
+      "art": [
+        "..GGG........",
+        "GGGGGYYYYY...",
+        ".GGGYYYYYYY..",
+        "...YYYYYYYYY.",
+        "...YYYYYYYYY.",
+        "...YYYYYYYYYY",
+        "...YYYYYYYYYY",
+        "...YYYYYYYYYY",
+        "...YYYYYYYYYY",
+        "....YYYYYYYYY",
+        "....YYYYYYYY.",
+        "......YYYYY..",
+        "........YYY.."
+      ],
+      "source": { "picture": "lemon", "colors": { "1": "yellow", "2": "green" } }
     }
   ],
   "lanes": [
     [
-      { "color": "red", "charges": 16 },
-      { "color": "red", "charges": 16 }
+      { "color": "red", "charges": 31 },
+      { "color": "yellow", "charges": 32 },
+      { "color": "red", "charges": 31 }
     ],
     [
-      { "color": "red", "charges": 17 },
-      { "color": "green", "charges": 5 }
+      { "color": "yellow", "charges": 32 },
+      { "color": "red", "charges": 31 },
+      { "color": "yellow", "charges": 31 }
+    ],
+    [
+      { "color": "red", "charges": 31 },
+      { "color": "green", "charges": 22 }
     ]
   ]
 }
