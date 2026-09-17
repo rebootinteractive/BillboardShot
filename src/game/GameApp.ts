@@ -447,6 +447,7 @@ export class GameApp {
   // ------------------------------------------------------------------ input
 
   private readonly onDown = (e: PointerEvent) => {
+    this.playtest.input();
     if (this.over !== 'none') return;
     this.feedback.unlock();
     this.pointerDown = true;

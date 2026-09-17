@@ -7,7 +7,8 @@ import type { LevelData } from '../game/level';
 /**
  * Bots that play a level from what a player can see. Their win rates are the difficulty
  * score. `careless` taps without much thought, `average` looks a little ahead and sometimes acts
- * on impulse, `careful` plays each promising move out a few times before choosing.
+ * on impulse, `careful` plays each promising move out a few times before choosing. The
+ * planners also have occasional lapses of attention, as people do.
  */
 
 export type Rng = () => number;
@@ -87,11 +88,17 @@ interface PlannerSettings {
   depth: number;
   /** Chance of skipping the planning and taking the move that looks best. */
   impulse: number;
+  /**
+   * Chance of a lapse: a moment of inattention where the player sends whatever is at the
+   * front of some lane, useful or not. Real players do this; a level that punishes one
+   * lapse with a stuck deck is harder for people than for a flawless bot.
+   */
+  lapse: number;
 }
 
 const PLANNERS: Record<'average' | 'careful', PlannerSettings> = {
-  average: { candidates: 3, rollouts: 1, depth: 10, impulse: 0.25 },
-  careful: { candidates: 5, rollouts: 3, depth: 40, impulse: 0 },
+  average: { candidates: 3, rollouts: 1, depth: 10, impulse: 0.25, lapse: 0.06 },
+  careful: { candidates: 5, rollouts: 3, depth: 40, impulse: 0, lapse: 0.02 },
 };
 
 /** Choose a move from the player's view of the state. */
@@ -110,6 +117,11 @@ export function chooseMove(bot: BotName | 'greedy', view: State, rng: Rng): Move
   }
   if (bot === 'greedy') return softmaxPick(moves, scores, 0.7, rng);
   const plan = PLANNERS[bot];
+  if (rng() < plan.lapse) {
+    const sends = all.filter((m) => m.type === 'send');
+    const pool = sends.length ? sends : all;
+    return pool[Math.floor(rng() * pool.length)];
+  }
   if (rng() < plan.impulse) return softmaxPick(moves, scores, 0.7, rng);
   // Try the most promising moves, play each out with greedy play on a guess of the hidden
   // colors, and keep the move that got furthest.
