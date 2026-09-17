@@ -3,7 +3,7 @@
   "camDistance": 21,
   "camPitchDeg": 24,
   "camTargetY": 5,
-  "carouselRadius": 2.4,
+  "carouselRadius": 2.2,
   "autoRotateDegPerSec": 0,
   "dragSensitivity": 0.9,
   "spinDamping": 10,
@@ -25,7 +25,7 @@
   "queueSpacing": 0.7,
   "queueY": 2.25,
   "containerVisibleCubes": 36,
-  "fireCooldown": 0.05,
-  "projectileSpeed": 9,
+  "fireCooldown": 0.025,
+  "projectileSpeed": 11,
   "projectileArc": 1.1
 }

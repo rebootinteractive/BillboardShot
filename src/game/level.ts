@@ -64,6 +64,7 @@ export function isMysteryChar(ch: string): boolean {
 
 const files = import.meta.glob<LevelData>('../levels/*.json', { eager: true, import: 'default' });
 const sandboxFiles = import.meta.glob<LevelData>('../levels/sandbox/*.json', { eager: true, import: 'default' });
+const devFiles = import.meta.glob<LevelData>('../levels/dev/*.json', { eager: true, import: 'default' });
 
 /** Every level, in play order. */
 export const LEVELS: { file: string; data: LevelData }[] = Object.keys(files)
@@ -71,12 +72,13 @@ export const LEVELS: { file: string; data: LevelData }[] = Object.keys(files)
   .map((path) => ({ file: path.split('/').pop()!, data: files[path] }));
 
 /**
- * Levels that are not part of the play order, opened with `?sandbox=<file name>`.
- * Used to try a single feature in isolation.
+ * Levels that are not part of the play order, opened with `?sandbox=<name>`: feature
+ * test levels by file name, and earlier development levels as `dev/<file name>`.
  */
-export const SANDBOX: Map<string, LevelData> = new Map(
-  Object.keys(sandboxFiles).map((path) => [path.split('/').pop()!.replace(/\.json$/, ''), sandboxFiles[path]]),
-);
+export const SANDBOX: Map<string, LevelData> = new Map([
+  ...Object.keys(sandboxFiles).map((path) => [path.split('/').pop()!.replace(/\.json$/, ''), sandboxFiles[path]] as const),
+  ...Object.keys(devFiles).map((path) => [`dev/${path.split('/').pop()!.replace(/\.json$/, '')}`, devFiles[path]] as const),
+]);
 
 /**
  * The level shown as "Level n". Once the last file is beaten the list starts over,

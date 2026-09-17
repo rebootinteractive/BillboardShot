@@ -1,0 +1,118 @@
+{
+  "name": "Deep Sea Secrets",
+  "deckSlots": 5,
+  "boards": [
+    {
+      "name": "Whale",
+      "art": [
+        "...cc.c.....B...",
+        "..cccccc....BB..",
+        "..cc.ccc...BB...",
+        ".....c....BBBB..",
+        ".....c...BB.BBB.",
+        "..BBBBBBB....BB.",
+        ".BBBBBBBBB...BBB",
+        "BBBBBBBBBBB..BBB",
+        "BBBBBBBBBBB..BBB",
+        "WWWWWWWBBBB..BBB",
+        "WWWWWWWWBBBBBBBB",
+        ".WWWWWWWWBBBBBBB",
+        ".WWWWWWWWBBBBBBB",
+        "..WWWWWWWBBBBBB.",
+        "..WWWWWWWBBBBBB.",
+        ".BBBWWWWWWBBBBB.",
+        ".....WWWWWW....."
+      ],
+      "source": { "picture": "whale", "colors": { "1": "blue", "2": "white", "3": "cyan" }, "hidden": ["3"] }
+    },
+    {
+      "name": "Octopus",
+      "art": [
+        ".....pppppp.....",
+        "....pppppppp....",
+        "...pppppppppp...",
+        "...ppppppppppp..",
+        "..pppppppppppp..",
+        "..kppppppppppk..",
+        "..kppppppppppk..",
+        "...ppppppppppp..",
+        "..MppppppppppM..",
+        "..MMppppppppMM..",
+        "MMMMwppppppwwMMM",
+        ".MwwMMMMMMMMwwM.",
+        "..MMMMMMMMMMMM..",
+        "..MMMMMMMMMMMM..",
+        "..MMMMM..MMMMM.."
+      ],
+      "source": { "picture": "octopus", "colors": { "1": "purple", "2": "pink", "3": "white", "4": "black" }, "hidden": ["1", "3", "4"] }
+    },
+    {
+      "name": "Tropical Fish",
+      "art": [
+        "....CCCCCCYYY...",
+        "...CCCCCCCCYYY..",
+        "..PCCCCCCCCCYY..",
+        ".PPPCCCCCCCCCY..",
+        ".PPPPCCCCCCCCC..",
+        "PPPPPCCYYCCCCCYY",
+        "KPPPPCCYYCCCCCYY",
+        "KPPPPCCYYCCCCCYY",
+        ".PPPPCCCCCCCCCYY",
+        ".PPPCCCCCCCCCY..",
+        "..PCCCCCCCCCYY..",
+        "...CCCCCCCCYYY..",
+        "....CCCCCCYYY..."
+      ],
+      "source": { "picture": "tropical-fish", "colors": { "1": "cyan", "2": "yellow", "3": "purple", "4": "black" } }
+    },
+    {
+      "name": "Crab",
+      "art": [
+        "..OO........OO..",
+        ".OOO.O....O.OOO.",
+        ".OOOOO....OOOOO.",
+        "..OOOO....OOOO..",
+        "...OO.K..K.OO...",
+        "....O.R..R.O....",
+        "...RRRRRRRRRR...",
+        ".R.RRRRRRRRRR.R.",
+        ".RRRRRRRRRRRRRR.",
+        "..RRRRRRRRRRRR..",
+        "RRRRRRRRRRRRRRRR",
+        "...RRRRRRRRRR...",
+        "..RR.RRRRRR.RR..",
+        "..R..RR..RR..R.."
+      ],
+      "source": { "picture": "crab", "colors": { "1": "red", "2": "orange", "3": "black" } },
+      "lock": { "type": "frozen", "color": "blue", "count": 38 }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "blue", "charges": 38 },
+      { "color": "purple", "charges": 33, "hidden": true },
+      { "color": "cyan", "charges": 40 },
+      { "color": "red", "charges": 31, "link": "b" },
+      { "color": "white", "charges": 32 },
+      { "color": "black", "charges": 8 }
+    ],
+    [
+      { "color": "pink", "charges": 29 },
+      { "color": "yellow", "charges": 32, "link": "a" },
+      { "color": "blue", "charges": 37 },
+      { "color": "purple", "charges": 33, "link": "b" },
+      { "color": "red", "charges": 31 },
+      { "color": "orange", "charges": 36 },
+      { "color": "cyan", "charges": 40 }
+    ],
+    [
+      { "color": "cyan", "charges": 39 },
+      { "color": "white", "charges": 32, "link": "a" },
+      { "color": "purple", "charges": 33 },
+      { "color": "pink", "charges": 28 },
+      { "color": "blue", "charges": 37, "hidden": true },
+      { "color": "purple", "charges": 32 },
+      { "color": "red", "charges": 30 }
+    ]
+  ]
+}

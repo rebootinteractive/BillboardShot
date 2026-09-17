@@ -1,0 +1,154 @@
+{
+  "name": "Night Market",
+  "deckSlots": 5,
+  "boards": [
+    {
+      "name": "Lion",
+      "art": [
+        "..NNNNN..NNNNN..",
+        "..NNOONNNNOONN..",
+        "NNNOOOONNOOOONNN",
+        "NNNROOOOOOOOONNN",
+        "NNNOOOOOOOOOONNN",
+        "NNNOOOOOOOOOONNN",
+        ".NOOOkOOOOkOOON.",
+        "NNOOOkOwwOkOOONN",
+        "NNOOOOwwwwOOOONN",
+        "NNOOOwwkkwwOOONN",
+        "NNNOOwwwwwwOONNN",
+        "NNNNNyyyyyyNNNNN",
+        "NNNNNyyyyyyNNNNN",
+        ".NNNNNyyyyNNNNN.",
+        "...NNNNNNNNNN...",
+        "......NNNN......"
+      ],
+      "source": { "picture": "lion", "colors": { "1": "brown", "2": "orange", "3": "white", "4": "yellow", "5": "black" }, "hidden": ["3", "4", "5"], "overrides": [{ "col": 3, "row": 3, "color": "red" }] }
+    },
+    {
+      "name": "Pizza",
+      "art": [
+        "...........YYOO",
+        "........YYYYYOO",
+        "......YYYYYYYOO",
+        ".....YYYYYYYYOO",
+        "...YYYYYYYYYYOO",
+        "..YYYYYYYYYYYOO",
+        ".YYYYYYYYYRRROO",
+        "YYYYYYYYYYRRRRO",
+        "YYYYYYYYPYRRRRO",
+        "YYYYYYYYYYYRROO",
+        ".YYYYYRRRYYYYOO",
+        "...YYYRRRYYYYOO",
+        ".....YYRYYYRROO",
+        ".......YYYYRROO",
+        "........YYYYYOO",
+        "..........YYYOO",
+        "............OO."
+      ],
+      "source": { "picture": "pizza", "colors": { "1": "yellow", "2": "red", "3": "orange" }, "overrides": [{ "col": 8, "row": 8, "color": "purple" }] }
+    },
+    {
+      "name": "Hot Air Balloon",
+      "art": [
+        "....PlMlP....",
+        "..PPllMllPP..",
+        ".PPPllMllPPP.",
+        "PPPlllMlllPPP",
+        "PPPlllMlllPPP",
+        "PPPlllMlllPPP",
+        ".PPPllMllPPP.",
+        "..PPllMllPP..",
+        "...PllMllP...",
+        "....PlMlP....",
+        ".....lMl.....",
+        ".....K.K.....",
+        ".....K.K.....",
+        "....NNNNN....",
+        "....NONON....",
+        "....NNNNN...."
+      ],
+      "source": { "picture": "hot-air-balloon", "colors": { "1": "purple", "2": "lime", "3": "pink", "4": "black", "5": "brown", "6": "orange" }, "hidden": ["2"] }
+    },
+    {
+      "name": "Robot",
+      "art": [
+        "..............RR",
+        ".....CCCCCC...RR",
+        "...WWWWWWWWWW.R.",
+        "..WWWWWWWWWWWWR.",
+        ".WWWWWWWWWWWWWW.",
+        ".WKKKKKKKKKKKKW.",
+        "RWKKCKKKKKKCKKWR",
+        "RWKKCKKKKKKCKKWR",
+        "RWKKKKKKKKKKKKWR",
+        "RWWWWWWWWWWWWWWR",
+        "RWWWWWWWWWWWWWWR",
+        "RWWWWWWWWWWWWWWR",
+        ".WWWWWKPKKWWWWW.",
+        ".WWWWWKKKKWWWWW.",
+        "..WWWWWWWWWWWW..",
+        "...WWWWWWWWWW..."
+      ],
+      "source": { "picture": "robot", "colors": { "1": "white", "2": "black", "3": "red", "4": "cyan", "5": "cyan" }, "overrides": [{ "col": 7, "row": 12, "color": "purple" }] },
+      "keys": [{ "col": 7, "row": 7, "color": "silver" }]
+    },
+    {
+      "name": "Gift",
+      "art": [
+        "..MM..M..MM..",
+        ".MMMMMMMMMMM.",
+        ".MMMMMMMMMMM.",
+        "GGGGGMMMGGGGG",
+        "GGGGGMMMGGGGG",
+        "GGGGGMMMGGGGG",
+        ".GGGGMMMGGGG.",
+        ".BBBBMMMBBBB.",
+        ".BBBBMMMBBBB.",
+        ".BBBBMMMBBBB.",
+        ".BBBBMMMBBBB.",
+        ".BBBBMMMBBBB.",
+        ".BBBBMMMBBBB.",
+        ".BBBBMMMBBBB."
+      ],
+      "source": { "picture": "gift", "colors": { "1": "pink", "2": "blue", "3": "green" } },
+      "lock": { "type": "key", "color": "silver" }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "orange", "charges": 37 },
+      { "color": "yellow", "charges": 33 },
+      { "color": "white", "charges": 36 },
+      { "color": "purple", "charges": 23 },
+      { "color": "black", "charges": 31, "link": "a" },
+      { "color": "brown", "charges": 31 },
+      { "color": "pink", "charges": 36, "hidden": true },
+      { "color": "yellow", "charges": 33 },
+      { "color": "white", "charges": 36 },
+      { "color": "blue", "charges": 28 }
+    ],
+    [
+      { "color": "brown", "charges": 30 },
+      { "color": "red", "charges": 22 },
+      { "color": "yellow", "charges": 33, "hidden": true },
+      { "color": "orange", "charges": 37 },
+      { "color": "lime", "charges": 22 },
+      { "color": "white", "charges": 36 },
+      { "color": "black", "charges": 30 },
+      { "color": "brown", "charges": 30 },
+      { "color": "green", "charges": 38 }
+    ],
+    [
+      { "color": "white", "charges": 36 },
+      { "color": "orange", "charges": 37 },
+      { "color": "lime", "charges": 22, "link": "a" },
+      { "color": "red", "charges": 21 },
+      { "color": "cyan", "charges": 10 },
+      { "color": "purple", "charges": 23 },
+      { "color": "yellow", "charges": 32 },
+      { "color": "pink", "charges": 35 },
+      { "color": "blue", "charges": 28 },
+      { "color": "brown", "charges": 30 }
+    ]
+  ]
+}

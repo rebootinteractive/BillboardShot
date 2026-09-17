@@ -1,149 +1,99 @@
 {
-  "name": "Picture Gallery",
-  "cellSize": 0.22,
-  "deckSlots": 6,
+  "name": "Key to the Coop",
+  "deckSlots": 5,
   "boards": [
     {
-      "name": "Heart",
+      "name": "Sunflower",
       "art": [
-        "..MM...RR..",
-        ".MMMM.RRRR.",
-        "MMMMMRRRRRR",
-        "MMMMMRRRRRR",
-        ".MMMMRRRRR.",
-        "..MMMRRRR..",
-        "...MMRRR...",
-        "....MRR....",
-        ".....R....."
-      ]
+        "......Y......",
+        "...YYYYYYY...",
+        "...YYYYYYY...",
+        ".YYYYNNNYYYY.",
+        "YYYYNNNNNYYYY",
+        ".YYNNNNNNNYY.",
+        ".YYNNNNNNNYYY",
+        "YYYNNNNNNNYYY",
+        "YYYNNNNNNNYY.",
+        "..YYNNNNNYYY.",
+        ".YYYYYYYYYYY.",
+        "..Y.YYYYY....",
+        "....YYNYY....",
+        "......N......",
+        "..NNN.N.NNNN.",
+        "..NNNNNNNNN..",
+        "...NNNNNNN..."
+      ],
+      "source": { "picture": "sunflower", "colors": { "1": "yellow", "2": "brown" } },
+      "keys": [{ "col": 6, "row": 3, "color": "gold" }]
     },
     {
-      "name": "Ghost",
+      "name": "Popcorn",
       "art": [
-        "...PPPPP...",
-        "..PPPPPPP..",
-        ".PPPPPPPPP.",
-        "PPCCPPPCCPP",
-        "PPCCPPPCCPP",
-        "PPPPPPPPPPP",
-        "PPPPPPPPPPP",
-        "PPPPMMMPPPP",
-        "PPPPPPPPPPP",
-        "PPPPPPPPPPP",
-        "P.PP.PPP.PP"
-      ]
+        ".....YY.....",
+        "....YYYY....",
+        "...YYYYYYY..",
+        "..YYYYYYYY..",
+        "..YYYYYYYYY.",
+        ".YYYYYYYYYYY",
+        "RRWWYRRYWWRR",
+        "RRWWWRRWWWRR",
+        "RRWWWRRWWWRR",
+        "RRWWWRRWWWRR",
+        "RRRWWRRWWWRR",
+        "RRRWWRRWWRRR",
+        ".RRWWRRWWRR.",
+        ".RRWWRRWWRR.",
+        ".RRWWRRWWRR.",
+        ".RRWWRRWWRR.",
+        ".RRWWRRWWRR."
+      ],
+      "source": { "picture": "popcorn", "colors": { "1": "red", "2": "white", "3": "yellow" } }
     },
     {
-      "name": "Mushroom",
+      "name": "Chicken",
       "art": [
-        "...BBBBB...",
-        "..BBBBBBB..",
-        ".BBMBBBMBB.",
-        "BBBBBBBBBBB",
-        "BBMBBBBBMBB",
-        ".BBBBBBBBB.",
-        "...YYYYY...",
-        "...YYYYY...",
-        "..YYYYYYY..",
-        "..YYYYYYY.."
-      ]
-    },
-    {
-      "name": "Star",
-      "art": [
-        ".....O.....",
-        ".....O.....",
-        "....OOO....",
-        "....YYY....",
-        "OOOOYYYOOOO",
-        ".OOOYYYOOO.",
-        "..OOYYYOO..",
-        "...OYYYO...",
-        "..OOO.OOO..",
-        ".OOO...OOO.",
-        "OO.......OO"
-      ]
-    },
-    {
-      "name": "Tree",
-      "art": [
-        ".....Y.....",
-        "....GGG....",
-        "...GGOGG...",
-        "..GGGGGGG..",
-        "...GGCGG...",
-        "..GGGBGGG..",
-        ".GGGGOGGGG.",
-        "..GGCGGBG..",
-        ".GGMGGGGCG.",
-        "GGGGGGGGGGG",
-        "....YYY....",
-        "....YYY...."
-      ]
-    },
-    {
-      "name": "Smiley",
-      "art": [
-        "...CCCCC...",
-        "..CCCCCCC..",
-        ".CCCCCCCCC.",
-        "CCCBCCCBCCC",
-        "CCCBCCCBCCC",
-        "CCCCCCCCCCC",
-        "CRCCCCCCCRC",
-        "CCRRRRRRRCC",
-        ".CCCRRRCCC.",
-        "..CCCCCCC..",
-        "...CCCCC..."
-      ]
+        ".........RRR....",
+        ".....RRRRRRRR...",
+        "....RRRRRRRRR...",
+        "....RRWWWWRRR...",
+        "...RRWWWWWWWO...",
+        "..RRWWWWWWWWWO..",
+        "...WWWWWWWWWWW..",
+        "..OWWWWWWWWWWW..",
+        ".OOWWOOWWWWWWWO.",
+        "OOOWWWWWWWWWWWO.",
+        "OOOWWWWWWWWWWWW.",
+        ".OOWWWWWWWWWWWW.",
+        ".RRWWWWWWWWWWWWO",
+        ".RRWWWWWWWWWWWWO",
+        "..RWWWWWWWWWWWWO",
+        "..OWWWWWWWWWWWWO",
+        "...OOOOOOOOOOOO."
+      ],
+      "source": { "picture": "chicken", "colors": { "1": "white", "2": "red", "3": "orange", "4": "orange", "5": "orange", "6": "orange" } },
+      "lock": { "type": "key", "color": "gold" }
     }
   ],
   "lanes": [
     [
-      { "color": "cyan", "charges": 20 },
-      { "color": "cyan", "charges": 5 },
-      { "color": "cyan", "charges": 7 },
-      { "color": "red", "charges": 16 },
-      { "color": "green", "charges": 14 },
-      { "color": "yellow", "charges": 12 },
-      { "color": "green", "charges": 17 },
-      { "color": "purple", "charges": 7 },
-      { "color": "orange", "charges": 20 },
-      { "color": "cyan", "charges": 18 },
-      { "color": "purple", "charges": 12 },
-      { "color": "blue", "charges": 16 },
-      { "color": "purple", "charges": 20 },
-      { "color": "pink", "charges": 11 }
+      { "color": "brown", "charges": 34 },
+      { "color": "yellow", "charges": 40 },
+      { "color": "red", "charges": 35 },
+      { "color": "white", "charges": 37 },
+      { "color": "white", "charges": 37 }
     ],
     [
-      { "color": "purple", "charges": 12 },
-      { "color": "pink", "charges": 13 },
-      { "color": "cyan", "charges": 5 },
-      { "color": "green", "charges": 5 },
-      { "color": "cyan", "charges": 8 },
-      { "color": "purple", "charges": 6 },
-      { "color": "yellow", "charges": 20 },
-      { "color": "blue", "charges": 4 },
-      { "color": "purple", "charges": 16 },
-      { "color": "cyan", "charges": 6 },
-      { "color": "green", "charges": 19 },
-      { "color": "red", "charges": 7 },
-      { "color": "purple", "charges": 8 }
+      { "color": "yellow", "charges": 40 },
+      { "color": "red", "charges": 34 },
+      { "color": "brown", "charges": 33 },
+      { "color": "orange", "charges": 34 },
+      { "color": "white", "charges": 37 }
     ],
     [
-      { "color": "red", "charges": 12 },
-      { "color": "blue", "charges": 4 },
-      { "color": "blue", "charges": 12 },
-      { "color": "yellow", "charges": 14 },
-      { "color": "orange", "charges": 15 },
-      { "color": "orange", "charges": 8 },
-      { "color": "cyan", "charges": 8 },
-      { "color": "cyan", "charges": 15 },
-      { "color": "purple", "charges": 5 },
-      { "color": "blue", "charges": 18 },
-      { "color": "purple", "charges": 9 },
-      { "color": "pink", "charges": 10 },
-      { "color": "red", "charges": 10 }
+      { "color": "red", "charges": 34 },
+      { "color": "yellow", "charges": 40 },
+      { "color": "white", "charges": 37 },
+      { "color": "white", "charges": 37 }
     ]
   ]
 }

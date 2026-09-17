@@ -88,8 +88,9 @@ export class Shooter {
     const hidden = new THREE.Color(HIDDEN_HEX);
     const base = hidden.clone().lerp(real, amount);
     this.bodyMat.color.copy(base);
-    this.rimMat.color.copy(base).lerp(new THREE.Color(0xffffff), 0.22);
-    this.lidMat.color.copy(base).lerp(new THREE.Color(0xffffff), 0.12);
+    // Rim and lid match the body, so a container's color reads the same from every side.
+    this.rimMat.color.copy(base);
+    this.lidMat.color.copy(base);
     this.holeMat.color.copy(base).multiplyScalar(0.35);
   }
 
@@ -198,7 +199,7 @@ export class Shooter {
     // A lip around the top, and a dark square inside it, so it reads as open.
     const lip = 0.06 * scale;
     this.rimGeo = roundedBox(this.width + lip, lip * 1.7, this.width + lip, 0.045);
-    this.rimMat = new THREE.MeshStandardMaterial({ color: new THREE.Color(COLOR_HEX[color]).lerp(new THREE.Color(0xffffff), 0.22), roughness: 0.25 });
+    this.rimMat = new THREE.MeshStandardMaterial({ color: COLOR_HEX[color], roughness: 0.25 });
     const rim = new THREE.Mesh(this.rimGeo, this.rimMat);
     rim.position.y = height;
     this.visual.add(rim);
@@ -214,7 +215,7 @@ export class Shooter {
     const lidHeight = lip * 1.5;
     this.lidGeo = roundedBox(lidWidth, lidHeight, lidWidth, 0.035);
     this.lidMat = new THREE.MeshStandardMaterial({
-      color: new THREE.Color(COLOR_HEX[color]).lerp(new THREE.Color(0xffffff), 0.12),
+      color: COLOR_HEX[color],
       roughness: 0.28,
     });
     const lid = new THREE.Mesh(this.lidGeo, this.lidMat);
