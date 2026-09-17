@@ -1,7 +1,6 @@
 {
   "name": "Garden Party",
   "hint": "Gray containers marked ? show their color when they reach the front of their line.",
-  "deckSlots": 5,
   "boards": [
     {
       "name": "Tulip",

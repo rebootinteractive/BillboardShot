@@ -1,7 +1,6 @@
 {
   "name": "Linked Containers",
   "cellSize": 0.22,
-  "deckSlots": 6,
   "boards": [
     {
       "name": "Fish",

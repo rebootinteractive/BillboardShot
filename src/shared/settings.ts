@@ -44,6 +44,8 @@ export interface Settings {
   holdFireWhileDragging: boolean;
 
   // --- Deck ---
+  /** Deck slots in every level. A global rule, not a level choice. */
+  deckSlots: number;
   /** Angle between neighboring deck slots; the arc grows with the level's slot count. */
   deckSlotSpacingDeg: number;
   deckGap: number;
@@ -116,6 +118,7 @@ export const FIELDS: FieldDef[] = [
   { key: 'ambientSway', label: 'Ambient sway', group: 'Swing', min: 0, max: 3, step: 0.05 },
 
 
+  { key: 'deckSlots', label: 'Deck slots', group: 'Deck', min: 3, max: 7, step: 1, structural: true },
   { key: 'deckSlotSpacingDeg', label: 'Deck slot spacing °', group: 'Deck', min: 8, max: 30, step: 0.2, structural: true },
   { key: 'deckGap', label: 'Deck gap under boards', group: 'Deck', min: 0, max: 4, step: 0.05, structural: true },
 

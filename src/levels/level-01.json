@@ -1,6 +1,5 @@
 {
   "name": "Fruit Stand",
-  "deckSlots": 6,
   "boards": [
     {
       "name": "Apple",

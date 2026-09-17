@@ -1,7 +1,6 @@
 {
   "name": "Deep Sea Secrets",
   "hint": "Gray ? pixels are hidden. When one reaches the bottom of its column it shows its color, along with every matching pixel it touches.",
-  "deckSlots": 5,
   "boards": [
     {
       "name": "Whale",

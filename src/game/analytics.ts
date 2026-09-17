@@ -16,7 +16,9 @@ export interface Attempt {
   level: number;
   file: string;
   name: string;
-  /** 1 for the first try at this level file on this device. */
+  /** Fingerprint of the level's content; changes whenever the level is edited. */
+  version: string;
+  /** 1 for the first try at this version of the level on this device. */
   attempt: number;
   result: AttemptResult;
   /** Active play time in seconds (the game does not advance while the tab is hidden). */
@@ -67,13 +69,13 @@ export class Playtest {
   private current: Attempt | null = null;
 
   /** A new attempt begins. An attempt still in progress counts as abandoned. */
-  start(info: { level: number; file: string; name: string; pixelsTotal: number; deckSlots: number }) {
+  start(info: { level: number; file: string; name: string; version: string; pixelsTotal: number; deckSlots: number }) {
     this.abandon();
     // Attempts left 'playing' by a closed page never finished.
     const attempts = load().map((a) => (a.result === 'playing' ? { ...a, result: 'abandoned' as const } : a));
-    const previous = attempts.filter((a) => a.file === info.file).length;
+    const previous = attempts.filter((a) => a.file === info.file && a.version === info.version).length;
     this.current = {
-      level: info.level, file: info.file, name: info.name, attempt: previous + 1, result: 'playing',
+      level: info.level, file: info.file, name: info.name, version: info.version, attempt: previous + 1, result: 'playing',
       seconds: 0, sends: 0, boardChanges: 0, pixelsLeft: info.pixelsTotal, pixelsTotal: info.pixelsTotal,
       minFreeSlots: info.deckSlots, startedAt: new Date().toISOString(),
     };
@@ -130,8 +132,8 @@ export function exportResults(): string {
     'BillboardShot playtest results',
     `device ${deviceId()} · ${attempts.length} attempts · exported ${new Date().toISOString()}`,
     '',
-    'level,file,attempt,result,seconds,sends,boardChanges,pixelsLeft,pixelsTotal,minFreeSlots,startedAt',
-    ...attempts.map((a) => [a.level, a.file, a.attempt, a.result, Math.round(a.seconds), a.sends, a.boardChanges, a.pixelsLeft, a.pixelsTotal, a.minFreeSlots, a.startedAt].join(',')),
+    'level,file,version,attempt,result,seconds,sends,boardChanges,pixelsLeft,pixelsTotal,minFreeSlots,startedAt',
+    ...attempts.map((a) => [a.level, a.file, a.version ?? '', a.attempt, a.result, Math.round(a.seconds), a.sends, a.boardChanges, a.pixelsLeft, a.pixelsTotal, a.minFreeSlots, a.startedAt].join(',')),
   ];
   return lines.join('\n');
 }

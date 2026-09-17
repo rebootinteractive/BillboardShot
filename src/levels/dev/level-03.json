@@ -1,7 +1,6 @@
 {
   "name": "Picture Gallery",
   "cellSize": 0.22,
-  "deckSlots": 6,
   "boards": [
     {
       "name": "Heart",

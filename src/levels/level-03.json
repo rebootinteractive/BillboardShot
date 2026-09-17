@@ -1,7 +1,6 @@
 {
   "name": "Farm Friends",
   "hint": "The carrot is frozen. Fill white containers to melt the ice: each full one counts.",
-  "deckSlots": 5,
   "boards": [
     {
       "name": "Cow",

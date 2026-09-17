@@ -23,11 +23,12 @@ never beyond it.
 | Board size | up to 16 wide × 17 tall | Pixels are 0.15 world units, so a full board is the same size as the earlier 11×12 boards at 0.22. Levels 1–3 and the feature test levels still use 11×12 art and set `cellSize: 0.22`. With 5–6 boards prefer art with a silhouette over full rectangles. |
 | Colors in a level | up to 12 | |
 | Lanes | 1–4 | |
-| Deck slots | 3–7 | The strongest difficulty lever. Slot spacing is fixed, so the deck widens with more slots. |
 | Container charges | 3–40 per container | Raised from 20 for the 16×17 resolution. Charges per color must still equal that color's pixels. |
 | Pixels in a level | up to 1000 *(provisional)* | Raised for the 16×17 resolution, where a picture has about 140 pixels (median). Calibrated against play time in Phase 4. |
 
 Fixed for every level (tuning, not level design):
+
+- Deck slots: 5. A global rule, set as `deckSlots` in the tuning file; levels don't choose it.
 
 - Containers visible per lane: 4.
 - Camera, speeds, carousel feel: the tuning file, `src/shared/defaults.json`.
@@ -223,12 +224,14 @@ A starting shape only; the curve is discussed in detail before the 40-level plan
 
 ### Levers, roughly from strongest to weakest
 
-1. Deck slots.
-2. Number of colors, and how many boards share each color.
-3. Queue order: how often the next container is not usable yet.
+Deck slots are the same in every level (5), so difficulty comes from what fills them:
+
+1. Queue order: how often the next container is not usable yet.
+2. Colors that wait for an unlock (locked and frozen boards).
+3. Number of colors, and how many boards share each color.
 4. Lanes: fewer lanes means fewer choices.
-5. Features: locks and frozen boards restrict order; mystery pixels and hidden
-   containers remove information; links demand two slots at once.
+5. Features: mystery pixels and hidden containers remove information; links demand two
+   slots at once.
 6. Container sizes: many small containers need more slots over time; large ones stay on
    the deck longer.
 
