@@ -142,44 +142,71 @@ export class Playtest {
   }
 }
 
+const CSV_HEADER = 'level,file,version,attempt,result,seconds,idleSeconds,sends,boardChanges,pixelsLeft,pixelsTotal,minFreeSlots,startedAt';
+
+function csvLine(a: Attempt): string {
+  return [a.level, a.file, a.version ?? '', a.attempt, a.result, Math.round(a.seconds), Math.round(a.idleSeconds ?? 0), a.sends,
+    a.boardChanges, a.pixelsLeft, a.pixelsTotal, a.minFreeSlots, a.startedAt.replace(/\.\d+Z$/, 'Z')].join(',');
+}
+
+function header(count: number): string[] {
+  return ['BillboardShot playtest results', `device ${deviceId()} · ${count} attempts · exported ${new Date().toISOString().replace(/\.\d+Z$/, 'Z')}`, ''];
+}
+
 /** All attempts as compact text: a short header, then one CSV line per attempt. */
 export function exportResults(): string {
   const attempts = load();
-  const lines = [
-    'BillboardShot playtest results',
-    `device ${deviceId()} · ${attempts.length} attempts · exported ${new Date().toISOString()}`,
-    '',
-    'level,file,version,attempt,result,seconds,idleSeconds,sends,boardChanges,pixelsLeft,pixelsTotal,minFreeSlots,startedAt',
-    ...attempts.map((a) => [a.level, a.file, a.version ?? '', a.attempt, a.result, Math.round(a.seconds), Math.round(a.idleSeconds ?? 0), a.sends, a.boardChanges, a.pixelsLeft, a.pixelsTotal, a.minFreeSlots, a.startedAt].join(',')),
-  ];
-  return lines.join('\n');
+  return [...header(attempts.length), CSV_HEADER, ...attempts.map(csvLine)].join('\n');
 }
 
 /**
- * Open an email to the team with the results. Mail links have a length limit, so long
- * results are also copied to the clipboard and downloaded as a file to attach.
+ * Encode text for a mail link. Commas and colons are allowed as they are in the query
+ * part of a URL, and leaving them unescaped keeps the link about half as long.
  */
-export async function sendResults(): Promise<'mail' | 'mail+clipboard' | 'empty'> {
-  const text = exportResults();
-  if (load().length === 0) return 'empty';
-  const subject = encodeURIComponent('BillboardShot playtest results');
-  const full = `mailto:${RESULTS_EMAIL}?subject=${subject}&body=${encodeURIComponent(text)}`;
-  if (full.length <= 1900) {
-    location.href = full;
+function mailEncode(text: string): string {
+  return encodeURIComponent(text).replace(/%2C/g, ',').replace(/%3A/g, ':');
+}
+
+/** Longest mail link we build; phone mail apps take far more, desktop handlers can be stricter. */
+const MAX_MAIL_LINK = 8000;
+
+/**
+ * Open an email to the team with the results in its body. The results are also copied to
+ * the clipboard. If there are more than fit in a mail link, the email carries the most
+ * recent attempts and says so, and the full results are saved as a file to attach.
+ */
+export async function sendResults(open: (url: string) => void = (url) => { location.href = url; }): Promise<'mail' | 'mail-partial' | 'empty'> {
+  const attempts = load();
+  if (attempts.length === 0) return 'empty';
+  const full = exportResults();
+  try {
+    await navigator.clipboard.writeText(full);
+  } catch {
+    /* clipboard blocked: the email body carries the results */
+  }
+  const subject = mailEncode('BillboardShot playtest results');
+  const link = (rows: Attempt[], note: string[]) =>
+    `mailto:${RESULTS_EMAIL}?subject=${subject}&body=${mailEncode([...header(attempts.length), ...note, CSV_HEADER, ...rows.map(csvLine)].join('\n'))}`;
+
+  let rows = attempts;
+  let href = link(rows, []);
+  if (href.length <= MAX_MAIL_LINK) {
+    open(href);
     return 'mail';
   }
-  try {
-    await navigator.clipboard.writeText(text);
-  } catch {
-    /* clipboard blocked: the downloaded file still has everything */
+  // Too long for a mail link: keep the most recent attempts that fit.
+  let keep = attempts.length;
+  while (keep > 1 && href.length > MAX_MAIL_LINK) {
+    keep = Math.floor(keep * 0.8);
+    rows = attempts.slice(-keep);
+    href = link(rows, [`Only the latest ${keep} of ${attempts.length} attempts fit here. Please attach the saved file billboardshot-results-${deviceId()}.csv, or paste the full results from the clipboard.`, '']);
   }
-  const blob = new Blob([text], { type: 'text/csv' });
+  const blob = new Blob([full], { type: 'text/csv' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = `billboardshot-results-${deviceId()}.csv`;
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 5000);
-  const body = encodeURIComponent('My results were copied to the clipboard and saved as a file (billboardshot-results-….csv).\nPlease paste them here or attach the file.\n\n');
-  location.href = `mailto:${RESULTS_EMAIL}?subject=${subject}&body=${body}`;
-  return 'mail+clipboard';
+  open(href);
+  return 'mail-partial';
 }
