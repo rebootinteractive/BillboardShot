@@ -4,4 +4,4 @@ export * from './bots';
 export * from './solver';
 export * from './lint';
 export * from './report';
-export { validateLevel, type LevelData } from '../game/level';
+export { levelVersion, validateLevel, type LevelData } from '../game/level';

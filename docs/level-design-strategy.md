@@ -215,7 +215,11 @@ to admin@reboot.ist with the results as CSV. When the results are too long for a
 they are also copied to the clipboard and downloaded as a file to paste or attach.
 
 These results calibrate the difficulty score: compare real win rates and attempts per level
-with the bots' win rates on the same levels.
+with the bots' win rates on the same levels. Save each player's export as a file in
+`playtest/` and run `npm run playtest`: it drops unfinished attempts and exits before any
+send, groups results by level version, and shows first-try win rate, attempts to win, win
+time and board changes per level next to the simulator's numbers for the current version.
+Exports from before results carried a version are matched to the first playtest deploy.
 
 ### Curve across 40 levels
 
