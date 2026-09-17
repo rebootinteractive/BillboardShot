@@ -187,7 +187,10 @@ on specific ones (`--runs`, `--careful`, `--json <file>`, `--notes`). The code l
     impulse a quarter of the time.
   - **careful** plays its top five moves out three times each, to the end.
   The planning bots fill hidden pixel groups with colors guessed from the charges still
-  unaccounted for, as a player could.
+  unaccounted for, as a player could. They also have lapses (average 6% of moves, careful
+  2%): a moment of inattention where they send whatever is at the front of a lane. Real
+  players do this, so a level where one careless send clogs the deck scores harder than
+  one that forgives it. The lapse rate is a calibration dial for playtest data.
 - `solver.ts`: a search that sees everything and proves a level can be won.
 - `lint.ts`: automatic checks from docs/level-designer-rules.md.
 - `report.ts`: all of the above per level.
@@ -203,8 +206,10 @@ a rough estimate (1.5 s per move, 0.06 s per pixel) until playtests calibrate it
 ### Playtest data
 
 Every attempt at a level is recorded in the player's own browser (`src/game/analytics.ts`):
-level, attempt number, result (win, lose, or abandoned when restarted or left), active
-play time, containers sent, board changes, pixels left, and the tightest deck moment. The
+level, level version, attempt number, result (win, lose, or abandoned when restarted or
+left), engaged play time, idle time, containers sent, board changes, pixels left, and the
+tightest deck moment. Play time only counts within 10 seconds of the last tap or swipe;
+longer pauses (a player who puts the phone down) go to idle time instead. The
 "Send results" button (top-left of the HUD, and on the win and lose screens) opens an email
 to admin@reboot.ist with the results as CSV. When the results are too long for a mail link
 they are also copied to the clipboard and downloaded as a file to paste or attach.

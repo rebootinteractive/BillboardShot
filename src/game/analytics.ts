@@ -7,6 +7,8 @@
 const STORAGE_KEY = 'billboardshot.playtest';
 const DEVICE_KEY = 'billboardshot.device';
 const MAX_ATTEMPTS = 1000;
+/** Seconds without a tap or swipe after which the player counts as away. */
+const IDLE_AFTER = 10;
 export const RESULTS_EMAIL = 'admin@reboot.ist';
 
 export type AttemptResult = 'playing' | 'win' | 'lose' | 'abandoned';
@@ -21,8 +23,13 @@ export interface Attempt {
   /** 1 for the first try at this version of the level on this device. */
   attempt: number;
   result: AttemptResult;
-  /** Active play time in seconds (the game does not advance while the tab is hidden). */
+  /**
+   * Engaged play time in seconds: time within IDLE_AFTER seconds of the last tap or swipe.
+   * The game does not advance at all while the tab is hidden.
+   */
   seconds: number;
+  /** Time the game was open but untouched for longer than IDLE_AFTER seconds. */
+  idleSeconds: number;
   sends: number;
   /** Times the board at the front changed. */
   boardChanges: number;
@@ -67,6 +74,7 @@ function deviceId(): string {
 /** Tracks the attempt in progress and writes every change straight to storage. */
 export class Playtest {
   private current: Attempt | null = null;
+  private sinceInput = 0;
 
   /** A new attempt begins. An attempt still in progress counts as abandoned. */
   start(info: { level: number; file: string; name: string; version: string; pixelsTotal: number; deckSlots: number }) {
@@ -76,15 +84,24 @@ export class Playtest {
     const previous = attempts.filter((a) => a.file === info.file && a.version === info.version).length;
     this.current = {
       level: info.level, file: info.file, name: info.name, version: info.version, attempt: previous + 1, result: 'playing',
-      seconds: 0, sends: 0, boardChanges: 0, pixelsLeft: info.pixelsTotal, pixelsTotal: info.pixelsTotal,
+      seconds: 0, idleSeconds: 0, sends: 0, boardChanges: 0, pixelsLeft: info.pixelsTotal, pixelsTotal: info.pixelsTotal,
       minFreeSlots: info.deckSlots, startedAt: new Date().toISOString(),
     };
+    this.sinceInput = 0;
     save([...attempts, this.current]);
     return this.current.attempt;
   }
 
   tick(dt: number) {
-    if (this.current?.result === 'playing') this.current.seconds += dt;
+    if (this.current?.result !== 'playing') return;
+    this.sinceInput += dt;
+    if (this.sinceInput <= IDLE_AFTER) this.current.seconds += dt;
+    else this.current.idleSeconds += dt;
+  }
+
+  /** Any tap or swipe: the player is engaged again. */
+  input() {
+    this.sinceInput = 0;
   }
 
   send(freeSlotsAfter: number) {
@@ -132,8 +149,8 @@ export function exportResults(): string {
     'BillboardShot playtest results',
     `device ${deviceId()} · ${attempts.length} attempts · exported ${new Date().toISOString()}`,
     '',
-    'level,file,version,attempt,result,seconds,sends,boardChanges,pixelsLeft,pixelsTotal,minFreeSlots,startedAt',
-    ...attempts.map((a) => [a.level, a.file, a.version ?? '', a.attempt, a.result, Math.round(a.seconds), a.sends, a.boardChanges, a.pixelsLeft, a.pixelsTotal, a.minFreeSlots, a.startedAt].join(',')),
+    'level,file,version,attempt,result,seconds,idleSeconds,sends,boardChanges,pixelsLeft,pixelsTotal,minFreeSlots,startedAt',
+    ...attempts.map((a) => [a.level, a.file, a.version ?? '', a.attempt, a.result, Math.round(a.seconds), Math.round(a.idleSeconds ?? 0), a.sends, a.boardChanges, a.pixelsLeft, a.pixelsTotal, a.minFreeSlots, a.startedAt].join(',')),
   ];
   return lines.join('\n');
 }
