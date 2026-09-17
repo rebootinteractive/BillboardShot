@@ -170,6 +170,35 @@ Difficulty is measured, not guessed.
 - **Calibration:** the scores are tuned until they match the designer's own sense of
   difficulty from playing the same levels (Phase 4).
 
+### The simulator
+
+`npm run sim` reports on every level in play order; `npm run sim -- <level files>` reports
+on specific ones (`--runs`, `--careful`, `--json <file>`, `--notes`). The code lives in
+`src/rules/`:
+
+- `core.ts`: decision rules shared with the game (which container pulls, which pixel it
+  takes, the send rules, the stuck check, the reveal flood, the next front board).
+- `sim.ts`: the level as discrete moves. A move sends a lane head or chooses the front
+  board; every container on the deck then pulls until nothing more can be pulled.
+- `bots.ts`: three bots deciding only from what a player can see.
+  - **careless** follows a simple move score with a lot of randomness.
+  - **average** plays its top three moves out once each, about ten moves ahead, and acts on
+    impulse a quarter of the time.
+  - **careful** plays its top five moves out three times each, to the end.
+  The planning bots fill hidden pixel groups with colors guessed from the charges still
+  unaccounted for, as a player could.
+- `solver.ts`: a search that sees everything and proves a level can be won.
+- `lint.ts`: automatic checks from docs/level-designer-rules.md.
+- `report.ts`: all of the above per level.
+
+The report gives winnability, each bot's win rate, the difficulty score (the average bot's
+win rate), moves, a rough play time, the tightest deck moment, the colors most often sent
+with nothing to pull, and rule warnings and notes.
+
+Replaying bot move lists in the real game gave the same result and the same remaining
+pixel count in 18 of 18 playthroughs across the three hardest showcase levels. Play time is
+a rough estimate (1.5 s per move, 0.06 s per pixel) until playtests calibrate it.
+
 ### Curve across 40 levels
 
 A starting shape only; the curve is discussed in detail before the 40-level plan

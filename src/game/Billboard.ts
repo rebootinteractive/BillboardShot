@@ -5,6 +5,7 @@ import { COLOR_HEX } from '../shared/colors';
 import type { Settings } from '../shared/settings';
 import { artColor, isMysteryChar, type BoardData } from './level';
 import { KEY_HEX, drawCounter, keyTexture, mysteryTexture, type KeyColor } from './keys';
+import { floodGroup } from '../rules/core';
 
 const DISTANT_TINT = new THREE.Color(0xd2d6da);
 
@@ -354,21 +355,15 @@ export class Billboard {
   }
 
   private revealGroup(start: Tile) {
-    const queue: Array<[Tile, number]> = [[start, 0]];
-    const seen = new Set<Tile>([start]);
-    while (queue.length) {
-      const [tile, distance] = queue.shift()!;
-      if (tile.hidden) {
-        tile.hidden = false;
-        tile.revealDelay = distance * 0.045;
-      }
-      for (const [dc, dr] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
-        const next = this.grid[tile.col + dc]?.[tile.row + dr];
-        // Pixels still in flight count as present; collected ones do not connect.
-        if (!next || !next.alive || next.color !== start.color || seen.has(next)) continue;
-        seen.add(next);
-        queue.push([next, distance + 1]);
-      }
+    const group = floodGroup(start, (tile) => [[1, 0], [-1, 0], [0, 1], [0, -1]].flatMap(([dc, dr]) => {
+      const next = this.grid[tile.col + dc]?.[tile.row + dr];
+      // Pixels still in flight count as present; collected ones do not connect.
+      return next && next.alive && next.color === start.color ? [next] : [];
+    }));
+    for (const { cell, distance } of group) {
+      if (!cell.hidden) continue;
+      cell.hidden = false;
+      cell.revealDelay = distance * 0.045;
     }
   }
 

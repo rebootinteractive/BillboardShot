@@ -1,11 +1,12 @@
 import type { ColorKey } from '../shared/types';
 import { CHAR_TO_COLOR, COLOR_KEYS } from '../shared/colors';
-import { KEY_COLORS, type KeyColor } from './keys';
-import { validateSource, type BoardSource } from '../art/library';
+import { KEY_COLORS, type KeyColor } from '../shared/keyColors';
+import { validateSource, type BoardSource, type Picture } from '../art/library';
 
 /**
- * Levels are hand-authored JSON files in src/levels, played in filename order.
- * The format and the rules behind it are documented in docs/level-features.md.
+ * The level format and its checks. Pure: no browser or build-tool APIs, so the simulator
+ * can use it too. Loading the level files lives in levels.ts. The format and the rules
+ * behind it are documented in docs/level-features.md.
  */
 export interface ContainerData {
   color: ColorKey;
@@ -62,35 +63,8 @@ export function isMysteryChar(ch: string): boolean {
   return ch !== ch.toUpperCase() && !!CHAR_TO_COLOR[ch.toUpperCase()];
 }
 
-const files = import.meta.glob<LevelData>('../levels/*.json', { eager: true, import: 'default' });
-const sandboxFiles = import.meta.glob<LevelData>('../levels/sandbox/*.json', { eager: true, import: 'default' });
-const devFiles = import.meta.glob<LevelData>('../levels/dev/*.json', { eager: true, import: 'default' });
-
-/** Every level, in play order. */
-export const LEVELS: { file: string; data: LevelData }[] = Object.keys(files)
-  .sort()
-  .map((path) => ({ file: path.split('/').pop()!, data: files[path] }));
-
-/**
- * Levels that are not part of the play order, opened with `?sandbox=<name>`: feature
- * test levels by file name, and earlier development levels as `dev/<file name>`.
- */
-export const SANDBOX: Map<string, LevelData> = new Map([
-  ...Object.keys(sandboxFiles).map((path) => [path.split('/').pop()!.replace(/\.json$/, ''), sandboxFiles[path]] as const),
-  ...Object.keys(devFiles).map((path) => [`dev/${path.split('/').pop()!.replace(/\.json$/, '')}`, devFiles[path]] as const),
-]);
-
-/**
- * The level shown as "Level n". Once the last file is beaten the list starts over,
- * while the number the player sees keeps climbing.
- */
-export function levelFileForNumber(n: number): { file: string; data: LevelData } {
-  const i = (Math.max(1, Math.floor(n)) - 1) % LEVELS.length;
-  return LEVELS[i];
-}
-
 /** Everything wrong with a level, as readable sentences. Empty means valid. */
-export function validateLevel(level: LevelData): string[] {
+export function validateLevel(level: LevelData, pictures: Map<string, Picture>): string[] {
   const errors: string[] = [];
   if (!Number.isInteger(level.deckSlots) || level.deckSlots < 1) errors.push('deckSlots must be a whole number of at least 1.');
   if (!Array.isArray(level.boards) || level.boards.length === 0) errors.push('A level needs at least one board.');
@@ -111,7 +85,7 @@ export function validateLevel(level: LevelData): string[] {
       errors.push(`${label} has no art.`);
       return;
     }
-    if (board.source) for (const e of validateSource(board.source, board.art)) errors.push(`${label}: ${e}`);
+    if (board.source) for (const e of validateSource(board.source, board.art, pictures)) errors.push(`${label}: ${e}`);
     const width = board.art[0].length;
     board.art.forEach((row, r) => {
       if (row.length !== width) errors.push(`${label} row ${r} is ${row.length} wide, expected ${width}.`);
@@ -220,9 +194,4 @@ export function validateLevel(level: LevelData): string[] {
     if (p !== c) errors.push(`${color}: ${p} pixels but ${c} charges.`);
   }
   return errors;
-}
-
-for (const { file, data } of [...LEVELS, ...[...SANDBOX].map(([file, data]) => ({ file: `sandbox/${file}`, data }))]) {
-  const errors = validateLevel(data);
-  if (errors.length) console.error(`Level ${file} is invalid:\n- ${errors.join('\n- ')}`);
 }
