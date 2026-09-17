@@ -65,29 +65,31 @@ forgetting one of them.
 
 From strongest to weakest, as currently understood.
 
-1. **Deck slots.** One slot changes everything: Deep Sea Secrets went from a 77–93% rough
-   bot win rate at 5 slots to 5–20% at 4, with the same boards and queue. Change slots
-   last and in single steps. [verified]
-2. **Queue order.** Every container that arrives before its color is reachable must park.
+Every level has the same 5 deck slots; they are not a lever. They are also why the levers
+below matter so much: one slot changes everything (Deep Sea Secrets went from a 77–93%
+rough bot win rate at 5 slots to 5–20% at 4), so every container that holds a slot without
+pulling is expensive.
+
+1. **Queue order.** Every container that arrives before its color is reachable must park.
    Putting the first container of a buried or locked color early is a precise way to add
    difficulty. [verified]
-3. **Odd pixels.** A single pixel of another color placed inside a picture blocks its
+2. **Odd pixels.** A single pixel of another color placed inside a picture blocks its
    column until a container of that color comes to that board. Its position, color and
    timing can be planned and its effect counted before anyone plays (section 3). One useful
    lever among these, not the main one; used carelessly it becomes a trap.
    [verified: blocking and trap cases; hypothesis: strength relative to other levers]
-4. **Colors that wait for an unlock.** A color that exists only on a locked or frozen board
+3. **Colors that wait for an unlock.** A color that exists only on a locked or frozen board
    cannot be pulled until that board opens. Each such container that reaches the deck early
    parks for a long time. [verified]
-5. **Number of colors.** More colors means more distinct containers competing for slots.
+4. **Number of colors.** More colors means more distinct containers competing for slots.
    [hypothesis]
-6. **Color spread across boards.** A color on several boards can be pulled from more
+5. **Color spread across boards.** A color on several boards can be pulled from more
    places, which is easier to use but makes the player turn the carousel more.
    [hypothesis]
-7. **Container sizes.** Large containers stay on the deck longer; sizes that don't match
+6. **Container sizes.** Large containers stay on the deck longer; sizes that don't match
    the exposed pixels leave partly filled containers. [hypothesis]
-8. **Lanes.** Fewer lanes give fewer choices of what to send next. [hypothesis]
-9. **Hidden information** (mystery pixels, hidden containers). Adds uncertainty rather than
+7. **Lanes.** Fewer lanes give fewer choices of what to send next. [hypothesis]
+8. **Hidden information** (mystery pixels, hidden containers). Adds uncertainty rather than
    hard constraints; its weight depends on how much the hidden part matters to the order.
    [hypothesis]
 
@@ -278,17 +280,18 @@ it into a neighboring group's color.
 
 ## 6. Difficulty recipes
 
-Starting points taken from the showcase levels. Rough bot numbers are from the current test
-bot, which plays worse than a thoughtful person and sees hidden colors; treat them as an
-order, not real difficulty, until Phase 4.
+Starting points taken from the playtest levels, all on the global 5 slots. Win rates are
+from `npm run sim` (average bot, careless bot in brackets) and are not yet calibrated
+against real players.
 
-| Band | Example | Boards | Colors | Slots | Features | Rough bot win rate |
-|---|---|---|---|---|---|---|
-| Very easy | Fruit Stand | 2 | 3 | 6 | none | 100% |
-| Easy | Garden Party | 3 | 5 | 5 | a couple of hidden containers | 100% |
-| Medium | Key to the Coop | 3 | 5 | 5 | one key lock, key high on its board | ~90% |
-| Hard | Deep Sea Secrets | 4 | 9 | 5 | mystery groups, frozen board, 2 links, hidden containers | ~60–75% |
-| Very hard | Night Market | 5 | 12 | 5 | key lock, mystery groups, overrides, links, hidden containers | ~10% |
+| Band | Example | Boards | Colors | Features | Average (careless) |
+|---|---|---|---|---|---|
+| Very easy | Fruit Stand | 2 | 3 | none | 100% (100%) |
+| Easy | Garden Party | 3 | 5 | a couple of hidden containers | 100% (100%) |
+| Easy–medium | Farm Friends | 3 | 6 | one frozen board | 97% (71%) |
+| Medium | Deep Sea Secrets | 4 | 9 | mystery groups, frozen board, 2 links, hidden containers | 83% (53%) |
+| Hard | Night Market | 5 | 12 | key lock, mystery groups, odd pixels, links, hidden containers | 45% (9%) |
+| Very hard | Space Trip | 5 | 9 | frozen board, mystery groups, a link, hidden containers | 28% (9%) |
 
 Rules of thumb:
 
@@ -297,9 +300,9 @@ Rules of thumb:
 - **Medium**: one lock or frozen board; its colors come after the unlock is likely; one or
   two containers that must park briefly; a few odd pixels in colors that arrive early.
 - **Hard**: several colors that wait for something; a few deliberately early buried
-  containers; links on a 5-slot deck; odd pixels low in tall columns, or two in one column
+  containers; links; odd pixels low in tall columns, or two in one column
   to force an order.
-- **Very hard**: many colors on 5 slots; odd pixels under keys or scattered as a color that
+- **Very hard**: many colors; odd pixels under keys or scattered as a color that
   must be collected from several boards; the player must plan which containers to hold.
 
 ---
@@ -309,8 +312,8 @@ Rules of thumb:
 1. The level checker passes: art matches source, charges are zero-sum, keys and locks pair
    up, frozen counts are reachable, links are valid. Every container holds 3–40 charges
    (not yet checked automatically).
-2. Pixels are within the level cap, and the level stays within the board, color, lane and
-   slot limits.
+2. Pixels are within the level cap, and the level stays within the board, color and lane
+   limits.
 3. Every mystery group is a mystery candidate (nothing hidden reveals at the start).
 4. For every board, the container of its bottom color arrives in time.
 5. Every odd pixel is planned: you know how many pixels it blocks, which container takes

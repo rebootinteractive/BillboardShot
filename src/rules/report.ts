@@ -1,5 +1,5 @@
 import type { Picture } from '../art/library';
-import { validateLevel, type LevelData } from '../game/level';
+import { levelVersion, validateLevel, type LevelData } from '../game/level';
 import { playLevel, seededRng, type BotName } from './bots';
 import { lintLevel, type LintItem } from './lint';
 import { remainingPixels, type Move } from './sim';
@@ -23,6 +23,8 @@ export interface BotReport {
 
 export interface LevelReport {
   name: string;
+  /** Matches the version recorded with playtest results. */
+  version: string;
   pixels: number;
   containers: number;
   errors: string[];
@@ -77,6 +79,7 @@ export function reportLevel(level: LevelData, pictures: Map<string, Picture>, op
   }
   return {
     name: level.name,
+    version: levelVersion(level),
     pixels,
     containers,
     errors,

@@ -2,6 +2,7 @@ import type { ColorKey } from '../shared/types';
 import { COLOR_KEYS } from '../shared/colors';
 import { KEY_COLORS, type KeyColor } from '../shared/keyColors';
 import { artColor, isMysteryChar, type LevelData } from '../game/level';
+import { DEFAULT_SETTINGS } from '../shared/settings';
 import { chooseFirers, chooseTarget, floodGroup, isStuck, nextFront, sendBlocker, slotColumn } from './core';
 
 /**
@@ -62,7 +63,8 @@ export type Move = { type: 'send'; lane: number } | { type: 'focus'; board: numb
 const colorIndex = (c: ColorKey) => COLOR_KEYS.indexOf(c);
 export const colorName = (i: number) => (i === UNKNOWN ? 'unknown' : COLOR_KEYS[i]);
 
-export function createState(level: LevelData): State {
+/** `deckSlots` defaults to the game's global deck size. */
+export function createState(level: LevelData, deckSlots = DEFAULT_SETTINGS.deckSlots): State {
   const boards: Board[] = level.boards.map((data) => {
     const rows = data.art.length;
     const cols = data.art[0].length;
@@ -89,8 +91,8 @@ export function createState(level: LevelData): State {
     id: id++, color: colorIndex(c.color), capacity: c.charges, charges: c.charges, hidden: !!c.hidden, link: c.link ?? null,
   })));
   const state: State = {
-    boards, lanes, deck: new Array(level.deckSlots).fill(null), focus: 0, over: 'none',
-    stats: { sends: 0, focuses: 0, pulls: 0, minFreeSlots: level.deckSlots, parkedSends: 0, parkedByColor: {} },
+    boards, lanes, deck: new Array(deckSlots).fill(null), focus: 0, over: 'none',
+    stats: { sends: 0, focuses: 0, pulls: 0, minFreeSlots: deckSlots, parkedSends: 0, parkedByColor: {} },
   };
   for (const lane of lanes) if (lane[0]) lane[0].hidden = false;
   for (const b of boards) revealExposed(b);

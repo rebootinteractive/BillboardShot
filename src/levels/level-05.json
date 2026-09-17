@@ -1,7 +1,6 @@
 {
   "name": "Snack Time",
   "hint": "Chained containers go together: both must be at the front of their lines, and they need two free slots.",
-  "deckSlots": 5,
   "boards": [
     {
       "name": "Hamburger",

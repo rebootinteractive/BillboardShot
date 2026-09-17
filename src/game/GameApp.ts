@@ -5,7 +5,7 @@ import { loadSettings, type Settings } from '../shared/settings';
 import { Billboard, type EligibleTarget, type Tile } from './Billboard';
 import { Shooter } from './Shooter';
 import { PulledCube } from './PulledCube';
-import type { LevelData } from './level';
+import { levelVersion, type LevelData } from './level';
 import { LEVELS, SANDBOX, levelFileForNumber } from './levels';
 import { KeyFlight } from './keys';
 import { PICTURES } from '../art/pictures';
@@ -204,8 +204,9 @@ export class GameApp {
       level: this.isSideLevel() ? 0 : this.levelNumber,
       file: this.level.file,
       name: level.name,
+      version: levelVersion(level),
       pixelsTotal: level.boards.reduce((n, b) => n + b.art.join('').replace(/\./g, '').length, 0),
-      deckSlots: level.deckSlots,
+      deckSlots: s.deckSlots,
     });
     if (level.hint && attempt === 1) this.hud.showIntro(level.hint);
 
@@ -248,7 +249,7 @@ export class GameApp {
 
     // Slots keep the same spacing whatever their number, so the arc grows with the deck.
     const spacing = THREE.MathUtils.degToRad(s.deckSlotSpacingDeg);
-    const arc = spacing * (level.deckSlots - 1);
+    const arc = spacing * (s.deckSlots - 1);
     const railArc = Math.max(arc, spacing);
     const railGeo = new THREE.TorusGeometry(s.carouselRadius, 0.06, 8, 48, railArc);
     const railMat = new THREE.MeshStandardMaterial({ color: 0xe5b885, roughness: 0.65, metalness: 0 });
@@ -261,7 +262,7 @@ export class GameApp {
 
     const padGeo = roundedBox(0.68, 0.13, 0.68, 0.065);
     const padMat = new THREE.MeshStandardMaterial({ color: 0xfff5df, roughness: 0.5 });
-    for (let i = 0; i < level.deckSlots; i++) {
+    for (let i = 0; i < s.deckSlots; i++) {
       const a = -arc / 2 + i * spacing;
       const pos = new THREE.Vector3(Math.sin(a) * s.carouselRadius, this.deckY, Math.cos(a) * s.carouselRadius);
       this.deckSlots.push({ pos, angle: a });

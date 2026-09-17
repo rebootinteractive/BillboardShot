@@ -35,7 +35,6 @@ orientation: `col` from the left, `row` from the top, both starting at 0.
 ```json
 {
   "name": "Locked Garden",
-  "deckSlots": 6,
   "boards": [
     {
       "name": "Fish",

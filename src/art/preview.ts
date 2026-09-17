@@ -43,7 +43,6 @@ export function previewLevel(picture: Picture): LevelData {
   const art = renderSource(picture, source);
   return {
     name: picture.name,
-    deckSlots: 6,
     boards: [{ name: picture.name, art, source }],
     lanes: dealContainers([art], 3, 30),
   };

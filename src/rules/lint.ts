@@ -14,7 +14,7 @@ export interface LintItem {
   message: string;
 }
 
-export const LIMITS = { boards: 6, lanes: 4, minSlots: 3, maxSlots: 7, colors: 12, width: 16, height: 17, pixels: 1000, minCharges: 3, maxCharges: 40 };
+export const LIMITS = { boards: 6, lanes: 4, colors: 12, width: 16, height: 17, pixels: 1000, minCharges: 3, maxCharges: 40 };
 
 export function lintLevel(level: LevelData): LintItem[] {
   const out: LintItem[] = [];
@@ -25,7 +25,6 @@ export function lintLevel(level: LevelData): LintItem[] {
   // ---- limits
   if (level.boards.length > LIMITS.boards) warn('limits', `${level.boards.length} boards; the limit is ${LIMITS.boards}.`);
   if (level.lanes.length > LIMITS.lanes) warn('limits', `${level.lanes.length} lanes; the limit is ${LIMITS.lanes}.`);
-  if (level.deckSlots < LIMITS.minSlots || level.deckSlots > LIMITS.maxSlots) warn('limits', `${level.deckSlots} deck slots; the range is ${LIMITS.minSlots}–${LIMITS.maxSlots}.`);
   const pixelsByColor = new Map<number, number>();
   s.boards.forEach((b, i) => {
     if (b.cols > LIMITS.width || b.rows > LIMITS.height) warn('limits', `Board ${i} (${level.boards[i].name}) is ${b.cols}×${b.rows}; the limit is ${LIMITS.width}×${LIMITS.height}.`);

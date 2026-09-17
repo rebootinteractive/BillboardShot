@@ -1,7 +1,6 @@
 {
   "name": "Key to the Coop",
   "hint": "The chicken is locked. Pull the key out of the sunflower to open it.",
-  "deckSlots": 5,
   "boards": [
     {
       "name": "Sunflower",

@@ -45,7 +45,6 @@ export interface LevelData {
   name: string;
   /** A one-line explanation shown before the first attempt, e.g. for a new feature. */
   hint?: string;
-  deckSlots: number;
   /**
    * Size of one pixel in world units, overriding the tuning value. Used to try higher
    * resolution art at the same billboard size.
@@ -54,6 +53,24 @@ export interface LevelData {
   boards: BoardData[];
   /** One array per lane; index 0 is the head of the line. */
   lanes: ContainerData[][];
+}
+
+/**
+ * A short fingerprint of what makes a level play the way it does: its boards (art, keys,
+ * locks) and its lanes. Names and hints don't change it. Playtest results record it, so
+ * results from before and after a level changes are never mixed.
+ */
+export function levelVersion(level: LevelData): string {
+  const text = JSON.stringify({
+    boards: level.boards.map((b) => ({ art: b.art, keys: b.keys ?? null, lock: b.lock ?? null })),
+    lanes: level.lanes,
+  });
+  let hash = 0x811c9dc5;
+  for (let i = 0; i < text.length; i++) {
+    hash ^= text.charCodeAt(i);
+    hash = Math.imul(hash, 0x01000193) >>> 0;
+  }
+  return hash.toString(16).padStart(8, '0').slice(0, 6);
 }
 
 /** The color of an art character, or null for empty or unknown. */
@@ -68,7 +85,7 @@ export function isMysteryChar(ch: string): boolean {
 /** Everything wrong with a level, as readable sentences. Empty means valid. */
 export function validateLevel(level: LevelData, pictures: Map<string, Picture>): string[] {
   const errors: string[] = [];
-  if (!Number.isInteger(level.deckSlots) || level.deckSlots < 1) errors.push('deckSlots must be a whole number of at least 1.');
+  if ('deckSlots' in level) errors.push('deckSlots is no longer a level setting: every level uses the global deck size.');
   if (!Array.isArray(level.boards) || level.boards.length === 0) errors.push('A level needs at least one board.');
   if (level.cellSize !== undefined && !(level.cellSize > 0)) errors.push('cellSize must be a positive number.');
   if (level.hint !== undefined && (typeof level.hint !== 'string' || !level.hint.trim())) errors.push('hint must be a non-empty string.');

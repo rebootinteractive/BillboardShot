@@ -1,7 +1,6 @@
 {
   "name": "First Bite",
   "cellSize": 0.22,
-  "deckSlots": 6,
   "boards": [
     {
       "name": "Apple",

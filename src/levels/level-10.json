@@ -1,6 +1,5 @@
 {
   "name": "Space Trip",
-  "deckSlots": 4,
   "boards": [
     {
       "name": "Rocket",
@@ -112,12 +111,12 @@
   "lanes": [
     [
       { "color": "red", "charges": 31 },
+      { "color": "yellow", "charges": 25 },
       { "color": "white", "charges": 40, "hidden": true },
       { "color": "black", "charges": 38 },
-      { "color": "green", "charges": 35 },
       { "color": "purple", "charges": 26 },
       { "color": "white", "charges": 40 },
-      { "color": "yellow", "charges": 25 },
+      { "color": "green", "charges": 35 },
       { "color": "black", "charges": 37 },
       { "color": "cyan", "charges": 23 }
     ],
@@ -126,8 +125,8 @@
       { "color": "orange", "charges": 30 },
       { "color": "red", "charges": 31, "link": "a" },
       { "color": "black", "charges": 37 },
-      { "color": "green", "charges": 34 },
       { "color": "blue", "charges": 6 },
+      { "color": "green", "charges": 34 },
       { "color": "white", "charges": 39 },
       { "color": "green", "charges": 34 },
       { "color": "red", "charges": 31 }
@@ -136,10 +135,10 @@
       { "color": "orange", "charges": 29 },
       { "color": "black", "charges": 37, "link": "a" },
       { "color": "white", "charges": 39 },
-      { "color": "green", "charges": 34 },
       { "color": "purple", "charges": 26, "hidden": true },
-      { "color": "orange", "charges": 29 },
       { "color": "yellow", "charges": 25 },
+      { "color": "green", "charges": 34 },
+      { "color": "orange", "charges": 29 },
       { "color": "red", "charges": 30 }
     ]
   ]

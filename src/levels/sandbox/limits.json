@@ -1,7 +1,6 @@
 {
   "name": "Limits",
   "cellSize": 0.22,
-  "deckSlots": 7,
   "boards": [
     {
       "name": "Full 1",

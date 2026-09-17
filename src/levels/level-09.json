@@ -1,6 +1,5 @@
 {
   "name": "Deep Freeze",
-  "deckSlots": 4,
   "boards": [
     {
       "name": "Penguin",
@@ -114,11 +113,11 @@
   ],
   "lanes": [
     [
+      { "color": "red", "charges": 30 },
       { "color": "black", "charges": 36 },
-      { "color": "cyan", "charges": 33 },
+      { "color": "cyan", "charges": 33, "link": "a" },
       { "color": "white", "charges": 38 },
       { "color": "green", "charges": 34 },
-      { "color": "red", "charges": 30 },
       { "color": "blue", "charges": 28 },
       { "color": "white", "charges": 38 },
       { "color": "black", "charges": 36 },
@@ -128,17 +127,17 @@
       { "color": "orange", "charges": 16 },
       { "color": "white", "charges": 38 },
       { "color": "purple", "charges": 38 },
+      { "color": "green", "charges": 33, "link": "a" },
       { "color": "cyan", "charges": 32 },
-      { "color": "red", "charges": 30 },
       { "color": "white", "charges": 38 },
-      { "color": "green", "charges": 33 },
+      { "color": "red", "charges": 30 },
       { "color": "brown", "charges": 10 }
     ],
     [
       { "color": "black", "charges": 36 },
       { "color": "white", "charges": 37 },
-      { "color": "green", "charges": 33 },
       { "color": "red", "charges": 30 },
+      { "color": "green", "charges": 33 },
       { "color": "blue", "charges": 28 }
     ]
   ]

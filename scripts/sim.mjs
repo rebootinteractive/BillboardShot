@@ -49,8 +49,8 @@ for (const file of targets) {
   const r = rules.reportLevel(level, pictures, { runs: { careless: runs, average: runs, careful } });
   reports.push({ file: path.relative(root, file), ...r });
   const b = r.bots;
-  console.log(`\n${path.relative(root, file)}  "${r.name}"  (${((Date.now() - t0) / 1000).toFixed(1)}s)`);
-  console.log(`  ${level.boards.length} boards, ${r.pixels} pixels, ${r.containers} containers, ${level.lanes.length} lanes, ${level.deckSlots} slots`);
+  console.log(`\n${path.relative(root, file)}  "${r.name}"  version ${r.version}  (${((Date.now() - t0) / 1000).toFixed(1)}s)`);
+  console.log(`  ${level.boards.length} boards, ${r.pixels} pixels, ${r.containers} containers, ${level.lanes.length} lanes`);
   console.log(`  winnable: ${r.solver.result === 'win' ? `yes (${r.solver.moves.length} moves)` : r.solver.result === 'impossible' ? 'NO' : 'unknown (search budget ran out)'}`);
   console.log(`  difficulty (average bot win rate): ${pct(r.difficulty)}`);
   console.log(`  win rate   careless ${pct(b.careless.winRate)}   average ${pct(b.average.winRate)}   careful ${pct(b.careful.winRate)}`);
