@@ -71,9 +71,9 @@ From strongest to weakest, as currently understood.
    Putting the first container of a buried or locked color early is a precise way to add
    difficulty. [verified]
 3. **Odd pixels.** A single pixel of another color placed inside a picture blocks its
-   column until a container of that color comes to that board. It is the most plannable
-   lever: its position, color and timing can be chosen pixel by pixel, and its effect can
-   be counted before anyone plays (section 3). Used carelessly it becomes a trap.
+   column until a container of that color comes to that board. Its position, color and
+   timing can be planned and its effect counted before anyone plays (section 3). One useful
+   lever among these, not the main one; used carelessly it becomes a trap.
    [verified: blocking and trap cases; hypothesis: strength relative to other levers]
 4. **Colors that wait for an unlock.** A color that exists only on a locked or frozen board
    cannot be pulled until that board opens. Each such container that reaches the deck early
