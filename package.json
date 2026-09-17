@@ -6,7 +6,8 @@
     "dev": "vite --host",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "sim": "node scripts/sim.mjs"
+    "sim": "node scripts/sim.mjs",
+    "playtest": "node scripts/playtest.mjs"
   },
   "dependencies": {
     "three": "^0.169.0"
