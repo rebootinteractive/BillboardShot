@@ -1,0 +1,99 @@
+{
+  "name": "Snow Day",
+  "boards": [
+    {
+      "name": "Penguin",
+      "art": [
+        "......KKKK......",
+        ".....KwKKwK.....",
+        "....KwwwwwwK....",
+        "...KKwwwwwwKK...",
+        "...KwwwwwwwwK...",
+        "...KwwOOOOwwK...",
+        "..KKKwwwwwwKKK..",
+        ".KKKwwwwwwwwKKK.",
+        ".KKKwwwwwwwwKKK.",
+        "KKKwwwwwwwwwwKKK",
+        "KKKwwwwwwwwwwKKK",
+        "KKKKwwwwwwwwKKKK",
+        "...KwwwwwwwwK...",
+        "...KKwwwwwwKK...",
+        "...OKKwwwwKKO...",
+        "..OOOOKKKKOOO..."
+      ],
+      "source": { "picture": "penguin", "colors": { "1": "white", "2": "black", "3": "orange" }, "hidden": ["1"] }
+    },
+    {
+      "name": "Snowman",
+      "art": [
+        "....KK........",
+        "...KKBKK......",
+        "...BKKWWWC....",
+        "...KWWWWWWC...",
+        "...WWWWWWWW...",
+        "..CWWWWOOWWC..",
+        "..CWWWWWWWWC..",
+        "KK.WWWWWWWWCKK",
+        ".KCBBBBBBBBCK.",
+        ".KWBBBBBBBBWK.",
+        ".WWWWBBBBBBWW.",
+        ".WWWWWWWBBBWW.",
+        "CWWWWWWWBBBWWC",
+        ".WWWWWWWWWWWW.",
+        ".CWWWWWWWWWWC.",
+        "..CWWWBWWWWW..",
+        "...CCCCCCCC..."
+      ],
+      "source": { "picture": "snowman", "colors": { "1": "white", "2": "blue", "3": "cyan", "4": "black", "5": "orange" }, "overrides": [{ "col": 6, "row": 15, "color": "blue" }] }
+    },
+    {
+      "name": "Pine Tree",
+      "art": [
+        "......G......",
+        ".....LGG.....",
+        ".....GGG.....",
+        "....LLGGG....",
+        "....LGGGG....",
+        "....GGGGG....",
+        "...LLGGGGG...",
+        "..LLGGGGGGG..",
+        "..LGGGGGGGG..",
+        "..GGGGGGGGG..",
+        ".LLLGGGGGGGG.",
+        "LLLGGGGGGGGGG",
+        "LLGGGGGGGGGGG",
+        "GGGGGGGGGGGGG",
+        ".GGGGGGGGGGG.",
+        "....NNNNN....",
+        "....NNNNN...."
+      ],
+      "source": { "picture": "pine-tree", "colors": { "1": "green", "2": "lime", "3": "brown" } },
+      "lock": { "type": "frozen", "color": "white", "count": 38 }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "black", "charges": 29 },
+      { "color": "cyan", "charges": 22 },
+      { "color": "lime", "charges": 9 },
+      { "color": "lime", "charges": 8 },
+      { "color": "white", "charges": 38 }
+    ],
+    [
+      { "color": "white", "charges": 38 },
+      { "color": "black", "charges": 29 },
+      { "color": "black", "charges": 29, "hidden": true },
+      { "color": "white", "charges": 37 },
+      { "color": "brown", "charges": 10 }
+    ],
+    [
+      { "color": "orange", "charges": 15 },
+      { "color": "white", "charges": 38 },
+      { "color": "blue", "charges": 31 },
+      { "color": "green", "charges": 33 },
+      { "color": "white", "charges": 38 },
+      { "color": "green", "charges": 34 },
+      { "color": "green", "charges": 33 }
+    ]
+  ]
+}

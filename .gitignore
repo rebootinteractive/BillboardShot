@@ -6,3 +6,6 @@ dist
 
 # Local visual QA captures
 output/
+
+# Generated level report cards
+design/reports/

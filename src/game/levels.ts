@@ -5,6 +5,7 @@ import { validateLevel, type LevelData } from './level';
 const files = import.meta.glob<LevelData>('../levels/*.json', { eager: true, import: 'default' });
 const sandboxFiles = import.meta.glob<LevelData>('../levels/sandbox/*.json', { eager: true, import: 'default' });
 const devFiles = import.meta.glob<LevelData>('../levels/dev/*.json', { eager: true, import: 'default' });
+const trialFiles = import.meta.glob<LevelData>('../levels/trial/*.json', { eager: true, import: 'default' });
 
 /** Every level, in play order. */
 export const LEVELS: { file: string; data: LevelData }[] = Object.keys(files)
@@ -13,11 +14,13 @@ export const LEVELS: { file: string; data: LevelData }[] = Object.keys(files)
 
 /**
  * Levels that are not part of the play order, opened with `?sandbox=<name>`: feature
- * test levels by file name, and earlier development levels as `dev/<file name>`.
+ * test levels by file name, earlier development levels as `dev/<file name>`, and levels
+ * made by the designer workflow as `trial/<file name>`.
  */
 export const SANDBOX: Map<string, LevelData> = new Map([
   ...Object.keys(sandboxFiles).map((path) => [path.split('/').pop()!.replace(/\.json$/, ''), sandboxFiles[path]] as const),
   ...Object.keys(devFiles).map((path) => [`dev/${path.split('/').pop()!.replace(/\.json$/, '')}`, devFiles[path]] as const),
+  ...Object.keys(trialFiles).map((path) => [`trial/${path.split('/').pop()!.replace(/\.json$/, '')}`, trialFiles[path]] as const),
 ]);
 
 /**

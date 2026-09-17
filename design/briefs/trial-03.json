@@ -1,0 +1,51 @@
+{
+  "id": "trial-03",
+  "name": "Castle Keys",
+  "intent": "Medium-hard key practice. The castle is locked; its gold key sits at the top of the treasure chest's wood, so most of the chest must be cleared first. Purple and black only exist on the castle and wait for the key; the crown adds its own pink. One link and one hidden container.",
+  "target": {
+    "min": 0.35,
+    "max": 0.5
+  },
+  "lanes": 3,
+  "boards": [
+    {
+      "picture": "treasure-chest",
+      "colors": {
+        "1": "brown",
+        "2": "yellow",
+        "3": "yellow",
+        "4": "yellow",
+        "5": "brown"
+      },
+      "key": {
+        "group": "1",
+        "pick": "highest",
+        "color": "gold"
+      }
+    },
+    {
+      "picture": "crown",
+      "colors": {
+        "1": "pink",
+        "2": "red",
+        "3": "yellow"
+      }
+    },
+    {
+      "picture": "castle",
+      "colors": {
+        "1": "purple",
+        "2": "red",
+        "3": "black"
+      },
+      "lock": {
+        "type": "key",
+        "color": "gold"
+      }
+    }
+  ],
+  "queue": {
+    "links": 1,
+    "hidden": 1
+  }
+}

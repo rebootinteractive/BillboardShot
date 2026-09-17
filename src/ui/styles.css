@@ -510,3 +510,5 @@ body { background: #c6d0da; }
 .modal-card.intro h2 { color: #795335; }
 .modal-card.intro p { color: #795335; font-size: 16px; line-height: 1.4; }
 .endgame .modal-actions { justify-content: center; gap: 10px; }
+/* Long level names (debug side levels) must not run under the Send results button. */
+.hud-level { max-width: calc(100% - 260px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
