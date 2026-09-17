@@ -2,9 +2,8 @@ import * as THREE from 'three';
 import type { ColorKey } from '../shared/types';
 import { COLOR_CSS } from '../shared/colors';
 
-/** Key colors are their own palette, so a key never reads as a pixel color. */
-export type KeyColor = 'gold' | 'silver' | 'bronze';
-export const KEY_COLORS: KeyColor[] = ['gold', 'silver', 'bronze'];
+import type { KeyColor } from '../shared/keyColors';
+export { KEY_COLORS, type KeyColor } from '../shared/keyColors';
 
 export const KEY_HEX: Record<KeyColor, number> = {
   gold: 0xf5b82e,

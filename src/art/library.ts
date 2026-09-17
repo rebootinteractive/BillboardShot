@@ -51,20 +51,6 @@ export interface BoardSource {
 export const MAX_WIDTH = 16;
 export const MAX_HEIGHT = 17;
 
-const files = import.meta.glob<Picture>('./pictures/*.json', { eager: true, import: 'default' });
-
-/** Every picture in the library, by id, sorted by name. */
-export const PICTURES: Map<string, Picture> = new Map(
-  Object.values(files)
-    .sort((a, b) => a.name.localeCompare(b.name))
-    .map((p) => [p.id, p]),
-);
-
-/** File name (without .json) for each picture id, so the checker can compare them. */
-export const PICTURE_FILES: Map<string, string> = new Map(
-  Object.entries(files).map(([path, p]) => [p.id, path.split('/').pop()!.replace(/\.json$/, '')]),
-);
-
 const COLOR_TO_CHAR = Object.fromEntries(Object.entries(CHAR_TO_COLOR).map(([ch, color]) => [color, ch])) as Record<ColorKey, string>;
 
 /** Everything wrong with a picture, as readable sentences. Empty means valid. */
@@ -150,8 +136,8 @@ export function renderSource(picture: Picture, source: BoardSource): string[] {
 }
 
 /** Problems with a board's source record, including art that no longer matches it. */
-export function validateSource(source: BoardSource, art: string[]): string[] {
-  const picture = PICTURES.get(source.picture);
+export function validateSource(source: BoardSource, art: string[], pictures: Map<string, Picture>): string[] {
+  const picture = pictures.get(source.picture);
   if (!picture) return [`source picture '${source.picture}' is not in the library.`];
   const errors: string[] = [];
   for (const id of Object.keys(picture.groups)) {
@@ -168,9 +154,4 @@ export function validateSource(source: BoardSource, art: string[]): string[] {
   const expected = renderSource(picture, source);
   if (expected.join('\n') !== art.join('\n')) errors.push(`art does not match source picture '${source.picture}' with its colors and overrides.`);
   return errors;
-}
-
-for (const [id, picture] of PICTURES) {
-  const errors = validatePicture(picture, PICTURE_FILES.get(id));
-  if (errors.length) console.error(`Picture ${id} is invalid:\n- ${errors.join('\n- ')}`);
 }

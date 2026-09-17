@@ -9,8 +9,9 @@ production).
 Each rule is marked:
 
 - **[verified]**: confirmed by a test or seen while tuning the showcase levels.
-- **[hypothesis]**: reasoned from the rules but not yet measured. The simulator (Phase 4)
-  confirms or corrects these.
+- **[hypothesis]**: reasoned from the rules but not yet measured. The simulator
+  (`npm run sim`) confirms or corrects these; many warnings in its report come straight from
+  this document.
 
 When a rule and a measurement disagree, the measurement wins and this document is updated.
 

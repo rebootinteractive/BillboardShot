@@ -1,7 +1,8 @@
 import './gallery.css';
 import { COLOR_CSS } from '../shared/colors';
 import type { ColorKey } from '../shared/types';
-import { PICTURES, validatePicture, PICTURE_FILES, type Picture, type PictureStatus } from '../art/library';
+import { validatePicture, type Picture, type PictureStatus } from '../art/library';
+import { PICTURES, PICTURE_FILES } from '../art/pictures';
 import { analyzePicture } from '../art/analyze';
 
 /** Distinct neutral-ish hues for showing group ids instead of colors. */

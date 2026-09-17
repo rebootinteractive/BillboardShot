@@ -1,0 +1,121 @@
+{
+  "name": "Jungle Gate",
+  "deckSlots": 5,
+  "boards": [
+    {
+      "name": "Monkey",
+      "art": [
+        ".....NNNNNN.....",
+        "....NNNNNNNN....",
+        "...NMMMMMMMMN...",
+        "..NMMMMMMMMMMN..",
+        ".MNMMMMMMMMMMNM.",
+        "MMNMMMKMMKMMMNMM",
+        "MMNNMMMMMMMMNNMM",
+        "MMNNMMMMMMMMNNMM",
+        ".MNNNMRRRRMNNNM.",
+        "..NNNMRRRRMNNN..",
+        "...NNNNMMNNNN...",
+        "....NNNNNNNN....",
+        ".....NNNNNN....."
+      ],
+      "source": { "picture": "monkey", "colors": { "1": "pink", "2": "brown", "3": "red", "4": "black" } },
+      "keys": [{ "col": 6, "row": 10, "color": "gold" }]
+    },
+    {
+      "name": "Parrot",
+      "art": [
+        "...RRR.........",
+        "..RRWRR........",
+        ".OOWKWRR.......",
+        "OOORWWRR.......",
+        ".OORRRRR.......",
+        ".RRRRRRR.......",
+        ".RRRROOOR......",
+        "RRRROOOOO......",
+        "RRRROOOOO......",
+        "RRRRBOOOO......",
+        "RRRRBOOOO......",
+        ".RRRRBOOOO.....",
+        ".RRRRBBBOORRRRR",
+        "..RRRRBBBBRRRRR",
+        "...RRRRRBBRRRR.",
+        ".....O.O.......",
+        "...OOOOOO......"
+      ],
+      "source": { "picture": "parrot", "colors": { "1": "red", "2": "orange", "3": "blue", "4": "white", "5": "black" } }
+    },
+    {
+      "name": "Koala",
+      "art": [
+        "..WWWW....WWWW..",
+        ".WMMMWWWWWWMMMW.",
+        "WWMMWWWWWWWWMMMW",
+        "WMMWWWWWWWWWWMMW",
+        "WMMWWWWWWWWWWMMW",
+        ".WMWWWWWWWWWWMWW",
+        ".WWWWWWWBWWWWWW.",
+        "..WWkWWkkWWkWW..",
+        ".WWWkWkkkkWkWWW.",
+        ".WWWWWkkkkWWWWW.",
+        ".WWWWWkkkkWWWWW.",
+        ".WWWWWkkkkWWWWW.",
+        "..WWWWWkkWWWWW..",
+        "...WWWWWWWWWW..."
+      ],
+      "source": { "picture": "koala", "colors": { "1": "white", "2": "black", "3": "pink" }, "hidden": ["2"], "overrides": [{ "col": 8, "row": 6, "color": "blue" }] }
+    },
+    {
+      "name": "Palm Tree",
+      "art": [
+        "..GGGG...GGGG..",
+        ".GGGGGG.GGGGGG.",
+        "GGGGGGGGGGGGGGG",
+        "GGGNNNNNNNNNGGG",
+        "..NNNNNNNNNNN..",
+        "..NNNOONNNNNNN.",
+        ".NNNNOONOONNNN.",
+        ".NNN..NNOOONNN.",
+        "..N...NNNO..N..",
+        "......NNN......",
+        "......NNN......",
+        "......NNN......",
+        "......NNN......",
+        "......NNN......",
+        "......NNN......",
+        "......NNN......",
+        "......NNN......"
+      ],
+      "source": { "picture": "palm-tree", "colors": { "1": "brown", "2": "green", "3": "orange" } },
+      "lock": { "type": "key", "color": "gold" }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "brown", "charges": 35 },
+      { "color": "pink", "charges": 32 },
+      { "color": "red", "charges": 28 },
+      { "color": "white", "charges": 37 },
+      { "color": "green", "charges": 21 },
+      { "color": "orange", "charges": 26 },
+      { "color": "black", "charges": 27 },
+      { "color": "white", "charges": 37 }
+    ],
+    [
+      { "color": "red", "charges": 28 },
+      { "color": "white", "charges": 37 },
+      { "color": "brown", "charges": 35 },
+      { "color": "pink", "charges": 32 },
+      { "color": "blue", "charges": 13 },
+      { "color": "brown", "charges": 35 },
+      { "color": "orange", "charges": 26 }
+    ],
+    [
+      { "color": "pink", "charges": 31 },
+      { "color": "white", "charges": 37 },
+      { "color": "red", "charges": 28 },
+      { "color": "brown", "charges": 35 },
+      { "color": "green", "charges": 20 }
+    ]
+  ]
+}

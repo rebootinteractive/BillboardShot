@@ -5,12 +5,15 @@ import { loadSettings, type Settings } from '../shared/settings';
 import { Billboard, type EligibleTarget, type Tile } from './Billboard';
 import { Shooter } from './Shooter';
 import { PulledCube } from './PulledCube';
-import { LEVELS, SANDBOX, levelFileForNumber, type LevelData } from './level';
+import type { LevelData } from './level';
+import { LEVELS, SANDBOX, levelFileForNumber } from './levels';
 import { KeyFlight } from './keys';
-import { PICTURES } from '../art/library';
+import { PICTURES } from '../art/pictures';
 import { previewLevel } from '../art/preview';
 import { LinkChain } from './LinkChain';
 import { ProgressShot } from './ProgressShot';
+import { Playtest, sendResults } from './analytics';
+import { chooseFirers, chooseTarget, isStuck, nextFront, sendBlocker, slotColumn } from '../rules/core';
 import { loadLevelNumber, saveLevelNumber } from './progress';
 import { Hud } from './Hud';
 import { Feedback } from './Feedback';
@@ -99,6 +102,7 @@ export class GameApp {
   private readonly scratch2 = new THREE.Vector3();
 
   private over: 'none' | 'win' | 'lose' = 'none';
+  private readonly playtest = new Playtest();
   private winReveal = 0;
   private rebuildTimer: number | undefined;
 
@@ -143,7 +147,15 @@ export class GameApp {
       onRestart: () => this.restart(),
       // A feature test level is not part of progress: Next returns to the player's level.
       onNext: () => this.goToLevel(this.isSideLevel() ? this.levelNumber : this.levelNumber + 1),
+      onSendResults: () => {
+        this.playtest.persist(this.pixelsLeft());
+        void sendResults().then((how) => {
+          if (how === 'empty') this.hud.flash('No results yet: play a level first');
+          else if (how === 'mail+clipboard') this.hud.flash('Results copied and saved: paste or attach them in the email');
+        });
+      },
     });
+    window.addEventListener('pagehide', this.onPageHide);
     if (new URLSearchParams(location.search).has('debug')) this.enableLevelPicker();
     this.feedback = new Feedback(this.world);
 
@@ -188,6 +200,14 @@ export class GameApp {
       this.isSideLevel() ? `· ${level.name}` : String(this.levelNumber),
       this.sandboxName ? `sandbox:${this.sandboxName}` : `level:${((this.levelNumber - 1) % LEVELS.length) + 1}`,
     );
+    const attempt = this.playtest.start({
+      level: this.isSideLevel() ? 0 : this.levelNumber,
+      file: this.level.file,
+      name: level.name,
+      pixelsTotal: level.boards.reduce((n, b) => n + b.art.join('').replace(/\./g, '').length, 0),
+      deckSlots: level.deckSlots,
+    });
+    if (level.hint && attempt === 1) this.hud.showIntro(level.hint);
 
     // --- carousel structure ---
     const ringGeo = new THREE.TorusGeometry(s.carouselRadius, 0.09, 12, 96);
@@ -380,6 +400,7 @@ export class GameApp {
 
   /** Rebuild the level from the current tuning. */
   restart() {
+    this.playtest.abandon(this.pixelsLeft());
     this.destroyWorld();
     this.buildWorld();
   }
@@ -540,15 +561,12 @@ export class GameApp {
 
   /** Why a lane head cannot be sent right now, or null if it can. */
   private sendBlocker(sh: Shooter): string | null {
-    if (this.lanes[sh.lane]?.[0] !== sh) return 'Only the front of a line can go';
     const partner = sh.partner?.state === 'queue' ? sh.partner : null;
-    if (partner) {
-      if (this.lanes[partner.lane][0] !== partner) return 'Its linked partner has to reach the front too';
-    }
-    const free = this.deckOccupants.filter((o) => o === null).length;
-    if (partner && free < 2) return 'Linked containers need two free slots';
-    if (free < 1) return 'Deck is full';
-    return null;
+    return sendBlocker({
+      isHead: this.lanes[sh.lane]?.[0] === sh,
+      partner: partner ? { isHead: this.lanes[partner.lane][0] === partner } : null,
+      freeSlots: this.deckOccupants.filter((o) => o === null).length,
+    });
   }
 
   private sendToDeck(sh: Shooter) {
@@ -575,6 +593,7 @@ export class GameApp {
       member.beginTravel();
     }
     this.feedback.note('tap');
+    this.playtest.send(this.deckOccupants.filter((o) => o === null).length);
   }
 
   /** A feature test level or art preview: outside the numbered levels and progress. */
@@ -644,6 +663,7 @@ export class GameApp {
 
   private tick(dt: number) {
     const s = this.settings;
+    if (this.over === 'none') this.playtest.tick(dt);
     this.reflowTime = Math.max(0, this.reflowTime - dt);
 
     // --- carousel spin ---
@@ -709,16 +729,9 @@ export class GameApp {
    * its deck slot back, instead of draining a whole color's shooters in lockstep.
    */
   private pickFirers(): Map<ColorKey, number> {
-    const chosen = new Map<ColorKey, Shooter>();
-    for (const sh of this.allShooters) {
-      if (sh.state !== 'deck' || sh.charges <= 0) continue;
-      const cur = chosen.get(sh.color);
-      if (!cur || sh.charges < cur.charges || (sh.charges === cur.charges && sh.slot < cur.slot)) {
-        chosen.set(sh.color, sh);
-      }
-    }
+    const chosen = chooseFirers(this.allShooters.filter((sh) => sh.state === 'deck'));
     const ids = new Map<ColorKey, number>();
-    for (const [color, sh] of chosen) ids.set(color, sh.id);
+    for (const [color, sh] of chosen) ids.set(color as ColorKey, sh.id);
     return ids;
   }
 
@@ -815,12 +828,14 @@ export class GameApp {
       this.targets.length = 0;
       return;
     }
-    // Keep the focused survivor at the front, or bring its nearest neighbor in.
-    // Preserve cyclic order while distributing survivors around the full circle.
-    const anchor = this.focused && remaining.includes(this.focused) ? this.focused : remaining.reduce((best, board) =>
-      Math.abs(GameApp.angleBetween(0, board.angle + this.carousel.rotation.y)) <
-      Math.abs(GameApp.angleBetween(0, best.angle + this.carousel.rotation.y)) ? board : best,
-    );
+    // Keep the focused survivor at the front; if the front board was cleared, the next
+    // remaining board in ring order takes its place. Survivors keep their cyclic order
+    // and spread around the full circle.
+    const frontIndex = this.focused ? this.billboards.indexOf(this.focused) : -1;
+    const next = frontIndex >= 0 ? nextFront(this.billboards.length, frontIndex, (i) => this.billboards[i].frameState === 'hanging') : null;
+    const anchor = this.focused && remaining.includes(this.focused) ? this.focused
+      : next !== null ? this.billboards[next]
+      : remaining[0];
     const start = remaining.indexOf(anchor);
     const spacing = Math.PI * 2 / remaining.length;
     for (let i = 0; i < remaining.length; i++) {
@@ -834,6 +849,12 @@ export class GameApp {
 
   /** The board nearest the camera. Focus is shown by the snap, not by scale. */
   private updateFocus() {
+    const previous = this.focused;
+    this.focusBoard();
+    if (previous && this.focused && previous !== this.focused && this.reflowTime === 0) this.playtest.boardChanged();
+  }
+
+  private focusBoard() {
     const spin = this.carousel.rotation.y;
     let best: Billboard | null = null;
     let bestOff = Infinity;
@@ -872,21 +893,11 @@ export class GameApp {
    * breaking ties.
    */
   private tryFire(sh: Shooter, s: Settings) {
-    const shooterAngle = Math.atan2(sh.group.position.x, sh.group.position.z);
-    let best = -1;
-    let bestRow = Infinity;
-    let bestSpread = Infinity;
-    for (let i = 0; i < this.targets.length; i++) {
-      const t = this.targets[i];
-      if (t.color !== sh.color) continue;
-      const spread = Math.abs(GameApp.angleBetween(shooterAngle, t.angle));
-      const row = t.tile.row;
-      if (row > bestRow || (row === bestRow && spread >= bestSpread)) continue;
-      best = i;
-      bestRow = row;
-      bestSpread = spread;
-    }
-    if (best < 0) return;
+    const candidates = this.targets.flatMap((t, index) => (t.color === sh.color ? [{ col: t.tile.col, row: t.tile.row, index }] : []));
+    if (!candidates.length) return;
+    const pick = chooseTarget(candidates, slotColumn(sh.slot, this.deckSlots.length, this.targets[candidates[0].index].board.cols));
+    if (!pick) return;
+    const best = pick.index;
 
     const tile = this.targets[best].tile;
     this.targets.splice(best, 1);
@@ -1008,6 +1019,7 @@ export class GameApp {
     for (const bb of this.billboards) tiles += bb.aliveCount;
     if (tiles === 0) {
       this.over = 'win';
+      this.playtest.finish('win', 0);
       this.winReveal = 0.85;
       // Progress is kept the moment the level is won, even if the page closes before Next.
       if (!this.isSideLevel()) saveLevelNumber(this.levelNumber + 1);
@@ -1035,13 +1047,12 @@ export class GameApp {
     // can pull (its color is not at the bottom of a column on an open board), and no
     // lane head can be sent. Locked boards only open by collecting and frozen boards
     // only by finishing containers, so neither can come to the rescue on its own.
-    const firable = this.firableColors();
-    const anyUsable = onDeck.some((sh) => sh.charges > 0 && firable.has(sh.color));
-    if (anyUsable) return;
+    const deckColors = onDeck.flatMap((sh) => (sh.charges > 0 ? [sh.color] : []));
     const anySendable = this.lanes.some((lane) => lane[0] && this.sendBlocker(lane[0]) === null);
-    if (anySendable) return;
+    if (!isStuck(deckColors, this.firableColors(), anySendable)) return;
 
     this.over = 'lose';
+    this.playtest.finish('lose', tiles);
     this.hud.showEnd(
       false,
       queueEmpty && onDeck.length === 0
@@ -1100,7 +1111,15 @@ export class GameApp {
 
   // ------------------------------------------------------------------ teardown
 
+  private pixelsLeft() {
+    return this.billboards.reduce((n, b) => n + b.aliveCount, 0);
+  }
+
+  private readonly onPageHide = () => this.playtest.persist(this.pixelsLeft());
+
   dispose() {
+    this.playtest.abandon(this.pixelsLeft());
+    window.removeEventListener('pagehide', this.onPageHide);
     cancelAnimationFrame(this.rafId);
     window.clearTimeout(this.rebuildTimer);
     this.detachInput();

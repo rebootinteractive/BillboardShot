@@ -1,0 +1,145 @@
+{
+  "name": "Deep Freeze",
+  "deckSlots": 4,
+  "boards": [
+    {
+      "name": "Penguin",
+      "art": [
+        "......KKKK......",
+        ".....KwKKwK.....",
+        "....KwwwwwwK....",
+        "...KKwwwwwwKK...",
+        "...KwwwwwwwwK...",
+        "...KwwOOOOwwK...",
+        "..KKOwwwwwwKKK..",
+        ".KKKwwwwwwwwKKK.",
+        ".KKKwwwwwwwwKKK.",
+        "KKKwwwwwwwwwwKKK",
+        "KKKwwwwwwwwwwKKK",
+        "KKKKwwwwwwwwKKKK",
+        "...KwwwwwwwwK...",
+        "...KKwwwwwwKK...",
+        "...OKKwwwwKKO...",
+        "..OOOOKKKKOOO..."
+      ],
+      "source": { "picture": "penguin", "colors": { "1": "white", "2": "black", "3": "orange" }, "hidden": ["1"], "overrides": [{ "col": 4, "row": 6, "color": "orange" }] }
+    },
+    {
+      "name": "Snowman",
+      "art": [
+        "....KK........",
+        "...KKRKK......",
+        "...RKKWWWK....",
+        "...KWWWWWWK...",
+        "...WWWWWWWW...",
+        "..KWWWWOOWWK..",
+        "..KWWWWWWWWK..",
+        "KK.WWWWWWWWKKK",
+        ".KKRRRRRRRRKK.",
+        ".KWRRRRRRRRWK.",
+        ".WWWWRRRRRRWW.",
+        ".WWWWWCWRRRWW.",
+        "KWWWWWWWRRRWWK",
+        ".WWWWWWWWWWWW.",
+        ".KWWWWWWWWWWK.",
+        "..KWWWWWWWWW..",
+        "...KKKKKKKK..."
+      ],
+      "source": { "picture": "snowman", "colors": { "1": "white", "2": "red", "3": "black", "4": "black", "5": "orange" }, "overrides": [{ "col": 6, "row": 11, "color": "cyan" }] }
+    },
+    {
+      "name": "Pine Tree",
+      "art": [
+        "......G......",
+        ".....LGG.....",
+        ".....GGG.....",
+        "....LLGGG....",
+        "....LGGGG....",
+        "....GGGGG....",
+        "...LLGGGGG...",
+        "..LLGGGGGGG..",
+        "..LGGGGGGGG..",
+        "..GGGGGGGGG..",
+        ".LLLGGGGGGGG.",
+        "LLLGGGGGGGGGG",
+        "LLGGGGGGGGGGG",
+        "GGGGGGGGGGGGG",
+        ".GGGGGGGGGGG.",
+        "....NNNNN....",
+        "....NNNNN...."
+      ],
+      "source": { "picture": "pine-tree", "colors": { "1": "green", "2": "lime", "3": "brown" } },
+      "lock": { "type": "frozen", "color": "white", "count": 38 }
+    },
+    {
+      "name": "Snowflake",
+      "art": [
+        "......C......",
+        ".....CCC.....",
+        "..C...C...C..",
+        ".CC...C...CC.",
+        ".CCC.CCC.CCC.",
+        "CC..CC.CC..CC",
+        ".C..C...C..C.",
+        "CC.CCC.CCC.CC",
+        ".CCC.CCC.CCC.",
+        ".CC...C...CC.",
+        "..C...C...C..",
+        ".....CCC.....",
+        "......C......"
+      ],
+      "source": { "picture": "snowflake", "colors": { "1": "cyan" } }
+    },
+    {
+      "name": "Gift",
+      "art": [
+        "..RR..R..RR..",
+        ".RRRRRRRRRRR.",
+        ".RRRRRRRRRRR.",
+        "PPPPPRRRPPPPP",
+        "PPPPPRRRPPPPP",
+        "PPPPPRRRPPPPP",
+        ".PPPPRRRPPPP.",
+        ".BBBBRRRBBBB.",
+        ".BBBBRRRBBBB.",
+        ".BBBBRRRBBBB.",
+        ".BBBBRRRBBBB.",
+        ".BBBBRRRBBBB.",
+        ".BBBBRRRBBBB.",
+        ".BBBBRRRBBBB."
+      ],
+      "source": { "picture": "gift", "colors": { "1": "red", "2": "blue", "3": "purple" } },
+      "lock": { "type": "frozen", "color": "cyan", "count": 33 }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "black", "charges": 36 },
+      { "color": "cyan", "charges": 33 },
+      { "color": "white", "charges": 38 },
+      { "color": "green", "charges": 34 },
+      { "color": "red", "charges": 30 },
+      { "color": "blue", "charges": 28 },
+      { "color": "white", "charges": 38 },
+      { "color": "black", "charges": 36 },
+      { "color": "lime", "charges": 17 }
+    ],
+    [
+      { "color": "orange", "charges": 16 },
+      { "color": "white", "charges": 38 },
+      { "color": "purple", "charges": 38 },
+      { "color": "cyan", "charges": 32 },
+      { "color": "red", "charges": 30 },
+      { "color": "white", "charges": 38 },
+      { "color": "green", "charges": 33 },
+      { "color": "brown", "charges": 10 }
+    ],
+    [
+      { "color": "black", "charges": 36 },
+      { "color": "white", "charges": 37 },
+      { "color": "green", "charges": 33 },
+      { "color": "red", "charges": 30 },
+      { "color": "blue", "charges": 28 }
+    ]
+  ]
+}

@@ -58,6 +58,9 @@ orientation: `col` from the left, `row` from the top, both starting at 0.
 }
 ```
 
+A level may also carry `"hint": "..."`, a one-line explanation shown before the first
+attempt at that level, used when a feature appears for the first time.
+
 Art characters: `R` red, `B` blue, `G` green, `Y` yellow, `P` purple, `O` orange,
 `C` cyan, `M` pink, `N` brown, `L` lime, `K` black, `W` white, `.` empty. The lowercase letter is a mystery pixel of that color.
 

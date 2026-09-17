@@ -1,99 +1,93 @@
 {
-  "name": "Key to the Coop",
+  "name": "Farm Friends",
+  "hint": "The carrot is frozen. Fill white containers to melt the ice: each full one counts.",
   "deckSlots": 5,
   "boards": [
     {
-      "name": "Sunflower",
+      "name": "Cow",
       "art": [
-        "......Y......",
-        "...YYYYYYY...",
-        "...YYYYYYY...",
-        ".YYYYNNNYYYY.",
-        "YYYYNNNNNYYYY",
-        ".YYNNNNNNNYY.",
-        ".YYNNNNNNNYYY",
-        "YYYNNNNNNNYYY",
-        "YYYNNNNNNNYY.",
-        "..YYNNNNNYYY.",
-        ".YYYYYYYYYYY.",
-        "..Y.YYYYY....",
-        "....YYNYY....",
-        "......N......",
-        "..NNN.N.NNNN.",
-        "..NNNNNNNNN..",
-        "...NNNNNNN..."
+        "......W...W.....",
+        "NNN..WW...W..NNN",
+        "NMMNNWWWNNNNNMMN",
+        "NNMNNNWWWNNNNMNN",
+        "..NNNNNWWWWNNN..",
+        "...NNNNNWWWWW...",
+        "...NNKNNWWKWW...",
+        "...NNKNNWWKWW...",
+        "...NNNNNWWWWW...",
+        "...MMMMMMMMMM...",
+        "...MMMMMMMMMM...",
+        "..MMMMMMMMMMMM..",
+        "..MMMMMMMMMMMM..",
+        "...MMMMMMMMMM...",
+        "....MMMMMMMM....",
+        "......MMMM......"
       ],
-      "source": { "picture": "sunflower", "colors": { "1": "yellow", "2": "brown" } },
-      "keys": [{ "col": 6, "row": 3, "color": "gold" }]
+      "source": { "picture": "cow", "colors": { "1": "pink", "2": "brown", "3": "white", "4": "black" } }
     },
     {
-      "name": "Popcorn",
+      "name": "Bunny",
       "art": [
-        ".....YY.....",
-        "....YYYY....",
-        "...YYYYYYY..",
-        "..YYYYYYYY..",
-        "..YYYYYYYYY.",
-        ".YYYYYYYYYYY",
-        "RRWWYRRYWWRR",
-        "RRWWWRRWWWRR",
-        "RRWWWRRWWWRR",
-        "RRWWWRRWWWRR",
-        "RRRWWRRWWWRR",
-        "RRRWWRRWWRRR",
-        ".RRWWRRWWRR.",
-        ".RRWWRRWWRR.",
-        ".RRWWRRWWRR.",
-        ".RRWWRRWWRR.",
-        ".RRWWRRWWRR."
+        "....WW....WW....",
+        "....WMW..WMW....",
+        "....WMW..WMW....",
+        "....WMW..WMW....",
+        "....WMWWWWMW....",
+        "....WWWWWWWW....",
+        "...WWWWWWWWWW...",
+        "..WWWWWWWWWWW...",
+        "..WWWWWWWWWWWW..",
+        ".WWWWKWWWWKWWW..",
+        ".WWWWWWWWWWWWWW.",
+        ".WWWWWWMMWWWWWM.",
+        ".WWMWWWWWWWWMWW.",
+        "MMWWWWWWWWWWWW..",
+        "...WWWWWWWWWW...",
+        "....WWWWWWW....."
       ],
-      "source": { "picture": "popcorn", "colors": { "1": "red", "2": "white", "3": "yellow" } }
+      "source": { "picture": "bunny", "colors": { "1": "white", "2": "pink", "3": "pink", "4": "black", "5": "pink" } }
     },
     {
-      "name": "Chicken",
+      "name": "Carrot",
       "art": [
-        ".........RRR....",
-        ".....RRRRRRRR...",
-        "....RRRRRRRRR...",
-        "....RRWWWWRRR...",
-        "...RRWWWWWWWO...",
-        "..RRWWWWWWWWWO..",
-        "...WWWWWWWWWWW..",
-        "..OWWWWWWWWWWW..",
-        ".OOWWOOWWWWWWWO.",
-        "OOOWWWWWWWWWWWO.",
-        "OOOWWWWWWWWWWWW.",
-        ".OOWWWWWWWWWWWW.",
-        ".RRWWWWWWWWWWWWO",
-        ".RRWWWWWWWWWWWWO",
-        "..RWWWWWWWWWWWWO",
-        "..OWWWWWWWWWWWWO",
-        "...OOOOOOOOOOOO."
+        "........GGGG.",
+        ".......GGGGGG",
+        ".....O.GGGGGG",
+        "...OOOOOGGGGG",
+        "..OOOOOOOGGGG",
+        "..OOOOOOOOGG.",
+        "..OOOOOOOO...",
+        ".OOOOOOOOOO..",
+        ".OOOOOOOOOO..",
+        ".OOOOOOOOO...",
+        "OOOOOOOOO....",
+        "OOOOOO.......",
+        "OOO.........."
       ],
-      "source": { "picture": "chicken", "colors": { "1": "white", "2": "red", "3": "orange", "4": "orange", "5": "orange", "6": "orange" } },
-      "lock": { "type": "key", "color": "gold" }
+      "source": { "picture": "carrot", "colors": { "1": "orange", "2": "green" } },
+      "lock": { "type": "frozen", "color": "white", "count": 35 }
     }
   ],
   "lanes": [
     [
-      { "color": "brown", "charges": 34 },
-      { "color": "yellow", "charges": 40 },
-      { "color": "red", "charges": 35 },
-      { "color": "white", "charges": 37 },
-      { "color": "white", "charges": 37 }
+      { "color": "white", "charges": 35 },
+      { "color": "pink", "charges": 29 },
+      { "color": "brown", "charges": 26 },
+      { "color": "white", "charges": 35 },
+      { "color": "orange", "charges": 38 },
+      { "color": "black", "charges": 6 }
     ],
     [
-      { "color": "yellow", "charges": 40 },
-      { "color": "red", "charges": 34 },
-      { "color": "brown", "charges": 33 },
-      { "color": "orange", "charges": 34 },
-      { "color": "white", "charges": 37 }
+      { "color": "pink", "charges": 29 },
+      { "color": "white", "charges": 35 },
+      { "color": "white", "charges": 34 },
+      { "color": "green", "charges": 27 },
+      { "color": "pink", "charges": 29 }
     ],
     [
-      { "color": "red", "charges": 34 },
-      { "color": "yellow", "charges": 40 },
-      { "color": "white", "charges": 37 },
-      { "color": "white", "charges": 37 }
+      { "color": "white", "charges": 34 },
+      { "color": "brown", "charges": 26 },
+      { "color": "orange", "charges": 38 }
     ]
   ]
 }
