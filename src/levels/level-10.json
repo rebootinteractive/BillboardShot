@@ -1,0 +1,146 @@
+{
+  "name": "Space Trip",
+  "deckSlots": 4,
+  "boards": [
+    {
+      "name": "Rocket",
+      "art": [
+        ".............RR.",
+        "..........RRRRRR",
+        ".........RWWWRRR",
+        ".......RWWWWWWRR",
+        "......RWWBCCBWW.",
+        ".....RWWWBCCBWR.",
+        "....RWWWWWBBWW..",
+        "...RWWWWWWWWWR..",
+        ".RRRWWWWWWWWR...",
+        ".RRRRRRRWWWR....",
+        "..RRRRRWWWR.....",
+        "..KRRRRWWR......",
+        ".OOKRRRRR.......",
+        "OOOOKRRRR.......",
+        "OOOOK.RR........",
+        "OOO....R........"
+      ],
+      "source": { "picture": "rocket", "colors": { "1": "red", "2": "white", "3": "orange", "4": "blue", "5": "cyan", "6": "black" } }
+    },
+    {
+      "name": "Alien",
+      "art": [
+        ".....GGGGGG.....",
+        "...GGGGGGGGGG...",
+        "..GGGGGGGGGGGG..",
+        ".GGGGGGGGGGGGGG.",
+        ".GGGGGGGGGGGGGG.",
+        "GGGkkkGGGGGkkGGG",
+        "GGkkWWkGGkkkWWkG",
+        "GkkkkWkGGkkkWWkG",
+        "GkkkkkkGGkkkkkkG",
+        "GGkkkkkGGkkkkkGG",
+        ".GGkkkkGGkkkkGG.",
+        ".GGGGGGGGGGGGGG.",
+        "..GGGGGGGGGGGG..",
+        "...GGGGkkkGGG...",
+        "....GGGGGGGG....",
+        "......GGGG......"
+      ],
+      "source": { "picture": "alien", "colors": { "1": "green", "2": "black", "3": "white" }, "hidden": ["2"] }
+    },
+    {
+      "name": "Helicopter",
+      "art": [
+        "................",
+        ".PPPPPPPPPPP...O",
+        ".PPPPPPPPPPP..OO",
+        ".....YY......OOO",
+        "..COOCCOOOOOOOYO",
+        ".CCCOCCOOOOOO...",
+        "CCCCCOCOOOO.....",
+        "CCCCCOOOOOO.....",
+        "OOOOOOOOOOO.....",
+        "OOOOOOOOOO......",
+        ".YYYYYYYYY......",
+        "..OOOOOOO.......",
+        "...P....P.......",
+        "...P.....P......",
+        "OOOOOOOOOOOOO..."
+      ],
+      "source": { "picture": "helicopter", "colors": { "1": "orange", "2": "purple", "3": "cyan", "4": "yellow", "5": "yellow" } }
+    },
+    {
+      "name": "Camera",
+      "art": [
+        ".WWW.......WWWW.",
+        "WWWWWWWWWWWWWWWW",
+        "WWWWWWWppWWWWWWW",
+        "KKKKKppppppKKKKK",
+        "KKKKppKKKKppKKKK",
+        "KKKKpKKKKWKpKKKK",
+        "KKKKpKKKKKKpKKKK",
+        "KKKKpKKKKKKpKKKK",
+        "KKKKKpKKKKpKKKKK",
+        "KKKKKppppppKKKKK",
+        "WWWWWWWWWWWWWWWW"
+      ],
+      "source": { "picture": "camera", "colors": { "1": "black", "2": "white", "3": "purple" }, "hidden": ["3"] }
+    },
+    {
+      "name": "Alarm Clock",
+      "art": [
+        ".YYYY.....YYYY.",
+        "YYYYY.....YYYYY",
+        "YYYYY.RRR..YYYY",
+        "YYY.RRRRRRR.YYY",
+        "YY.RRRWWWRRRYYY",
+        "..RRWWWWWWWRR..",
+        "..RRWWWKWWWRR..",
+        ".RRWWWWKWWWWRR.",
+        ".RRWWWWKWWWWRR.",
+        ".RRWWWWKRWWWRR.",
+        ".RRWWWWWRRWWRR.",
+        "..RRWWWWWWWRR..",
+        "..RRRWWWWWRRR..",
+        "...RRRRRRRRR...",
+        "..WWWRRRRRWWW..",
+        ".WWWWWWWWWWWW..",
+        ".WWWWWWWWWWWW.."
+      ],
+      "source": { "picture": "alarm-clock", "colors": { "1": "white", "2": "red", "3": "yellow", "4": "black" } },
+      "lock": { "type": "frozen", "color": "green", "count": 35 }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "red", "charges": 31 },
+      { "color": "white", "charges": 40, "hidden": true },
+      { "color": "black", "charges": 38 },
+      { "color": "green", "charges": 35 },
+      { "color": "purple", "charges": 26 },
+      { "color": "white", "charges": 40 },
+      { "color": "yellow", "charges": 25 },
+      { "color": "black", "charges": 37 },
+      { "color": "cyan", "charges": 23 }
+    ],
+    [
+      { "color": "white", "charges": 40 },
+      { "color": "orange", "charges": 30 },
+      { "color": "red", "charges": 31, "link": "a" },
+      { "color": "black", "charges": 37 },
+      { "color": "green", "charges": 34 },
+      { "color": "blue", "charges": 6 },
+      { "color": "white", "charges": 39 },
+      { "color": "green", "charges": 34 },
+      { "color": "red", "charges": 31 }
+    ],
+    [
+      { "color": "orange", "charges": 29 },
+      { "color": "black", "charges": 37, "link": "a" },
+      { "color": "white", "charges": 39 },
+      { "color": "green", "charges": 34 },
+      { "color": "purple", "charges": 26, "hidden": true },
+      { "color": "orange", "charges": 29 },
+      { "color": "yellow", "charges": 25 },
+      { "color": "red", "charges": 30 }
+    ]
+  ]
+}

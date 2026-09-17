@@ -12,6 +12,7 @@ import { PICTURES } from '../art/pictures';
 import { previewLevel } from '../art/preview';
 import { LinkChain } from './LinkChain';
 import { ProgressShot } from './ProgressShot';
+import { Playtest, sendResults } from './analytics';
 import { chooseFirers, chooseTarget, isStuck, nextFront, sendBlocker, slotColumn } from '../rules/core';
 import { loadLevelNumber, saveLevelNumber } from './progress';
 import { Hud } from './Hud';
@@ -101,6 +102,7 @@ export class GameApp {
   private readonly scratch2 = new THREE.Vector3();
 
   private over: 'none' | 'win' | 'lose' = 'none';
+  private readonly playtest = new Playtest();
   private winReveal = 0;
   private rebuildTimer: number | undefined;
 
@@ -145,7 +147,15 @@ export class GameApp {
       onRestart: () => this.restart(),
       // A feature test level is not part of progress: Next returns to the player's level.
       onNext: () => this.goToLevel(this.isSideLevel() ? this.levelNumber : this.levelNumber + 1),
+      onSendResults: () => {
+        this.playtest.persist(this.pixelsLeft());
+        void sendResults().then((how) => {
+          if (how === 'empty') this.hud.flash('No results yet: play a level first');
+          else if (how === 'mail+clipboard') this.hud.flash('Results copied and saved: paste or attach them in the email');
+        });
+      },
     });
+    window.addEventListener('pagehide', this.onPageHide);
     if (new URLSearchParams(location.search).has('debug')) this.enableLevelPicker();
     this.feedback = new Feedback(this.world);
 
@@ -190,6 +200,14 @@ export class GameApp {
       this.isSideLevel() ? `· ${level.name}` : String(this.levelNumber),
       this.sandboxName ? `sandbox:${this.sandboxName}` : `level:${((this.levelNumber - 1) % LEVELS.length) + 1}`,
     );
+    const attempt = this.playtest.start({
+      level: this.isSideLevel() ? 0 : this.levelNumber,
+      file: this.level.file,
+      name: level.name,
+      pixelsTotal: level.boards.reduce((n, b) => n + b.art.join('').replace(/\./g, '').length, 0),
+      deckSlots: level.deckSlots,
+    });
+    if (level.hint && attempt === 1) this.hud.showIntro(level.hint);
 
     // --- carousel structure ---
     const ringGeo = new THREE.TorusGeometry(s.carouselRadius, 0.09, 12, 96);
@@ -382,6 +400,7 @@ export class GameApp {
 
   /** Rebuild the level from the current tuning. */
   restart() {
+    this.playtest.abandon(this.pixelsLeft());
     this.destroyWorld();
     this.buildWorld();
   }
@@ -574,6 +593,7 @@ export class GameApp {
       member.beginTravel();
     }
     this.feedback.note('tap');
+    this.playtest.send(this.deckOccupants.filter((o) => o === null).length);
   }
 
   /** A feature test level or art preview: outside the numbered levels and progress. */
@@ -643,6 +663,7 @@ export class GameApp {
 
   private tick(dt: number) {
     const s = this.settings;
+    if (this.over === 'none') this.playtest.tick(dt);
     this.reflowTime = Math.max(0, this.reflowTime - dt);
 
     // --- carousel spin ---
@@ -828,6 +849,12 @@ export class GameApp {
 
   /** The board nearest the camera. Focus is shown by the snap, not by scale. */
   private updateFocus() {
+    const previous = this.focused;
+    this.focusBoard();
+    if (previous && this.focused && previous !== this.focused && this.reflowTime === 0) this.playtest.boardChanged();
+  }
+
+  private focusBoard() {
     const spin = this.carousel.rotation.y;
     let best: Billboard | null = null;
     let bestOff = Infinity;
@@ -992,6 +1019,7 @@ export class GameApp {
     for (const bb of this.billboards) tiles += bb.aliveCount;
     if (tiles === 0) {
       this.over = 'win';
+      this.playtest.finish('win', 0);
       this.winReveal = 0.85;
       // Progress is kept the moment the level is won, even if the page closes before Next.
       if (!this.isSideLevel()) saveLevelNumber(this.levelNumber + 1);
@@ -1024,6 +1052,7 @@ export class GameApp {
     if (!isStuck(deckColors, this.firableColors(), anySendable)) return;
 
     this.over = 'lose';
+    this.playtest.finish('lose', tiles);
     this.hud.showEnd(
       false,
       queueEmpty && onDeck.length === 0
@@ -1082,7 +1111,15 @@ export class GameApp {
 
   // ------------------------------------------------------------------ teardown
 
+  private pixelsLeft() {
+    return this.billboards.reduce((n, b) => n + b.aliveCount, 0);
+  }
+
+  private readonly onPageHide = () => this.playtest.persist(this.pixelsLeft());
+
   dispose() {
+    this.playtest.abandon(this.pixelsLeft());
+    window.removeEventListener('pagehide', this.onPageHide);
     cancelAnimationFrame(this.rafId);
     window.clearTimeout(this.rebuildTimer);
     this.detachInput();

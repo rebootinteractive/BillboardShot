@@ -199,6 +199,18 @@ Replaying bot move lists in the real game gave the same result and the same rema
 pixel count in 18 of 18 playthroughs across the three hardest showcase levels. Play time is
 a rough estimate (1.5 s per move, 0.06 s per pixel) until playtests calibrate it.
 
+### Playtest data
+
+Every attempt at a level is recorded in the player's own browser (`src/game/analytics.ts`):
+level, attempt number, result (win, lose, or abandoned when restarted or left), active
+play time, containers sent, board changes, pixels left, and the tightest deck moment. The
+"Send results" button (top-left of the HUD, and on the win and lose screens) opens an email
+to admin@reboot.ist with the results as CSV. When the results are too long for a mail link
+they are also copied to the clipboard and downloaded as a file to paste or attach.
+
+These results calibrate the difficulty score: compare real win rates and attempts per level
+with the bots' win rates on the same levels.
+
 ### Curve across 40 levels
 
 A starting shape only; the curve is discussed in detail before the 40-level plan

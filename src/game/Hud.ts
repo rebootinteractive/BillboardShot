@@ -1,6 +1,7 @@
 export interface HudCallbacks {
   onRestart(): void;
   onNext(): void;
+  onSendResults(): void;
 }
 
 export interface LevelOption {
@@ -31,6 +32,7 @@ export class Hud {
         <div class="hud-stat"><span class="lbl">Containers</span><strong data-ammo>0</strong></div>
       </div>
       <div class="hud-hint" data-hint></div>
+      <button class="hud-send" data-send title="Email your playtest results to the team">✉ Send results</button>
     `;
     parent.appendChild(this.root);
     this.tilesEl = this.root.querySelector('[data-tiles]')!;
@@ -38,6 +40,24 @@ export class Hud {
     this.deckEl = this.root.querySelector('[data-deck]')!;
     this.hintEl = this.root.querySelector('[data-hint]')!;
     this.levelEl = this.root.querySelector('[data-level]')!;
+    this.root.querySelector('[data-send]')!.addEventListener('click', () => this.cb.onSendResults());
+  }
+
+  /** A one-line explanation of something new in this level, dismissed with "Got it". */
+  showIntro(text: string) {
+    if (this.modalEl) return;
+    const el = document.createElement('div');
+    el.className = 'modal';
+    el.innerHTML = `
+      <div class="modal-card intro">
+        <h2>Something new</h2>
+        <p></p>
+        <div class="modal-actions"><button class="btn" data-ok>Got it</button></div>
+      </div>`;
+    el.querySelector('p')!.textContent = text;
+    el.querySelector('[data-ok]')!.addEventListener('click', () => this.dismiss());
+    this.root.parentElement!.appendChild(el);
+    this.modalEl = el;
   }
 
   /** `value` marks the matching entry in the debug level picker, when it is enabled. */
@@ -104,9 +124,11 @@ export class Hud {
         <h1>${win ? 'Cleared!' : 'Stuck'}</h1>
         <p>${subtitle}</p>
         <div class="modal-actions">
+          <button class="btn ghost" data-send>✉ Send results</button>
           <button class="btn" data-action>${win ? 'Next level' : 'Try again'}</button>
         </div>
       </div>`;
+    el.querySelector('[data-send]')!.addEventListener('click', () => this.cb.onSendResults());
     el.querySelector('[data-action]')!.addEventListener('click', () => {
       this.dismiss();
       if (win) this.cb.onNext();

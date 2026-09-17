@@ -43,6 +43,8 @@ export interface BoardData {
 
 export interface LevelData {
   name: string;
+  /** A one-line explanation shown before the first attempt, e.g. for a new feature. */
+  hint?: string;
   deckSlots: number;
   /**
    * Size of one pixel in world units, overriding the tuning value. Used to try higher
@@ -69,6 +71,7 @@ export function validateLevel(level: LevelData, pictures: Map<string, Picture>):
   if (!Number.isInteger(level.deckSlots) || level.deckSlots < 1) errors.push('deckSlots must be a whole number of at least 1.');
   if (!Array.isArray(level.boards) || level.boards.length === 0) errors.push('A level needs at least one board.');
   if (level.cellSize !== undefined && !(level.cellSize > 0)) errors.push('cellSize must be a positive number.');
+  if (level.hint !== undefined && (typeof level.hint !== 'string' || !level.hint.trim())) errors.push('hint must be a non-empty string.');
   if (!Array.isArray(level.lanes) || level.lanes.length === 0) errors.push('A level needs at least one lane.');
   if (errors.length) return errors;
 

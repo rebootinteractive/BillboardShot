@@ -1,118 +1,100 @@
 {
-  "name": "Deep Sea Secrets",
+  "name": "Key to the Coop",
+  "hint": "The chicken is locked. Pull the key out of the sunflower to open it.",
   "deckSlots": 5,
   "boards": [
     {
-      "name": "Whale",
+      "name": "Sunflower",
       "art": [
-        "...cc.c.....B...",
-        "..cccccc....BB..",
-        "..cc.ccc...BB...",
-        ".....c....BBBB..",
-        ".....c...BB.BBB.",
-        "..BBBBBBB....BB.",
-        ".BBBBBBBBB...BBB",
-        "BBBBBBBBBBB..BBB",
-        "BBBBBBBBBBB..BBB",
-        "WWWWWWWBBBB..BBB",
-        "WWWWWWWWBBBBBBBB",
-        ".WWWWWWWWBBBBBBB",
-        ".WWWWWWWWBBBBBBB",
-        "..WWWWWWWBBBBBB.",
-        "..WWWWWWWBBBBBB.",
-        ".BBBWWWWWWBBBBB.",
-        ".....WWWWWW....."
+        "......Y......",
+        "...YYYYYYY...",
+        "...YYYYYYY...",
+        ".YYYYNNNYYYY.",
+        "YYYYNNNNNYYYY",
+        ".YYNNNNNNNYY.",
+        ".YYNNNNNNNYYY",
+        "YYYNNNNNNNYYY",
+        "YYYNNNNNNNYY.",
+        "..YYNNNNNYYY.",
+        ".YYYYYYYYYYY.",
+        "..Y.YYYYY....",
+        "....YYNYY....",
+        "......N......",
+        "..NNN.N.NNNN.",
+        "..NNNNNNNNN..",
+        "...NNNNNNN..."
       ],
-      "source": { "picture": "whale", "colors": { "1": "blue", "2": "white", "3": "cyan" }, "hidden": ["3"] }
+      "source": { "picture": "sunflower", "colors": { "1": "yellow", "2": "brown" } },
+      "keys": [{ "col": 6, "row": 3, "color": "gold" }]
     },
     {
-      "name": "Octopus",
+      "name": "Popcorn",
       "art": [
-        ".....pppppp.....",
-        "....pppppppp....",
-        "...pppppppppp...",
-        "...ppppppppppp..",
-        "..pppppppppppp..",
-        "..kppppppppppk..",
-        "..kppppppppppk..",
-        "...ppppppppppp..",
-        "..MppppppppppM..",
-        "..MMppppppppMM..",
-        "MMMMwppppppwwMMM",
-        ".MwwMMMMMMMMwwM.",
-        "..MMMMMMMMMMMM..",
-        "..MMMMMMMMMMMM..",
-        "..MMMMM..MMMMM.."
+        ".....YY.....",
+        "....YYYY....",
+        "...YYYYYYY..",
+        "..YYYYYYYY..",
+        "..YYYYYYYYY.",
+        ".YYYYYYYYYYY",
+        "RRWWYRRYWWRR",
+        "RRWWWRRWWWRR",
+        "RRWWWRRWWWRR",
+        "RRWWWRRWWWRR",
+        "RRRWWRRWWWRR",
+        "RRRWWRRWWRRR",
+        ".RRWWRRWWRR.",
+        ".RRWWRRWWRR.",
+        ".RRWWRRWWRR.",
+        ".RRWWRRWWRR.",
+        ".RRWWRRWWRR."
       ],
-      "source": { "picture": "octopus", "colors": { "1": "purple", "2": "pink", "3": "white", "4": "black" }, "hidden": ["1", "3", "4"] }
+      "source": { "picture": "popcorn", "colors": { "1": "red", "2": "white", "3": "yellow" } }
     },
     {
-      "name": "Tropical Fish",
+      "name": "Chicken",
       "art": [
-        "....CCCCCCYYY...",
-        "...CCCCCCCCYYY..",
-        "..PCCCCCCCCCYY..",
-        ".PPPCCCCCCCCCY..",
-        ".PPPPCCCCCCCCC..",
-        "PPPPPCCYYCCCCCYY",
-        "KPPPPCCYYCCCCCYY",
-        "KPPPPCCYYCCCCCYY",
-        ".PPPPCCCCCCCCCYY",
-        ".PPPCCCCCCCCCY..",
-        "..PCCCCCCCCCYY..",
-        "...CCCCCCCCYYY..",
-        "....CCCCCCYYY..."
+        ".........RRR....",
+        ".....RRRRRRRR...",
+        "....RRRRRRRRR...",
+        "....RRWWWWRRR...",
+        "...RRWWWWWWWO...",
+        "..RRWWWWWWWWWO..",
+        "...WWWWWWWWWWW..",
+        "..OWWWWWWWWWWW..",
+        ".OOWWOOWWWWWWWO.",
+        "OOOWWWWWWWWWWWO.",
+        "OOOWWWWWWWWWWWW.",
+        ".OOWWWWWWWWWWWW.",
+        ".RRWWWWWWWWWWWWO",
+        ".RRWWWWWWWWWWWWO",
+        "..RWWWWWWWWWWWWO",
+        "..OWWWWWWWWWWWWO",
+        "...OOOOOOOOOOOO."
       ],
-      "source": { "picture": "tropical-fish", "colors": { "1": "cyan", "2": "yellow", "3": "purple", "4": "black" } }
-    },
-    {
-      "name": "Crab",
-      "art": [
-        "..OO........OO..",
-        ".OOO.O....O.OOO.",
-        ".OOOOO....OOOOO.",
-        "..OOOO....OOOO..",
-        "...OO.K..K.OO...",
-        "....O.R..R.O....",
-        "...RRRRRRRRRR...",
-        ".R.RRRRRRRRRR.R.",
-        ".RRRRRRRRRRRRRR.",
-        "..RRRRRRRRRRRR..",
-        "RRRRRRRRRRRRRRRR",
-        "...RRRRRRRRRR...",
-        "..RR.RRRRRR.RR..",
-        "..R..RR..RR..R.."
-      ],
-      "source": { "picture": "crab", "colors": { "1": "red", "2": "orange", "3": "black" } },
-      "lock": { "type": "frozen", "color": "blue", "count": 38 }
+      "source": { "picture": "chicken", "colors": { "1": "white", "2": "red", "3": "orange", "4": "orange", "5": "orange", "6": "orange" } },
+      "lock": { "type": "key", "color": "gold" }
     }
   ],
   "lanes": [
     [
-      { "color": "blue", "charges": 38 },
-      { "color": "purple", "charges": 33, "hidden": true },
-      { "color": "cyan", "charges": 40 },
-      { "color": "red", "charges": 31, "link": "b" },
-      { "color": "white", "charges": 32 },
-      { "color": "black", "charges": 8 }
+      { "color": "brown", "charges": 34 },
+      { "color": "yellow", "charges": 40 },
+      { "color": "red", "charges": 35 },
+      { "color": "white", "charges": 37 },
+      { "color": "white", "charges": 37 }
     ],
     [
-      { "color": "pink", "charges": 29 },
-      { "color": "yellow", "charges": 32, "link": "a" },
-      { "color": "blue", "charges": 37 },
-      { "color": "purple", "charges": 33, "link": "b" },
-      { "color": "red", "charges": 31 },
-      { "color": "orange", "charges": 36 },
-      { "color": "cyan", "charges": 40 }
+      { "color": "yellow", "charges": 40 },
+      { "color": "red", "charges": 34 },
+      { "color": "brown", "charges": 33 },
+      { "color": "orange", "charges": 34 },
+      { "color": "white", "charges": 37 }
     ],
     [
-      { "color": "cyan", "charges": 39 },
-      { "color": "white", "charges": 32, "link": "a" },
-      { "color": "purple", "charges": 33 },
-      { "color": "pink", "charges": 28 },
-      { "color": "blue", "charges": 37, "hidden": true },
-      { "color": "purple", "charges": 32 },
-      { "color": "red", "charges": 30 }
+      { "color": "red", "charges": 34 },
+      { "color": "yellow", "charges": 40 },
+      { "color": "white", "charges": 37 },
+      { "color": "white", "charges": 37 }
     ]
   ]
 }
