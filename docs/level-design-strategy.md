@@ -2,7 +2,9 @@
 
 How the 40 levels are designed and produced. This is the reference for the
 level-designer agent and for the people reviewing its work. The rules of each level
-feature live in [level-features.md](level-features.md); this document covers everything
+feature live in [level-features.md](level-features.md), and the practical rules for
+building a good level (mechanics, traps, queue construction, recipes, checklist) live in
+[level-designer-rules.md](level-designer-rules.md); this document covers everything
 around them: limits, art, difficulty, pacing, and the production process.
 
 Status: decisions agreed. Items marked *(to verify)* are checked on screen in the phase

@@ -1,0 +1,260 @@
+# Level Designer Rules
+
+The rules a level designer, human or agent, follows to build BillboardShot levels that are
+fair, readable and hit a difficulty target. Read this together with
+[level-features.md](level-features.md) (exact feature rules and the level file format) and
+[level-design-strategy.md](level-design-strategy.md) (limits, art library, difficulty,
+production).
+
+Each rule is marked:
+
+- **[verified]**: confirmed by a test or seen while tuning the showcase levels.
+- **[hypothesis]**: reasoned from the rules but not yet measured. The simulator (Phase 4)
+  confirms or corrects these.
+
+When a rule and a measurement disagree, the measurement wins and this document is updated.
+
+---
+
+## 1. How the game really plays
+
+These are the mechanics every design decision rests on. Most level mistakes come from
+forgetting one of them.
+
+### Boards and pixels
+
+1. **Only the lowest pixel of each column can be pulled.** A pixel is reachable only
+   when everything below it in its column is gone. Empty cells (holes) in a column are
+   skipped, so a pixel above a hole is exposed if nothing solid is below it. [verified]
+2. **Only the board at the front is pulled from.** The player turns the carousel to
+   choose it. Containers on the deck never pull from boards at the side or back.
+   [verified]
+3. **A cleared board drops away** and the others close ranks around the ring. Pulling
+   pauses briefly while they move. [verified]
+4. **A locked or frozen board pulls nothing**, but it can still be turned to the front.
+   Mystery pixels on it still reveal if they are exposed. [verified]
+
+### Containers
+
+5. **Tapping anywhere on a lane sends that lane's head** to a free deck slot. Only the
+   first 4 containers of each lane are visible. [verified]
+6. **Only one container per color pulls at a time**: the one with the fewest charges left
+   (ties go to the lower slot). A second container of the same color on the deck just
+   waits, holding a slot. [verified]
+7. **A container pulls the lowest exposed pixel of its color** on the front board, one
+   pixel per charge, until it is full. It leaves the deck when full and its slot frees.
+   [verified]
+8. **Charges are zero-sum**: per color, the charges of all containers equal the pixels
+   of all boards. There is never a spare charge or a spare pixel. [verified]
+9. **A partly filled container stays on the deck** until its color shows up again on the
+   front board. This is how decks clog. [verified]
+
+### Winning and losing
+
+10. **Win**: every pixel collected.
+11. **Lose (stuck)**: nothing is in the air, no container is about to leave, no container
+    on the deck has a color exposed on any unlocked board, and no lane head can be sent
+    (no free slot, or a linked partner is not ready). See level-features.md. [verified]
+12. **A stuck deck is the only way to lose.** Difficulty is therefore always about slots:
+    how often the player must hold containers that cannot pull yet. [verified]
+
+---
+
+## 2. Difficulty levers
+
+From strongest to weakest, as currently understood.
+
+1. **Deck slots.** One slot changes everything: Deep Sea Secrets went from a 77–93% rough
+   bot win rate at 5 slots to 5–20% at 4, with the same boards and queue. Change slots
+   last and in single steps. [verified]
+2. **Queue order.** Every container that arrives before its color is reachable must park.
+   Putting the first container of a buried or locked color early is the most precise way
+   to add difficulty. [verified]
+3. **Colors that wait for an unlock.** A color that exists only on a locked or frozen board
+   cannot be pulled until that board opens. Each such container that reaches the deck early
+   parks for a long time. [verified]
+4. **Number of colors.** More colors means more distinct containers competing for slots.
+   [hypothesis]
+5. **Color spread across boards.** A color on several boards can be pulled from more
+   places, which is easier to use but makes the player turn the carousel more.
+   [hypothesis]
+6. **Container sizes.** Large containers stay on the deck longer; sizes that don't match
+   the exposed pixels leave partly filled containers. [hypothesis]
+7. **Lanes.** Fewer lanes give fewer choices of what to send next. [hypothesis]
+8. **Hidden information** (mystery pixels, hidden containers). Adds uncertainty rather than
+   hard constraints; its weight depends on how much the hidden part matters to the order.
+   [hypothesis]
+
+---
+
+## 3. Queue construction
+
+### Gating colors
+
+- **A board's bottom color gates everything above it.** If the lowest row of a board is all
+  one color, nothing on that board is reachable until a container of that color comes.
+  That container must arrive in time, or every other container for that board parks. In
+  Key to the Coop, the chicken's orange feet blocked the whole chicken while the only
+  orange container was late in its lane, and the deck clogged. [verified]
+- Before placing containers, list for each board which colors are exposed at the start and
+  which colors each group rests on (the art library's facts give this). [verified]
+
+### Colors that wait for an unlock
+
+- **Never place the first container of a locked-only color early** unless the level is
+  meant to be very hard. [verified]
+- **A pixel override must not use a locked-only color** on an unlocked board. It forces a
+  container to pull one pixel and then park until the unlock. In Night Market this made the
+  level effectively unwinnable (0 wins in 60 rough-bot runs) until the overrides used colors
+  available from the start. [verified]
+- When a color is split between an open board and a locked board, the first containers of
+  that color can fill from the open board; later ones must wait. Order them so the waiting
+  ones come after the unlock is likely. [verified]
+
+### Small pieces and leftovers
+
+- **Avoid tiny color pieces (under ~8 pixels) in their own color**, especially buried or
+  on locked boards. They create small containers that fill slowly and park. Merge them into
+  a neighboring group's color instead (the chicken's eye and beak became orange). [verified]
+- A container holds 3–40 charges (level limits), so a color with fewer than 3 pixels cannot
+  have its own container. The level checker does not enforce this range yet; the designer
+  must. [verified]
+
+### Same-color containers
+
+- **Don't queue two containers of the same color back to back** unless enough of that color
+  is exposed to fill both. The second one waits (rule 6) and holds a slot. [hypothesis]
+
+### Charges
+
+- Split a color's pixels evenly across its containers (3–40 each). [verified]
+- More, smaller containers mean more sends and more slot pressure; fewer, larger containers
+  mean longer stays on the deck. Pick the split, don't default to the maximum.
+  [hypothesis]
+
+---
+
+## 4. Feature rules and traps
+
+### Mystery pixels
+
+- **A mystery group only stays hidden if every pixel in it has a pixel beneath it.** Any
+  pixel that is the lowest in its column at the start reveals at once and floods the whole
+  group. Use the art library's "mystery candidate" fact. [verified]
+- The flood passes through same-color pixels, visible or hidden, up/down/left/right.
+  Coloring a hidden group the same as a touching visible group joins them into one flood
+  region. [verified]
+- A single override pixel of another color inside a hidden group stays hidden when the
+  group floods open, because the flood only follows the group's own color. It reveals on
+  its own when it becomes the lowest in its column. [verified]
+- Hide groups that rest on a visible color, like the octopus body above its tentacles or a
+  lion's muzzle inside its mane. A hidden group that reaches the bottom edge is wasted.
+  [verified]
+
+### Key and locked board
+
+- **Key depth is the difficulty.** The number of pixels beneath the key in its column, and
+  the colors they need, decide how long the lock stays. A key at the bottom opens at once;
+  a key at the top of a board's center (Key to the Coop) needs most of that board cleared.
+  [verified]
+- The board unlocks when the key pixel **lands**, about three quarters of a second after it
+  is pulled. [verified]
+- Every key color has exactly one key and one lock, a key is never on the board it opens,
+  and locks never form a loop. The checker enforces this. [verified]
+- Check rule 3 in section 2: the locked board's colors wait for the key. [verified]
+
+### Frozen billboard
+
+- **Only finished containers count.** A container of the frozen color counts its full
+  capacity when it leaves the deck, never while filling. [verified]
+- **Every pixel in such a container comes from other boards while the board is frozen.** So
+  some set of that color's containers must fill completely from other boards and add up to
+  the count. The checker enforces this. [verified]
+- A large container of the frozen color that cannot be filled from open boards never
+  counts, and a player who sends it may get stuck. Size those containers to what the open
+  boards hold. [verified]
+- In Deep Sea Secrets the crab thaws after one blue container (38) finishes on the whale.
+  One container's worth is a gentle count; counts that need several finished containers
+  push the player hard toward one color. [verified]
+
+### Linked containers
+
+- Sending needs both partners at the head of their lanes and two free slots. On a tight
+  deck, a link is a real constraint. [verified]
+- **Keep partners at similar depths.** A partner buried deep blocks the other lane, and the
+  player may not see why. [hypothesis]
+- **Links can deadlock** each other (A waits behind C, C is linked to a container waiting
+  behind A). Always run the simulator. [hypothesis: follows from the send rules, not yet
+  observed]
+
+### Hidden containers
+
+- A hidden container reveals only at the head of its lane, so it hides one step of
+  lookahead, not the next move. [verified]
+- Two or more hidden containers in a row make a lane a gamble. Use them one at a time.
+  [hypothesis]
+
+---
+
+## 5. Art and colors
+
+- **Pick approved library pictures.** Never draw art inside a level. [verified]
+- **Recognizable first**: use a group's suggested colors unless there is a design reason.
+  A picture that no longer reads as its subject is a bad trade even for difficulty.
+  [verified]
+- **Pixel overrides** (a single odd pixel) are a strong lever: the pixel blocks its column
+  until its color comes. Use a color that is available at that time (section 3). Keep
+  overrides few, 1–3 per board. [verified]
+- **Merging groups** by giving touching groups the same color makes one larger region: one
+  flood, one pulling surface. [verified]
+- **Colors that read close** (brown/orange, lime/green, black/purple, white/mystery gray)
+  are distinguishable but slower to read. Placing them next to each other is a mild
+  difficulty lever, not a trick. [verified: distinguishable; hypothesis: slows players]
+- With 5–6 boards, prefer pictures with a silhouette over full rectangles; the carousel
+  gets crowded. [verified]
+
+---
+
+## 6. Difficulty recipes
+
+Starting points taken from the showcase levels. Rough bot numbers are from the current test
+bot, which plays worse than a thoughtful person and sees hidden colors; treat them as an
+order, not real difficulty, until Phase 4.
+
+| Band | Example | Boards | Colors | Slots | Features | Rough bot win rate |
+|---|---|---|---|---|---|---|
+| Very easy | Fruit Stand | 2 | 3 | 6 | none | 100% |
+| Easy | Garden Party | 3 | 5 | 5 | a couple of hidden containers | 100% |
+| Medium | Key to the Coop | 3 | 5 | 5 | one key lock, key high on its board | ~90% |
+| Hard | Deep Sea Secrets | 4 | 9 | 5 | mystery groups, frozen board, 2 links, hidden containers | ~60–75% |
+| Very hard | Night Market | 5 | 12 | 5 | key lock, mystery groups, overrides, links, hidden containers | ~10% |
+
+Rules of thumb:
+
+- **Easy**: every early container's color is exposed at the start; buried colors come late;
+  no locked-only colors.
+- **Medium**: one lock or frozen board; its colors come after the unlock is likely; one or
+  two containers that must park briefly.
+- **Hard**: several colors that wait for something; a few deliberately early buried
+  containers; links on a 5-slot deck.
+- **Very hard**: many colors on 5 slots; overrides that block key columns; the player must
+  plan which containers to hold.
+
+---
+
+## 7. Checklist before a level is done
+
+1. The level checker passes: art matches source, charges are zero-sum, keys and locks pair
+   up, frozen counts are reachable, links are valid. Every container holds 3–40 charges
+   (not yet checked automatically).
+2. Pixels are within the level cap, and the level stays within the board, color, lane and
+   slot limits.
+3. Every mystery group is a mystery candidate (nothing hidden reveals at the start).
+4. For every board, the container of its bottom color arrives in time.
+5. No override uses a color that only exists behind a lock.
+6. No color piece under ~8 pixels has its own color unless it is intended.
+7. Locked-only colors come after their unlock is likely, unless the level aims to be very
+   hard.
+8. The simulator finds a winning line, and the difficulty score lands in the target band.
+9. Play it once, or watch a replay: does the picture still read, and does the hard part feel
+   like a decision rather than a trap?
