@@ -97,6 +97,15 @@ pulling is expensive.
 
 ## 3. Queue construction
 
+### The opening
+
+- **The first containers of each lane matter most.** Playtesters lost mostly within their
+  first ten sends, with most of the level still standing: people start by sending what is
+  at the front of the lanes, before checking whether it can pull. A container at the front
+  whose color is buried, locked or scattered is a much bigger trap for people than for a
+  careful solver. Put traps there only on purpose, and expect a large difficulty jump.
+  [verified: two playtesters; the simulator's average bot models this opening rush]
+
 ### Gating colors
 
 - **A board's bottom color gates everything above it.** If the lowest row of a board is all

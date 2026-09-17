@@ -21,7 +21,7 @@ const runsAt = args.indexOf('--runs');
 const runs = runsAt >= 0 ? Number(args.splice(runsAt, 2)[1]) : 100;
 const dir = path.join(root, 'playtest');
 const files = args.length ? args.map((f) => path.resolve(f)) : fs.existsSync(dir)
-  ? fs.readdirSync(dir).filter((f) => /\.(txt|csv)$/.test(f)).map((f) => path.join(dir, f)) : [];
+  ? fs.readdirSync(dir).filter((f) => !f.startsWith('.') && fs.statSync(path.join(dir, f)).isFile()).map((f) => path.join(dir, f)) : [];
 if (!files.length) {
   console.log('No results files. Put exports in playtest/ or pass file paths.');
   process.exit(0);
@@ -34,7 +34,7 @@ for (const file of files) {
   const headerAt = lines.findIndex((l) => l.startsWith('level,file'));
   if (headerAt < 0) { console.warn(`Skipping ${path.basename(file)}: no results header.`); continue; }
   const header = lines[headerAt].split(',');
-  const player = path.basename(file).replace(/\.(txt|csv)$/, '');
+  const player = path.basename(file).replace(/\.[a-z]+$/i, '');
   for (const line of lines.slice(headerAt + 1)) {
     if (!/^\d+,/.test(line)) continue;
     const cells = line.split(',');

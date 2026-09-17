@@ -190,7 +190,14 @@ on specific ones (`--runs`, `--careful`, `--json <file>`, `--notes`). The code l
   unaccounted for, as a player could. They also have lapses (average 6% of moves, careful
   2%): a moment of inattention where they send whatever is at the front of a lane. Real
   players do this, so a level where one careless send clogs the deck scores harder than
-  one that forgives it. The lapse rate is a calibration dial for playtest data.
+  one that forgives it.
+  The average bot also has an **opening rush**: for its first 8 sends it lapses at 50%.
+  Playtesters mostly lost within their first ten sends, with most pixels still standing,
+  because they sent the containers at the front of the lanes before checking whether they
+  could pull. Fitting this to the first two playtesters raised the rank match between the
+  bot's and the players' per-attempt win rates on levels 3–10 from 0.46 to about 0.7 and
+  cut the average gap from 22 to 16 points. Both settings are calibration dials
+  (`PLANNERS` in `src/rules/bots.ts`) to refit as more playtest data arrives.
 - `solver.ts`: a search that sees everything and proves a level can be won.
 - `lint.ts`: automatic checks from docs/level-designer-rules.md.
 - `report.ts`: all of the above per level.
