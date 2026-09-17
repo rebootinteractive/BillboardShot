@@ -151,7 +151,7 @@ export class GameApp {
         this.playtest.persist(this.pixelsLeft());
         void sendResults().then((how) => {
           if (how === 'empty') this.hud.flash('No results yet: play a level first');
-          else if (how === 'mail+clipboard') this.hud.flash('Results copied and saved: paste or attach them in the email');
+          else if (how === 'mail-partial') this.hud.flash('Too many results for one email: please attach the saved file');
         });
       },
     });
