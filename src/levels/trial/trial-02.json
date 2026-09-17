@@ -1,0 +1,86 @@
+{
+  "name": "Flower Patch",
+  "boards": [
+    {
+      "name": "Sunflower",
+      "art": [
+        "......Y......",
+        "...YYYYYYY...",
+        "...YYYYYYY...",
+        ".YYYYNNNYYYY.",
+        "YYYYNNNNNYYYY",
+        ".YYNNNNNNNYY.",
+        ".YYNNNNNNNYYY",
+        "YYYNNNNNNNYYY",
+        "YYYNNNNNNNYY.",
+        "..YYNNNNNYYY.",
+        ".YYYYYYYYYYY.",
+        "..Y.YYYYY....",
+        "....YYNYY....",
+        "......N......",
+        "..NNN.N.NNNN.",
+        "..NNNNNNNNN..",
+        "...NNNNNNN..."
+      ],
+      "source": { "picture": "sunflower", "colors": { "1": "yellow", "2": "brown" } }
+    },
+    {
+      "name": "Tulip",
+      "art": [
+        "MM..M..MM",
+        "MMMMMMMMM",
+        "MMMMMMMMM",
+        "MMMMMMMMM",
+        "MMMMMMMMM",
+        "MMMMMMMMM",
+        "MMMMMMMMM",
+        ".MMMMMMM.",
+        "..MMMMM..",
+        "....M....",
+        "....G....",
+        ".G..G.GG.",
+        "GGGGGGGGG",
+        ".GGGGGGG."
+      ],
+      "source": { "picture": "tulip", "colors": { "1": "pink", "2": "green", "3": "pink" } }
+    },
+    {
+      "name": "Cactus",
+      "art": [
+        ".....GGG.....",
+        "....GNGGG....",
+        "....GNGGG..NG",
+        "....GNGGG.GGG",
+        "GG..GNGGG.GGG",
+        "GNG.GNGGGGGNG",
+        "GNG.GGGGGGNG.",
+        "GNG.GGGGGGG..",
+        "GNG.GNGGG....",
+        "GGGGGNGGG....",
+        ".GGGNNGGG....",
+        "...GGNGGG....",
+        "....GNGGG....",
+        "....GNGGG...."
+      ],
+      "source": { "picture": "cactus", "colors": { "1": "green", "2": "brown" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "yellow", "charges": 39 },
+      { "color": "yellow", "charges": 38 },
+      { "color": "pink", "charges": 36 },
+      { "color": "pink", "charges": 36 }
+    ],
+    [
+      { "color": "brown", "charges": 29 },
+      { "color": "brown", "charges": 29 },
+      { "color": "brown", "charges": 28 }
+    ],
+    [
+      { "color": "green", "charges": 37 },
+      { "color": "green", "charges": 36 },
+      { "color": "green", "charges": 36 }
+    ]
+  ]
+}

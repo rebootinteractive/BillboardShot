@@ -1,0 +1,13 @@
+{
+  "id": "trial-04",
+  "name": "Snow Day",
+  "intent": "Hard. The pine tree is frozen until a white container finishes; the penguin's belly is hidden; one blue odd pixel low in the snowman blocks a column until a scarf-blue container comes.",
+  "target": { "min": 0.2, "max": 0.35 },
+  "lanes": 3,
+  "boards": [
+    { "picture": "penguin", "colors": { "1": "white", "2": "black", "3": "orange" }, "hidden": ["1"] },
+    { "picture": "snowman", "colors": { "1": "white", "2": "blue", "3": "cyan", "4": "black", "5": "orange" }, "overrides": [{ "group": "1", "pick": "lowest", "color": "blue" }] },
+    { "picture": "pine-tree", "colors": { "1": "green", "2": "lime", "3": "brown" }, "lock": { "type": "frozen", "color": "white", "count": 38 } }
+  ],
+  "queue": { "hidden": 1 }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "trial-02",
+  "name": "Flower Patch",
+  "intent": "Easy breather with no features. Three plants in four shared colors, so almost every early container has something to pull.",
+  "target": { "min": 0.85, "max": 1.0 },
+  "lanes": 3,
+  "boards": [
+    { "picture": "sunflower", "colors": { "1": "yellow", "2": "brown" } },
+    { "picture": "tulip", "colors": { "1": "pink", "2": "green", "3": "pink" } },
+    { "picture": "cactus", "colors": { "1": "green", "2": "brown" } }
+  ]
+}

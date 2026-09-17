@@ -1,0 +1,93 @@
+{
+  "name": "Space Station",
+  "boards": [
+    {
+      "name": "Alien",
+      "art": [
+        ".....GGGGGG.....",
+        "...GGGGGGGGGG...",
+        "..GGGGGGGGGGGG..",
+        ".GGGGGGGGGGGGGG.",
+        ".GGGGGGGGGGGGGG.",
+        "GGGkkkGGGGGkkGGG",
+        "GGkkWWkGGkkkWWkG",
+        "GkkkkWkGGkkkWWkG",
+        "GkkkkkkGGkkkkkkG",
+        "GGkkkkkGGkkkkkGG",
+        ".GGkkkkGGkkkkGG.",
+        ".GGGGGGGGGGGGGG.",
+        "..GGGGGGGGGGGG..",
+        "...GGGGkkkGGG...",
+        "....GGGGGGGG....",
+        "......GGGG......"
+      ],
+      "source": { "picture": "alien", "colors": { "1": "green", "2": "black", "3": "white" }, "hidden": ["2"] }
+    },
+    {
+      "name": "Rocket",
+      "art": [
+        ".............RR.",
+        "..........RRRRRR",
+        ".........RWWWRRR",
+        ".......RWWWWWWRR",
+        "......RWWCCCCWW.",
+        ".....RWWWCCCCWR.",
+        "....RWWWWWCCWW..",
+        "...RWWWWWWWWWR..",
+        ".RRRWWWWWWWWR...",
+        ".RRRRRRRWWWR....",
+        "..RRRRRWWWR.....",
+        "..KRRRRWWR......",
+        ".OOKRRRRR.......",
+        "OOOOKRRRR.......",
+        "OOOOK.RR........",
+        "OOO....R........"
+      ],
+      "source": { "picture": "rocket", "colors": { "1": "red", "2": "white", "3": "orange", "4": "cyan", "5": "cyan", "6": "black" } }
+    },
+    {
+      "name": "Robot",
+      "art": [
+        "..............RR",
+        ".....OOOOOO...RR",
+        "...WWWWWWWWWW.R.",
+        "..WWWWWWWWWWWWR.",
+        ".WWWWWWWWWWWWWW.",
+        ".WKKKKKKKKKKKKW.",
+        "RWKKCKKKKKKCKKWR",
+        "RWKKCKKKKKKCKKWR",
+        "RWKKKKKKKKKKKKWR",
+        "RWWWWWWWWWWWWWWR",
+        "RWWWWWWWWWWWWWWR",
+        "RWWWWWWWWWWWWWWR",
+        ".WWWWWKKKKWWWWW.",
+        ".WWWWWKKKKWWWWW.",
+        "..WWWWWWWWWWWW..",
+        "...WWWWWWWWWW..."
+      ],
+      "source": { "picture": "robot", "colors": { "1": "white", "2": "black", "3": "red", "4": "orange", "5": "cyan" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "white", "charges": 37 },
+      { "color": "red", "charges": 37 },
+      { "color": "white", "charges": 36 },
+      { "color": "green", "charges": 34 },
+      { "color": "cyan", "charges": 14 },
+      { "color": "orange", "charges": 19, "link": "a" },
+      { "color": "white", "charges": 37 },
+      { "color": "white", "charges": 37 }
+    ],
+    [
+      { "color": "black", "charges": 37 },
+      { "color": "green", "charges": 34 },
+      { "color": "red", "charges": 37 },
+      { "color": "white", "charges": 37 },
+      { "color": "black", "charges": 36 },
+      { "color": "green", "charges": 34 },
+      { "color": "black", "charges": 37, "link": "a" },
+      { "color": "green", "charges": 35 }
+    ]
+  ]
+}

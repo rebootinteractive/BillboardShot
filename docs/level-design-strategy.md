@@ -269,6 +269,6 @@ Each phase ends with a review. The next phase starts only after approval.
 | 2 | Layout at the limits | Look on screen; confirm or lower the limits |
 | 3 | Art library, analyzer, `?gallery` | Approve or reject each picture, in batches |
 | 4 | Rules module, simulator, bots, difficulty score | Play levels; calibrate the score |
-| 5 | Designer workflow and report card; hint card | Review 3–5 trial levels |
+| 5 | Designer workflow (`npm run level`, [level-designer-workflow.md](level-designer-workflow.md)): briefs, builder, tuner, report cards; hint card | Review 3–5 trial levels |
 | 6 | Detailed difficulty-curve discussion, then the 40-level plan | Approve the plan before generation |
 | 7 | Levels in batches of 5–10 | Play each batch; feedback updates this document |
