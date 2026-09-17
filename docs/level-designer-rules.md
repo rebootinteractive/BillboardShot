@@ -68,20 +68,25 @@ From strongest to weakest, as currently understood.
    bot win rate at 5 slots to 5–20% at 4, with the same boards and queue. Change slots
    last and in single steps. [verified]
 2. **Queue order.** Every container that arrives before its color is reachable must park.
-   Putting the first container of a buried or locked color early is the most precise way
-   to add difficulty. [verified]
-3. **Colors that wait for an unlock.** A color that exists only on a locked or frozen board
+   Putting the first container of a buried or locked color early is a precise way to add
+   difficulty. [verified]
+3. **Odd pixels.** A single pixel of another color placed inside a picture blocks its
+   column until a container of that color comes to that board. It is the most plannable
+   lever: its position, color and timing can be chosen pixel by pixel, and its effect can
+   be counted before anyone plays (section 3). Used carelessly it becomes a trap.
+   [verified: blocking and trap cases; hypothesis: strength relative to other levers]
+4. **Colors that wait for an unlock.** A color that exists only on a locked or frozen board
    cannot be pulled until that board opens. Each such container that reaches the deck early
    parks for a long time. [verified]
-4. **Number of colors.** More colors means more distinct containers competing for slots.
+5. **Number of colors.** More colors means more distinct containers competing for slots.
    [hypothesis]
-5. **Color spread across boards.** A color on several boards can be pulled from more
+6. **Color spread across boards.** A color on several boards can be pulled from more
    places, which is easier to use but makes the player turn the carousel more.
    [hypothesis]
-6. **Container sizes.** Large containers stay on the deck longer; sizes that don't match
+7. **Container sizes.** Large containers stay on the deck longer; sizes that don't match
    the exposed pixels leave partly filled containers. [hypothesis]
-7. **Lanes.** Fewer lanes give fewer choices of what to send next. [hypothesis]
-8. **Hidden information** (mystery pixels, hidden containers). Adds uncertainty rather than
+8. **Lanes.** Fewer lanes give fewer choices of what to send next. [hypothesis]
+9. **Hidden information** (mystery pixels, hidden containers). Adds uncertainty rather than
    hard constraints; its weight depends on how much the hidden part matters to the order.
    [hypothesis]
 
@@ -111,14 +116,69 @@ From strongest to weakest, as currently understood.
   that color can fill from the open board; later ones must wait. Order them so the waiting
   ones come after the unlock is likely. [verified]
 
-### Small pieces and leftovers
+### Odd pixels: a deliberate difficulty layer
 
-- **Avoid tiny color pieces (under ~8 pixels) in their own color**, especially buried or
-  on locked boards. They create small containers that fill slowly and park. Merge them into
-  a neighboring group's color instead (the chicken's eye and beak became orange). [verified]
-- A container holds 3–40 charges (level limits), so a color with fewer than 3 pixels cannot
-  have its own container. The level checker does not enforce this range yet; the designer
-  must. [verified]
+A library picture is only a source. A level can change any single pixel to another color
+with a pixel override (see level-design-strategy.md), without touching the library. Small,
+independent pixels of another color are one of the strongest and most controllable ways to
+shape difficulty. Plan every one of them.
+
+**What an odd pixel does** [verified]
+
+- It blocks its column: nothing above it can be pulled until a container of its color is on
+  the deck while that board is at the front.
+- Its container has to come to that board for it. If that color is barely present on the
+  board, the container pulls the one pixel and then has to wait for its color elsewhere,
+  holding a slot (rule 9).
+- It changes the charge totals: its color gains one pixel and the group it replaced loses
+  one. Recount containers after placing overrides.
+
+**Three dials set its strength** [hypothesis until measured]
+
+1. **Position in the column.**
+   - Low in a tall column: many pixels above are blocked. Strong.
+   - Near the top: few pixels blocked. Mild.
+   - At the bottom of its column: exposed from the start, so its color is needed early.
+   Count the pixels above it: that is the number of pixels it holds hostage.
+2. **Color.**
+   - A color that is common and arrives early: mild, almost a speed bump.
+   - A color whose containers come late: strong, because the column stays blocked longer.
+   - A color that exists only behind a lock: a trap (below).
+3. **Count and pattern.**
+   - One odd pixel: a single decision.
+   - Two odd pixels in the same column in different colors: forces an order, X before Y.
+   - An odd pixel directly below a key: the unlock now also waits for that color. A very
+     precise way to set key depth.
+   - A color that exists only as odd pixels scattered across boards (at least 3 in total):
+     one container has to visit several boards to fill. Strong planning pressure.
+
+**Using them carefully** [verified unless marked]
+
+- **Never use a color that only exists behind a lock** on an unlocked board. The container
+  pulls one pixel and parks until the unlock. In Night Market this made the level
+  effectively unwinnable until the odd pixels used colors available from the start.
+- **Know which container takes it and when.** The container of that color that is on the
+  deck when the pixel becomes reachable is the one that pays. If it arrives long before,
+  it parks.
+- **Keep the picture readable.** Keep odd pixels off defining features such as eyes, and
+  usually 1–3 per board. Very hard levels can use more if the picture still reads.
+  [hypothesis]
+- **Hidden odd pixels** inside a mystery group stay hidden when the group floods open, and
+  reveal only when they become the lowest in their column. The player cannot plan for them,
+  so use them rarely. [verified: behavior; hypothesis: feel]
+
+### Accidental small pieces
+
+Small color pieces already in a picture (an eye, a beak, a 2-pixel highlight) behave exactly
+like odd pixels. Decide about each one on purpose: keep it as a difficulty layer, or merge
+it into a neighboring group's color.
+
+- The chicken's 2-pixel eye and 6-pixel beak in Key to the Coop had their own colors, sat
+  on a locked board, and their containers came before the unlock, so they parked. They were
+  merged into orange. The problem was the timing, not the size. [verified]
+- A container holds 3–40 charges (level limits), so a color needs at least 3 pixels in the
+  whole level to have a container. The level checker does not enforce this range yet; the
+  designer must. [verified]
 
 ### Same-color containers
 
@@ -202,9 +262,9 @@ From strongest to weakest, as currently understood.
 - **Recognizable first**: use a group's suggested colors unless there is a design reason.
   A picture that no longer reads as its subject is a bad trade even for difficulty.
   [verified]
-- **Pixel overrides** (a single odd pixel) are a strong lever: the pixel blocks its column
-  until its color comes. Use a color that is available at that time (section 3). Keep
-  overrides few, 1–3 per board. [verified]
+- **Pixel overrides** are a deliberate difficulty layer, not decoration. Plan their
+  position, color and count as described in section 3, and keep the picture readable.
+  [verified]
 - **Merging groups** by giving touching groups the same color makes one larger region: one
   flood, one pulling surface. [verified]
 - **Colors that read close** (brown/orange, lime/green, black/purple, white/mystery gray)
@@ -232,13 +292,14 @@ order, not real difficulty, until Phase 4.
 Rules of thumb:
 
 - **Easy**: every early container's color is exposed at the start; buried colors come late;
-  no locked-only colors.
+  no locked-only colors; no odd pixels, or one near the top of a column in a common color.
 - **Medium**: one lock or frozen board; its colors come after the unlock is likely; one or
-  two containers that must park briefly.
+  two containers that must park briefly; a few odd pixels in colors that arrive early.
 - **Hard**: several colors that wait for something; a few deliberately early buried
-  containers; links on a 5-slot deck.
-- **Very hard**: many colors on 5 slots; overrides that block key columns; the player must
-  plan which containers to hold.
+  containers; links on a 5-slot deck; odd pixels low in tall columns, or two in one column
+  to force an order.
+- **Very hard**: many colors on 5 slots; odd pixels under keys or scattered as a color that
+  must be collected from several boards; the player must plan which containers to hold.
 
 ---
 
@@ -251,8 +312,10 @@ Rules of thumb:
    slot limits.
 3. Every mystery group is a mystery candidate (nothing hidden reveals at the start).
 4. For every board, the container of its bottom color arrives in time.
-5. No override uses a color that only exists behind a lock.
-6. No color piece under ~8 pixels has its own color unless it is intended.
+5. Every odd pixel is planned: you know how many pixels it blocks, which container takes
+   it and when, and its color is not one that only exists behind a lock.
+6. Every accidental small color piece (under ~8 pixels) was either kept on purpose as a
+   difficulty layer or merged into a neighboring color.
 7. Locked-only colors come after their unlock is likely, unless the level aims to be very
    hard.
 8. The simulator finds a winning line, and the difficulty score lands in the target band.
