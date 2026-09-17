@@ -94,11 +94,20 @@ interface PlannerSettings {
    * lapse with a stuck deck is harder for people than for a flawless bot.
    */
   lapse: number;
+  /**
+   * The opening rush: for the first `openingSends` sends, players tend to send what is at
+   * the front of the lanes before checking whether it can pull. Lapses happen at
+   * `openingLapse` instead of `lapse` during that stretch.
+   */
+  openingSends: number;
+  openingLapse: number;
 }
 
-const PLANNERS: Record<'average' | 'careful', PlannerSettings> = {
-  average: { candidates: 3, rollouts: 1, depth: 10, impulse: 0.25, lapse: 0.06 },
-  careful: { candidates: 5, rollouts: 3, depth: 40, impulse: 0, lapse: 0.02 },
+/** Bot settings. Exported so calibration against playtest data can adjust them. */
+export const PLANNERS: Record<'average' | 'careful', PlannerSettings> = {
+  // Opening rush fitted to the first two playtesters (2026-09-17): 8 sends at 50%.
+  average: { candidates: 3, rollouts: 1, depth: 10, impulse: 0.25, lapse: 0.06, openingSends: 8, openingLapse: 0.5 },
+  careful: { candidates: 5, rollouts: 3, depth: 40, impulse: 0, lapse: 0.02, openingSends: 0, openingLapse: 0 },
 };
 
 /** Choose a move from the player's view of the state. */
@@ -117,7 +126,8 @@ export function chooseMove(bot: BotName | 'greedy', view: State, rng: Rng): Move
   }
   if (bot === 'greedy') return softmaxPick(moves, scores, 0.7, rng);
   const plan = PLANNERS[bot];
-  if (rng() < plan.lapse) {
+  const lapse = view.stats.sends < plan.openingSends ? plan.openingLapse : plan.lapse;
+  if (rng() < lapse) {
     const sends = all.filter((m) => m.type === 'send');
     const pool = sends.length ? sends : all;
     return pool[Math.floor(rng() * pool.length)];
