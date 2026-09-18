@@ -1,0 +1,120 @@
+{
+  "name": "Garden Shade",
+  "boards": [
+    {
+      "name": "Rosette",
+      "art": [
+        "......RRR......",
+        ".....RRRRR.....",
+        "..RR.RRRRR.RR..",
+        "..RRRoooooRRR..",
+        "..RRoooooooRR..",
+        "..RoooooooooR..",
+        "RRRoooYYYoooRRR",
+        "RRRoooYYYoooRRR",
+        "RRRoooYYYoooRRR",
+        "..RoooooooooR..",
+        "..RRoooooooRR..",
+        "..RRRoooooRRR..",
+        "..RR.RRRRR.RR..",
+        ".....RRRRR.....",
+        "......RRR......"
+      ],
+      "source": { "picture": "rosette", "colors": { "1": "red", "2": "orange", "3": "yellow" }, "hidden": ["2"] }
+    },
+    {
+      "name": "Honeybee",
+      "art": [
+        "........WWW.....",
+        ".......WWWWW....",
+        "......WWWWWW....",
+        ".....WWWWWWW....",
+        ".K..YWWWWWWK....",
+        ".KKYYYKKKYYKK...",
+        "KKKKYYKKKYYKKK..",
+        "KKKKYYKKKYYKKKY.",
+        "KKKKYYKKKYYKKKY.",
+        "KKKKYYKKKYYKKK..",
+        ".KKKYYKKKYYKK...",
+        "...YYYKKKYYKK...",
+        ".....KKKKYYK....",
+        ".....K...K.KK...",
+        ".........K......"
+      ],
+      "source": { "picture": "honeybee", "colors": { "1": "black", "2": "yellow", "3": "white" } }
+    },
+    {
+      "name": "Palm Tree",
+      "art": [
+        "..LLLL...LLLL..",
+        ".LLLLLL.LLLLLL.",
+        "LLLLLLLLLLLLLLL",
+        "LLLNNNNNNNNNLLL",
+        "..NNNNNNNNNNN..",
+        "..NNNOONNNNNNN.",
+        ".NNNNOONOONNNN.",
+        ".NNN..NNOOONNN.",
+        "..N...NNNO..N..",
+        "......NNN......",
+        "......NNN......",
+        "......NNN......",
+        "......NNN......",
+        "......NNN......",
+        "......NNN......",
+        "......NNN......",
+        "......NNN......"
+      ],
+      "source": { "picture": "palm-tree", "colors": { "1": "brown", "2": "lime", "3": "orange" } }
+    },
+    {
+      "name": "Pine Tree",
+      "art": [
+        "......G......",
+        ".....lGG.....",
+        ".....GGG.....",
+        "....llGGG....",
+        "....lGGGG....",
+        "....GGGGG....",
+        "...llGGGGG...",
+        "..llGGGGGGG..",
+        "..lGGGGGGGG..",
+        "..GGGGGGGGG..",
+        ".lllGGGGGGGG.",
+        "lllGGGGGGGGGG",
+        "llGGGGGGGGGGG",
+        "GGGGGGGGGGGGG",
+        ".GGGGGGGGGGG.",
+        "....NNNNN....",
+        "....NNNNN...."
+      ],
+      "source": { "picture": "pine-tree", "colors": { "1": "green", "2": "lime", "3": "brown" }, "hidden": ["2"] }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "brown", "charges": 22 },
+      { "color": "white", "charges": 27 },
+      { "color": "red", "charges": 38, "hidden": true },
+      { "color": "lime", "charges": 20 },
+      { "color": "brown", "charges": 22 },
+      { "color": "green", "charges": 34 },
+      { "color": "yellow", "charges": 22, "hidden": true },
+      { "color": "brown", "charges": 21 }
+    ],
+    [
+      { "color": "green", "charges": 33 },
+      { "color": "green", "charges": 33 },
+      { "color": "lime", "charges": 19 },
+      { "color": "black", "charges": 36 },
+      { "color": "brown", "charges": 21 }
+    ],
+    [
+      { "color": "yellow", "charges": 22 },
+      { "color": "orange", "charges": 35 },
+      { "color": "lime", "charges": 19 },
+      { "color": "orange", "charges": 35 },
+      { "color": "black", "charges": 36 },
+      { "color": "red", "charges": 38 }
+    ]
+  ]
+}

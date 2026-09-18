@@ -1,0 +1,28 @@
+{
+  "id": "level-13",
+  "name": "Flower Bed",
+  "intent": "Relief straight after the first hard level, and a chance to use mystery pixels without anything else going on: no hidden containers, six colours, four small flowers. Both hidden groups are deliberately painted in colours that are already busy elsewhere - the mushroom's spots are white like the blossom's petals, the blossom's centre is yellow like the sunflower - so a container sent before the reveal is never wasted and the mystery only ever comes as a bonus. Green ties the blossom and the tulip together, red the mushroom cap and the tulip's inner petal. Nothing on any board is more than two colours deep.",
+  "target": { "min": 0.8, "max": 0.9 },
+  "lanes": 3,
+  "boards": [
+    {
+      "picture": "sunflower",
+      "colors": { "1": "yellow", "2": "brown" }
+    },
+    {
+      "picture": "blossom",
+      "colors": { "1": "white", "2": "green", "3": "yellow" },
+      "hidden": ["3"]
+    },
+    {
+      "picture": "mushroom",
+      "colors": { "1": "red", "2": "white", "3": "yellow" },
+      "hidden": ["2"]
+    },
+    {
+      "picture": "tulip",
+      "colors": { "1": "pink", "2": "green", "3": "red" }
+    }
+  ],
+  "queue": { "hidden": 0 }
+}

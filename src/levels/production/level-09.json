@@ -1,0 +1,105 @@
+{
+  "name": "Deep Harbor",
+  "boards": [
+    {
+      "name": "Octopus",
+      "art": [
+        ".....PPPPPP.....",
+        "....PPPPPPPP....",
+        "...PPPPPPPPPP...",
+        "...PPPPPPPPPPP..",
+        "..PPPPPPPPPPPP..",
+        "..KPPPPPPPPPPK..",
+        "..KPPPPPPPPPPK..",
+        "...PPPPPPPPPPP..",
+        "..MPPPPPPPPPPM..",
+        "..MMPPPPPPPPMM..",
+        "MMMMWPPPPPPWWMMM",
+        ".MWWMMMMMMMMWWM.",
+        "..MMMMMMMMMMMM..",
+        "..MMMMMMMMMMMM..",
+        "..MMMMM..MMMMM.."
+      ],
+      "source": { "picture": "octopus", "colors": { "1": "purple", "2": "pink", "3": "white", "4": "black" } }
+    },
+    {
+      "name": "Tropical Fish",
+      "art": [
+        "....BBBBBBYYY...",
+        "...BBBBBBBBYYY..",
+        "..PBBBBBBBBBYY..",
+        ".PPPBBBBBBBBBY..",
+        ".PPPPBBBBBBBBB..",
+        "PPPPPBBYYBBBBBYY",
+        "PPPPPBBYYBBBBBYY",
+        "PPPPPBBYYBBBBBYY",
+        ".PPPPBBBBBBBBBYY",
+        ".PPPBBBBBBBBBY..",
+        "..PBBBBBBBBBYY..",
+        "...BBBBBBBBYYY..",
+        "....BBBBBBYYY..."
+      ],
+      "source": { "picture": "tropical-fish", "colors": { "1": "blue", "2": "yellow", "3": "purple", "4": "purple" } }
+    },
+    {
+      "name": "Swan",
+      "art": [
+        ".WWW........",
+        "OOWWW.......",
+        "OOWWW.......",
+        ".WWWW.......",
+        "..WWW.......",
+        "..WWW..WWWWW",
+        ".WWWWWWWWWWW",
+        ".WWCCCCCCCWW",
+        ".WWCCCCCCCCW",
+        ".WWCCCCCCCWW",
+        ".WWCCCCCCWW.",
+        "..WWWWWWWW..",
+        "...WWWWWWW.."
+      ],
+      "source": { "picture": "swan", "colors": { "1": "white", "2": "cyan", "3": "orange" } }
+    },
+    {
+      "name": "Life ring",
+      "art": [
+        "...WWWW...",
+        ".OOOWWOOO.",
+        "OOOOWWOOOO",
+        "OOO....OOO",
+        "WWW....WWW",
+        "WWW....WWW",
+        "OOO....OOO",
+        "OOOOWWOOOO",
+        ".OOOWWOOO.",
+        "...WWWW..."
+      ],
+      "source": { "picture": "life-ring", "colors": { "1": "white", "2": "orange" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "purple", "charges": 34 },
+      { "color": "blue", "charges": 35 },
+      { "color": "pink", "charges": 28 },
+      { "color": "blue", "charges": 34 },
+      { "color": "cyan", "charges": 28 },
+      { "color": "blue", "charges": 34 }
+    ],
+    [
+      { "color": "pink", "charges": 29 },
+      { "color": "purple", "charges": 33 },
+      { "color": "purple", "charges": 33 },
+      { "color": "orange", "charges": 22, "hidden": true },
+      { "color": "yellow", "charges": 32 },
+      { "color": "purple", "charges": 33 }
+    ],
+    [
+      { "color": "white", "charges": 34 },
+      { "color": "black", "charges": 4 },
+      { "color": "orange", "charges": 22 },
+      { "color": "white", "charges": 33, "hidden": true },
+      { "color": "white", "charges": 33 }
+    ]
+  ]
+}

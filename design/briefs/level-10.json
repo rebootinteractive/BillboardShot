@@ -1,0 +1,26 @@
+{
+  "id": "level-10",
+  "name": "Safe Harbor",
+  "intent": "A breather after the octopus, and the last level before a new rule arrives. Only seven colours and almost all of them live on two or three boards: blue is the whale and the canoe hull, white is the whale's belly, the lighthouse tower and the shrimp's legs, brown is the lighthouse rocks and the canoe's gunwale, yellow the lighthouse lamp and the paddle. Nearly every container has two places to go, so a wrong guess is recoverable. The lighthouse is the one real stack - rocks, then stripes, then tower, then roof - but it is only 103 pixels, so digging it is short. Cyan is the whale's buried spout and its single container is the only one that has to wait. Two hidden containers, now routine.",
+  "target": { "min": 0.8, "max": 0.9 },
+  "lanes": 3,
+  "boards": [
+    {
+      "picture": "whale",
+      "colors": { "1": "blue", "2": "white", "3": "cyan" }
+    },
+    {
+      "picture": "lighthouse",
+      "colors": { "1": "white", "2": "red", "3": "yellow", "4": "red", "5": "red", "6": "brown", "7": "brown" }
+    },
+    {
+      "picture": "canoe",
+      "colors": { "1": "blue", "2": "brown", "3": "yellow" }
+    },
+    {
+      "picture": "shrimp",
+      "colors": { "1": "red", "2": "orange", "3": "white" }
+    }
+  ],
+  "queue": { "hidden": 2 }
+}

@@ -1,0 +1,24 @@
+{
+  "id": "level-11",
+  "name": "Wings Unfolding",
+  "intent": "Mystery pixels are introduced, so everything else gets out of the way: three boards, six colours, no other feature and no hidden containers. The butterfly's 84-pixel inner wing is the one hidden group - the facts mark it mystery ok, it sits entirely on the black wing edges, and it is a single region, so the first exposure floods the whole wing open at once. That is the lesson in one move. The wing is orange, the same colour as the flower pot, so an orange container always has somewhere to go even before the reveal, and a player who sends one early is never punished. Everything else is plain: black edges and pink petals are exposed from the start, lime is shared between the hibiscus leaf and the plant's foliage, and only the pot's brown soil has to wait.",
+  "hint": "Grey ? pixels hide their colour until the pixel below them is pulled - then the whole patch opens at once.",
+  "target": { "min": 0.92, "max": 1.0 },
+  "lanes": 3,
+  "boards": [
+    {
+      "picture": "butterfly",
+      "colors": { "1": "black", "2": "orange" },
+      "hidden": ["2"]
+    },
+    {
+      "picture": "hibiscus",
+      "colors": { "1": "pink", "2": "red", "3": "lime", "4": "red" }
+    },
+    {
+      "picture": "potted-plant",
+      "colors": { "1": "orange", "2": "lime", "3": "brown" }
+    }
+  ],
+  "queue": { "hidden": 0 }
+}

@@ -1,0 +1,105 @@
+{
+  "name": "Frost on the Cactus",
+  "hint": "The iced billboard opens when enough of its colour has been collected - and only full containers count.",
+  "boards": [
+    {
+      "name": "Ladybug",
+      "art": [
+        ".....K.K.....",
+        ".....KKK.....",
+        "....KKKKK....",
+        "..KKKKKKKKK..",
+        "..RRRRKRRRR..",
+        "..KRRKKKRRK..",
+        "KKKRRKKKRRKKK",
+        ".RRRRKKKRRRR.",
+        ".RRKRRRRRKRR.",
+        "..RKKRRRKKR..",
+        ".KRKKRKRKKRK.",
+        ".K.RRRKRRR.K.",
+        ".K..RRRRR..K."
+      ],
+      "source": { "picture": "ladybug", "colors": { "1": "black", "2": "red" } }
+    },
+    {
+      "name": "Rose",
+      "art": [
+        "..RRRRR..",
+        ".RRRRRRR.",
+        "RRRRRRRRR",
+        "RRMMMMMRR",
+        "RRMMMMMRR",
+        "RRRMMMRRR",
+        "RRRRRRRRR",
+        ".RRRRRRR.",
+        "..RRRRR..",
+        "...LLL...",
+        "...LL....",
+        "...LL....",
+        "...LL.LLL",
+        "...LLLLLL",
+        "...LLLLL.",
+        "...LLL..."
+      ],
+      "source": { "picture": "rose", "colors": { "1": "red", "2": "pink", "3": "lime" } }
+    },
+    {
+      "name": "Spider",
+      "art": [
+        "..KK........KK..",
+        "..KKK......KKK..",
+        "....KPPPPPPK....",
+        "KK...PPPPPP...KK",
+        ".KKK.PPPPPP.KKK.",
+        "..KKKPPPPPPKKK..",
+        "KKKK.PPPPPP.KKKK",
+        "KK....PPPP....KK",
+        "KKK...PPPP...KKK",
+        "..KK..PPPP..KK.."
+      ],
+      "source": { "picture": "spider", "colors": { "1": "black", "2": "purple" } }
+    },
+    {
+      "name": "Cactus",
+      "art": [
+        ".....LLL.....",
+        "....LKLLL....",
+        "....LKLLL..KL",
+        "....LKLLL.LLL",
+        "LL..LKLLL.LLL",
+        "LKL.LKLLLLLKL",
+        "LKL.LLLLLLKL.",
+        "LKL.LLLLLLL..",
+        "LKL.LKLLL....",
+        "LLLLLKLLL....",
+        ".LLLKKLLL....",
+        "...LLKLLL....",
+        "....LKLLL....",
+        "....LKLLL...."
+      ],
+      "source": { "picture": "cactus", "colors": { "1": "lime", "2": "black" } },
+      "lock": { "type": "frozen", "color": "red", "count": 35 }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "red", "charges": 37 },
+      { "color": "red", "charges": 36 },
+      { "color": "black", "charges": 31 },
+      { "color": "red", "charges": 36 },
+      { "color": "lime", "charges": 38 }
+    ],
+    [
+      { "color": "black", "charges": 31 },
+      { "color": "lime", "charges": 38 },
+      { "color": "purple", "charges": 21 },
+      { "color": "pink", "charges": 13 }
+    ],
+    [
+      { "color": "black", "charges": 31 },
+      { "color": "lime", "charges": 38 },
+      { "color": "purple", "charges": 21 },
+      { "color": "black", "charges": 31 }
+    ]
+  ]
+}

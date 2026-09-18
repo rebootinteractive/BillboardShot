@@ -1,0 +1,104 @@
+{
+  "name": "Safe Harbor",
+  "boards": [
+    {
+      "name": "Whale",
+      "art": [
+        "...CC.C.....B...",
+        "..CCCCCC....BB..",
+        "..CC.CCC...BB...",
+        ".....C....BBBB..",
+        ".....C...BB.BBB.",
+        "..BBBBBBB....BB.",
+        ".BBBBBBBBB...BBB",
+        "BBBBBBBBBBB..BBB",
+        "BBBBBBBBBBB..BBB",
+        "WWWWWWWBBBB..BBB",
+        "WWWWWWWWBBBBBBBB",
+        ".WWWWWWWWBBBBBBB",
+        ".WWWWWWWWBBBBBBB",
+        "..WWWWWWWBBBBBB.",
+        "..WWWWWWWBBBBBB.",
+        ".BBBWWWWWWBBBBB.",
+        ".....WWWWWW....."
+      ],
+      "source": { "picture": "whale", "colors": { "1": "blue", "2": "white", "3": "cyan" } }
+    },
+    {
+      "name": "Lighthouse",
+      "art": [
+        ".....R.....",
+        "....RRR....",
+        "...RRRRR...",
+        "...RYYYR...",
+        "...RYYYR...",
+        "..RRRRRRR..",
+        "...WWWWW...",
+        "...WWWWW...",
+        "...RRRRR...",
+        "...RRRRR...",
+        "..WWWWWWW..",
+        "..WWWWWWW..",
+        "..RRRRRRR..",
+        "..RRRRRRR..",
+        ".WWWWNWWWW.",
+        ".WWWWNWWWW.",
+        "NNNNNNNNNNN"
+      ],
+      "source": { "picture": "lighthouse", "colors": { "1": "white", "2": "red", "3": "yellow", "4": "red", "5": "red", "6": "brown", "7": "brown" } }
+    },
+    {
+      "name": "Canoe",
+      "art": [
+        "............YYY.",
+        "...........YYYY.",
+        "..........YYY...",
+        ".........YY.....",
+        "NNNNNNNNNNNNNNNN",
+        "NNNNNNNNNNNNNNNN",
+        "BBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBB",
+        ".BBBBBBBBBBBBBB."
+      ],
+      "source": { "picture": "canoe", "colors": { "1": "blue", "2": "brown", "3": "yellow" } }
+    },
+    {
+      "name": "Shrimp",
+      "art": [
+        "..RRROO.......",
+        ".RRRROORR.....",
+        "RRRRROORROO.OO",
+        "RRRRROORROOROO",
+        "RRRRROORROOROO",
+        ".RRRROORROOR.O",
+        "..RRROORROO...",
+        "...WWWWWWW....",
+        "....WWWWW....."
+      ],
+      "source": { "picture": "shrimp", "colors": { "1": "red", "2": "orange", "3": "white" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "blue", "charges": 40 },
+      { "color": "brown", "charges": 23 },
+      { "color": "white", "charges": 36, "hidden": true },
+      { "color": "cyan", "charges": 16 },
+      { "color": "white", "charges": 36 }
+    ],
+    [
+      { "color": "white", "charges": 37 },
+      { "color": "orange", "charges": 31 },
+      { "color": "red", "charges": 29 },
+      { "color": "yellow", "charges": 18 },
+      { "color": "red", "charges": 29 }
+    ],
+    [
+      { "color": "red", "charges": 30 },
+      { "color": "blue", "charges": 40 },
+      { "color": "brown", "charges": 22, "hidden": true },
+      { "color": "blue", "charges": 39 },
+      { "color": "blue", "charges": 39 }
+    ]
+  ]
+}

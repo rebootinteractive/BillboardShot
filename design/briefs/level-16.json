@@ -1,0 +1,67 @@
+{
+  "id": "level-16",
+  "name": "Cold Workbench",
+  "intent": "The frozen board again, this time with a real level around it: five boards, nine colours, 583 pixels and four lanes. The ruler is iced over and wants 36 purple, and purple lives on the hammer's head and the flashlight's head, both exposed from the start, so one finished purple container opens it - but the ruler holds 144 pixels, a quarter of the level, and its yellow, white and black are all colours the other boards are also asking for, so leaving it shut too long means holding containers that have somewhere to go only once the ice breaks. The hammer's grip and handle are both brown, deliberately, so brown has an exposed home: with brown living only in the two buried handles it was the level's worst clog by a wide margin. Cyan is the screwdriver's buried blade and orange the flashlight's eight-pixel lens; both are single-purpose containers that have to be timed. No hidden containers and no mystery pixels: the frozen board is the whole puzzle.",
+  "target": {
+    "min": 0.6,
+    "max": 0.7
+  },
+  "lanes": 4,
+  "boards": [
+    {
+      "picture": "ruler",
+      "colors": {
+        "1": "yellow",
+        "2": "white",
+        "3": "black"
+      },
+      "lock": {
+        "type": "frozen",
+        "color": "purple",
+        "count": 36
+      }
+    },
+    {
+      "picture": "hammer",
+      "colors": {
+        "1": "purple",
+        "2": "brown",
+        "3": "brown"
+      }
+    },
+    {
+      "picture": "paintbrush",
+      "colors": {
+        "1": "yellow",
+        "2": "brown",
+        "3": "white",
+        "4": "blue"
+      }
+    },
+    {
+      "picture": "screwdriver",
+      "colors": {
+        "1": "red",
+        "2": "cyan",
+        "3": "white"
+      }
+    },
+    {
+      "picture": "flashlight",
+      "colors": {
+        "1": "purple",
+        "2": "white",
+        "3": "black",
+        "4": "orange"
+      }
+    }
+  ],
+  "containers": {
+    "split": {
+      "purple": 3
+    }
+  },
+  "queue": {
+    "hidden": 0
+  }
+}

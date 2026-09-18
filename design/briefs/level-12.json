@@ -1,0 +1,54 @@
+{
+  "id": "level-12",
+  "name": "Under the Leaves",
+  "intent": "The first hard level, and the first the player is warned about. It puts the two kinds of blindness together: hidden containers, so the deck cannot be read ahead, and mystery pixels, so 161 of the 567 pixels cannot be read on the board either. The snail's whole 126-pixel shell is hidden on top of its yellow body, its orange antennae are a second hidden patch resting on the same body, and the ant's red head hides above its black thorax. Ten colours and almost nothing shared: brown, orange and red exist only inside the hidden groups, so three of the level's containers have exactly one place to go and it is a place the player cannot see yet. Black on the beetle and the ant is the only colour with two homes. The clover is 55 pixels of pure relief. Careful play still wins this every time; it is a challenge, not a trap.",
+  "label": "hard",
+  "target": {
+    "min": 0.36,
+    "max": 0.46
+  },
+  "lanes": 3,
+  "boards": [
+    {
+      "picture": "snail",
+      "colors": {
+        "1": "brown",
+        "2": "yellow",
+        "3": "orange"
+      },
+      "hidden": [
+        "1",
+        "3"
+      ]
+    },
+    {
+      "picture": "beetle",
+      "colors": {
+        "1": "green",
+        "2": "black",
+        "3": "purple"
+      }
+    },
+    {
+      "picture": "ant",
+      "colors": {
+        "1": "red",
+        "2": "black",
+        "3": "pink"
+      },
+      "hidden": [
+        "1"
+      ]
+    },
+    {
+      "picture": "clover",
+      "colors": {
+        "1": "lime",
+        "2": "cyan"
+      }
+    }
+  ],
+  "queue": {
+    "hidden": 2
+  }
+}

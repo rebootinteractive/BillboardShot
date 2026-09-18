@@ -1,0 +1,92 @@
+{
+  "name": "Wings Unfolding",
+  "hint": "Grey ? pixels hide their colour until the pixel below them is pulled - then the whole patch opens at once.",
+  "boards": [
+    {
+      "name": "Butterfly",
+      "art": [
+        "KKK..........KKK",
+        "KKKK........KKKK",
+        "KooKK..KK..KKooK",
+        "KoooKK.KK.KKoooK",
+        "KKoooKKKKKKoooKK",
+        "KoKooooKKKoooKoK",
+        "KoooKooKKooKoooK",
+        "KooooKKKKKKKoooK",
+        ".KKKKooKKooKKoK.",
+        "..KKKKKKKKKKKK..",
+        ".KoKoooKKoooKoK.",
+        "KoooKooKKooKoooK",
+        "KoKooKKKKKKooKoK",
+        "KoKKooK..KoooKoK",
+        ".KoooK....KoooK.",
+        "..KKK......KKK.."
+      ],
+      "source": { "picture": "butterfly", "colors": { "1": "black", "2": "orange" }, "hidden": ["2"] }
+    },
+    {
+      "name": "Hibiscus",
+      "art": [
+        ".....MM......",
+        "....MMMM.....",
+        "...MMMMM.....",
+        ".MMMMRRMMMM..",
+        "MMMRRRRRRMMM.",
+        "MMRRRRRRRRMM.",
+        "MMMRRRRRRMMM.",
+        ".MMRRRRRRMMLL",
+        "..MMRRRRRMMLL",
+        "..MMMMMMMMM..",
+        "..MMMMMMMML..",
+        "...MM..MMLLL.",
+        "........LLLL."
+      ],
+      "source": { "picture": "hibiscus", "colors": { "1": "pink", "2": "red", "3": "lime", "4": "red" } }
+    },
+    {
+      "name": "Potted Plant",
+      "art": [
+        "......L....",
+        "......L....",
+        ".L...LL...L",
+        ".LLL..L.LLL",
+        "..LLL.LLLL.",
+        "L...LNNLL..",
+        "LLL.....LLL",
+        ".LLL.N.LLL.",
+        "...LNNLLL..",
+        ".....NN....",
+        "..NNNNNNN..",
+        ".OOOOOOOOO.",
+        ".OOOOOOOOO.",
+        ".OOOOOOOOO.",
+        ".OOOOOOOOO.",
+        "..OOOOOOO..",
+        "..OOOOOOO.."
+      ],
+      "source": { "picture": "potted-plant", "colors": { "1": "orange", "2": "lime", "3": "brown" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "black", "charges": 31 },
+      { "color": "lime", "charges": 26 },
+      { "color": "pink", "charges": 32 },
+      { "color": "brown", "charges": 14 },
+      { "color": "black", "charges": 30 }
+    ],
+    [
+      { "color": "orange", "charges": 34 },
+      { "color": "black", "charges": 31 },
+      { "color": "lime", "charges": 26 },
+      { "color": "black", "charges": 30 },
+      { "color": "orange", "charges": 33 }
+    ],
+    [
+      { "color": "pink", "charges": 32 },
+      { "color": "orange", "charges": 34 },
+      { "color": "red", "charges": 33 },
+      { "color": "orange", "charges": 33 }
+    ]
+  ]
+}
