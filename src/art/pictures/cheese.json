@@ -1,0 +1,41 @@
+{
+  "id": "cheese",
+  "name": "Cheese",
+  "tags": [
+    "food"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Cheese%20wedge"
+  },
+  "art": [
+    "1122.......",
+    "11122......",
+    "111.22.....",
+    "1111122....",
+    "11.11122...",
+    "111111122..",
+    "1111.11122.",
+    "11111111122",
+    "22222222222"
+  ],
+  "groups": {
+    "1": {
+      "part": "body",
+      "suggest": [
+        "yellow",
+        "lime"
+      ]
+    },
+    "2": {
+      "part": "rind",
+      "suggest": [
+        "orange",
+        "brown"
+      ]
+    }
+  }
+}

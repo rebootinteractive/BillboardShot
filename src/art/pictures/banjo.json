@@ -1,0 +1,31 @@
+{
+  "id": "banjo",
+  "name": "Banjo",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Banjo/Flat/banjo_flat.svg" },
+  "art": [
+    "...33333...",
+    "...33333...",
+    "....333....",
+    "....333....",
+    "....333....",
+    "....333....",
+    "....333....",
+    "....333....",
+    "...22222...",
+    "..2222222..",
+    ".221111122.",
+    "22111111122",
+    "22111111122",
+    "22111111122",
+    ".221111122.",
+    "..2222222..",
+    "...22222..."
+  ],
+  "groups": {
+    "1": { "part": "drum head", "suggest": ["white", "cyan"] },
+    "2": { "part": "rim", "suggest": ["brown", "orange"] },
+    "3": { "part": "neck", "suggest": ["black", "brown"] }
+  }
+}

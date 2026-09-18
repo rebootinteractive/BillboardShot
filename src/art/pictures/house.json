@@ -1,9 +1,16 @@
 {
   "id": "house",
   "name": "House",
-  "tags": ["object"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/House" },
+  "tags": [
+    "object"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/House"
+  },
   "art": [
     "...1...33.......",
     "..111.3333......",
@@ -22,11 +29,41 @@
     "4444444444444444"
   ],
   "groups": {
-    "1": { "part": "yellow", "suggest": ["yellow"] },
-    "2": { "part": "brown", "suggest": ["brown"] },
-    "3": { "part": "red", "suggest": ["red"] },
-    "4": { "part": "green", "suggest": ["green"] },
-    "5": { "part": "cyan", "suggest": ["cyan"] },
-    "6": { "part": "white", "suggest": ["white"] }
+    "1": {
+      "part": "walls and roof",
+      "suggest": [
+        "yellow"
+      ]
+    },
+    "2": {
+      "part": "door",
+      "suggest": [
+        "brown"
+      ]
+    },
+    "3": {
+      "part": "roof edge",
+      "suggest": [
+        "red"
+      ]
+    },
+    "4": {
+      "part": "grass",
+      "suggest": [
+        "green"
+      ]
+    },
+    "5": {
+      "part": "window",
+      "suggest": [
+        "cyan"
+      ]
+    },
+    "6": {
+      "part": "doorknob",
+      "suggest": [
+        "white"
+      ]
+    }
   }
 }

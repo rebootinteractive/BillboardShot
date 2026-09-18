@@ -1,0 +1,56 @@
+{
+  "id": "microphone",
+  "name": "Microphone",
+  "tags": [
+    "object"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Studio%20microphone/Flat/studio_microphone_flat.svg"
+  },
+  "art": [
+    "...111...",
+    ".1111111.",
+    "111111111",
+    "111111111",
+    "111111111",
+    "111111111",
+    ".1111111.",
+    "..22222..",
+    "...222...",
+    "...222...",
+    "...222...",
+    "...222...",
+    "...222...",
+    "..33333..",
+    ".3333333.",
+    "333333333"
+  ],
+  "groups": {
+    "1": {
+      "part": "grille",
+      "suggest": [
+        "white",
+        "cyan",
+        "yellow"
+      ]
+    },
+    "2": {
+      "part": "handle",
+      "suggest": [
+        "black",
+        "purple"
+      ]
+    },
+    "3": {
+      "part": "base",
+      "suggest": [
+        "black",
+        "brown"
+      ]
+    }
+  }
+}

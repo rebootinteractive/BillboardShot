@@ -2,8 +2,9 @@
 
 Pictures in `src/art/pictures/` whose `origin.method` is `converted` are derived from
 [Fluent Emoji](https://github.com/microsoft/fluentui-emoji) (Flat style) by Microsoft,
-reduced to 11×12 pixel art and remapped to the game palette. Each such file records its
-source URL. Fluent Emoji is distributed under the following license:
+reduced to pixel art of at most 16×17 and remapped to the game palette, then redrawn by
+hand. Each such file records its source URL. Fluent Emoji is distributed under the
+following license:
 
 ```
 MIT License

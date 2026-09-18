@@ -1,0 +1,55 @@
+{
+  "id": "drum",
+  "name": "Drum",
+  "tags": [
+    "object"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Drum/Flat/drum_flat.svg"
+  },
+  "art": [
+    "...2222222222...",
+    ".22222222222222.",
+    ".22222222222222.",
+    "3333333333333333",
+    "3333333333333333",
+    ".11111111111111.",
+    ".11111111111111.",
+    ".11111111111111.",
+    ".11111111111111.",
+    ".11111111111111.",
+    ".11111111111111.",
+    "3333333333333333",
+    "3333333333333333",
+    ".11111111111111."
+  ],
+  "groups": {
+    "1": {
+      "part": "shell",
+      "suggest": [
+        "red",
+        "blue",
+        "brown"
+      ]
+    },
+    "2": {
+      "part": "drum head",
+      "suggest": [
+        "white",
+        "cyan"
+      ]
+    },
+    "3": {
+      "part": "hoop",
+      "suggest": [
+        "yellow",
+        "white",
+        "black"
+      ]
+    }
+  }
+}

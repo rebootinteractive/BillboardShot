@@ -1,9 +1,16 @@
 {
   "id": "chicken",
   "name": "Chicken",
-  "tags": ["animal"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Chicken" },
+  "tags": [
+    "animal"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Chicken"
+  },
   "art": [
     ".........222....",
     ".....22222222...",
@@ -24,11 +31,41 @@
     "...333333333333."
   ],
   "groups": {
-    "1": { "part": "white", "suggest": ["white"] },
-    "2": { "part": "red", "suggest": ["red"] },
-    "3": { "part": "purple", "suggest": ["purple"] },
-    "4": { "part": "yellow", "suggest": ["yellow"] },
-    "5": { "part": "orange", "suggest": ["orange"] },
-    "6": { "part": "black", "suggest": ["black"] }
+    "1": {
+      "part": "body",
+      "suggest": [
+        "white"
+      ]
+    },
+    "2": {
+      "part": "comb and wattle",
+      "suggest": [
+        "red"
+      ]
+    },
+    "3": {
+      "part": "tail and feet",
+      "suggest": [
+        "purple"
+      ]
+    },
+    "4": {
+      "part": "beak",
+      "suggest": [
+        "yellow"
+      ]
+    },
+    "5": {
+      "part": "lower beak",
+      "suggest": [
+        "orange"
+      ]
+    },
+    "6": {
+      "part": "eye",
+      "suggest": [
+        "black"
+      ]
+    }
   }
 }

@@ -1,9 +1,13 @@
 {
   "id": "lighthouse",
   "name": "Lighthouse",
-  "tags": ["object"],
-  "status": "draft",
-  "origin": { "method": "drawn" },
+  "tags": [
+    "object"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "drawn"
+  },
   "art": [
     ".....2.....",
     "....222....",
@@ -24,12 +28,49 @@
     "77777777777"
   ],
   "groups": {
-    "1": { "part": "tower", "suggest": ["white"] },
-    "2": { "part": "roof", "suggest": ["red"] },
-    "3": { "part": "light", "suggest": ["yellow"] },
-    "4": { "part": "lamp frame", "suggest": ["black"] },
-    "5": { "part": "stripes", "suggest": ["red", "blue"] },
-    "6": { "part": "door", "suggest": ["brown"] },
-    "7": { "part": "rocks", "suggest": ["brown", "black"] }
+    "1": {
+      "part": "tower",
+      "suggest": [
+        "white"
+      ]
+    },
+    "2": {
+      "part": "roof",
+      "suggest": [
+        "red"
+      ]
+    },
+    "3": {
+      "part": "light",
+      "suggest": [
+        "yellow"
+      ]
+    },
+    "4": {
+      "part": "lamp frame",
+      "suggest": [
+        "black"
+      ]
+    },
+    "5": {
+      "part": "stripes",
+      "suggest": [
+        "red",
+        "blue"
+      ]
+    },
+    "6": {
+      "part": "door",
+      "suggest": [
+        "brown"
+      ]
+    },
+    "7": {
+      "part": "rocks",
+      "suggest": [
+        "brown",
+        "black"
+      ]
+    }
   }
 }

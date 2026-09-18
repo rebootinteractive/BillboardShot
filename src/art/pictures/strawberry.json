@@ -21,8 +21,8 @@
     "....11...."
   ],
   "groups": {
-    "1": { "part": "red", "suggest": ["red"] },
-    "2": { "part": "green", "suggest": ["green"] },
-    "3": { "part": "black", "suggest": ["black"] }
+    "1": { "part": "body", "suggest": ["red"] },
+    "2": { "part": "leaves", "suggest": ["green"] },
+    "3": { "part": "stem and seeds", "suggest": ["black"] }
   }
 }

@@ -1,0 +1,48 @@
+{
+  "id": "trumpet",
+  "name": "Trumpet",
+  "tags": [
+    "object"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Trumpet/Flat/trumpet_flat.svg"
+  },
+  "art": [
+    "..22.22.22.....",
+    "..22.22.22...33",
+    "..22.22.22..333",
+    "..22.22.22.3333",
+    "111111111113333",
+    "111111111113333",
+    "..22.22.22.3333",
+    ".1111111111.333",
+    ".1111111111..33"
+  ],
+  "groups": {
+    "1": {
+      "part": "tubing",
+      "suggest": [
+        "yellow",
+        "orange"
+      ]
+    },
+    "2": {
+      "part": "valves",
+      "suggest": [
+        "white",
+        "black"
+      ]
+    },
+    "3": {
+      "part": "bell",
+      "suggest": [
+        "orange",
+        "yellow"
+      ]
+    }
+  }
+}

@@ -1,9 +1,16 @@
 {
   "id": "star",
   "name": "Star",
-  "tags": ["nature"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Star" },
+  "tags": [
+    "nature"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Star"
+  },
   "art": [
     "......1......",
     ".....111.....",
@@ -20,8 +27,24 @@
     "11.........11"
   ],
   "groups": {
-    "1": { "part": "outline", "suggest": ["orange", "yellow"] },
-    "2": { "part": "core", "suggest": ["yellow"] },
-    "3": { "part": "sparkle", "suggest": ["white"] }
+    "1": {
+      "part": "outline",
+      "suggest": [
+        "orange",
+        "yellow"
+      ]
+    },
+    "2": {
+      "part": "core",
+      "suggest": [
+        "yellow"
+      ]
+    },
+    "3": {
+      "part": "sparkle",
+      "suggest": [
+        "white"
+      ]
+    }
   }
 }

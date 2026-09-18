@@ -1,9 +1,16 @@
 {
   "id": "tractor",
   "name": "Tractor",
-  "tags": ["vehicle"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Tractor" },
+  "tags": [
+    "vehicle"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Tractor"
+  },
   "art": [
     ".......1111111..",
     ".......3333332..",
@@ -20,10 +27,35 @@
     "..222......2222."
   ],
   "groups": {
-    "1": { "part": "green", "suggest": ["green"] },
-    "2": { "part": "black", "suggest": ["black"] },
-    "3": { "part": "cyan", "suggest": ["cyan"] },
-    "4": { "part": "white", "suggest": ["white"] },
-    "5": { "part": "purple", "suggest": ["purple"] }
+    "1": {
+      "part": "body",
+      "suggest": [
+        "green"
+      ]
+    },
+    "2": {
+      "part": "wheels",
+      "suggest": [
+        "black"
+      ]
+    },
+    "3": {
+      "part": "window",
+      "suggest": [
+        "cyan"
+      ]
+    },
+    "4": {
+      "part": "hubs",
+      "suggest": [
+        "white"
+      ]
+    },
+    "5": {
+      "part": "exhaust pipe",
+      "suggest": [
+        "purple"
+      ]
+    }
   }
 }

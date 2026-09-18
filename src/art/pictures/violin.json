@@ -1,0 +1,57 @@
+{
+  "id": "violin",
+  "name": "Violin",
+  "tags": [
+    "object"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Violin/Flat/violin_flat.svg"
+  },
+  "art": [
+    "....3333....",
+    "....3333....",
+    ".....22.....",
+    ".....22.....",
+    ".....22.....",
+    ".....22.....",
+    "..11122111..",
+    ".1111221111.",
+    "111112211111",
+    "111112211111",
+    ".1111221111.",
+    "..11111111..",
+    ".1111111111.",
+    "111111111111",
+    "111111111111",
+    "111111111111",
+    ".1111111111."
+  ],
+  "groups": {
+    "1": {
+      "part": "body",
+      "suggest": [
+        "brown",
+        "orange",
+        "red"
+      ]
+    },
+    "2": {
+      "part": "fingerboard",
+      "suggest": [
+        "black",
+        "brown"
+      ]
+    },
+    "3": {
+      "part": "scroll",
+      "suggest": [
+        "brown",
+        "yellow"
+      ]
+    }
+  }
+}

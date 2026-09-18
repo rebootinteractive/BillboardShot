@@ -1,0 +1,25 @@
+BillboardShot playtest results
+device 81jpvb69 · 21 attempts · exported 2026-09-18T08:48:06Z
+
+level,file,version,attempt,result,seconds,idleSeconds,sends,boardChanges,pixelsLeft,pixelsTotal,minFreeSlots,startedAt
+1,level-01.json,17957d,1,win,23,0,8,4,0,241,2,2026-09-17T14:39:10Z
+2,level-02.json,6b7cda,1,win,25,0,10,1,0,313,0,2026-09-17T14:39:36Z
+3,level-03.json,765771,1,win,42,0,14,5,0,421,0,2026-09-17T14:40:02Z
+4,level-04.json,b50c8c,1,win,26,0,14,0,0,509,0,2026-09-17T14:40:46Z
+5,level-05.json,e9fbcd,1,lose,32,0,7,10,529,668,0,2026-09-17T14:41:13Z
+5,level-05.json,e9fbcd,2,win,77,0,18,25,0,668,0,2026-09-17T14:41:47Z
+6,level-06.json,766946,1,win,77,2,18,14,0,651,0,2026-09-17T14:43:10Z
+7,level-07.json,d6ba18,1,win,76,0,20,17,0,600,0,2026-09-17T14:44:31Z
+8,level-08.json,a72b28,1,lose,106,224,18,39,373,876,0,2026-09-17T14:45:55Z
+8,level-08.json,a72b28,2,win,123,0,28,46,0,876,0,2026-09-17T14:51:34Z
+9,level-09.json,6531fe,1,lose,78,0,16,27,210,689,0,2026-09-17T14:53:39Z
+9,level-09.json,6531fe,2,lose,44,48,8,9,531,689,0,2026-09-17T14:55:19Z
+9,level-09.json,6531fe,3,win,102,76,21,21,0,689,0,2026-09-17T14:56:52Z
+10,level-10.json,b8d116,1,lose,73,0,12,27,520,826,0,2026-09-17T14:59:52Z
+10,level-10.json,b8d116,2,lose,81,0,13,22,493,826,0,2026-09-17T15:01:07Z
+10,level-10.json,b8d116,3,lose,109,0,13,52,467,826,0,2026-09-17T15:02:30Z
+10,level-10.json,b8d116,4,lose,149,0,23,60,99,826,0,2026-09-17T15:04:23Z
+10,level-10.json,b8d116,5,lose,105,46,14,38,419,826,0,2026-09-17T15:06:58Z
+10,level-10.json,b8d116,6,lose,120,65,18,33,243,826,0,2026-09-17T15:09:30Z
+10,level-10.json,b8d116,7,abandoned,10,19,0,0,826,826,5,2026-09-17T15:12:39Z
+10,level-10.json,b8d116,8,playing,3,0,0,0,826,826,5,2026-09-18T08:48:03Z

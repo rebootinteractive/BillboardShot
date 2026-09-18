@@ -1,9 +1,16 @@
 {
   "id": "cactus",
   "name": "Cactus",
-  "tags": ["nature"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Cactus" },
+  "tags": [
+    "nature"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Cactus"
+  },
   "art": [
     ".....111.....",
     "....12111....",
@@ -21,7 +28,17 @@
     "....12111...."
   ],
   "groups": {
-    "1": { "part": "lime", "suggest": ["lime"] },
-    "2": { "part": "brown", "suggest": ["brown"] }
+    "1": {
+      "part": "body",
+      "suggest": [
+        "lime"
+      ]
+    },
+    "2": {
+      "part": "spines",
+      "suggest": [
+        "brown"
+      ]
+    }
   }
 }

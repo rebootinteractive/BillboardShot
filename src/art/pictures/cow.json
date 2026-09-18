@@ -23,9 +23,9 @@
     "......1111......"
   ],
   "groups": {
-    "1": { "part": "pink", "suggest": ["pink"] },
-    "2": { "part": "brown", "suggest": ["brown"] },
-    "3": { "part": "white", "suggest": ["white"] },
-    "4": { "part": "black", "suggest": ["black"] }
+    "1": { "part": "muzzle and inner ears", "suggest": ["pink"] },
+    "2": { "part": "head", "suggest": ["brown"] },
+    "3": { "part": "horns and patch", "suggest": ["white"] },
+    "4": { "part": "eyes", "suggest": ["black"] }
   }
 }

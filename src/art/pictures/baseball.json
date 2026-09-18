@@ -1,0 +1,21 @@
+{
+  "id": "baseball",
+  "name": "Baseball",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Baseball" },
+  "art": [
+    "..1111..",
+    ".121121.",
+    "12111121",
+    "12111121",
+    "12111121",
+    "12111121",
+    ".121121.",
+    "..1111.."
+  ],
+  "groups": {
+    "1": { "part": "leather", "suggest": ["white"] },
+    "2": { "part": "stitching", "suggest": ["red"] }
+  }
+}

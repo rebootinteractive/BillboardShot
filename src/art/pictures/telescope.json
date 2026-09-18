@@ -1,0 +1,31 @@
+{
+  "id": "telescope",
+  "name": "Telescope",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Telescope" },
+  "art": [
+    "..........222222",
+    ".........222222.",
+    "........111111..",
+    ".......111111...",
+    "......111111....",
+    ".....111111.....",
+    "....111111......",
+    "...111111.......",
+    "..221111........",
+    ".....3333.......",
+    "....333333......",
+    "...33.33.33.....",
+    "...33.33.33.....",
+    "..33..33..33....",
+    ".33...33...33...",
+    "33....33....33..",
+    "33....33....33.."
+  ],
+  "groups": {
+    "1": { "part": "tube", "suggest": ["white", "cyan"] },
+    "2": { "part": "lens", "suggest": ["yellow", "orange"] },
+    "3": { "part": "tripod", "suggest": ["brown", "black"] }
+  }
+}

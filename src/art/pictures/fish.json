@@ -1,9 +1,16 @@
 {
   "id": "fish",
   "name": "Fish",
-  "tags": ["animal"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Fish" },
+  "tags": [
+    "animal"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Fish"
+  },
   "art": [
     ".....1111....",
     ".....1111....",
@@ -18,6 +25,11 @@
     ".....11......"
   ],
   "groups": {
-    "1": { "part": "blue", "suggest": ["blue"] }
+    "1": {
+      "part": "body",
+      "suggest": [
+        "blue"
+      ]
+    }
   }
 }

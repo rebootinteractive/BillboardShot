@@ -1,0 +1,47 @@
+{
+  "id": "chipmunk",
+  "name": "Chipmunk",
+  "tags": [
+    "animal"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Chipmunk"
+  },
+  "art": [
+    ".1.1..333.",
+    ".111..333.",
+    "11111.3333",
+    "11111.3333",
+    "111221333.",
+    "112221333.",
+    "112221333.",
+    ".1122211..",
+    ".11222211.",
+    "..11111..."
+  ],
+  "groups": {
+    "1": {
+      "part": "fur",
+      "suggest": [
+        "orange"
+      ]
+    },
+    "2": {
+      "part": "belly",
+      "suggest": [
+        "yellow",
+        "white"
+      ]
+    },
+    "3": {
+      "part": "tail",
+      "suggest": [
+        "brown"
+      ]
+    }
+  }
+}

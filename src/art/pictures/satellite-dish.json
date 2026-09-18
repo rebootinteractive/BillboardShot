@@ -1,0 +1,24 @@
+{
+  "id": "satellite-dish",
+  "name": "Satellite Dish",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Satellite%20antenna" },
+  "art": [
+    "..1111..",
+    ".1111112",
+    "11111112",
+    "11111112",
+    ".111111.",
+    "..1111..",
+    "...33...",
+    "...33...",
+    "..3333..",
+    ".333333."
+  ],
+  "groups": {
+    "1": { "part": "dish", "suggest": ["white", "cyan"] },
+    "2": { "part": "feed arm", "suggest": ["red", "black"] },
+    "3": { "part": "stand", "suggest": ["black", "brown"] }
+  }
+}

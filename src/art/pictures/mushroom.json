@@ -1,9 +1,16 @@
 {
   "id": "mushroom",
   "name": "Mushroom",
-  "tags": ["nature"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Mushroom" },
+  "tags": [
+    "nature"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Mushroom"
+  },
   "art": [
     "....21111....",
     "..222111122..",
@@ -20,8 +27,23 @@
     "....33333...."
   ],
   "groups": {
-    "1": { "part": "red", "suggest": ["red"] },
-    "2": { "part": "pink", "suggest": ["pink"] },
-    "3": { "part": "yellow", "suggest": ["yellow"] }
+    "1": {
+      "part": "cap",
+      "suggest": [
+        "red"
+      ]
+    },
+    "2": {
+      "part": "spots",
+      "suggest": [
+        "pink"
+      ]
+    },
+    "3": {
+      "part": "stem",
+      "suggest": [
+        "yellow"
+      ]
+    }
   }
 }

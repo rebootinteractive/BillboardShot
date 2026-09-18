@@ -1,9 +1,16 @@
 {
   "id": "shortcake",
   "name": "Shortcake",
-  "tags": ["food"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Shortcake" },
+  "tags": [
+    "food"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Shortcake"
+  },
   "art": [
     "......334.......",
     ".....2333222....",
@@ -23,9 +30,29 @@
     "1111............"
   ],
   "groups": {
-    "1": { "part": "orange", "suggest": ["orange"] },
-    "2": { "part": "white", "suggest": ["white"] },
-    "3": { "part": "red", "suggest": ["red"] },
-    "4": { "part": "lime", "suggest": ["lime"] }
+    "1": {
+      "part": "cake",
+      "suggest": [
+        "orange"
+      ]
+    },
+    "2": {
+      "part": "cream",
+      "suggest": [
+        "white"
+      ]
+    },
+    "3": {
+      "part": "strawberry",
+      "suggest": [
+        "red"
+      ]
+    },
+    "4": {
+      "part": "leaf",
+      "suggest": [
+        "lime"
+      ]
+    }
   }
 }

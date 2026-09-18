@@ -1,0 +1,23 @@
+{
+  "id": "droplet",
+  "name": "Droplet",
+  "tags": ["nature"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Droplet" },
+  "art": [
+    "...1...",
+    "..111..",
+    "..111..",
+    ".11111.",
+    ".11111.",
+    "1121111",
+    "1121111",
+    "1121111",
+    ".12111.",
+    "..111.."
+  ],
+  "groups": {
+    "1": { "part": "drop", "suggest": ["cyan", "blue"] },
+    "2": { "part": "shine", "suggest": ["white"] }
+  }
+}

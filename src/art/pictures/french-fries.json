@@ -1,9 +1,16 @@
 {
   "id": "french-fries",
   "name": "French Fries",
-  "tags": ["food"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/French%20fries" },
+  "tags": [
+    "food"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/French%20fries"
+  },
   "art": [
     "....11111111....",
     "..111132211111..",
@@ -24,8 +31,23 @@
     "...1111111111..."
   ],
   "groups": {
-    "1": { "part": "red", "suggest": ["red"] },
-    "2": { "part": "yellow", "suggest": ["yellow"] },
-    "3": { "part": "orange", "suggest": ["orange"] }
+    "1": {
+      "part": "carton",
+      "suggest": [
+        "red"
+      ]
+    },
+    "2": {
+      "part": "fries",
+      "suggest": [
+        "yellow"
+      ]
+    },
+    "3": {
+      "part": "fry edges",
+      "suggest": [
+        "orange"
+      ]
+    }
   }
 }

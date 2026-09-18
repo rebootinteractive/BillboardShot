@@ -1,9 +1,16 @@
 {
   "id": "bell",
   "name": "Bell",
-  "tags": ["object"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Bell" },
+  "tags": [
+    "object"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Bell"
+  },
   "art": [
     "......2......",
     "....1111.....",
@@ -21,7 +28,19 @@
     ".....222....."
   ],
   "groups": {
-    "1": { "part": "bell", "suggest": ["yellow", "orange"] },
-    "2": { "part": "clapper", "suggest": ["orange", "brown"] }
+    "1": {
+      "part": "bell",
+      "suggest": [
+        "yellow",
+        "orange"
+      ]
+    },
+    "2": {
+      "part": "clapper",
+      "suggest": [
+        "orange",
+        "brown"
+      ]
+    }
   }
 }

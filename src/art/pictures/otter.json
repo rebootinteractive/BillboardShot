@@ -1,0 +1,27 @@
+{
+  "id": "otter",
+  "name": "Otter",
+  "tags": ["animal"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Otter" },
+  "art": [
+    ".111............",
+    "11111...........",
+    "12221...........",
+    "12221...........",
+    "11111...........",
+    ".111111111......",
+    ".111111111144...",
+    ".11333333114444.",
+    ".113333331144444",
+    ".11333333114444.",
+    ".111111111144...",
+    "..11111111......"
+  ],
+  "groups": {
+    "1": { "part": "fur", "suggest": ["brown", "purple"] },
+    "2": { "part": "muzzle", "suggest": ["white", "pink"] },
+    "3": { "part": "belly", "suggest": ["yellow", "white"] },
+    "4": { "part": "tail", "suggest": ["brown", "black"] }
+  }
+}

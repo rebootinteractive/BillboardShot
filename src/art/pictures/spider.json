@@ -1,0 +1,42 @@
+{
+  "id": "spider",
+  "name": "Spider",
+  "tags": [
+    "animal"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Spider"
+  },
+  "art": [
+    "..11........11..",
+    "..111......111..",
+    "....12222221....",
+    "11...222222...11",
+    ".111.222222.111.",
+    "..111222222111..",
+    "1111.222222.1111",
+    "11....2222....11",
+    "111...2222...111",
+    "..11..2222..11.."
+  ],
+  "groups": {
+    "1": {
+      "part": "legs",
+      "suggest": [
+        "purple",
+        "black"
+      ]
+    },
+    "2": {
+      "part": "body",
+      "suggest": [
+        "purple",
+        "black"
+      ]
+    }
+  }
+}

@@ -1,9 +1,16 @@
 {
   "id": "tiger",
   "name": "Tiger",
-  "tags": ["animal"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Tiger%20face" },
+  "tags": [
+    "animal"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Tiger%20face"
+  },
   "art": [
     "..111..33..111..",
     ".11111111111111.",
@@ -22,8 +29,23 @@
     "......2222......"
   ],
   "groups": {
-    "1": { "part": "fur", "suggest": ["orange"] },
-    "2": { "part": "muzzle", "suggest": ["white"] },
-    "3": { "part": "stripes and eyes", "suggest": ["black"] }
+    "1": {
+      "part": "fur",
+      "suggest": [
+        "orange"
+      ]
+    },
+    "2": {
+      "part": "muzzle",
+      "suggest": [
+        "white"
+      ]
+    },
+    "3": {
+      "part": "stripes and eyes",
+      "suggest": [
+        "black"
+      ]
+    }
   }
 }

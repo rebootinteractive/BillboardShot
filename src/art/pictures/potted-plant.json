@@ -1,9 +1,16 @@
 {
   "id": "potted-plant",
   "name": "Potted Plant",
-  "tags": ["nature"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Potted%20plant" },
+  "tags": [
+    "nature"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Potted%20plant"
+  },
   "art": [
     "......2....",
     "......2....",
@@ -24,8 +31,23 @@
     "..1111111.."
   ],
   "groups": {
-    "1": { "part": "yellow", "suggest": ["yellow"] },
-    "2": { "part": "lime", "suggest": ["lime"] },
-    "3": { "part": "brown", "suggest": ["brown"] }
+    "1": {
+      "part": "pot",
+      "suggest": [
+        "yellow"
+      ]
+    },
+    "2": {
+      "part": "leaves",
+      "suggest": [
+        "lime"
+      ]
+    },
+    "3": {
+      "part": "stem and soil",
+      "suggest": [
+        "brown"
+      ]
+    }
   }
 }

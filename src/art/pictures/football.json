@@ -1,0 +1,23 @@
+{
+  "id": "football",
+  "name": "American football",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/American%20football" },
+  "art": [
+    "...111111...",
+    "..21111112..",
+    ".1211111121.",
+    "112113311211",
+    "112133331211",
+    "112113311211",
+    ".1211111121.",
+    "..21111112..",
+    "...111111..."
+  ],
+  "groups": {
+    "1": { "part": "leather", "suggest": ["brown"] },
+    "2": { "part": "stripes", "suggest": ["white"] },
+    "3": { "part": "laces", "suggest": ["white", "black"] }
+  }
+}

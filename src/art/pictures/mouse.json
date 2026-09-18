@@ -1,9 +1,16 @@
 {
   "id": "mouse",
   "name": "Mouse",
-  "tags": ["animal"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Mouse%20face" },
+  "tags": [
+    "animal"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Mouse%20face"
+  },
   "art": [
     "..111......111..",
     ".122111..111221.",
@@ -21,9 +28,29 @@
     ".......11......."
   ],
   "groups": {
-    "1": { "part": "white", "suggest": ["white"] },
-    "2": { "part": "pink", "suggest": ["pink"] },
-    "3": { "part": "purple", "suggest": ["purple"] },
-    "4": { "part": "black", "suggest": ["black"] }
+    "1": {
+      "part": "fur",
+      "suggest": [
+        "white"
+      ]
+    },
+    "2": {
+      "part": "inner ears and nose",
+      "suggest": [
+        "pink"
+      ]
+    },
+    "3": {
+      "part": "whiskers",
+      "suggest": [
+        "purple"
+      ]
+    },
+    "4": {
+      "part": "eyes",
+      "suggest": [
+        "black"
+      ]
+    }
   }
 }

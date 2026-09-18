@@ -1,9 +1,13 @@
 {
   "id": "key",
   "name": "Key",
-  "tags": ["object"],
-  "status": "draft",
-  "origin": { "method": "drawn" },
+  "tags": [
+    "object"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "drawn"
+  },
   "art": [
     "..1111.......",
     ".111111......",
@@ -13,7 +17,19 @@
     "..1111..2.2.."
   ],
   "groups": {
-    "1": { "part": "bow", "suggest": ["yellow", "orange"] },
-    "2": { "part": "blade", "suggest": ["yellow", "white"] }
+    "1": {
+      "part": "bow",
+      "suggest": [
+        "yellow",
+        "orange"
+      ]
+    },
+    "2": {
+      "part": "blade",
+      "suggest": [
+        "yellow",
+        "white"
+      ]
+    }
   }
 }

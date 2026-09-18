@@ -1,9 +1,16 @@
 {
   "id": "broccoli",
   "name": "Broccoli",
-  "tags": ["food"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Broccoli" },
+  "tags": [
+    "food"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Broccoli"
+  },
   "art": [
     ".....1111...",
     "..11111111..",
@@ -21,7 +28,18 @@
     "..22........"
   ],
   "groups": {
-    "1": { "part": "florets", "suggest": ["green"] },
-    "2": { "part": "stem", "suggest": ["lime", "green"] }
+    "1": {
+      "part": "florets",
+      "suggest": [
+        "green"
+      ]
+    },
+    "2": {
+      "part": "stem",
+      "suggest": [
+        "lime",
+        "green"
+      ]
+    }
   }
 }

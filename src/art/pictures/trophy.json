@@ -1,9 +1,16 @@
 {
   "id": "trophy",
   "name": "Trophy",
-  "tags": ["object"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Trophy" },
+  "tags": [
+    "object"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Trophy"
+  },
   "art": [
     "..11111111..",
     "..11111111..",
@@ -21,7 +28,19 @@
     ".2222222222."
   ],
   "groups": {
-    "1": { "part": "cup", "suggest": ["orange", "yellow"] },
-    "2": { "part": "base", "suggest": ["brown", "black"] }
+    "1": {
+      "part": "cup",
+      "suggest": [
+        "orange",
+        "yellow"
+      ]
+    },
+    "2": {
+      "part": "base",
+      "suggest": [
+        "brown",
+        "black"
+      ]
+    }
   }
 }

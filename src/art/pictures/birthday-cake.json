@@ -1,9 +1,16 @@
 {
   "id": "birthday-cake",
   "name": "Birthday Cake",
-  "tags": ["food"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Birthday%20cake" },
+  "tags": [
+    "food"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Birthday%20cake"
+  },
   "art": [
     "....4......4....",
     "...42..44..24...",
@@ -23,10 +30,35 @@
     ".22222222222222."
   ],
   "groups": {
-    "1": { "part": "white", "suggest": ["white"] },
-    "2": { "part": "orange", "suggest": ["orange"] },
-    "3": { "part": "cyan", "suggest": ["cyan"] },
-    "4": { "part": "yellow", "suggest": ["yellow"] },
-    "5": { "part": "pink", "suggest": ["pink"] }
+    "1": {
+      "part": "frosting",
+      "suggest": [
+        "white"
+      ]
+    },
+    "2": {
+      "part": "cake",
+      "suggest": [
+        "orange"
+      ]
+    },
+    "3": {
+      "part": "candles",
+      "suggest": [
+        "cyan"
+      ]
+    },
+    "4": {
+      "part": "flames",
+      "suggest": [
+        "yellow"
+      ]
+    },
+    "5": {
+      "part": "sprinkle",
+      "suggest": [
+        "pink"
+      ]
+    }
   }
 }

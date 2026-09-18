@@ -1,0 +1,25 @@
+{
+  "id": "seal",
+  "name": "Seal",
+  "tags": ["animal"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Seal" },
+  "art": [
+    "...111..........",
+    "..11111.........",
+    ".1111111........",
+    "11111111.....333",
+    "11111111....3333",
+    ".111111111113333",
+    ".11222222211333.",
+    "11222222221133..",
+    "112222222211333.",
+    ".122222222213333",
+    "..222222222..333"
+  ],
+  "groups": {
+    "1": { "part": "body", "suggest": ["blue", "black"] },
+    "2": { "part": "belly", "suggest": ["white", "yellow"] },
+    "3": { "part": "rear flipper", "suggest": ["cyan", "blue"] }
+  }
+}

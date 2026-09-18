@@ -1,9 +1,16 @@
 {
   "id": "cherries",
   "name": "Cherries",
-  "tags": ["food"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Cherries" },
+  "tags": [
+    "food"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Cherries"
+  },
   "art": [
     ".....222222..",
     ".....2..2222.",
@@ -19,7 +26,18 @@
     ".1111...1111."
   ],
   "groups": {
-    "1": { "part": "cherries", "suggest": ["red"] },
-    "2": { "part": "stems", "suggest": ["green", "lime"] }
+    "1": {
+      "part": "cherries",
+      "suggest": [
+        "red"
+      ]
+    },
+    "2": {
+      "part": "stems",
+      "suggest": [
+        "green",
+        "lime"
+      ]
+    }
   }
 }

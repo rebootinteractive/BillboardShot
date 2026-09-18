@@ -1,9 +1,16 @@
 {
   "id": "koala",
   "name": "Koala",
-  "tags": ["animal"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Koala" },
+  "tags": [
+    "animal"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Koala"
+  },
   "art": [
     "..1111....1111..",
     ".13331111113331.",
@@ -21,8 +28,23 @@
     "...1111111111..."
   ],
   "groups": {
-    "1": { "part": "purple", "suggest": ["purple"] },
-    "2": { "part": "black", "suggest": ["black"] },
-    "3": { "part": "brown", "suggest": ["brown"] }
+    "1": {
+      "part": "fur",
+      "suggest": [
+        "purple"
+      ]
+    },
+    "2": {
+      "part": "eyes and nose",
+      "suggest": [
+        "black"
+      ]
+    },
+    "3": {
+      "part": "inner ears",
+      "suggest": [
+        "brown"
+      ]
+    }
   }
 }

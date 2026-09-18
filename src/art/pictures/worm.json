@@ -1,0 +1,47 @@
+{
+  "id": "worm",
+  "name": "Worm",
+  "tags": [
+    "animal"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Worm"
+  },
+  "art": [
+    ".............22",
+    "............222",
+    "...13......1222",
+    "..1131....31222",
+    ".111311..13122.",
+    "111..113113....",
+    "11....1311.....",
+    "1......31......"
+  ],
+  "groups": {
+    "1": {
+      "part": "body",
+      "suggest": [
+        "pink",
+        "lime"
+      ]
+    },
+    "2": {
+      "part": "head",
+      "suggest": [
+        "red",
+        "brown"
+      ]
+    },
+    "3": {
+      "part": "segment bands",
+      "suggest": [
+        "red",
+        "purple"
+      ]
+    }
+  }
+}
