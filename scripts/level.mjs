@@ -7,7 +7,12 @@
  *   npm run level -- tune <brief.json>         build and tune to the target; write level + report card
  *   npm run level -- report <level.json>       report card for an existing level
  *
- * Levels go to src/levels/trial/, report cards to design/reports/.
+ * Flags for build and tune:
+ *   --evaluations N   how many candidates the tuner tries (default 150)
+ *   --quiet           hide the tuner's progress; print only the result
+ *   --production      write into src/levels/production, the play order, instead of trial
+ *
+ * Levels go to src/levels/trial/ unless --production. Report cards to design/reports/.
  */
 import { build } from 'esbuild';
 import fs from 'node:fs';
@@ -20,7 +25,17 @@ const flag = (name, fallback) => {
   const i = rest.indexOf(`--${name}`);
   return i < 0 ? fallback : Number(rest.splice(i, 2)[1]);
 };
+const switched = (name) => {
+  const i = rest.indexOf(`--${name}`);
+  if (i < 0) return false;
+  rest.splice(i, 1);
+  return true;
+};
 const evaluations = flag('evaluations', 150);
+/** Write the level into the play order instead of src/levels/trial. */
+const production = switched('production');
+/** Print only the result, not the tuner's progress. */
+const quiet = switched('quiet');
 const args = rest;
 
 const outfile = path.join(root, 'node_modules/.cache/billboardshot-sim/design.mjs');
@@ -33,16 +48,20 @@ const readJson = (f) => JSON.parse(fs.readFileSync(path.resolve(f), 'utf8'));
 const pct = (x) => `${Math.round(x * 100)}%`;
 
 function writeOutputs(id, level, report, extra = {}) {
-  const levelFile = path.join(root, 'src/levels/trial', `${id}.json`);
+  // Production levels join the play order, so they are played by number, not by name.
+  const dir = production ? 'src/levels/production' : 'src/levels/trial';
+  const levelFile = path.join(root, dir, `${id}.json`);
   const cardFile = path.join(root, 'design/reports', `${id}.html`);
   fs.mkdirSync(path.dirname(levelFile), { recursive: true });
   fs.mkdirSync(path.dirname(cardFile), { recursive: true });
   fs.writeFileSync(levelFile, d.formatLevel(level));
-  fs.writeFileSync(cardFile, d.reportCard(level, report, { ...extra, playUrl: `http://localhost:5173/?debug&sandbox=trial/${id}` }));
+  const number = production ? Number(id.match(/\d+/)?.[0]) : null;
+  const playUrl = number ? `http://localhost:5173/?debug&level=${number}` : `http://localhost:5173/?debug&sandbox=trial/${id}`;
+  fs.writeFileSync(cardFile, d.reportCard(level, report, { ...extra, playUrl }));
   writeIndex();
   console.log(`  level:       ${path.relative(root, levelFile)}`);
   console.log(`  report card: ${path.relative(root, cardFile)}`);
-  console.log(`  play:        http://localhost:5173/?debug&sandbox=trial/${id}`);
+  console.log(`  play:        ${playUrl}`);
 }
 
 /** design/reports/index.html: every report card, with its difficulty and target. */
@@ -101,6 +120,7 @@ if (command === 'facts') {
     const result = d.tuneLevel(brief, pictures, {
       maxEvaluations: evaluations,
       onStep: (s) => {
+        if (quiet) return;
         if (Date.now() - last > 4000 || s.loss === 0) {
           last = Date.now();
           console.log(`  #${String(s.evaluation).padStart(3)} ${s.accepted ? 'kept   ' : 'dropped'} difficulty ${pct(s.difficulty)}${s.warnings ? `, ${s.warnings} warning(s)` : ''}${s.winnable ? '' : ', not proven winnable'} · ${s.change}`);
@@ -122,5 +142,5 @@ if (command === 'facts') {
   summarize(report);
   console.log(`  report card: ${path.relative(root, cardFile)}`);
 } else {
-  console.log('Usage: npm run level -- facts <picture...> | build <brief.json> | tune <brief.json> [--evaluations N] | report <level.json>');
+  console.log('Usage: npm run level -- facts <picture...> | build <brief.json> | tune <brief.json> [--evaluations N] [--quiet] [--production] | report <level.json>');
 }

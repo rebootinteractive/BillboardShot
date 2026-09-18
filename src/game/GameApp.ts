@@ -629,7 +629,10 @@ export class GameApp {
       ...[...SANDBOX].map(([name, data]) => ({
         value: `sandbox:${name}`,
         label: data.name,
-        group: name.startsWith('dev/') ? 'Development' : name.startsWith('trial/') ? 'Trial' : 'Feature tests',
+        group: name.startsWith('dev/') ? 'Development'
+          : name.startsWith('trial/') ? 'Trial'
+          : name.startsWith('mvp/') ? 'First playtest'
+          : 'Feature tests',
       })),
     ];
     this.hud.enableLevelPicker(options, (value) => {
