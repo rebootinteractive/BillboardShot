@@ -1,7 +1,7 @@
 {
   "id": "level-07",
   "name": "Shallow Water",
-  "intent": "Hidden containers are introduced, so the level itself gives way: only five colours, every group on all three boards is exposed at the start, and white appears on all three (shark belly, seal belly, jellyfish rim) so there is always somewhere to pull. One hidden container, and because nothing can be buried behind it, guessing wrong is survivable. The player should finish this thinking 'that was fine' and carry the rule into level 8.",
+  "intent": "Hidden containers are introduced, so the level itself gives way: only five colours, every group on all three boards is exposed at the start, and white appears on all three (shark belly, seal belly, jellyfish rim) so there is always somewhere to pull. Three hidden containers, spread through the lanes so the player meets the rule more than once, and because nothing can be buried behind them, guessing wrong is survivable. The player should finish this thinking 'that was fine' and carry the rule into level 8.",
   "target": { "min": 0.9, "max": 1.0 },
   "lanes": 3,
   "hint": "A grey container with a ? keeps its colour secret until it reaches the front of its lane.",
@@ -10,5 +10,5 @@
     { "picture": "seal", "colors": { "1": "blue", "2": "white", "3": "cyan" } },
     { "picture": "jellyfish", "colors": { "1": "pink", "2": "purple", "3": "white" } }
   ],
-  "queue": { "hidden": 1 }
+  "queue": { "hidden": 3 }
 }

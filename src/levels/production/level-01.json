@@ -1,5 +1,6 @@
 {
   "name": "First Harvest",
+  "tutorial": "send",
   "boards": [
     {
       "name": "Pear",
@@ -20,38 +21,18 @@
         "......YYYY..."
       ],
       "source": { "picture": "pear", "colors": { "1": "yellow", "2": "green" } }
-    },
-    {
-      "name": "Cherries",
-      "art": [
-        ".....GGGGGG..",
-        ".....G..GGGG.",
-        "....GGG..GGG.",
-        "...GG.G..GGGG",
-        "...G.........",
-        "...G.........",
-        "..RR....GRR..",
-        ".RRRRR..RRRR.",
-        "RRRRRR.RRRRRR",
-        "RRRRRR.RRRRRR",
-        "RRRRRRRRRRRRR",
-        ".RRRR...RRRR."
-      ],
-      "source": { "picture": "cherries", "colors": { "1": "red", "2": "green" } }
     }
   ],
   "lanes": [
     [
-      { "color": "green", "charges": 35 },
+      { "color": "green", "charges": 8 },
+      { "color": "yellow", "charges": 30 }
+    ],
+    [
       { "color": "yellow", "charges": 31 }
     ],
     [
-      { "color": "yellow", "charges": 31 },
-      { "color": "red", "charges": 29 }
-    ],
-    [
-      { "color": "red", "charges": 29 },
-      { "color": "yellow", "charges": 30 }
+      { "color": "yellow", "charges": 31 }
     ]
   ]
 }

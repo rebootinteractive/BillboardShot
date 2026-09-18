@@ -15,22 +15,31 @@ Sizes are the picture's pixel count; the level's total should land near its budg
 
 | # | Budget | Theme | Pictures (pixels) | Total |
 |---|---|---|---|---|
-| 1 | ~200 | Orchard | pear (100), cherries (85) | 185 |
-| 2 | ~240 | Orchard | apple (135), strawberry (99) | 234 |
-| 3 | ~290 | Orchard | lemon (106), grapes (92), chestnut (85) | 283 |
+| 1 | ~100 | Orchard | pear (100) | 100 |
+| 2 | ~210 | Orchard | strawberry (99), lemon (106) | 205 |
+| 3 | ~310 | Orchard | apple (135), grapes (92), chestnut (85) | 312 |
 | 4 | ~330 | Orchard | watermelon (105), carrot (103), broccoli (112) | 320 |
 | 5 | ~370 | Orchard | avocado (125), peach (132), cherry-blossom (118) | 375 |
 | 6 | ~410 | Harbor | crab (130), sailboat (130), dolphin (135) | 395 |
 | 7 | ~390 | Harbor | shark (133), seal (123), jellyfish (106) | 362 |
 | 8 | ~460 | Harbor | turtle (113), fish (96), lobster (131), otter (107) | 447 |
 
-23 pictures, each used once.
+22 pictures, each used once.
+
+Levels 1–3 are shaped by their tutorials rather than by their pixel budget. Level 1 has a
+single board because it teaches tapping and there is nothing to turn to; level 2 needs two
+boards whose colors are obviously different, so the player can see that turning the
+carousel reached something new — a red strawberry in front and a yellow lemon behind it.
+That is why the apple moved to level 3: an apple and a strawberry are both red, and level 2
+would have taught nothing.
 
 ## Used so far
 
-pear, cherries, apple, strawberry, lemon, grapes, chestnut, watermelon, carrot, broccoli,
+pear, strawberry, lemon, apple, grapes, chestnut, watermelon, carrot, broccoli,
 avocado, peach, cherry-blossom, crab, sailboat, dolphin, shark, seal, jellyfish, turtle,
 fish, lobster, otter
+
+**cherries** was allocated to level 1 and is now free again.
 
 ## Not available for reuse until
 

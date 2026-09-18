@@ -2,7 +2,7 @@ import type { ColorKey } from '../shared/types';
 import { COLOR_KEYS } from '../shared/colors';
 import type { KeyColor } from '../shared/keyColors';
 import { renderSource, type BoardSource, type Picture } from '../art/library';
-import { artColor, validateLevel, type BoardData, type ContainerData, type LevelData } from '../game/level';
+import { artColor, validateLevel, type BoardData, type ContainerData, type LevelData, type TutorialStep } from '../game/level';
 import { createState, exposedCount, isOpen } from '../rules/sim';
 
 /**
@@ -35,6 +35,8 @@ export interface LevelBrief {
   /** What this level is for, in a sentence or two. */
   intent: string;
   hint?: string;
+  /** The input this level teaches; see LevelData. */
+  tutorial?: TutorialStep;
   /** Target band for the difficulty score (the average bot's win rate), 0 to 1. */
   target: { min: number; max: number };
   lanes: number;
@@ -227,7 +229,7 @@ export function buildLevel(brief: LevelBrief, pictures: Map<string, Picture>): B
   }
   placeLinks(lanes, brief.queue?.links ?? 0);
   placeHidden(lanes, brief.queue?.hidden ?? 0);
-  const level: LevelData = { name: brief.name, ...(brief.hint ? { hint: brief.hint } : {}), boards, lanes };
+  const level: LevelData = { name: brief.name, ...(brief.hint ? { hint: brief.hint } : {}), ...(brief.tutorial ? { tutorial: brief.tutorial } : {}), boards, lanes };
   errors.push(...validateLevel(level, pictures));
   return { level, errors };
 }

@@ -1,25 +1,7 @@
 {
   "name": "Orchard Snack",
+  "tutorial": "rotate",
   "boards": [
-    {
-      "name": "Apple",
-      "art": [
-        ".GGGG........",
-        ".GGGGG.......",
-        "..RRRGGRRR...",
-        ".RRRRRRRRRRR.",
-        ".RRRRRRRRRRR.",
-        "RRRRRRRRRRRRR",
-        "RRRRRRRRRRRRR",
-        "RRRRRRRRRRRRR",
-        "RRRRRRRRRRRRR",
-        "RRRRRRRRRRRRR",
-        ".RRRRRRRRRRR.",
-        ".RRRRRRRRRRR.",
-        "..RRRRRRRRR.."
-      ],
-      "source": { "picture": "apple", "colors": { "1": "red", "2": "green" } }
-    },
     {
       "name": "Strawberry",
       "art": [
@@ -39,21 +21,41 @@
         "....RR...."
       ],
       "source": { "picture": "strawberry", "colors": { "1": "red", "2": "green", "3": "black" } }
+    },
+    {
+      "name": "Lemon",
+      "art": [
+        "..GGG........",
+        "GGGGGYYYYY...",
+        ".GGGYYYYYYY..",
+        "...YYYYYYYYY.",
+        "...YYYYYYYYY.",
+        "...YYYYYYYYYY",
+        "...YYYYYYYYYY",
+        "...YYYYYYYYYY",
+        "...YYYYYYYYYY",
+        "....YYYYYYYYY",
+        "....YYYYYYYY.",
+        "......YYYYY..",
+        "........YYY.."
+      ],
+      "source": { "picture": "lemon", "colors": { "1": "yellow", "2": "green" } }
     }
   ],
   "lanes": [
     [
-      { "color": "red", "charges": 38 },
-      { "color": "black", "charges": 7 },
-      { "color": "red", "charges": 38 }
+      { "color": "yellow", "charges": 32 },
+      { "color": "red", "charges": 33 },
+      { "color": "green", "charges": 19 }
     ],
     [
-      { "color": "red", "charges": 38 },
-      { "color": "red", "charges": 38 }
+      { "color": "yellow", "charges": 32 },
+      { "color": "red", "charges": 33 },
+      { "color": "black", "charges": 7 }
     ],
     [
-      { "color": "green", "charges": 37 },
-      { "color": "red", "charges": 38 }
+      { "color": "yellow", "charges": 31 },
+      { "color": "green", "charges": 18 }
     ]
   ]
 }

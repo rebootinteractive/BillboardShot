@@ -61,21 +61,22 @@
   ],
   "lanes": [
     [
-      { "color": "blue", "charges": 39 },
       { "color": "cyan", "charges": 26 },
+      { "color": "white", "charges": 40, "hidden": true },
+      { "color": "purple", "charges": 14 },
+      { "color": "blue", "charges": 39, "hidden": true }
+    ],
+    [
+      { "color": "purple", "charges": 14 },
       { "color": "pink", "charges": 30 },
-      { "color": "blue", "charges": 38 }
+      { "color": "blue", "charges": 39 }
     ],
     [
+      { "color": "blue", "charges": 38 },
+      { "color": "purple", "charges": 14, "hidden": true },
       { "color": "pink", "charges": 31 },
-      { "color": "purple", "charges": 21 },
-      { "color": "white", "charges": 39 },
-      { "color": "blue", "charges": 38 }
-    ],
-    [
-      { "color": "white", "charges": 40 },
-      { "color": "blue", "charges": 39 },
-      { "color": "purple", "charges": 21, "hidden": true }
+      { "color": "blue", "charges": 38 },
+      { "color": "white", "charges": 39 }
     ]
   ]
 }

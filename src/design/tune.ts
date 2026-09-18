@@ -81,8 +81,20 @@ function evaluate(level: LevelData, brief: LevelBrief, target: { min: number; ma
 
 const cloneLanes = (lanes: ContainerData[][]) => lanes.map((l) => l.map((c) => ({ ...c })));
 
-/** One random change to the queue. Returns a description, or null if nothing applied. */
+/**
+ * One random change to the queue. Returns a description, or null if nothing applied or
+ * the result broke a placement rule, in which case the caller discards the candidate.
+ */
 function mutate(lanes: ContainerData[][], brief: LevelBrief, pixels: Map<ColorKey, number>, rng: () => number): string | null {
+  const change = mutateOnce(lanes, brief, pixels, rng);
+  if (!change) return null;
+  // A hidden container reveals when it reaches the head of its lane, so one sitting at the
+  // head is revealed before the level starts and hides nothing. Swaps can put one there.
+  if (lanes.some((lane) => lane[0]?.hidden)) return null;
+  return change;
+}
+
+function mutateOnce(lanes: ContainerData[][], brief: LevelBrief, pixels: Map<ColorKey, number>, rng: () => number): string | null {
   const positions = lanes.flatMap((l, k) => l.map((_, j) => [k, j] as const));
   const pick = <T>(xs: readonly T[]) => xs[Math.floor(rng() * xs.length)];
   const roll = rng();

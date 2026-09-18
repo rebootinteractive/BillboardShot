@@ -85,9 +85,9 @@ last to have choices taken away.
 
 | # | Type | Target | Features | Boards | Pixels | Theme |
 |---|---|---|---|---|---|---|
-| 1 | Intro | 97–100% | — | 2 | ~200 | Orchard |
-| 2 | Intro | 95–100% | — | 2 | ~240 | Orchard |
-| 3 | Intro | 92–100% | — | 3 | ~290 | Orchard |
+| 1 | Intro | 97–100% | **tutorial: send** | 1 | ~100 | Orchard |
+| 2 | Intro | 95–100% | **tutorial: rotate** | 2 | ~210 | Orchard |
+| 3 | Intro | 92–100% | — | 3 | ~310 | Orchard |
 | 4 | Easy | 86–93% | — | 3 | ~330 | Orchard |
 | 5 | Easy | 79–87% | — | 3 | ~370 | Orchard |
 | 6 | Medium | 66–76% | — | 3 | ~410 | Harbor |
@@ -115,6 +115,21 @@ Levels 1–5 teach the base game with no features at all: that only the lowest p
 column is pullable, that only the front board is pulled from, and that a color with no
 container left is a dead end. Five levels is not padding — every later feature assumes
 these are automatic.
+
+**Levels 1 and 2 teach the two inputs**, each with a pointing hand rather than a sentence,
+because both gestures are physical and easier shown than described. The level's `tutorial`
+field carries this.
+
+- **Level 1, `send`.** One board, so there is nothing to turn to and nothing to get wrong.
+  The hand taps the head of a lane. It leaves as soon as the player sends anything.
+- **Level 2, `rotate`.** Two boards whose colors are plainly different, the red strawberry
+  in front and the yellow lemon behind. **Every lane starts with a yellow container**, so
+  there is nothing to pull until the carousel is turned, and the lanes stay shut until it
+  is. The hand shows the drag. Tapping a lane meanwhile says "Turn the billboards first".
+
+The rotate tutorial only works if the level opens with nothing pullable on the front board,
+so its queue is written by hand with `queue.order` and built rather than tuned — the tuner
+would reorder the opening and undo the lesson.
 
 ## 5. Levels 26–40: the engine
 

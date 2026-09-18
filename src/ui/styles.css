@@ -512,3 +512,71 @@ body { background: #c6d0da; }
 .endgame .modal-actions { justify-content: center; gap: 10px; }
 /* Long level names (debug side levels) must not run under the Send results button. */
 .hud-level { max-width: calc(100% - 260px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------------------------------------------------------------- tutorial */
+/* The pointing hand for the first two levels. It never takes pointer events:
+   the player performs the gesture on the canvas underneath it. */
+.tutorial-layer {
+  z-index: 3;
+  pointer-events: none;
+  transition: opacity 360ms ease;
+}
+.tutorial-layer > * {
+  pointer-events: none;
+}
+.tutorial-layer.tut-out {
+  opacity: 0;
+}
+.tut-hand {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* The fingertip, not the wrist, is what should sit on the target. */
+  margin: -10px 0 0 -16px;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.55));
+  will-change: transform;
+}
+.tut-hand svg {
+  display: block;
+  fill: #fdfdfd;
+  stroke: #1d2130;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.tut-hand > svg {
+  animation: none;
+}
+.tut-hand.tap > svg {
+  animation: tut-tap 1400ms ease-in-out infinite;
+}
+.tut-hand.swipe > svg {
+  animation: tut-swipe 1900ms ease-in-out infinite;
+}
+@keyframes tut-tap {
+  0%, 100% { transform: translateY(0) scale(1); }
+  38% { transform: translateY(11px) scale(0.9); }
+  60% { transform: translateY(0) scale(1); }
+}
+@keyframes tut-swipe {
+  0% { transform: translateX(34px); opacity: 0; }
+  16% { opacity: 1; }
+  74% { opacity: 1; }
+  88%, 100% { transform: translateX(-42px); opacity: 0; }
+}
+.tut-caption {
+  position: absolute;
+  left: 50%;
+  bottom: 152px;
+  transform: translateX(-50%);
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: rgba(20, 24, 36, 0.92);
+  color: var(--text);
+  font-size: 14px;
+  white-space: nowrap;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tut-hand.tap > svg,
+  .tut-hand.swipe > svg { animation-duration: 3s; }
+}

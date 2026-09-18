@@ -2,23 +2,23 @@
   "name": "Fruit Basket",
   "boards": [
     {
-      "name": "Lemon",
+      "name": "Apple",
       "art": [
-        "..GGG........",
-        "GGGGGYYYYY...",
-        ".GGGYYYYYYY..",
-        "...YYYYYYYYY.",
-        "...YYYYYYYYY.",
-        "...YYYYYYYYYY",
-        "...YYYYYYYYYY",
-        "...YYYYYYYYYY",
-        "...YYYYYYYYYY",
-        "....YYYYYYYYY",
-        "....YYYYYYYY.",
-        "......YYYYY..",
-        "........YYY.."
+        ".GGGG........",
+        ".GGGGG.......",
+        "..RRRGGRRR...",
+        ".RRRRRRRRRRR.",
+        ".RRRRRRRRRRR.",
+        "RRRRRRRRRRRRR",
+        "RRRRRRRRRRRRR",
+        "RRRRRRRRRRRRR",
+        "RRRRRRRRRRRRR",
+        "RRRRRRRRRRRRR",
+        ".RRRRRRRRRRR.",
+        ".RRRRRRRRRRR.",
+        "..RRRRRRRRR.."
       ],
-      "source": { "picture": "lemon", "colors": { "1": "yellow", "2": "green" } }
+      "source": { "picture": "apple", "colors": { "1": "red", "2": "green" } }
     },
     {
       "name": "Grapes",
@@ -60,19 +60,20 @@
   ],
   "lanes": [
     [
-      { "color": "green", "charges": 17 },
-      { "color": "purple", "charges": 35 },
-      { "color": "brown", "charges": 31 }
-    ],
-    [
-      { "color": "yellow", "charges": 32 },
+      { "color": "red", "charges": 31 },
       { "color": "orange", "charges": 38 },
-      { "color": "purple", "charges": 35 }
+      { "color": "purple", "charges": 35 },
+      { "color": "red", "charges": 31 }
     ],
     [
       { "color": "brown", "charges": 32 },
-      { "color": "yellow", "charges": 32 },
-      { "color": "yellow", "charges": 31 }
+      { "color": "red", "charges": 31 },
+      { "color": "green", "charges": 17 }
+    ],
+    [
+      { "color": "purple", "charges": 35 },
+      { "color": "brown", "charges": 31 },
+      { "color": "red", "charges": 31 }
     ]
   ]
 }
