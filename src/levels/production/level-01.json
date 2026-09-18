@@ -25,14 +25,14 @@
   ],
   "lanes": [
     [
-      { "color": "green", "charges": 8 },
+      { "color": "yellow", "charges": 31 }
+    ],
+    [
+      { "color": "yellow", "charges": 31 },
+      { "color": "green", "charges": 8 }
+    ],
+    [
       { "color": "yellow", "charges": 30 }
-    ],
-    [
-      { "color": "yellow", "charges": 31 }
-    ],
-    [
-      { "color": "yellow", "charges": 31 }
     ]
   ]
 }

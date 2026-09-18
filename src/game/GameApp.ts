@@ -618,8 +618,9 @@ export class GameApp {
 
   /**
    * Keep the pointing hand on what it is pointing at, and retire it once the player has
-   * done the gesture. The send hand tracks the head of the fullest lane, because that is
-   * the container the level wants sent first; the rotate hand sits over the carousel.
+   * done the gesture. The send hand tracks the head of the middle lane, which reads as
+   * "any of these" rather than singling out an edge; the rotate hand sits over the
+   * carousel.
    */
   private updateTutorial() {
     if (!this.tutorial.active) return;
@@ -633,7 +634,8 @@ export class GameApp {
       this.tutorial.moveTo(rect.width / 2, rect.height * 0.46);
       return;
     }
-    const head = this.lanes.find((lane) => lane.length)?.[0];
+    const middle = Math.floor(this.lanes.length / 2);
+    const head = this.lanes[middle]?.[0] ?? this.lanes.find((lane) => lane.length)?.[0];
     if (!head) return;
     const at = head.group.getWorldPosition(this.tutorialAt).project(this.camera);
     this.tutorial.moveTo((at.x * 0.5 + 0.5) * rect.width, (-at.y * 0.5 + 0.5) * rect.height);
@@ -676,7 +678,7 @@ export class GameApp {
           : 'Feature tests',
       })),
     ];
-    this.hud.enableLevelPicker(options, (value) => {
+    const show = (value: string) => {
       const [kind, id] = value.split(':');
       const params = new URLSearchParams(location.search);
       params.delete('level');
@@ -692,6 +694,12 @@ export class GameApp {
         this.goToLevel(Number(id));
       }
       history.replaceState(null, '', `${location.pathname}?${params.toString().replace(/=(?=&|$)/g, '')}`);
+    };
+    this.hud.enableLevelPicker(options, show, (delta) => {
+      // Stepping always lands in the numbered levels, even from a sandbox level, and
+      // wraps at both ends so the arrows are never dead.
+      const from = this.isSideLevel() ? 1 : this.levelNumber;
+      show(`level:${((from - 1 + delta + LEVELS.length) % LEVELS.length) + 1}`);
     });
   }
 

@@ -580,3 +580,16 @@ body { background: #c6d0da; }
   .tut-hand.tap > svg,
   .tut-hand.swipe > svg { animation-duration: 3s; }
 }
+
+/* Debug level stepper: ‹ Level 3 › */
+.hud-level-row { align-self: center; margin-top: 18px; display: flex; align-items: center; gap: 6px; }
+.hud-level-row .hud-level { align-self: auto; margin-top: 0; }
+.hud-level-step {
+  width: 30px; height: 30px; padding: 0;
+  border: 0; border-radius: 999px;
+  background: rgba(255, 247, 227, 0.7);
+  color: #795335; font-size: 19px; line-height: 1;
+  cursor: pointer;
+}
+.hud-level-step:hover { background: rgba(255, 247, 227, 0.95); }
+.hud-level-step:active { transform: scale(0.92); }

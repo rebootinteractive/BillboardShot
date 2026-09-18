@@ -25,7 +25,7 @@ export class Hud {
     this.root = document.createElement('div');
     this.root.className = 'overlay hud-layer';
     this.root.innerHTML = `
-      <div class="hud-level">Level <strong data-level>1</strong></div>
+      <div class="hud-level-row"><div class="hud-level">Level <strong data-level>1</strong></div></div>
       <div class="hud-top">
         <div class="hud-stat"><span class="lbl">Pixels</span><strong data-tiles>0</strong></div>
         <div class="hud-stat"><span class="lbl">Deck</span><strong data-deck>0/0</strong></div>
@@ -67,11 +67,24 @@ export class Hud {
   }
 
   /**
-   * Debug only: turns the level pill into a dropdown of every level. The native select
-   * sits invisibly over the pill, so a tap opens the system picker on a phone too.
+   * Debug only: turns the level pill into a dropdown of every level, with a step back and
+   * forward either side of it. The native select sits invisibly over the pill, so a tap
+   * opens the system picker on a phone too; the arrows are siblings of the pill rather
+   * than children so the select cannot swallow their taps.
    */
-  enableLevelPicker(options: LevelOption[], onPick: (value: string) => void) {
+  enableLevelPicker(options: LevelOption[], onPick: (value: string) => void, onStep: (delta: number) => void) {
     const pill = this.root.querySelector('.hud-level')!;
+    const row = this.root.querySelector('.hud-level-row')!;
+    for (const [delta, glyph, label] of [[-1, '‹', 'Previous level'], [1, '›', 'Next level']] as const) {
+      const button = document.createElement('button');
+      button.className = 'hud-level-step';
+      button.textContent = glyph;
+      button.title = label;
+      button.setAttribute('aria-label', label);
+      button.addEventListener('click', () => onStep(delta));
+      if (delta < 0) row.insertBefore(button, pill);
+      else row.appendChild(button);
+    }
     pill.classList.add('pickable');
     const select = document.createElement('select');
     select.className = 'hud-level-select';
