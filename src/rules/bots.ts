@@ -1,6 +1,6 @@
 import {
-  UNKNOWN, applyMove, cloneState, createState, exposedCount, freeSlots, isOpen, legalMoves, maskState,
-  remainingPixels, type Move, type State,
+  UNKNOWN, applyMove, cloneState, createState, exposedCount, freeSlots, isOpen, legalMoves, lowestRow, maskState,
+  openExposedColors, remainingPixels, type Move, type State,
 } from './sim';
 import type { LevelData } from '../game/level';
 
@@ -30,6 +30,25 @@ function visibleCount(s: State, color: number): number {
   return n;
 }
 
+/**
+ * Colors at the bottom of a column that holds a key, on open boards. Pulling them digs
+ * toward the key, which opens a locked board: players go for keys on purpose.
+ */
+function keyColumnColors(s: State): Set<number> {
+  const out = new Set<number>();
+  for (const b of s.boards) {
+    if (!isOpen(b)) continue;
+    for (let col = 0; col < b.cols; col++) {
+      let hasKey = false;
+      for (let row = 0; row < b.rows && !hasKey; row++) hasKey = b.key[col * b.rows + row] >= 0;
+      if (!hasKey) continue;
+      const row = lowestRow(b, col);
+      if (row < b.rows) out.add(b.color[col * b.rows + row]);
+    }
+  }
+  return out;
+}
+
 /** How attractive a move looks, judged from the state the bot is given. */
 export function scoreMove(s: State, move: Move): number {
   if (move.type === 'send') {
@@ -42,9 +61,15 @@ export function scoreMove(s: State, move: Move): number {
   const b = s.boards[move.board];
   if (!isOpen(b)) return -6;
   let pullable = 0;
-  for (const c of s.deck) if (c && c.charges > 0 && c.color !== UNKNOWN) pullable += Math.min(c.charges, exposedCount(b, c.color) * 3);
-  // Turning to a board is worth as much as what the deck can pull there.
-  return pullable === 0 ? -5 : 2.5 + Math.min(pullable, 60) / 8;
+  let digsKey = false;
+  const keyColors = keyColumnColors({ ...s, boards: [b] });
+  for (const c of s.deck) {
+    if (!c || c.charges <= 0 || c.color === UNKNOWN) continue;
+    pullable += Math.min(c.charges, exposedCount(b, c.color) * 3);
+    if (keyColors.has(c.color)) digsKey = true;
+  }
+  // Turning to a board is worth as much as what the deck can pull there, more if it digs toward a key.
+  return pullable === 0 ? -5 : 2.5 + Math.min(pullable, 60) / 8 + (digsKey ? 3 : 0);
 }
 
 function scoreSend(s: State, lane: number, slotsUsed: number): number {
@@ -61,6 +86,7 @@ function scoreSend(s: State, lane: number, slotsUsed: number): number {
     else score -= 1;
     // It pulls right away when its color is on the front board.
     if (onFront > 0) score += 1.5;
+    if (keyColumnColors(s).has(head.color)) score += 1.5;
     if (s.deck.some((c) => c && c.charges > 0 && c.color === head.color)) score -= 2;
     const freeAfter = freeSlots(s) - slotsUsed;
     if (exposedNow === 0 && freeAfter <= 1) score -= 4;
@@ -101,13 +127,15 @@ interface PlannerSettings {
    */
   openingSends: number;
   openingLapse: number;
+  /** Cost, per playout, of each partly filled container parked on the deck at its end. */
+  parkedPenalty: number;
 }
 
 /** Bot settings. Exported so calibration against playtest data can adjust them. */
 export const PLANNERS: Record<'average' | 'careful', PlannerSettings> = {
   // Opening rush fitted to the first two playtesters (2026-09-17): 8 sends at 50%.
-  average: { candidates: 3, rollouts: 1, depth: 10, impulse: 0.25, lapse: 0.06, openingSends: 8, openingLapse: 0.5 },
-  careful: { candidates: 5, rollouts: 3, depth: 40, impulse: 0, lapse: 0.02, openingSends: 0, openingLapse: 0 },
+  average: { candidates: 3, rollouts: 1, depth: 10, impulse: 0.25, lapse: 0.06, openingSends: 8, openingLapse: 0.5, parkedPenalty: 0 },
+  careful: { candidates: 5, rollouts: 3, depth: 40, impulse: 0, lapse: 0.02, openingSends: 0, openingLapse: 0, parkedPenalty: 25 },
 };
 
 /** Choose a move from the player's view of the state. */
@@ -120,7 +148,10 @@ export function chooseMove(bot: BotName | 'greedy', view: State, rng: Rng): Move
   const moves = useful.length ? useful : all;
   const scores = moves.map((m) => scoreMove(view, m));
   if (bot === 'careless') {
-    // Often taps whatever is there, including boards where nothing happens.
+    // Often taps whatever is there, including boards where nothing happens, and rushes
+    // the opening at least as hard as the average bot.
+    const sends = all.filter((m) => m.type === 'send');
+    if (view.stats.sends < PLANNERS.average.openingSends && sends.length && rng() < 0.6) return sends[Math.floor(rng() * sends.length)];
     if (rng() < 0.2) return all[Math.floor(rng() * all.length)];
     return softmaxPick(moves, scores, 4, rng);
   }
@@ -149,7 +180,9 @@ export function chooseMove(bot: BotName | 'greedy', view: State, rng: Rng): Move
         if (!reply) break;
         applyMove(sim, reply);
       }
-      total += sim.over === 'win' ? 1000 : -remainingPixels(sim) + (sim.over === 'lose' ? -50 : 0) + freeSlots(sim) * 3;
+      const exposed = openExposedColors(sim);
+      const parked = sim.deck.filter((c) => c && c.charges > 0 && !exposed.has(c.color)).length;
+      total += sim.over === 'win' ? 1000 : -remainingPixels(sim) + (sim.over === 'lose' ? -50 : 0) + freeSlots(sim) * 3 - parked * plan.parkedPenalty;
     }
     const value = total / plan.rollouts + firstScore * 0.5;
     if (value > bestValue) {

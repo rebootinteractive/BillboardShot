@@ -1,0 +1,54 @@
+{
+  "id": "music-note",
+  "name": "Music note",
+  "tags": [
+    "object"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Musical%20note/Flat/musical_note_flat.svg"
+  },
+  "art": [
+    "....2233",
+    "....2233",
+    "....2233",
+    "....2233",
+    "....223.",
+    "....22..",
+    "....22..",
+    "....22..",
+    "....22..",
+    "....22..",
+    ".11111..",
+    "111111..",
+    "111111..",
+    ".1111..."
+  ],
+  "groups": {
+    "1": {
+      "part": "note head",
+      "suggest": [
+        "purple",
+        "blue",
+        "black"
+      ]
+    },
+    "2": {
+      "part": "stem",
+      "suggest": [
+        "black",
+        "blue"
+      ]
+    },
+    "3": {
+      "part": "flag",
+      "suggest": [
+        "blue",
+        "purple"
+      ]
+    }
+  }
+}

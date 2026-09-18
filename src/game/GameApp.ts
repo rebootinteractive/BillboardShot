@@ -16,6 +16,7 @@ import { Playtest, sendResults } from './analytics';
 import { chooseFirers, chooseTarget, isStuck, nextFront, sendBlocker, slotColumn } from '../rules/core';
 import { loadLevelNumber, saveLevelNumber } from './progress';
 import { Hud } from './Hud';
+import { Tutorial } from './Tutorial';
 import { Feedback } from './Feedback';
 import { roundedBox, pastelBackground, shadowTexture } from './visuals';
 
@@ -47,6 +48,9 @@ export class GameApp {
   private readonly clock = new THREE.Clock();
   private readonly ro: ResizeObserver;
   private readonly hud: Hud;
+  private readonly tutorial: Tutorial;
+  /** The board the rotate tutorial started on: turning away from it is the lesson. */
+  private tutorialFrom: Billboard | null = null;
   private readonly feedback: Feedback;
   private readonly background = pastelBackground();
   private readonly contactTexture = shadowTexture();
@@ -98,6 +102,7 @@ export class GameApp {
   private tapCandidate: Shooter | null = null;
   private readonly raycaster = new THREE.Raycaster();
   private readonly ndc = new THREE.Vector2();
+  private readonly tutorialAt = new THREE.Vector3();
   private readonly scratch = new THREE.Vector3();
   private readonly scratch2 = new THREE.Vector3();
 
@@ -155,6 +160,7 @@ export class GameApp {
         });
       },
     });
+    this.tutorial = new Tutorial(parent);
     window.addEventListener('pagehide', this.onPageHide);
     if (new URLSearchParams(location.search).has('debug')) this.enableLevelPicker();
     this.feedback = new Feedback(this.world);
@@ -209,6 +215,10 @@ export class GameApp {
       deckSlots: s.deckSlots,
     });
     if (level.hint && attempt === 1) this.hud.showIntro(level.hint);
+    // The tutorial runs on every attempt: someone who lost level 1 needs it more, not less.
+    this.tutorialFrom = null;
+    if (level.tutorial) this.tutorial.show(level.tutorial);
+    else this.tutorial.hide();
 
     // --- carousel structure ---
     const ringGeo = new THREE.TorusGeometry(s.carouselRadius, 0.09, 12, 96);
@@ -573,6 +583,13 @@ export class GameApp {
 
   private sendToDeck(sh: Shooter) {
     if (sh.state !== 'queue') return;
+    // The rotate tutorial holds the lanes shut until the carousel has been turned, so the
+    // player cannot skip past the lesson by tapping a container that has nothing to pull.
+    if (this.tutorial.active && this.tutorial.current === 'rotate') {
+      sh.reject();
+      this.hud.flash('Turn the billboards first');
+      return;
+    }
     const blocker = this.sendBlocker(sh);
     const partner = sh.partner?.state === 'queue' ? sh.partner : null;
     if (blocker) {
@@ -595,7 +612,33 @@ export class GameApp {
       member.beginTravel();
     }
     this.feedback.note('tap');
+    if (this.tutorial.current === 'send') this.tutorial.complete();
     this.playtest.send(this.deckOccupants.filter((o) => o === null).length);
+  }
+
+  /**
+   * Keep the pointing hand on what it is pointing at, and retire it once the player has
+   * done the gesture. The send hand tracks the head of the middle lane, which reads as
+   * "any of these" rather than singling out an edge; the rotate hand sits over the
+   * carousel.
+   */
+  private updateTutorial() {
+    if (!this.tutorial.active) return;
+    const rect = this.renderer.domElement.getBoundingClientRect();
+    if (this.tutorial.current === 'rotate') {
+      if (!this.tutorialFrom) this.tutorialFrom = this.focused;
+      else if (this.focused && this.focused !== this.tutorialFrom) {
+        this.tutorial.complete();
+        return;
+      }
+      this.tutorial.moveTo(rect.width / 2, rect.height * 0.46);
+      return;
+    }
+    const middle = Math.floor(this.lanes.length / 2);
+    const head = this.lanes[middle]?.[0] ?? this.lanes.find((lane) => lane.length)?.[0];
+    if (!head) return;
+    const at = head.group.getWorldPosition(this.tutorialAt).project(this.camera);
+    this.tutorial.moveTo((at.x * 0.5 + 0.5) * rect.width, (-at.y * 0.5 + 0.5) * rect.height);
   }
 
   /** A feature test level or art preview: outside the numbered levels and progress. */
@@ -629,10 +672,13 @@ export class GameApp {
       ...[...SANDBOX].map(([name, data]) => ({
         value: `sandbox:${name}`,
         label: data.name,
-        group: name.startsWith('dev/') ? 'Development' : 'Feature tests',
+        group: name.startsWith('dev/') ? 'Development'
+          : name.startsWith('trial/') ? 'Trial'
+          : name.startsWith('mvp/') ? 'First playtest'
+          : 'Feature tests',
       })),
     ];
-    this.hud.enableLevelPicker(options, (value) => {
+    const show = (value: string) => {
       const [kind, id] = value.split(':');
       const params = new URLSearchParams(location.search);
       params.delete('level');
@@ -648,6 +694,12 @@ export class GameApp {
         this.goToLevel(Number(id));
       }
       history.replaceState(null, '', `${location.pathname}?${params.toString().replace(/=(?=&|$)/g, '')}`);
+    };
+    this.hud.enableLevelPicker(options, show, (delta) => {
+      // Stepping always lands in the numbered levels, even from a sandbox level, and
+      // wraps at both ends so the arrows are never dead.
+      const from = this.isSideLevel() ? 1 : this.levelNumber;
+      show(`level:${((from - 1 + delta + LEVELS.length) % LEVELS.length) + 1}`);
     });
   }
 
@@ -694,6 +746,7 @@ export class GameApp {
     this.world.updateMatrixWorld(true);
 
     this.updateFocus();
+    this.updateTutorial();
     for (const bb of this.billboards) bb.setFocus(bb === this.focused, dt);
     this.slotPads.forEach((pad, i) => {
       const occupant = this.deckOccupants[i];
@@ -1128,6 +1181,7 @@ export class GameApp {
     this.ro.disconnect();
     this.destroyWorld();
     this.hud.dispose();
+    this.tutorial.dispose();
     this.feedback.dispose();
     this.background.dispose();
     this.contactTexture.dispose();

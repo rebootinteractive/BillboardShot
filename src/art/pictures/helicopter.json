@@ -1,9 +1,16 @@
 {
   "id": "helicopter",
   "name": "Helicopter",
-  "tags": ["vehicle"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Helicopter" },
+  "tags": [
+    "vehicle"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Helicopter"
+  },
   "art": [
     "................",
     ".22222222222...1",
@@ -22,10 +29,35 @@
     "1111111111111..."
   ],
   "groups": {
-    "1": { "part": "orange", "suggest": ["orange"] },
-    "2": { "part": "purple", "suggest": ["purple"] },
-    "3": { "part": "blue", "suggest": ["blue"] },
-    "4": { "part": "yellow", "suggest": ["yellow"] },
-    "5": { "part": "white", "suggest": ["white"] }
+    "1": {
+      "part": "body, tail and skids",
+      "suggest": [
+        "orange"
+      ]
+    },
+    "2": {
+      "part": "rotor and struts",
+      "suggest": [
+        "purple"
+      ]
+    },
+    "3": {
+      "part": "windows",
+      "suggest": [
+        "blue"
+      ]
+    },
+    "4": {
+      "part": "mast and stripe",
+      "suggest": [
+        "yellow"
+      ]
+    },
+    "5": {
+      "part": "tail rotor",
+      "suggest": [
+        "white"
+      ]
+    }
   }
 }

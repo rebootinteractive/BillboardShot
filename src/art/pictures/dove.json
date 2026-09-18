@@ -1,0 +1,47 @@
+{
+  "id": "dove",
+  "name": "Dove",
+  "tags": [
+    "animal"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Dove"
+  },
+  "art": [
+    "...111.....",
+    "..11111....",
+    "3311111....",
+    "311111111..",
+    ".1222222111",
+    ".1222222111",
+    ".112222221.",
+    "..1111111..",
+    "...11111..."
+  ],
+  "groups": {
+    "1": {
+      "part": "body",
+      "suggest": [
+        "white"
+      ]
+    },
+    "2": {
+      "part": "wing",
+      "suggest": [
+        "cyan",
+        "blue"
+      ]
+    },
+    "3": {
+      "part": "beak",
+      "suggest": [
+        "orange",
+        "yellow"
+      ]
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "name": "Shallow Water",
+  "hint": "A grey container with a ? keeps its colour secret until it reaches the front of its lane.",
+  "boards": [
+    {
+      "name": "Shark",
+      "art": [
+        ".......BBBB.....",
+        "......BBBBBB....",
+        ".....BBBBBBBB...",
+        "...BBBBBBBBBBB.B",
+        ".BBBBBBBBBBBBBBB",
+        ".BBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBB",
+        "MMMWWWWWWWWWWBBB",
+        ".MMWWWWWWWWWWBBB",
+        "..WWWWWWWWWWBBB.",
+        "...BBBBBB..BBB..",
+        "....BBBB........"
+      ],
+      "source": { "picture": "shark", "colors": { "1": "blue", "2": "white", "3": "pink" } }
+    },
+    {
+      "name": "Seal",
+      "art": [
+        "...BBB..........",
+        "..BBBBB.........",
+        ".BBBBBBB........",
+        "BBBBBBBB.....CCC",
+        "BBBBBBBB....CCCC",
+        ".BBBBBBBBBBBCCCC",
+        ".BBWWWWWWWBBCCC.",
+        "BBWWWWWWWWBBCC..",
+        "BBWWWWWWWWBBCCC.",
+        ".BWWWWWWWWWBCCCC",
+        "..WWWWWWWWW..CCC"
+      ],
+      "source": { "picture": "seal", "colors": { "1": "blue", "2": "white", "3": "cyan" } }
+    },
+    {
+      "name": "Jellyfish",
+      "art": [
+        "...MMMM...",
+        "..MMMMMM..",
+        ".MMMMMMMM.",
+        "MMMMMMMMMM",
+        "MMMMMMMMMM",
+        "MMMMMMMMMM",
+        ".MMMMMMMM.",
+        ".WWWWWWWW.",
+        ".PP.PP.PP.",
+        ".PP.PP.PP.",
+        ".PP.PP.PP.",
+        ".PP.PP.PP.",
+        ".PP.PP.PP.",
+        ".PP.PP.PP.",
+        ".PP.PP.PP."
+      ],
+      "source": { "picture": "jellyfish", "colors": { "1": "pink", "2": "purple", "3": "white" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "cyan", "charges": 26 },
+      { "color": "white", "charges": 40, "hidden": true },
+      { "color": "purple", "charges": 14 },
+      { "color": "blue", "charges": 39, "hidden": true }
+    ],
+    [
+      { "color": "purple", "charges": 14 },
+      { "color": "pink", "charges": 30 },
+      { "color": "blue", "charges": 39 }
+    ],
+    [
+      { "color": "blue", "charges": 38 },
+      { "color": "purple", "charges": 14, "hidden": true },
+      { "color": "pink", "charges": 31 },
+      { "color": "blue", "charges": 38 },
+      { "color": "white", "charges": 39 }
+    ]
+  ]
+}

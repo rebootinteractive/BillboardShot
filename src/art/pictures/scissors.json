@@ -1,0 +1,25 @@
+{
+  "id": "scissors",
+  "name": "Scissors",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Scissors" },
+  "art": [
+    ".2......2.",
+    ".22....22.",
+    ".222..222.",
+    "..22..22..",
+    "...2222...",
+    "....22....",
+    ".11111111.",
+    "1111111111",
+    "11..11..11",
+    "11..11..11",
+    "1111111111",
+    ".11111111."
+  ],
+  "groups": {
+    "1": { "part": "handles", "suggest": ["red", "blue"] },
+    "2": { "part": "blades", "suggest": ["white", "cyan"] }
+  }
+}

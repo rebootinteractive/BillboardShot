@@ -1,9 +1,16 @@
 {
   "id": "balloon",
   "name": "Balloon",
-  "tags": ["object"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Balloon" },
+  "tags": [
+    "object"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Balloon"
+  },
   "art": [
     "...11111..",
     "..1111111.",
@@ -21,8 +28,28 @@
     "222......."
   ],
   "groups": {
-    "1": { "part": "balloon", "suggest": ["red", "blue", "yellow", "purple"] },
-    "2": { "part": "string", "suggest": ["black", "white"] },
-    "3": { "part": "shine", "suggest": ["pink", "white"] }
+    "1": {
+      "part": "balloon",
+      "suggest": [
+        "red",
+        "blue",
+        "yellow",
+        "purple"
+      ]
+    },
+    "2": {
+      "part": "string",
+      "suggest": [
+        "black",
+        "white"
+      ]
+    },
+    "3": {
+      "part": "shine",
+      "suggest": [
+        "pink",
+        "white"
+      ]
+    }
   }
 }

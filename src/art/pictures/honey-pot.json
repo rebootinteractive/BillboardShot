@@ -1,0 +1,63 @@
+{
+  "id": "honey-pot",
+  "name": "Honey Pot",
+  "tags": [
+    "food"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Honey%20pot"
+  },
+  "art": [
+    "...4444...",
+    "...4444...",
+    "....44....",
+    "....44....",
+    "3333333333",
+    "3333333333",
+    ".33333333.",
+    ".22222222.",
+    ".22222222.",
+    "1111111111",
+    "1111111111",
+    "1111111111",
+    "1111111111",
+    "1111111111",
+    "1111111111",
+    "1111111111",
+    ".11111111."
+  ],
+  "groups": {
+    "1": {
+      "part": "pot",
+      "suggest": [
+        "brown",
+        "orange"
+      ]
+    },
+    "2": {
+      "part": "collar",
+      "suggest": [
+        "yellow",
+        "orange"
+      ]
+    },
+    "3": {
+      "part": "lid",
+      "suggest": [
+        "red",
+        "brown"
+      ]
+    },
+    "4": {
+      "part": "dipper",
+      "suggest": [
+        "yellow",
+        "brown"
+      ]
+    }
+  }
+}

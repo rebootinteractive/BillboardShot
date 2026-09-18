@@ -1,0 +1,26 @@
+{
+  "id": "shark",
+  "name": "Shark",
+  "tags": ["animal"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Shark" },
+  "art": [
+    ".......1111.....",
+    "......111111....",
+    ".....11111111...",
+    "...11111111111.1",
+    ".111111111111111",
+    ".111111111111111",
+    "1111111111111111",
+    "3332222222222111",
+    ".332222222222111",
+    "..2222222222111.",
+    "...111111..111..",
+    "....1111........"
+  ],
+  "groups": {
+    "1": { "part": "back", "suggest": ["blue", "purple"] },
+    "2": { "part": "belly", "suggest": ["white", "cyan"] },
+    "3": { "part": "mouth", "suggest": ["pink", "red"] }
+  }
+}

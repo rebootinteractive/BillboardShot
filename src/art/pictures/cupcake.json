@@ -1,9 +1,16 @@
 {
   "id": "cupcake",
   "name": "Cupcake",
-  "tags": ["food"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Cupcake" },
+  "tags": [
+    "food"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Cupcake"
+  },
   "art": [
     ".......11......",
     ".....11111.....",
@@ -24,9 +31,33 @@
     "..22222222222.."
   ],
   "groups": {
-    "1": { "part": "frosting", "suggest": ["pink", "white", "brown"] },
-    "2": { "part": "wrapper", "suggest": ["blue", "cyan", "yellow"] },
-    "3": { "part": "white", "suggest": ["white"] },
-    "4": { "part": "orange", "suggest": ["orange"] }
+    "1": {
+      "part": "frosting",
+      "suggest": [
+        "pink",
+        "white",
+        "brown"
+      ]
+    },
+    "2": {
+      "part": "wrapper",
+      "suggest": [
+        "blue",
+        "cyan",
+        "yellow"
+      ]
+    },
+    "3": {
+      "part": "sprinkles",
+      "suggest": [
+        "white"
+      ]
+    },
+    "4": {
+      "part": "sprinkles",
+      "suggest": [
+        "orange"
+      ]
+    }
   }
 }

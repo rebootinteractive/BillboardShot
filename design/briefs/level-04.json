@@ -1,0 +1,12 @@
+{
+  "id": "level-04",
+  "name": "Market Stall",
+  "intent": "First level where the deck can actually get tight. Six colors. The watermelon interleaves three of them — black rind and seeds on the outside, white inner rind and red flesh behind it — so that board needs a real order rather than one container at a time. Green is shared between the carrot tops and the broccoli, so there is always a safe send. No features.",
+  "target": { "min": 0.85, "max": 0.95 },
+  "lanes": 3,
+  "boards": [
+    { "picture": "watermelon", "colors": { "1": "red", "2": "black", "3": "white" } },
+    { "picture": "carrot", "colors": { "1": "orange", "2": "green" } },
+    { "picture": "broccoli", "colors": { "1": "green", "2": "lime" } }
+  ]
+}

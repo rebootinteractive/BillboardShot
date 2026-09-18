@@ -1,0 +1,28 @@
+{
+  "id": "gold-medal",
+  "name": "Gold medal",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/1st%20place%20medal" },
+  "art": [
+    "22...22",
+    "22...22",
+    ".22.22.",
+    ".22.22.",
+    "..222..",
+    "..111..",
+    ".11111.",
+    "1133311",
+    "1333331",
+    "1333331",
+    "1133311",
+    "1111111",
+    ".11111.",
+    "..111.."
+  ],
+  "groups": {
+    "1": { "part": "rim", "suggest": ["yellow", "orange"] },
+    "2": { "part": "ribbon", "suggest": ["blue", "red"] },
+    "3": { "part": "face", "suggest": ["orange", "yellow"] }
+  }
+}

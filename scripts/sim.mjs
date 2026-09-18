@@ -3,7 +3,7 @@
  * Level report from the command line:
  *
  *   npm run sim                      every level in play order
- *   npm run sim -- src/levels/level-04.json [more files]
+ *   npm run sim -- src/levels/mvp/level-04.json [more files]
  *   npm run sim -- --runs 400 --careful 80 --json report.json
  *
  * Bundles src/rules with esbuild, then plays each level with the solver and the three
@@ -38,7 +38,7 @@ const pictures = new Map(fs.readdirSync(pictureDir).filter((f) => f.endsWith('.j
   return [p.id, p];
 }));
 
-const levelDir = path.join(root, 'src/levels');
+const levelDir = path.join(root, 'src/levels/production');
 const targets = files.length ? files.map((f) => path.resolve(f)) : fs.readdirSync(levelDir).filter((f) => f.endsWith('.json')).sort().map((f) => path.join(levelDir, f));
 
 const pct = (x) => `${Math.round(x * 100)}%`.padStart(4);

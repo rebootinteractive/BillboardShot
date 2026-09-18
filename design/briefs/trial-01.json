@@ -1,0 +1,13 @@
+{
+  "id": "trial-01",
+  "name": "Harbor Day",
+  "intent": "Medium level with no new feature. A calm opening on the sailboat, then a whale with a hidden spout and a crab frozen until one finished cyan container comes back from the whale.",
+  "target": { "min": 0.55, "max": 0.75 },
+  "lanes": 3,
+  "boards": [
+    { "picture": "sailboat", "colors": { "1": "blue", "2": "orange", "3": "yellow", "4": "white" } },
+    { "picture": "whale", "colors": { "1": "cyan", "2": "white", "3": "blue" }, "hidden": ["3"] },
+    { "picture": "crab", "colors": { "1": "red", "2": "orange", "3": "white" }, "lock": { "type": "frozen", "color": "cyan", "count": 30 } }
+  ],
+  "queue": { "hidden": 1 }
+}

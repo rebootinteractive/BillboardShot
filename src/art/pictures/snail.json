@@ -1,9 +1,16 @@
 {
   "id": "snail",
   "name": "Snail",
-  "tags": ["animal"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Snail" },
+  "tags": [
+    "animal"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Snail"
+  },
   "art": [
     "3333............",
     "3333............",
@@ -23,8 +30,25 @@
     "..22222222222222"
   ],
   "groups": {
-    "1": { "part": "shell", "suggest": ["brown", "orange"] },
-    "2": { "part": "body", "suggest": ["yellow", "lime"] },
-    "3": { "part": "antennae", "suggest": ["orange"] }
+    "1": {
+      "part": "shell",
+      "suggest": [
+        "brown",
+        "orange"
+      ]
+    },
+    "2": {
+      "part": "body",
+      "suggest": [
+        "yellow",
+        "lime"
+      ]
+    },
+    "3": {
+      "part": "antennae",
+      "suggest": [
+        "orange"
+      ]
+    }
   }
 }

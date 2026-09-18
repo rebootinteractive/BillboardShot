@@ -1,9 +1,16 @@
 {
   "id": "doughnut",
   "name": "Doughnut",
-  "tags": ["food"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Doughnut" },
+  "tags": [
+    "food"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Doughnut"
+  },
   "art": [
     "....1111....",
     "..11111111..",
@@ -21,9 +28,31 @@
     "....2222...."
   ],
   "groups": {
-    "1": { "part": "frosting", "suggest": ["brown", "pink"] },
-    "2": { "part": "dough", "suggest": ["yellow", "orange"] },
-    "3": { "part": "blue", "suggest": ["blue"] },
-    "4": { "part": "pink", "suggest": ["pink"] }
+    "1": {
+      "part": "frosting",
+      "suggest": [
+        "brown",
+        "pink"
+      ]
+    },
+    "2": {
+      "part": "dough",
+      "suggest": [
+        "yellow",
+        "orange"
+      ]
+    },
+    "3": {
+      "part": "sprinkle",
+      "suggest": [
+        "blue"
+      ]
+    },
+    "4": {
+      "part": "sprinkle",
+      "suggest": [
+        "pink"
+      ]
+    }
   }
 }

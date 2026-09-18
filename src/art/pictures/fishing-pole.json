@@ -1,0 +1,30 @@
+{
+  "id": "fishing-pole",
+  "name": "Fishing pole",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Fishing%20pole" },
+  "art": [
+    ".......11",
+    "......111",
+    "......11.",
+    ".....111.",
+    ".....11..",
+    "....111..",
+    "...3311..",
+    "...331...",
+    "...33....",
+    "....3....",
+    "....3....",
+    "....3....",
+    "..2222...",
+    ".22222.22",
+    "222222222",
+    ".22222.22"
+  ],
+  "groups": {
+    "1": { "part": "rod", "suggest": ["brown", "red"] },
+    "2": { "part": "fish", "suggest": ["cyan", "blue"] },
+    "3": { "part": "reel and line", "suggest": ["white", "black"] }
+  }
+}

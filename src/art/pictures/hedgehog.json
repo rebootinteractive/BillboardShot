@@ -1,0 +1,47 @@
+{
+  "id": "hedgehog",
+  "name": "Hedgehog",
+  "tags": [
+    "animal"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Hedgehog"
+  },
+  "art": [
+    "....1.1.1..",
+    "..111111111",
+    ".1111111111",
+    ".1111111111",
+    "22111111111",
+    "22211111111",
+    ".22333333..",
+    "..22..33..."
+  ],
+  "groups": {
+    "1": {
+      "part": "spines",
+      "suggest": [
+        "brown",
+        "black"
+      ]
+    },
+    "2": {
+      "part": "face",
+      "suggest": [
+        "orange",
+        "yellow"
+      ]
+    },
+    "3": {
+      "part": "belly",
+      "suggest": [
+        "yellow",
+        "white"
+      ]
+    }
+  }
+}

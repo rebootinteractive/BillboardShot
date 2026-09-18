@@ -1,0 +1,54 @@
+{
+  "id": "milk",
+  "name": "Milk",
+  "tags": [
+    "food"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Glass%20of%20milk"
+  },
+  "art": [
+    "33333333",
+    "21111112",
+    "21111112",
+    "21111112",
+    "21111112",
+    "21111112",
+    "21111112",
+    ".211112.",
+    ".211112.",
+    ".211112.",
+    ".222222.",
+    ".222222.",
+    ".222222.",
+    ".222222.",
+    "22222222"
+  ],
+  "groups": {
+    "1": {
+      "part": "milk",
+      "suggest": [
+        "white",
+        "yellow"
+      ]
+    },
+    "2": {
+      "part": "glass",
+      "suggest": [
+        "cyan",
+        "blue"
+      ]
+    },
+    "3": {
+      "part": "rim",
+      "suggest": [
+        "blue",
+        "white"
+      ]
+    }
+  }
+}

@@ -1,9 +1,13 @@
 {
   "id": "treasure-chest",
   "name": "Treasure Chest",
-  "tags": ["object"],
-  "status": "draft",
-  "origin": { "method": "drawn" },
+  "tags": [
+    "object"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "drawn"
+  },
   "art": [
     "...1111111111...",
     "..211111111112..",
@@ -19,10 +23,39 @@
     ".55..........55."
   ],
   "groups": {
-    "1": { "part": "wood", "suggest": ["brown", "red"] },
-    "2": { "part": "bands", "suggest": ["yellow", "black"] },
-    "3": { "part": "lock", "suggest": ["yellow", "white"] },
-    "4": { "part": "keyhole", "suggest": ["black"] },
-    "5": { "part": "feet", "suggest": ["brown", "black"] }
+    "1": {
+      "part": "wood",
+      "suggest": [
+        "brown",
+        "red"
+      ]
+    },
+    "2": {
+      "part": "bands",
+      "suggest": [
+        "yellow",
+        "black"
+      ]
+    },
+    "3": {
+      "part": "lock",
+      "suggest": [
+        "yellow",
+        "white"
+      ]
+    },
+    "4": {
+      "part": "keyhole",
+      "suggest": [
+        "black"
+      ]
+    },
+    "5": {
+      "part": "feet",
+      "suggest": [
+        "brown",
+        "black"
+      ]
+    }
   }
 }

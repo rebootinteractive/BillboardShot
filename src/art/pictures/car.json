@@ -1,9 +1,16 @@
 {
   "id": "car",
   "name": "Car",
-  "tags": ["vehicle"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Automobile" },
+  "tags": [
+    "vehicle"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Automobile"
+  },
   "art": [
     "......11111111..",
     "......221222112.",
@@ -18,10 +25,38 @@
     "..333......333.."
   ],
   "groups": {
-    "1": { "part": "body", "suggest": ["red", "blue", "yellow"] },
-    "2": { "part": "windows", "suggest": ["cyan"] },
-    "3": { "part": "wheels", "suggest": ["black"] },
-    "4": { "part": "lights", "suggest": ["yellow", "purple"] },
-    "5": { "part": "hubcaps", "suggest": ["white"] }
+    "1": {
+      "part": "body",
+      "suggest": [
+        "red",
+        "blue",
+        "yellow"
+      ]
+    },
+    "2": {
+      "part": "windows",
+      "suggest": [
+        "cyan"
+      ]
+    },
+    "3": {
+      "part": "wheels",
+      "suggest": [
+        "black"
+      ]
+    },
+    "4": {
+      "part": "lights",
+      "suggest": [
+        "yellow",
+        "purple"
+      ]
+    },
+    "5": {
+      "part": "hubcaps",
+      "suggest": [
+        "white"
+      ]
+    }
   }
 }

@@ -7,7 +7,9 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "sim": "node scripts/sim.mjs",
-    "playtest": "node scripts/playtest.mjs"
+    "playtest": "node scripts/playtest.mjs",
+    "level": "node scripts/level.mjs",
+    "art": "node scripts/art.mjs"
   },
   "dependencies": {
     "three": "^0.169.0"

@@ -1,0 +1,85 @@
+{
+  "name": "Blossom Row",
+  "boards": [
+    {
+      "name": "Avocado",
+      "art": [
+        ".......KKKK..",
+        ".....KKLLLLK.",
+        "..KKLLLLLLLKN",
+        ".KLLLLLLLLLKN",
+        ".LLLLLLLLLLKN",
+        "KLLLNNNLLLKN.",
+        "KLLNNNNLLLKN.",
+        "KLLLNNNLLLN..",
+        "KLLLNNLLLKN..",
+        ".KLLLLLLLKN..",
+        ".KKLLLLLKNN..",
+        "..KKKKKKNN...",
+        "....NNNNN...."
+      ],
+      "source": { "picture": "avocado", "colors": { "1": "lime", "2": "black", "3": "brown" } }
+    },
+    {
+      "name": "Peach",
+      "art": [
+        "..GGGG.GGGG..",
+        "..GGGGGGGGG..",
+        "..OOOOOOOOO..",
+        ".OOOOOOOOOOO.",
+        "OOOOOOOOOOOOO",
+        "OOOOOOOOOOOOO",
+        "OOOOOOOOOOOOO",
+        "OOOOOOOOOOOOO",
+        "OOOOOOOOOOOOO",
+        ".OOOOOOOOOOO.",
+        "..OOOOOOOOO..",
+        "...OOOOOOO...",
+        ".....OOO....."
+      ],
+      "source": { "picture": "peach", "colors": { "1": "orange", "2": "green" } }
+    },
+    {
+      "name": "Cherry blossom",
+      "art": [
+        "......M.M......",
+        ".....MMMMM.....",
+        ".....MMMMM.....",
+        ".....MMMMM.....",
+        ".MMM..MMM..MMM.",
+        "MMMMM.RRR.MMMMM",
+        ".MMMMRYYYRMMMM.",
+        "MMMMMRYYYRMMMMM",
+        ".MMM..YYY..MMM.",
+        "...MMMR.RMMM...",
+        "..MMMMM.MMMMM..",
+        "..MMMMM.MMMMM..",
+        "..MMMMM.MMMMM..",
+        "...M.M...M.M..."
+      ],
+      "source": { "picture": "cherry-blossom", "colors": { "1": "pink", "2": "yellow", "3": "red" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "yellow", "charges": 5 },
+      { "color": "pink", "charges": 33 },
+      { "color": "black", "charges": 31 },
+      { "color": "lime", "charges": 32 }
+    ],
+    [
+      { "color": "pink", "charges": 34 },
+      { "color": "green", "charges": 17 },
+      { "color": "brown", "charges": 29 },
+      { "color": "lime", "charges": 33 },
+      { "color": "red", "charges": 9 }
+    ],
+    [
+      { "color": "orange", "charges": 39 },
+      { "color": "orange", "charges": 38 },
+      { "color": "yellow", "charges": 4 },
+      { "color": "orange", "charges": 38 },
+      { "color": "pink", "charges": 33 }
+    ]
+  ]
+}

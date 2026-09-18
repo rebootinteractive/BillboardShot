@@ -1,9 +1,13 @@
 {
   "id": "popsicle",
   "name": "Popsicle",
-  "tags": ["food"],
-  "status": "draft",
-  "origin": { "method": "drawn" },
+  "tags": [
+    "food"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "drawn"
+  },
   "art": [
     "..11111..",
     ".1111111.",
@@ -22,9 +26,33 @@
     "...444..."
   ],
   "groups": {
-    "1": { "part": "top", "suggest": ["red", "pink"] },
-    "2": { "part": "middle", "suggest": ["white", "yellow"] },
-    "3": { "part": "bottom", "suggest": ["blue", "purple"] },
-    "4": { "part": "stick", "suggest": ["brown", "yellow"] }
+    "1": {
+      "part": "top",
+      "suggest": [
+        "red",
+        "pink"
+      ]
+    },
+    "2": {
+      "part": "middle",
+      "suggest": [
+        "white",
+        "yellow"
+      ]
+    },
+    "3": {
+      "part": "bottom",
+      "suggest": [
+        "blue",
+        "purple"
+      ]
+    },
+    "4": {
+      "part": "stick",
+      "suggest": [
+        "brown",
+        "yellow"
+      ]
+    }
   }
 }

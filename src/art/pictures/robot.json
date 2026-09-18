@@ -1,9 +1,16 @@
 {
   "id": "robot",
   "name": "Robot",
-  "tags": ["object"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Robot" },
+  "tags": [
+    "object"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Robot"
+  },
   "art": [
     "..............33",
     ".....444444...33",
@@ -23,10 +30,35 @@
     "...1111111111..."
   ],
   "groups": {
-    "1": { "part": "white", "suggest": ["white"] },
-    "2": { "part": "black", "suggest": ["black"] },
-    "3": { "part": "red", "suggest": ["red"] },
-    "4": { "part": "orange", "suggest": ["orange"] },
-    "5": { "part": "blue", "suggest": ["blue"] }
+    "1": {
+      "part": "body",
+      "suggest": [
+        "white"
+      ]
+    },
+    "2": {
+      "part": "visor and panel",
+      "suggest": [
+        "black"
+      ]
+    },
+    "3": {
+      "part": "ears and antenna",
+      "suggest": [
+        "red"
+      ]
+    },
+    "4": {
+      "part": "top panel",
+      "suggest": [
+        "orange"
+      ]
+    },
+    "5": {
+      "part": "eyes",
+      "suggest": [
+        "blue"
+      ]
+    }
   }
 }

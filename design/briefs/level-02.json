@@ -1,0 +1,19 @@
+{
+  "id": "level-02",
+  "name": "Orchard Snack",
+  "intent": "Teaches the second input: turning the carousel. The strawberry is in front and every lane starts with a yellow container, so there is nothing yellow to pull until the player turns the lemon round. The lanes stay shut until they do, and a pointing hand shows the drag. After the turn it is an ordinary intro level: four colors, green shared across both boards.",
+  "target": { "min": 0.95, "max": 1.0 },
+  "tutorial": "rotate",
+  "lanes": 3,
+  "boards": [
+    { "picture": "strawberry", "colors": { "1": "red", "2": "green", "3": "black" } },
+    { "picture": "lemon", "colors": { "1": "yellow", "2": "green" } }
+  ],
+  "queue": {
+    "order": [
+      ["yellow", "red", "green"],
+      ["yellow", "red", "black"],
+      ["yellow", "green"]
+    ]
+  }
+}

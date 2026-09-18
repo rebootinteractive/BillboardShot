@@ -1,0 +1,31 @@
+{
+  "id": "airplane",
+  "name": "Airplane",
+  "tags": ["vehicle"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Airplane" },
+  "art": [
+    "......1111......",
+    ".....111111.....",
+    ".....111111.....",
+    ".....111111.....",
+    ".....111111.....",
+    ".....111111.....",
+    ".22221111112222.",
+    "2222211111122222",
+    "2222211111122222",
+    "2222211111122222",
+    "2222211111122222",
+    ".22221111112222.",
+    "....11111111....",
+    "....11111111....",
+    ".33331111113333.",
+    ".33331111113333.",
+    "..333111111333.."
+  ],
+  "groups": {
+    "1": { "part": "fuselage", "suggest": ["white", "cyan"] },
+    "2": { "part": "wings", "suggest": ["blue", "red"] },
+    "3": { "part": "tail fins", "suggest": ["red", "yellow"] }
+  }
+}

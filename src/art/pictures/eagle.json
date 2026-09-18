@@ -1,0 +1,49 @@
+{
+  "id": "eagle",
+  "name": "Eagle",
+  "tags": [
+    "animal"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Eagle"
+  },
+  "art": [
+    "11....2222....11",
+    "111..222222..111",
+    "1111.223322.1111",
+    "11111.2332.11111",
+    "1111111111111111",
+    ".11111111111111.",
+    "..111111111111..",
+    "...1111111111...",
+    ".....111111.....",
+    ".....222222.....",
+    "......2222......",
+    "......2222......"
+  ],
+  "groups": {
+    "1": {
+      "part": "wings",
+      "suggest": [
+        "brown"
+      ]
+    },
+    "2": {
+      "part": "head and tail",
+      "suggest": [
+        "white"
+      ]
+    },
+    "3": {
+      "part": "beak",
+      "suggest": [
+        "yellow",
+        "orange"
+      ]
+    }
+  }
+}

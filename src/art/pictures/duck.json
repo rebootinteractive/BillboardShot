@@ -1,0 +1,47 @@
+{
+  "id": "duck",
+  "name": "Duck",
+  "tags": [
+    "animal"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Duck"
+  },
+  "art": [
+    "...111....",
+    "..11111...",
+    "2211111...",
+    "2211111...",
+    "...111..33",
+    "..33333333",
+    ".333333333",
+    ".33333333.",
+    "..333333.."
+  ],
+  "groups": {
+    "1": {
+      "part": "head and neck",
+      "suggest": [
+        "green"
+      ]
+    },
+    "2": {
+      "part": "bill",
+      "suggest": [
+        "orange",
+        "yellow"
+      ]
+    },
+    "3": {
+      "part": "body",
+      "suggest": [
+        "white",
+        "brown"
+      ]
+    }
+  }
+}

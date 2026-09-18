@@ -1,9 +1,16 @@
 {
   "id": "tulip",
   "name": "Tulip",
-  "tags": ["nature"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Tulip" },
+  "tags": [
+    "nature"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Tulip"
+  },
   "art": [
     "11..3..11",
     "111333111",
@@ -21,8 +28,23 @@
     ".2222222."
   ],
   "groups": {
-    "1": { "part": "pink", "suggest": ["pink"] },
-    "2": { "part": "lime", "suggest": ["lime"] },
-    "3": { "part": "red", "suggest": ["red"] }
+    "1": {
+      "part": "petals",
+      "suggest": [
+        "pink"
+      ]
+    },
+    "2": {
+      "part": "stem and leaves",
+      "suggest": [
+        "lime"
+      ]
+    },
+    "3": {
+      "part": "inner petal",
+      "suggest": [
+        "red"
+      ]
+    }
   }
 }

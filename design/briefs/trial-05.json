@@ -1,0 +1,13 @@
+{
+  "id": "trial-05",
+  "name": "Space Station",
+  "intent": "Medium on only two lanes: fewer choices each turn. The alien's eyes are hidden, and one link ties two containers together.",
+  "target": { "min": 0.45, "max": 0.6 },
+  "lanes": 2,
+  "boards": [
+    { "picture": "alien", "colors": { "1": "green", "2": "black", "3": "white" }, "hidden": ["2"] },
+    { "picture": "rocket", "colors": { "1": "red", "2": "white", "3": "orange", "4": "cyan", "5": "cyan", "6": "black" } },
+    { "picture": "robot", "colors": { "1": "white", "2": "black", "3": "red", "4": "orange", "5": "cyan" } }
+  ],
+  "queue": { "links": 1 }
+}

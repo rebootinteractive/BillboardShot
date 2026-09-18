@@ -1,0 +1,47 @@
+{
+  "id": "butter",
+  "name": "Butter",
+  "tags": [
+    "food"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Butter"
+  },
+  "art": [
+    "...33333...",
+    "..3333333..",
+    ".333333333.",
+    ".111111111.",
+    ".111111111.",
+    ".111111111.",
+    "22222222222",
+    ".222222222."
+  ],
+  "groups": {
+    "1": {
+      "part": "block",
+      "suggest": [
+        "yellow",
+        "orange"
+      ]
+    },
+    "2": {
+      "part": "dish",
+      "suggest": [
+        "white",
+        "cyan"
+      ]
+    },
+    "3": {
+      "part": "top",
+      "suggest": [
+        "yellow",
+        "white"
+      ]
+    }
+  }
+}

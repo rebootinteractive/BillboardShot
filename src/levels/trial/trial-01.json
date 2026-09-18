@@ -1,0 +1,95 @@
+{
+  "name": "Harbor Day",
+  "boards": [
+    {
+      "name": "Sailboat",
+      "art": [
+        "......W.........",
+        "......W.........",
+        "......WY........",
+        "......WY........",
+        ".....YWYY.......",
+        ".....YWYYY......",
+        "....YYWYYY......",
+        "....YYWYYYY.....",
+        "....YYWYYYY.....",
+        "...WWWWWWWWW....",
+        ".OOOOOOOOOOOOOO.",
+        "..OOOOOOOOOOOOO.",
+        "...OOOOOOOOOOO..",
+        "BBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBB"
+      ],
+      "source": { "picture": "sailboat", "colors": { "1": "blue", "2": "orange", "3": "yellow", "4": "white" } }
+    },
+    {
+      "name": "Whale",
+      "art": [
+        "...bb.b.....C...",
+        "..bbbbbb....CC..",
+        "..bb.bbb...CC...",
+        ".....b....CCCC..",
+        ".....b...CC.CCC.",
+        "..CCCCCCC....CC.",
+        ".CCCCCCCCC...CCC",
+        "CCCCCCCCCCC..CCC",
+        "CCCCCCCCCCC..CCC",
+        "WWWWWWWCCCC..CCC",
+        "WWWWWWWWCCCCCCCC",
+        ".WWWWWWWWCCCCCCC",
+        ".WWWWWWWWCCCCCCC",
+        "..WWWWWWWCCCCCC.",
+        "..WWWWWWWCCCCCC.",
+        ".CCCWWWWWWCCCCC.",
+        ".....WWWWWW....."
+      ],
+      "source": { "picture": "whale", "colors": { "1": "cyan", "2": "white", "3": "blue" }, "hidden": ["3"] }
+    },
+    {
+      "name": "Crab",
+      "art": [
+        "..OO........OO..",
+        ".OOO.O....O.OOO.",
+        ".OOOOO....OOOOO.",
+        "..OOOO....OOOO..",
+        "...OO.W..W.OO...",
+        "....O.R..R.O....",
+        "...RRRRRRRRRR...",
+        ".R.RRRRRRRRRR.R.",
+        ".RRRRRRRRRRRRRR.",
+        "..RRRRRRRRRRRR..",
+        "RRRRRRRRRRRRRRRR",
+        "...RRRRRRRRRR...",
+        "..RR.RRRRRR.RR..",
+        "..R..RR..RR..R.."
+      ],
+      "source": { "picture": "crab", "colors": { "1": "red", "2": "orange", "3": "white" } },
+      "lock": { "type": "frozen", "color": "cyan", "count": 30 }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "cyan", "charges": 28 },
+      { "color": "blue", "charges": 22 },
+      { "color": "cyan", "charges": 28 },
+      { "color": "red", "charges": 23 },
+      { "color": "red", "charges": 23 },
+      { "color": "orange", "charges": 37 }
+    ],
+    [
+      { "color": "cyan", "charges": 28 },
+      { "color": "cyan", "charges": 28 },
+      { "color": "white", "charges": 38, "hidden": true },
+      { "color": "red", "charges": 23 }
+    ],
+    [
+      { "color": "orange", "charges": 37 },
+      { "color": "blue", "charges": 21 },
+      { "color": "red", "charges": 23 },
+      { "color": "blue", "charges": 21 },
+      { "color": "white", "charges": 39 },
+      { "color": "yellow", "charges": 26 }
+    ]
+  ]
+}

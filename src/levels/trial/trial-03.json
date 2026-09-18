@@ -1,0 +1,87 @@
+{
+  "name": "Castle Keys",
+  "boards": [
+    {
+      "name": "Treasure Chest",
+      "art": [
+        "...NNNNNNNNNN...",
+        "..YNNNNNNNNNNY..",
+        ".NYNNNNNNNNNNYN.",
+        "NNYNNNNNNNNNNYNN",
+        "YYYYYYYYYYYYYYYY",
+        "NNYNNNNYYNNNNYNN",
+        "NNYNNNYYYYNNNYNN",
+        "NNYNNNYYYYNNNYNN",
+        "NNYNNNNNNNNNNYNN",
+        "NNYNNNNNNNNNNYNN",
+        "YYYYYYYYYYYYYYYY",
+        ".NN..........NN."
+      ],
+      "source": { "picture": "treasure-chest", "colors": { "1": "brown", "2": "yellow", "3": "yellow", "4": "yellow", "5": "brown" } },
+      "keys": [{ "col": 7, "row": 0, "color": "gold" }]
+    },
+    {
+      "name": "Crown",
+      "art": [
+        "......M......",
+        "......M......",
+        "M..M..MM.M..M",
+        "MM.M.MMM.M.MM",
+        ".MMMMMMMMMMM.",
+        ".MMMMMMMMMMM.",
+        ".MMMMMMMMMMM.",
+        ".MMRMYYYMRMM.",
+        ".MMRMMYMMRMM.",
+        "..MMMMMMMMM..",
+        "..MMMMMMMMM.."
+      ],
+      "source": { "picture": "crown", "colors": { "1": "pink", "2": "red", "3": "yellow" } }
+    },
+    {
+      "name": "Castle",
+      "art": [
+        "................",
+        ".......RR.......",
+        ".......RR.......",
+        "......PPPP......",
+        "......PPPP......",
+        "...R..PPPP..R...",
+        "..RRR.PPKP.RRR..",
+        "..RRR.PPPP.RRR..",
+        ".RRRRRPPPPRRRRR.",
+        "PRPRPRPPPPRPRPRP",
+        "PPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPP",
+        "PPPPPPKKKKPPPPPP",
+        "PPPPPPKKKKPPPPPP",
+        "PPPPPPKKKKPPPPPP"
+      ],
+      "source": { "picture": "castle", "colors": { "1": "purple", "2": "red", "3": "black" } },
+      "lock": { "type": "key", "color": "gold" }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "brown", "charges": 37 },
+      { "color": "pink", "charges": 27 },
+      { "color": "red", "charges": 38 },
+      { "color": "black", "charges": 4 },
+      { "color": "yellow", "charges": 31 }
+    ],
+    [
+      { "color": "yellow", "charges": 31 },
+      { "color": "pink", "charges": 27, "link": "a" },
+      { "color": "purple", "charges": 39 },
+      { "color": "purple", "charges": 39 }
+    ],
+    [
+      { "color": "pink", "charges": 28 },
+      { "color": "brown", "charges": 37 },
+      { "color": "brown", "charges": 36, "link": "a" },
+      { "color": "black", "charges": 4 },
+      { "color": "black", "charges": 5, "hidden": true },
+      { "color": "purple", "charges": 39 }
+    ]
+  ]
+}

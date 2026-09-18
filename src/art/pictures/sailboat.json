@@ -1,9 +1,16 @@
 {
   "id": "sailboat",
   "name": "Sailboat",
-  "tags": ["vehicle"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Sailboat" },
+  "tags": [
+    "vehicle"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Sailboat"
+  },
   "art": [
     "......4.........",
     "......4.........",
@@ -23,9 +30,29 @@
     "1111111111111111"
   ],
   "groups": {
-    "1": { "part": "blue", "suggest": ["blue"] },
-    "2": { "part": "orange", "suggest": ["orange"] },
-    "3": { "part": "yellow", "suggest": ["yellow"] },
-    "4": { "part": "white", "suggest": ["white"] }
+    "1": {
+      "part": "water",
+      "suggest": [
+        "blue"
+      ]
+    },
+    "2": {
+      "part": "hull",
+      "suggest": [
+        "orange"
+      ]
+    },
+    "3": {
+      "part": "sails",
+      "suggest": [
+        "yellow"
+      ]
+    },
+    "4": {
+      "part": "mast and deck",
+      "suggest": [
+        "white"
+      ]
+    }
   }
 }

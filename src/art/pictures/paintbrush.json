@@ -1,0 +1,32 @@
+{
+  "id": "paintbrush",
+  "name": "Paintbrush",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Paintbrush" },
+  "art": [
+    "...2222...",
+    "...2222...",
+    "...2222...",
+    "...2222...",
+    "...2222...",
+    "..222222..",
+    "..222222..",
+    ".33333333.",
+    ".33333333.",
+    ".33333333.",
+    "1111111111",
+    "1111111111",
+    "1111111111",
+    "1111111111",
+    "4444444444",
+    ".44444444.",
+    "..444444.."
+  ],
+  "groups": {
+    "1": { "part": "bristles", "suggest": ["brown", "yellow"] },
+    "2": { "part": "handle", "suggest": ["orange", "brown"] },
+    "3": { "part": "ferrule", "suggest": ["white", "cyan"] },
+    "4": { "part": "wet paint", "suggest": ["red", "blue"] }
+  }
+}

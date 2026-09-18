@@ -1,9 +1,16 @@
 {
   "id": "light-bulb",
   "name": "Light Bulb",
-  "tags": ["object"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Light%20bulb" },
+  "tags": [
+    "object"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Light%20bulb"
+  },
   "art": [
     "..11111..",
     ".1111111.",
@@ -21,9 +28,31 @@
     "...222..."
   ],
   "groups": {
-    "1": { "part": "glass", "suggest": ["yellow", "white"] },
-    "2": { "part": "base", "suggest": ["black", "white"] },
-    "3": { "part": "filament", "suggest": ["orange"] },
-    "4": { "part": "glint", "suggest": ["white"] }
+    "1": {
+      "part": "glass",
+      "suggest": [
+        "yellow",
+        "white"
+      ]
+    },
+    "2": {
+      "part": "base",
+      "suggest": [
+        "black",
+        "white"
+      ]
+    },
+    "3": {
+      "part": "filament",
+      "suggest": [
+        "orange"
+      ]
+    },
+    "4": {
+      "part": "glint",
+      "suggest": [
+        "white"
+      ]
+    }
   }
 }

@@ -1,0 +1,38 @@
+{
+  "name": "First Harvest",
+  "tutorial": "send",
+  "boards": [
+    {
+      "name": "Pear",
+      "art": [
+        ".GGG.........",
+        "GGGGGYY......",
+        "....YYYY.....",
+        "...YYYYYY....",
+        "...YYYYYYY...",
+        "....YYYYYYY..",
+        "....YYYYYYYY.",
+        "....YYYYYYYYY",
+        "...YYYYYYYYYY",
+        "...YYYYYYYYYY",
+        "...YYYYYYYYYY",
+        "....YYYYYYYY.",
+        ".....YYYYYYY.",
+        "......YYYY..."
+      ],
+      "source": { "picture": "pear", "colors": { "1": "yellow", "2": "green" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "yellow", "charges": 31 }
+    ],
+    [
+      { "color": "yellow", "charges": 31 },
+      { "color": "green", "charges": 8 }
+    ],
+    [
+      { "color": "yellow", "charges": 30 }
+    ]
+  ]
+}

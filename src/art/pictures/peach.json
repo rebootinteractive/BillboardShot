@@ -1,9 +1,16 @@
 {
   "id": "peach",
   "name": "Peach",
-  "tags": ["food"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Peach" },
+  "tags": [
+    "food"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Peach"
+  },
   "art": [
     "..2222.2222..",
     "..222222222..",
@@ -20,7 +27,18 @@
     ".....111....."
   ],
   "groups": {
-    "1": { "part": "peach", "suggest": ["orange", "pink"] },
-    "2": { "part": "leaves", "suggest": ["green"] }
+    "1": {
+      "part": "peach",
+      "suggest": [
+        "orange",
+        "pink"
+      ]
+    },
+    "2": {
+      "part": "leaves",
+      "suggest": [
+        "green"
+      ]
+    }
   }
 }

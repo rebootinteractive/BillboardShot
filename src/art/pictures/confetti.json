@@ -1,0 +1,55 @@
+{
+  "id": "confetti",
+  "name": "Confetti ball",
+  "tags": [
+    "object"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Confetti%20ball/Flat/confetti_ball_flat.svg"
+  },
+  "art": [
+    ".....33.........",
+    ".....33.........",
+    "33....33....33..",
+    "333....3....33..",
+    "..33...3...33...",
+    "...33..3..33....",
+    "....33.3.33...33",
+    ".....12221...33.",
+    "...11122211133..",
+    "..21112221112...",
+    ".2211122211122..",
+    ".2211122211122..",
+    ".2211122211122..",
+    "..21112221112...",
+    "...111222111....",
+    ".....12221......"
+  ],
+  "groups": {
+    "1": {
+      "part": "ball panels",
+      "suggest": [
+        "pink",
+        "red"
+      ]
+    },
+    "2": {
+      "part": "ball stripes",
+      "suggest": [
+        "purple",
+        "blue"
+      ]
+    },
+    "3": {
+      "part": "streamers",
+      "suggest": [
+        "yellow",
+        "lime"
+      ]
+    }
+  }
+}

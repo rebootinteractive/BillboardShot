@@ -1,0 +1,29 @@
+{
+  "id": "basketball",
+  "name": "Basketball",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Basketball" },
+  "art": [
+    ".....112111.....",
+    "...1121211211...",
+    "..112112111211..",
+    ".11211121111211.",
+    ".11211121111211.",
+    "1121111211111211",
+    "1121111211111211",
+    "2222222222222222",
+    "1121111211111211",
+    "1121111211111211",
+    "1121111211111211",
+    ".11211121111211.",
+    ".11211121111211.",
+    "..112112111211..",
+    "...1121211211...",
+    ".....112111....."
+  ],
+  "groups": {
+    "1": { "part": "leather", "suggest": ["orange"] },
+    "2": { "part": "seams", "suggest": ["black"] }
+  }
+}

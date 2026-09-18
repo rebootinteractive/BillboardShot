@@ -1,9 +1,16 @@
 {
   "id": "owl",
   "name": "Owl",
-  "tags": ["animal"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Owl" },
+  "tags": [
+    "animal"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Owl"
+  },
   "art": [
     "11111...11111",
     "1111111111111",
@@ -24,10 +31,35 @@
     "...5555555..."
   ],
   "groups": {
-    "1": { "part": "feathers", "suggest": ["brown"] },
-    "2": { "part": "belly", "suggest": ["white"] },
-    "3": { "part": "pupils", "suggest": ["black"] },
-    "4": { "part": "eyes", "suggest": ["yellow"] },
-    "5": { "part": "beak and feet", "suggest": ["orange"] }
+    "1": {
+      "part": "feathers",
+      "suggest": [
+        "brown"
+      ]
+    },
+    "2": {
+      "part": "belly",
+      "suggest": [
+        "white"
+      ]
+    },
+    "3": {
+      "part": "pupils",
+      "suggest": [
+        "black"
+      ]
+    },
+    "4": {
+      "part": "eyes",
+      "suggest": [
+        "yellow"
+      ]
+    },
+    "5": {
+      "part": "beak and feet",
+      "suggest": [
+        "orange"
+      ]
+    }
   }
 }

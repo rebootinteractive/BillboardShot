@@ -1,0 +1,14 @@
+{
+  "id": "level-08",
+  "name": "Tide Pool",
+  "intent": "Hidden containers with the training wheels off: a fourth board, nine colours and only brown shared (the lobster's segments and the otter's fur and tail), so most containers have one place to go and the deck stays tight. The lobster is the puzzle board — its orange shell and brown segments are buried under the red claws and pink tail fin. Two hidden containers, but the fish is a single solid blue board that is always safe to fall back on. The otter's six-pixel muzzle takes the belly's yellow so no colour is under three pixels.",
+  "target": { "min": 0.6, "max": 0.8 },
+  "lanes": 3,
+  "boards": [
+    { "picture": "turtle", "colors": { "1": "green", "2": "lime", "3": "black" } },
+    { "picture": "fish", "colors": { "1": "blue" } },
+    { "picture": "lobster", "colors": { "1": "red", "2": "orange", "3": "pink", "4": "brown" } },
+    { "picture": "otter", "colors": { "1": "brown", "2": "yellow", "3": "yellow", "4": "brown" } }
+  ],
+  "queue": { "hidden": 2 }
+}

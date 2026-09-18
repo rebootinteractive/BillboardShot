@@ -1,0 +1,30 @@
+{
+  "id": "lobster",
+  "name": "Lobster",
+  "tags": ["animal", "food"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Lobster" },
+  "art": [
+    "1111.....1111",
+    "11.11...11.11",
+    "11.11...11.11",
+    "11111...11111",
+    ".111.222.111.",
+    ".22222222222.",
+    ".22222222222.",
+    "..222222222..",
+    "..222222222..",
+    "...4444444...",
+    "...2222222...",
+    "...4444444...",
+    "...2222222...",
+    "..333333333..",
+    ".33333333333."
+  ],
+  "groups": {
+    "1": { "part": "claws", "suggest": ["red", "orange"] },
+    "2": { "part": "shell", "suggest": ["orange", "red"] },
+    "3": { "part": "tail fin", "suggest": ["pink", "red"] },
+    "4": { "part": "segments", "suggest": ["red", "brown"] }
+  }
+}

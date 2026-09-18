@@ -1,0 +1,95 @@
+{
+  "name": "Harbor Morning",
+  "boards": [
+    {
+      "name": "Crab",
+      "art": [
+        "..OO........OO..",
+        ".OOO.O....O.OOO.",
+        ".OOOOO....OOOOO.",
+        "..OOOO....OOOO..",
+        "...OO.R..R.OO...",
+        "....O.R..R.O....",
+        "...RRRRRRRRRR...",
+        ".R.RRRRRRRRRR.R.",
+        ".RRRRRRRRRRRRRR.",
+        "..RRRRRRRRRRRR..",
+        "RRRRRRRRRRRRRRRR",
+        "...RRRRRRRRRR...",
+        "..RR.RRRRRR.RR..",
+        "..R..RR..RR..R.."
+      ],
+      "source": { "picture": "crab", "colors": { "1": "red", "2": "orange", "3": "red" } }
+    },
+    {
+      "name": "Sailboat",
+      "art": [
+        "......W.........",
+        "......W.........",
+        "......WY........",
+        "......WY........",
+        ".....YWYY.......",
+        ".....YWYYY......",
+        "....YYWYYY......",
+        "....YYWYYYY.....",
+        "....YYWYYYY.....",
+        "...WWWWWWWWW....",
+        ".NNNNNNNNNNNNNN.",
+        "..NNNNNNNNNNNNN.",
+        "...NNNNNNNNNNN..",
+        "BBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBB"
+      ],
+      "source": { "picture": "sailboat", "colors": { "1": "blue", "2": "brown", "3": "yellow", "4": "white" } }
+    },
+    {
+      "name": "Dolphin",
+      "art": [
+        "...CCCCCCCCCC",
+        "..CCCCCCCCCCC",
+        ".CCCCCCCCCCC.",
+        "CCCCCCCCCCCC.",
+        "CCCCCCCCCCCCC",
+        "WWWWWCCWCCCCC",
+        ".....CCWWCCCC",
+        "......C.WCCCC",
+        "..C...C.CCCCC",
+        "..CC...WCCCCC",
+        "..CC...CCCCC.",
+        "..CC.CCCCCCC.",
+        "...CCCCCCCC..",
+        "..CCCCCCC....",
+        "..CC.........",
+        "..CC.........",
+        "..C.........."
+      ],
+      "source": { "picture": "dolphin", "colors": { "1": "cyan", "2": "white" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "red", "charges": 32 },
+      { "color": "cyan", "charges": 21 },
+      { "color": "red", "charges": 31 },
+      { "color": "cyan", "charges": 21 },
+      { "color": "orange", "charges": 36 }
+    ],
+    [
+      { "color": "cyan", "charges": 21 },
+      { "color": "blue", "charges": 24 },
+      { "color": "white", "charges": 28 },
+      { "color": "brown", "charges": 19 },
+      { "color": "blue", "charges": 24 },
+      { "color": "red", "charges": 31 }
+    ],
+    [
+      { "color": "brown", "charges": 19 },
+      { "color": "cyan", "charges": 21 },
+      { "color": "yellow", "charges": 13 },
+      { "color": "cyan", "charges": 21 },
+      { "color": "yellow", "charges": 13 },
+      { "color": "cyan", "charges": 20 }
+    ]
+  ]
+}

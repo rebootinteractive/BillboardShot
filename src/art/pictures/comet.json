@@ -1,0 +1,23 @@
+{
+  "id": "comet",
+  "name": "Comet",
+  "tags": ["nature"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Comet" },
+  "art": [
+    "........111",
+    "......11111",
+    ".....11111.",
+    "...111111..",
+    "..111111...",
+    ".222211....",
+    "222222.....",
+    "222222.....",
+    "22222......",
+    ".222......."
+  ],
+  "groups": {
+    "1": { "part": "tail", "suggest": ["yellow", "cyan", "white"] },
+    "2": { "part": "head", "suggest": ["orange", "red"] }
+  }
+}

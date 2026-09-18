@@ -150,6 +150,38 @@ can see what was changed and the checker can confirm the art still matches its s
 - Review page: `?gallery` on the local dev server. Approve and Reject save the status and
   note straight into the picture file. "Play preview" opens `?art=<id>`, the picture as a
   playable one-board level in its first suggested colors.
+- Command line:
+
+  ```
+  npm run art -- check [id...]    validate pictures; every error as a sentence
+  npm run art -- show <id...>     ASCII preview and per-group facts
+  npm run art -- stats            sizes, pixel counts, tags and status across the library
+  ```
+
+### Adding a picture
+
+Most pictures start from a Fluent Emoji and are then cleaned by hand:
+
+```
+python3 scripts/emoji.py "Spiral shell" 10 10 3
+python3 scripts/emoji.py "Spiral shell" 10 10 3 --json shell "Shell" animal > src/art/pictures/shell.json
+```
+
+The arguments are the asset name, width, height and how many color groups to split it
+into. It prints the grid, each group's average color and pixel count, and the source url
+for `origin`. It needs Pillow and ImageMagick.
+
+**What it produces is a starting point, never a finished picture.** Downsampling leaves
+stray pixels, thins limbs into specks and merges details, so every picture is cleaned by
+hand afterwards and checked with `npm run art -- show`. Beyond the format rules, a good
+picture reads as its subject at a glance, keeps its groups at 3 pixels or more (levels
+need at least 3 pixels of every color), uses 2 to 5 groups, wastes no empty margin, and
+rests on a wide base rather than thin legs.
+
+Keep the library varied in **size and proportion**, not just subject. Small pictures of
+40–80 pixels let a level hold six boards without becoming long, and wide-and-short or
+tall-and-narrow shapes change how play feels: a tall narrow board has deep columns that
+take real digging, a wide flat board has many shallow columns and is far more forgiving.
 
 ### Merging groups
 
@@ -157,6 +189,20 @@ If the designer gives two touching groups the same color, they become one region
 play: one flood reveal uncovers both, and they count as one color group for pulling.
 This can be used on purpose, for example to make a small hidden eye part of a large
 hidden face.
+
+### Reusing pictures
+
+Forty levels need roughly 155 boards — two or three per level early, five or six late —
+so pictures are reused. Two rules keep that from reading as filler:
+
+- **No picture appears twice within any eight levels.** Far enough apart and a player
+  never registers the repeat.
+- **At most two uses across the forty**, and the second use must differ in both **color**
+  and **job**: a plain board the first time, then the locked board, the frozen board, or
+  the one holding the mystery group. Met again in a new role, a picture reads as a
+  callback rather than a repeat.
+
+At two uses per picture the 155 boards need at least 78 distinct pictures.
 
 ## 4. Difficulty
 
@@ -269,6 +315,6 @@ Each phase ends with a review. The next phase starts only after approval.
 | 2 | Layout at the limits | Look on screen; confirm or lower the limits |
 | 3 | Art library, analyzer, `?gallery` | Approve or reject each picture, in batches |
 | 4 | Rules module, simulator, bots, difficulty score | Play levels; calibrate the score |
-| 5 | Designer workflow and report card; hint card | Review 3–5 trial levels |
+| 5 | Designer workflow (`npm run level`, [level-designer-workflow.md](level-designer-workflow.md)): briefs, builder, tuner, report cards; hint card | Review 3–5 trial levels |
 | 6 | Detailed difficulty-curve discussion, then the 40-level plan | Approve the plan before generation |
 | 7 | Levels in batches of 5–10 | Play each batch; feedback updates this document |

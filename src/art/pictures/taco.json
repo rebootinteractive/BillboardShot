@@ -1,9 +1,16 @@
 {
   "id": "taco",
   "name": "Taco",
-  "tags": ["food"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Taco" },
+  "tags": [
+    "food"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Taco"
+  },
   "art": [
     "......2222......",
     ".....22222333...",
@@ -18,9 +25,29 @@
     ".44111111111111."
   ],
   "groups": {
-    "1": { "part": "yellow", "suggest": ["yellow"] },
-    "2": { "part": "brown", "suggest": ["brown"] },
-    "3": { "part": "red", "suggest": ["red"] },
-    "4": { "part": "orange", "suggest": ["orange"] }
+    "1": {
+      "part": "shell",
+      "suggest": [
+        "yellow"
+      ]
+    },
+    "2": {
+      "part": "meat",
+      "suggest": [
+        "brown"
+      ]
+    },
+    "3": {
+      "part": "tomato",
+      "suggest": [
+        "red"
+      ]
+    },
+    "4": {
+      "part": "cheese",
+      "suggest": [
+        "orange"
+      ]
+    }
   }
 }

@@ -1,0 +1,24 @@
+{
+  "id": "skateboard",
+  "name": "Skateboard",
+  "tags": ["object", "vehicle"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Skateboard" },
+  "art": [
+    "22............22",
+    "222..........222",
+    ".22222222222222.",
+    ".11111111111111.",
+    ".11111111111111.",
+    "..111111111111..",
+    "...33......33...",
+    "..3333....3333..",
+    "..3333....3333..",
+    "..3333....3333.."
+  ],
+  "groups": {
+    "1": { "part": "deck", "suggest": ["brown", "orange"] },
+    "2": { "part": "griptape", "suggest": ["black", "purple"] },
+    "3": { "part": "wheels", "suggest": ["yellow", "white"] }
+  }
+}

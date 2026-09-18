@@ -1,0 +1,30 @@
+{
+  "id": "gear",
+  "name": "Gear",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Gear" },
+  "art": [
+    "..222..22..222..",
+    "..222..22..222..",
+    "2211111111111122",
+    "2211111111111122",
+    "2211111111111122",
+    "..111333333111..",
+    "..1113....3111..",
+    "221113....311122",
+    "221113....311122",
+    "..1113....3111..",
+    "..111333333111..",
+    "2211111111111122",
+    "2211111111111122",
+    "2211111111111122",
+    "..222..22..222..",
+    "..222..22..222.."
+  ],
+  "groups": {
+    "1": { "part": "rim", "suggest": ["white", "purple"] },
+    "2": { "part": "teeth", "suggest": ["purple", "white"] },
+    "3": { "part": "hub", "suggest": ["black", "purple"] }
+  }
+}

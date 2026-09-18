@@ -1,0 +1,46 @@
+{
+  "id": "candy",
+  "name": "Candy",
+  "tags": [
+    "food"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Candy"
+  },
+  "art": [
+    "11........11",
+    "111.2222.111",
+    "111123321111",
+    "111123321111",
+    "111123321111",
+    "111.2222.111",
+    "11........11"
+  ],
+  "groups": {
+    "1": {
+      "part": "wrapper",
+      "suggest": [
+        "pink",
+        "red"
+      ]
+    },
+    "2": {
+      "part": "sweet",
+      "suggest": [
+        "white",
+        "yellow"
+      ]
+    },
+    "3": {
+      "part": "stripe",
+      "suggest": [
+        "red",
+        "purple"
+      ]
+    }
+  }
+}

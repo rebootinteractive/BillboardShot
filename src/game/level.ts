@@ -41,10 +41,21 @@ export interface BoardData {
   source?: BoardSource;
 }
 
+/**
+ * An input the first levels teach with a pointing hand, one per level.
+ *
+ * - `send`: tap a lane to send its head to the deck.
+ * - `rotate`: drag to turn the carousel. The lanes stay locked until the player turns it,
+ *   so the level must open with nothing to pull from the front board.
+ */
+export type TutorialStep = 'send' | 'rotate';
+
 export interface LevelData {
   name: string;
   /** A one-line explanation shown before the first attempt, e.g. for a new feature. */
   hint?: string;
+  /** The input this level teaches. Only the first levels have one. */
+  tutorial?: TutorialStep;
   /**
    * Size of one pixel in world units, overriding the tuning value. Used to try higher
    * resolution art at the same billboard size.
@@ -89,6 +100,8 @@ export function validateLevel(level: LevelData, pictures: Map<string, Picture>):
   if (!Array.isArray(level.boards) || level.boards.length === 0) errors.push('A level needs at least one board.');
   if (level.cellSize !== undefined && !(level.cellSize > 0)) errors.push('cellSize must be a positive number.');
   if (level.hint !== undefined && (typeof level.hint !== 'string' || !level.hint.trim())) errors.push('hint must be a non-empty string.');
+  if (level.tutorial !== undefined && level.tutorial !== 'send' && level.tutorial !== 'rotate') errors.push(`tutorial '${level.tutorial}' must be 'send' or 'rotate'.`);
+  if (level.tutorial === 'rotate' && Array.isArray(level.boards) && level.boards.length < 2) errors.push('the rotate tutorial needs at least two boards to turn between.');
   if (!Array.isArray(level.lanes) || level.lanes.length === 0) errors.push('A level needs at least one lane.');
   if (errors.length) return errors;
 

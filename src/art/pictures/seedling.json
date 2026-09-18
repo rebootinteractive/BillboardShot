@@ -1,0 +1,29 @@
+{
+  "id": "seedling",
+  "name": "Seedling",
+  "tags": ["nature"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Seedling" },
+  "art": [
+    "111.....",
+    "1111....",
+    "11111...",
+    ".1111...",
+    "..22.11.",
+    "..221111",
+    "..22.11.",
+    "..22....",
+    "..22....",
+    "..22....",
+    "..22....",
+    "..3333..",
+    ".333333.",
+    "33333333",
+    "33333333"
+  ],
+  "groups": {
+    "1": { "part": "leaves", "suggest": ["lime", "green"] },
+    "2": { "part": "stem", "suggest": ["green", "lime"] },
+    "3": { "part": "soil", "suggest": ["brown", "black"] }
+  }
+}

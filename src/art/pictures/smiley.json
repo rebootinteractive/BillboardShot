@@ -1,9 +1,16 @@
 {
   "id": "smiley",
   "name": "Smiley",
-  "tags": ["object"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Smiling%20face%20with%20smiling%20eyes" },
+  "tags": [
+    "object"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Smiling%20face%20with%20smiling%20eyes"
+  },
   "art": [
     "....11111....",
     "..111111111..",
@@ -20,7 +27,17 @@
     "....11111...."
   ],
   "groups": {
-    "1": { "part": "orange", "suggest": ["orange"] },
-    "2": { "part": "black", "suggest": ["black"] }
+    "1": {
+      "part": "face",
+      "suggest": [
+        "orange"
+      ]
+    },
+    "2": {
+      "part": "eyes and mouth",
+      "suggest": [
+        "black"
+      ]
+    }
   }
 }

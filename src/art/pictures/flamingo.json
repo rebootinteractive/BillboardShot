@@ -1,9 +1,16 @@
 {
   "id": "flamingo",
   "name": "Flamingo",
-  "tags": ["animal"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Flamingo" },
+  "tags": [
+    "animal"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Flamingo"
+  },
   "art": [
     ".4211........",
     "44211........",
@@ -24,9 +31,29 @@
     ".....33......"
   ],
   "groups": {
-    "1": { "part": "pink", "suggest": ["pink"] },
-    "2": { "part": "white", "suggest": ["white"] },
-    "3": { "part": "red", "suggest": ["red"] },
-    "4": { "part": "brown", "suggest": ["brown"] }
+    "1": {
+      "part": "body and neck",
+      "suggest": [
+        "pink"
+      ]
+    },
+    "2": {
+      "part": "wing and beak",
+      "suggest": [
+        "white"
+      ]
+    },
+    "3": {
+      "part": "legs",
+      "suggest": [
+        "red"
+      ]
+    },
+    "4": {
+      "part": "beak tip",
+      "suggest": [
+        "brown"
+      ]
+    }
   }
 }

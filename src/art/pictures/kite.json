@@ -1,9 +1,13 @@
 {
   "id": "kite",
   "name": "Kite",
-  "tags": ["object"],
-  "status": "draft",
-  "origin": { "method": "drawn" },
+  "tags": [
+    "object"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "drawn"
+  },
   "art": [
     ".....1.....",
     "....112....",
@@ -23,11 +27,42 @@
     "..........."
   ],
   "groups": {
-    "1": { "part": "top left", "suggest": ["red"] },
-    "2": { "part": "top right", "suggest": ["yellow"] },
-    "3": { "part": "bottom left", "suggest": ["blue"] },
-    "4": { "part": "bottom right", "suggest": ["green"] },
-    "5": { "part": "tail", "suggest": ["black"] },
-    "6": { "part": "bow", "suggest": ["red", "pink"] }
+    "1": {
+      "part": "top left",
+      "suggest": [
+        "red"
+      ]
+    },
+    "2": {
+      "part": "top right",
+      "suggest": [
+        "yellow"
+      ]
+    },
+    "3": {
+      "part": "bottom left",
+      "suggest": [
+        "blue"
+      ]
+    },
+    "4": {
+      "part": "bottom right",
+      "suggest": [
+        "green"
+      ]
+    },
+    "5": {
+      "part": "tail",
+      "suggest": [
+        "black"
+      ]
+    },
+    "6": {
+      "part": "bow",
+      "suggest": [
+        "red",
+        "pink"
+      ]
+    }
   }
 }

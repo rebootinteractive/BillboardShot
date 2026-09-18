@@ -58,8 +58,8 @@ const rules = await import(pathToFileURL(outfile).href + `?t=${Date.now()}`);
 const pictureDir = path.join(root, 'src/art/pictures');
 const pictures = new Map(fs.readdirSync(pictureDir).map((f) => JSON.parse(fs.readFileSync(path.join(pictureDir, f), 'utf8'))).map((p) => [p.id, p]));
 const current = new Map();
-for (const f of fs.readdirSync(path.join(root, 'src/levels')).filter((f) => f.endsWith('.json'))) {
-  const level = JSON.parse(fs.readFileSync(path.join(root, 'src/levels', f), 'utf8'));
+for (const f of fs.readdirSync(path.join(root, 'src/levels/mvp')).filter((f) => f.endsWith('.json'))) {
+  const level = JSON.parse(fs.readFileSync(path.join(root, 'src/levels/mvp', f), 'utf8'));
   current.set(f, { level, version: rules.levelVersion(level) });
 }
 

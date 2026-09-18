@@ -1,0 +1,26 @@
+{
+  "id": "sun-cloud",
+  "name": "Sun Behind Cloud",
+  "tags": ["nature"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Sun%20behind%20cloud" },
+  "art": [
+    "..2222..........",
+    ".222222.........",
+    ".2222222........",
+    ".2222221111.....",
+    ".222221111111...",
+    "..22211111111111",
+    ".111111111111111",
+    "1111111111111111",
+    "1111111111111111",
+    "1111111111111111",
+    "1111111111111111",
+    ".33333333333333."
+  ],
+  "groups": {
+    "1": { "part": "cloud", "suggest": ["white", "cyan"] },
+    "2": { "part": "sun", "suggest": ["yellow", "orange"] },
+    "3": { "part": "cloud base", "suggest": ["blue", "purple"] }
+  }
+}

@@ -1,9 +1,16 @@
 {
   "id": "camera",
   "name": "Camera",
-  "tags": ["object"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Camera" },
+  "tags": [
+    "object"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Camera"
+  },
   "art": [
     ".222.......2222.",
     "2222222222222222",
@@ -18,8 +25,23 @@
     "2222222222222222"
   ],
   "groups": {
-    "1": { "part": "black", "suggest": ["black"] },
-    "2": { "part": "white", "suggest": ["white"] },
-    "3": { "part": "purple", "suggest": ["purple"] }
+    "1": {
+      "part": "body",
+      "suggest": [
+        "black"
+      ]
+    },
+    "2": {
+      "part": "top and base",
+      "suggest": [
+        "white"
+      ]
+    },
+    "3": {
+      "part": "lens and viewfinder",
+      "suggest": [
+        "purple"
+      ]
+    }
   }
 }

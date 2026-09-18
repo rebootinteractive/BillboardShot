@@ -1,9 +1,16 @@
 {
   "id": "lion",
   "name": "Lion",
-  "tags": ["animal"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Lion" },
+  "tags": [
+    "animal"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Lion"
+  },
   "art": [
     "..11111..11111..",
     "..112211112211..",
@@ -23,10 +30,35 @@
     "......1111......"
   ],
   "groups": {
-    "1": { "part": "brown", "suggest": ["brown"] },
-    "2": { "part": "orange", "suggest": ["orange"] },
-    "3": { "part": "white", "suggest": ["white"] },
-    "4": { "part": "yellow", "suggest": ["yellow"] },
-    "5": { "part": "black", "suggest": ["black"] }
+    "1": {
+      "part": "mane",
+      "suggest": [
+        "brown"
+      ]
+    },
+    "2": {
+      "part": "face",
+      "suggest": [
+        "orange"
+      ]
+    },
+    "3": {
+      "part": "muzzle",
+      "suggest": [
+        "white"
+      ]
+    },
+    "4": {
+      "part": "chin",
+      "suggest": [
+        "yellow"
+      ]
+    },
+    "5": {
+      "part": "eyes and nose",
+      "suggest": [
+        "black"
+      ]
+    }
   }
 }
