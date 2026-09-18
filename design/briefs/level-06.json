@@ -1,0 +1,36 @@
+{
+  "id": "level-06",
+  "name": "Harbor Morning",
+  "intent": "First proper Medium, and the last level before any feature. The difficulty is structural rather than a new rule: the sailboat is a four-deep stack (water, then brown hull, then white mast and deck, then yellow sails), so only blue is reachable on it at the start and everything else there waits its turn. Seven colours with only white shared (sailboat deck and dolphin belly), so most containers have exactly one place to go. The crab's two eye pixels are merged into the body so no colour is under three pixels.",
+  "target": {
+    "min": 0.65,
+    "max": 0.8
+  },
+  "lanes": 3,
+  "boards": [
+    {
+      "picture": "crab",
+      "colors": {
+        "1": "red",
+        "2": "orange",
+        "3": "red"
+      }
+    },
+    {
+      "picture": "sailboat",
+      "colors": {
+        "1": "blue",
+        "2": "brown",
+        "3": "yellow",
+        "4": "white"
+      }
+    },
+    {
+      "picture": "dolphin",
+      "colors": {
+        "1": "cyan",
+        "2": "white"
+      }
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "name": "Tide Pool",
+  "boards": [
+    {
+      "name": "Turtle",
+      "art": [
+        "......GGGGG.....",
+        "....GGGGGGGG....",
+        "...GGKGGGGGKGG..",
+        "..GGGGKKKGKGGG..",
+        ".LGGGGGGGGKGGGG.",
+        "LLGKGKGGGGGKKGG.",
+        "LLGGGKKKKKKGGGG.",
+        ".LGGGGGGGGGGGGGL",
+        "..LLLL....LLLLL.",
+        "..LLLL....LLLLL."
+      ],
+      "source": { "picture": "turtle", "colors": { "1": "green", "2": "lime", "3": "black" } }
+    },
+    {
+      "name": "Fish",
+      "art": [
+        ".....BBBB....",
+        ".....BBBB....",
+        "...BBBBB....B",
+        ".BBBBBBBBB.BB",
+        ".BBBBBBBBBBBB",
+        "BBBBBBBBBBBBB",
+        "BBBBBBBBBBBB.",
+        ".BBBBBBBBBBBB",
+        ".BBBBBBBBB.BB",
+        "..BBBBBBB..BB",
+        ".....BB......"
+      ],
+      "source": { "picture": "fish", "colors": { "1": "blue" } }
+    },
+    {
+      "name": "Lobster",
+      "art": [
+        "RRRR.....RRRR",
+        "RR.RR...RR.RR",
+        "RR.RR...RR.RR",
+        "RRRRR...RRRRR",
+        ".RRR.OOO.RRR.",
+        ".OOOOOOOOOOO.",
+        ".OOOOOOOOOOO.",
+        "..OOOOOOOOO..",
+        "..OOOOOOOOO..",
+        "...NNNNNNN...",
+        "...OOOOOOO...",
+        "...NNNNNNN...",
+        "...OOOOOOO...",
+        "..MMMMMMMMM..",
+        ".MMMMMMMMMMM."
+      ],
+      "source": { "picture": "lobster", "colors": { "1": "red", "2": "orange", "3": "pink", "4": "brown" } }
+    },
+    {
+      "name": "Otter",
+      "art": [
+        ".NNN............",
+        "NNNNN...........",
+        "NYYYN...........",
+        "NYYYN...........",
+        "NNNNN...........",
+        ".NNNNNNNNN......",
+        ".NNNNNNNNNNNN...",
+        ".NNYYYYYYNNNNNN.",
+        ".NNYYYYYYNNNNNNN",
+        ".NNYYYYYYNNNNNN.",
+        ".NNNNNNNNNNNN...",
+        "..NNNNNNNN......"
+      ],
+      "source": { "picture": "otter", "colors": { "1": "brown", "2": "yellow", "3": "yellow", "4": "brown" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "blue", "charges": 32 },
+      { "color": "red", "charges": 40 },
+      { "color": "green", "charges": 35 },
+      { "color": "blue", "charges": 32 },
+      { "color": "lime", "charges": 25 },
+      { "color": "blue", "charges": 32, "hidden": true }
+    ],
+    [
+      { "color": "pink", "charges": 10 },
+      { "color": "brown", "charges": 19 },
+      { "color": "brown", "charges": 20 },
+      { "color": "brown", "charges": 19 },
+      { "color": "brown", "charges": 19 },
+      { "color": "brown", "charges": 20 }
+    ],
+    [
+      { "color": "black", "charges": 9 },
+      { "color": "orange", "charges": 19 },
+      { "color": "yellow", "charges": 12 },
+      { "color": "yellow", "charges": 12 },
+      { "color": "orange", "charges": 19, "hidden": true },
+      { "color": "pink", "charges": 10 },
+      { "color": "black", "charges": 8 },
+      { "color": "orange", "charges": 19 },
+      { "color": "green", "charges": 36 }
+    ]
+  ]
+}

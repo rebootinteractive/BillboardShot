@@ -95,7 +95,7 @@ Fields:
 | Field | Meaning |
 |---|---|
 | `target` | Band for the difficulty score, 0 to 1. |
-| `lanes` | 1–4. Fewer lanes give fewer choices. |
+| `lanes` | 1–4. Shapes the level; it is not a reliable difficulty lever (see level-designer-rules.md). |
 | `boards[].colors` | Color per group; groups left out use the first suggestion. |
 | `boards[].hidden` | Groups shown as mystery pixels. |
 | `boards[].overrides` | Odd pixels: `{ "group": "1", "pick": "middle", "color": "blue" }` or an exact `col`/`row` (row from the top). |
@@ -132,7 +132,7 @@ queue alone could not do it; change the brief, not the queue:
 | More colors, fewer shared | Fewer colors, more shared |
 | A lock or frozen board, or a higher key | Remove a lock, lower the key, smaller frozen count |
 | An odd pixel low in a tall column | Remove odd pixels |
-| Fewer lanes | More lanes |
+| A trap at the front of a lane | Move buried and locked colors later in the queue |
 | More pixels (bigger or more boards) | Fewer pixels |
 
 ## 7. Review the report card

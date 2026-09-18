@@ -1,0 +1,35 @@
+{
+  "id": "level-05",
+  "name": "Blossom Row",
+  "intent": "Last of the easy orchard levels and the widest colour spread so far: eight colours and, unlike levels 1-4, almost nothing is shared between boards, so each board has to be worked on its own. The avocado's dark skin, lime flesh and brown pit interleave; the blossom's yellow centre and red petal base are tiny finishing colours whose containers have to be held for a moment. No features.",
+  "target": {
+    "min": 0.8,
+    "max": 0.88
+  },
+  "lanes": 3,
+  "boards": [
+    {
+      "picture": "avocado",
+      "colors": {
+        "1": "lime",
+        "2": "black",
+        "3": "brown"
+      }
+    },
+    {
+      "picture": "peach",
+      "colors": {
+        "1": "orange",
+        "2": "green"
+      }
+    },
+    {
+      "picture": "cherry-blossom",
+      "colors": {
+        "1": "pink",
+        "2": "yellow",
+        "3": "red"
+      }
+    }
+  ]
+}

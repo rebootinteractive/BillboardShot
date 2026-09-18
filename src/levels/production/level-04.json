@@ -1,0 +1,82 @@
+{
+  "name": "Market Stall",
+  "boards": [
+    {
+      "name": "Watermelon",
+      "art": [
+        "..KK.........",
+        "..KWR........",
+        ".KWRRR.......",
+        "KKWRRRR......",
+        "KWRRRRRR.....",
+        "KWRRRRRRR....",
+        "KWRRKRRRRR...",
+        "KWRRRRRRRRR..",
+        "KKRRRRKRRRRR.",
+        ".KWRRRRRRRRWK",
+        "..KWRRRRRRWKK",
+        "...KKWWWWKKK.",
+        "....KKKKKK..."
+      ],
+      "source": { "picture": "watermelon", "colors": { "1": "red", "2": "black", "3": "white" } }
+    },
+    {
+      "name": "Carrot",
+      "art": [
+        "........GGGG.",
+        ".......GGGGGG",
+        ".....O.GGGGGG",
+        "...OOOOOGGGGG",
+        "..OOOOOOOGGGG",
+        "..OOOOOOOOGG.",
+        "..OOOOOOOO...",
+        ".OOOOOOOOOO..",
+        ".OOOOOOOOOO..",
+        ".OOOOOOOOO...",
+        "OOOOOOOOO....",
+        "OOOOOO.......",
+        "OOO.........."
+      ],
+      "source": { "picture": "carrot", "colors": { "1": "orange", "2": "green" } }
+    },
+    {
+      "name": "Broccoli",
+      "art": [
+        ".....GGGG...",
+        "..GGGGGGGG..",
+        ".GGGGGGGGGG.",
+        "GGGGGGGGGGG.",
+        "GGGGGGGGGGG.",
+        "GGGGGGGGGGG.",
+        "GGGGGGGGGGGG",
+        "..GGGGGGGGGG",
+        "..LGGGGGGGGG",
+        "..L.LGGGGGGG",
+        "..LLLLL.GG..",
+        "..LLL.......",
+        ".LLLL.......",
+        "..LL........"
+      ],
+      "source": { "picture": "broccoli", "colors": { "1": "green", "2": "lime" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "black", "charges": 30 },
+      { "color": "red", "charges": 30 },
+      { "color": "orange", "charges": 38 },
+      { "color": "lime", "charges": 17 }
+    ],
+    [
+      { "color": "green", "charges": 30 },
+      { "color": "green", "charges": 31 },
+      { "color": "red", "charges": 30 },
+      { "color": "green", "charges": 31 }
+    ],
+    [
+      { "color": "orange", "charges": 38 },
+      { "color": "green", "charges": 30 },
+      { "color": "white", "charges": 15 }
+    ]
+  ]
+}

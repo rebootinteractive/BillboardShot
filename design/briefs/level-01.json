@@ -1,0 +1,11 @@
+{
+  "id": "level-01",
+  "name": "First Harvest",
+  "intent": "The very first level. Two orchard boards, three colors, one of them (green) shared across both so almost every container has somewhere to pull. It teaches only the base loop: tap a lane, the container pulls the lowest pixel of its color from the front board. Nearly unloseable.",
+  "target": { "min": 0.95, "max": 1.0 },
+  "lanes": 3,
+  "boards": [
+    { "picture": "pear", "colors": { "1": "yellow", "2": "green" } },
+    { "picture": "cherries", "colors": { "1": "red", "2": "green" } }
+  ]
+}

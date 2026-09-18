@@ -70,9 +70,12 @@ below matter so much: one slot changes everything (Deep Sea Secrets went from a 
 rough bot win rate at 5 slots to 5–20% at 4), so every container that holds a slot without
 pulling is expensive.
 
-1. **Queue order.** Every container that arrives before its color is reachable must park.
-   Putting the first container of a buried or locked color early is a precise way to add
-   difficulty. [verified]
+1. **Queue order.** By a wide margin the strongest lever, and the one the tuner works with.
+   Every container that arrives before its color is reachable must park; putting the first
+   container of a buried or locked color early is a precise way to add difficulty.
+   Re-dealing batch 1's levels into the same number of lanes, changing nothing but the
+   order, moved them by up to 30 points — one went from 69% to 39%. Order alone can carry
+   a level across two difficulty bands. [verified, batch 1]
 2. **Odd pixels.** A single pixel of another color placed inside a picture blocks its
    column until a container of that color comes to that board. Its position, color and
    timing can be planned and its effect counted before anyone plays (section 3). One useful
@@ -88,7 +91,11 @@ pulling is expensive.
    [hypothesis]
 6. **Container sizes.** Large containers stay on the deck longer; sizes that don't match
    the exposed pixels leave partly filled containers. [hypothesis]
-7. **Lanes.** Fewer lanes give fewer choices of what to send next. [hypothesis]
+7. **Lanes.** Not a dependable lever, and weaker than it looks. Re-dealing the same
+   containers into 2, 3 and 4 lanes moved five levels in no consistent direction: one got
+   harder with fewer lanes, another easier, a third was hardest at 3 lanes and easier at
+   both 2 and 4. Choose a lane count for the shape of the level and tune with something
+   else. [verified, batch 1]
 8. **Hidden information** (mystery pixels, hidden containers). Adds uncertainty rather than
    hard constraints; its weight depends on how much the hidden part matters to the order.
    [hypothesis]

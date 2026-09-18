@@ -1,0 +1,78 @@
+{
+  "name": "Fruit Basket",
+  "boards": [
+    {
+      "name": "Lemon",
+      "art": [
+        "..GGG........",
+        "GGGGGYYYYY...",
+        ".GGGYYYYYYY..",
+        "...YYYYYYYYY.",
+        "...YYYYYYYYY.",
+        "...YYYYYYYYYY",
+        "...YYYYYYYYYY",
+        "...YYYYYYYYYY",
+        "...YYYYYYYYYY",
+        "....YYYYYYYYY",
+        "....YYYYYYYY.",
+        "......YYYYY..",
+        "........YYY.."
+      ],
+      "source": { "picture": "lemon", "colors": { "1": "yellow", "2": "green" } }
+    },
+    {
+      "name": "Grapes",
+      "art": [
+        ".......G.....",
+        "......GG.....",
+        "......G......",
+        ".NNNNNG...P..",
+        "NNNNNNNG.PPPP",
+        ".NNNN.PPPPPPP",
+        "....PPPPPPPPP",
+        "...PPPPPPPPP.",
+        "...PPPPPPPPPP",
+        "...PPPPPPPPPP",
+        ".....PPPPPPP.",
+        "......PPPPPP.",
+        "........PPPP.",
+        ".........PPP."
+      ],
+      "source": { "picture": "grapes", "colors": { "1": "purple", "2": "brown", "3": "green" } }
+    },
+    {
+      "name": "Chestnut",
+      "art": [
+        ".....N.....",
+        "....NNN....",
+        "...NNNNN...",
+        "..NNNNNNN..",
+        ".NNNNNNNNN.",
+        "NNNNNNNNNNN",
+        "NNNNNNNNNNN",
+        "OOOOOOOOOOO",
+        "OOOOOOOOOOO",
+        ".OOOOOOOOO.",
+        "..OOOOOOO.."
+      ],
+      "source": { "picture": "chestnut", "colors": { "1": "brown", "2": "orange" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "green", "charges": 17 },
+      { "color": "purple", "charges": 35 },
+      { "color": "brown", "charges": 31 }
+    ],
+    [
+      { "color": "yellow", "charges": 32 },
+      { "color": "orange", "charges": 38 },
+      { "color": "purple", "charges": 35 }
+    ],
+    [
+      { "color": "brown", "charges": 32 },
+      { "color": "yellow", "charges": 32 },
+      { "color": "yellow", "charges": 31 }
+    ]
+  ]
+}

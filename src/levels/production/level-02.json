@@ -1,0 +1,59 @@
+{
+  "name": "Orchard Snack",
+  "boards": [
+    {
+      "name": "Apple",
+      "art": [
+        ".GGGG........",
+        ".GGGGG.......",
+        "..RRRGGRRR...",
+        ".RRRRRRRRRRR.",
+        ".RRRRRRRRRRR.",
+        "RRRRRRRRRRRRR",
+        "RRRRRRRRRRRRR",
+        "RRRRRRRRRRRRR",
+        "RRRRRRRRRRRRR",
+        "RRRRRRRRRRRRR",
+        ".RRRRRRRRRRR.",
+        ".RRRRRRRRRRR.",
+        "..RRRRRRRRR.."
+      ],
+      "source": { "picture": "apple", "colors": { "1": "red", "2": "green" } }
+    },
+    {
+      "name": "Strawberry",
+      "art": [
+        ".....K....",
+        "....KK....",
+        ".GGGGGGGG.",
+        "GGGGGGGGGG",
+        "GGGGRRGGGG",
+        "RRRRRRRRRR",
+        "RKRRRRRRKR",
+        "RRRRRRRRRR",
+        "RRRKRRKRRR",
+        ".RRRRRRRR.",
+        ".RRRRRRRR.",
+        "..RRRRRR..",
+        "...RRRR...",
+        "....RR...."
+      ],
+      "source": { "picture": "strawberry", "colors": { "1": "red", "2": "green", "3": "black" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "red", "charges": 38 },
+      { "color": "black", "charges": 7 },
+      { "color": "red", "charges": 38 }
+    ],
+    [
+      { "color": "red", "charges": 38 },
+      { "color": "red", "charges": 38 }
+    ],
+    [
+      { "color": "green", "charges": 37 },
+      { "color": "red", "charges": 38 }
+    ]
+  ]
+}

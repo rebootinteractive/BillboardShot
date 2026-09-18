@@ -42,7 +42,13 @@ The difficulty score is the average bot's win rate. See level-design-strategy.md
 
 Bands are a target, not a contract. The bots are calibrated against three players and are
 wrong by 30 points on individual levels in both directions, so a level one band off its
-slot is fine if it plays well. Difficulty gets retuned from real player data after
+slot is fine if it plays well.
+
+Each level's band in the tables below is **narrow, about ten points, and steps down from
+the level before it**. That is deliberate. The tuner stops as soon as it is inside the
+band, so a wide band gets whatever the first pass happened to produce: batch 1 found a
+level sitting at 93% in an 80–95% band, which would have made it easier than the level
+before it. Give a level the slice you actually want, not the whole type. Difficulty gets retuned from real player data after
 release; see level-design-strategy.md, "Difficulty".
 
 **Labeling.** Hard and very hard levels are marked before the player enters, so a loss
@@ -79,31 +85,31 @@ last to have choices taken away.
 
 | # | Type | Target | Features | Boards | Pixels | Theme |
 |---|---|---|---|---|---|---|
-| 1 | Intro | 95–100% | — | 2 | ~200 | Orchard |
+| 1 | Intro | 97–100% | — | 2 | ~200 | Orchard |
 | 2 | Intro | 95–100% | — | 2 | ~240 | Orchard |
-| 3 | Intro | 90–100% | — | 3 | ~290 | Orchard |
-| 4 | Easy | 85–95% | — | 3 | ~330 | Orchard |
-| 5 | Easy | 80–95% | — | 3 | ~370 | Orchard |
-| 6 | Medium | 65–80% | — | 3 | ~410 | Harbor |
-| **7** | **Onboarding** | 90–100% | **hidden** | 3 | ~390 | Harbor |
-| 8 | Medium | 60–80% | hidden | 4 | ~460 | Harbor |
-| 9 | Medium | 55–75% | hidden | 4 | ~500 | Harbor |
-| 10 | Easy | 80–95% | hidden | 4 | ~470 | Harbor |
-| **11** | **Onboarding** | 90–100% | **mystery** | 3 | ~420 | Garden |
-| **12** | **Hard** | 30–50% | hidden, mystery | 4 | ~570 | Garden |
-| 13 | Easy | 80–95% | mystery | 4 | ~500 | Garden |
-| 14 | Medium | 55–75% | mystery, hidden | 4 | ~560 | Garden |
-| **15** | **Onboarding** | 90–100% | **frozen** | 4 | ~480 | Garden |
-| 16 | Medium | 55–75% | frozen | 5 | ~600 | Workshop |
-| **17** | **Hard** | 30–50% | frozen, mystery, hidden | 5 | ~660 | Workshop |
-| 18 | Easy | 80–95% | frozen | 4 | ~540 | Workshop |
-| 19 | Medium | 55–75% | frozen, hidden | 5 | ~620 | Workshop |
-| **20** | **Onboarding** | 90–100% | **key lock** | 4 | ~520 | Workshop |
-| 21 | Medium | 55–75% | key | 5 | ~640 | Night Sky |
-| **22** | **Hard** | 30–50% | key, mystery, hidden | 5 | ~700 | Night Sky |
-| 23 | Easy | 80–95% | key | 5 | ~580 | Night Sky |
-| **24** | **Onboarding** | 90–100% | **links** | 4 | ~550 | Night Sky |
-| 25 | Medium | 55–75% | links | 5 | ~660 | Night Sky |
+| 3 | Intro | 92–100% | — | 3 | ~290 | Orchard |
+| 4 | Easy | 86–93% | — | 3 | ~330 | Orchard |
+| 5 | Easy | 79–87% | — | 3 | ~370 | Orchard |
+| 6 | Medium | 66–76% | — | 3 | ~410 | Harbor |
+| **7** | **Onboarding** | 92–100% | **hidden** | 3 | ~390 | Harbor |
+| 8 | Medium | 62–74% | hidden | 4 | ~460 | Harbor |
+| 9 | Medium | 56–68% | hidden | 4 | ~500 | Harbor |
+| 10 | Easy | 80–90% | hidden | 4 | ~470 | Harbor |
+| **11** | **Onboarding** | 92–100% | **mystery** | 3 | ~420 | Garden |
+| **12** | **Hard** | 32–48% | hidden, mystery | 4 | ~570 | Garden |
+| 13 | Easy | 80–90% | mystery | 4 | ~500 | Garden |
+| 14 | Medium | 58–70% | mystery, hidden | 4 | ~560 | Garden |
+| **15** | **Onboarding** | 92–100% | **frozen** | 4 | ~480 | Garden |
+| 16 | Medium | 60–72% | frozen | 5 | ~600 | Workshop |
+| **17** | **Hard** | 32–48% | frozen, mystery, hidden | 5 | ~660 | Workshop |
+| 18 | Easy | 78–88% | frozen | 4 | ~540 | Workshop |
+| 19 | Medium | 56–68% | frozen, hidden | 5 | ~620 | Workshop |
+| **20** | **Onboarding** | 92–100% | **key lock** | 4 | ~520 | Workshop |
+| 21 | Medium | 58–70% | key | 5 | ~640 | Night Sky |
+| **22** | **Hard** | 32–48% | key, mystery, hidden | 5 | ~700 | Night Sky |
+| 23 | Easy | 78–88% | key | 5 | ~580 | Night Sky |
+| **24** | **Onboarding** | 92–100% | **links** | 4 | ~550 | Night Sky |
+| 25 | Medium | 56–68% | links | 5 | ~660 | Night Sky |
 
 Levels 1–5 teach the base game with no features at all: that only the lowest pixel of a
 column is pullable, that only the front board is pulled from, and that a color with no
@@ -117,21 +123,21 @@ level: two mild features are hard together, so boards and pixels grow gently.
 
 | # | Type | Target | Features | Boards | Pixels | Theme |
 |---|---|---|---|---|---|---|
-| 26 | Medium | 55–75% | links, key | 5 | ~700 | Farmyard |
-| **27** | **Very hard** | 15–30% | key, mystery, hidden | 5 | ~740 | Farmyard |
-| 28 | Easy | 80–95% | hidden | 5 | ~600 | Farmyard |
-| 29 | Medium | 55–75% | frozen, mystery | 5 | ~680 | Farmyard |
-| 30 | Medium | 55–75% | key, links | 6 | ~720 | Farmyard |
-| 31 | Medium | 50–70% | frozen, hidden | 6 | ~760 | Concert |
-| **32** | **Hard** | 30–50% | frozen, links, hidden | 6 | ~790 | Concert |
-| 33 | Easy | 80–95% | mystery | 5 | ~640 | Concert |
-| 34 | Medium | 55–75% | links, hidden | 6 | ~720 | Concert |
-| 35 | Medium | 50–70% | frozen, mystery, hidden | 6 | ~770 | Concert |
-| 36 | Medium | 50–70% | mystery, links | 6 | ~800 | Winter Games |
-| **37** | **Very hard** | 15–30% | frozen, links, mystery | 6 | ~830 | Winter Games |
-| 38 | Easy | 80–95% | hidden, mystery | 5 | ~680 | Winter Games |
-| 39 | Medium | 55–75% | key, links | 6 | ~750 | Winter Games |
-| **40** | **Very hard** | 15–30% | key, links, mystery | 6 | ~900 | Winter Games |
+| 26 | Medium | 56–68% | links, key | 5 | ~700 | Farmyard |
+| **27** | **Very hard** | 15–28% | key, mystery, hidden | 5 | ~740 | Farmyard |
+| 28 | Easy | 78–88% | hidden | 5 | ~600 | Farmyard |
+| 29 | Medium | 56–68% | frozen, mystery | 5 | ~680 | Farmyard |
+| 30 | Medium | 54–66% | key, links | 6 | ~720 | Farmyard |
+| 31 | Medium | 52–64% | frozen, hidden | 6 | ~760 | Concert |
+| **32** | **Hard** | 32–46% | frozen, links, hidden | 6 | ~790 | Concert |
+| 33 | Easy | 78–88% | mystery | 5 | ~640 | Concert |
+| 34 | Medium | 56–68% | links, hidden | 6 | ~720 | Concert |
+| 35 | Medium | 50–62% | frozen, mystery, hidden | 6 | ~770 | Concert |
+| 36 | Medium | 50–62% | mystery, links | 6 | ~800 | Winter Games |
+| **37** | **Very hard** | 15–28% | frozen, links, mystery | 6 | ~830 | Winter Games |
+| 38 | Easy | 78–88% | hidden, mystery | 5 | ~680 | Winter Games |
+| 39 | Medium | 54–66% | key, links | 6 | ~750 | Winter Games |
+| **40** | **Very hard** | 15–28% | key, links, mystery | 6 | ~900 | Winter Games |
 
 The three very hard levels are deliberately given different characters, so the peaks do
 not feel like the same wall three times:

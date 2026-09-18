@@ -52,7 +52,19 @@ interface Evaluation {
   winnable: boolean;
 }
 
-function evaluate(level: LevelData, brief: LevelBrief, pictures: Map<string, Picture>, runs: number, seed: number): Evaluation {
+/**
+ * The band the search aims at: the middle 60% of the brief's band. The search stops as
+ * soon as its loss reaches zero, so aiming at the whole band would accept whatever the
+ * first pass happened to produce — a level given 80–95% would sit at 94% and be no easier
+ * than the level before it. Aiming at the core leaves room on both sides, and the final
+ * check still accepts the brief's full band.
+ */
+function searchBand({ min, max }: { min: number; max: number }) {
+  const margin = (max - min) * 0.2;
+  return { min: min + margin, max: max - margin };
+}
+
+function evaluate(level: LevelData, brief: LevelBrief, target: { min: number; max: number }, pictures: Map<string, Picture>, runs: number, seed: number): Evaluation {
   if (validateLevel(level, pictures).length) return { loss: 100, difficulty: 0, warnings: 0, winnable: false };
   const allowed = new Set(brief.queue?.allowWarnings ?? []);
   const warnings = lintLevel(level).filter((w) => w.level === 'warning' && !allowed.has(w.rule)).length;
@@ -61,7 +73,7 @@ function evaluate(level: LevelData, brief: LevelBrief, pictures: Map<string, Pic
   let wins = 0;
   for (let i = 0; i < runs; i++) if (playLevel(level, 'average', rng).result === 'win') wins++;
   const difficulty = wins / runs;
-  const { min, max } = brief.target;
+  const { min, max } = target;
   const outside = difficulty < min ? min - difficulty : difficulty > max ? difficulty - max : 0;
   const loss = outside * 10 + warnings * 2 + (solved === 'win' ? 0 : solved === 'unknown' ? 3 : 20);
   return { loss, difficulty, warnings, winnable: solved === 'win' };
@@ -159,7 +171,8 @@ export function tuneLevel(brief: LevelBrief, pictures: Map<string, Picture>, opt
   const withLanes = (lanes: ContainerData[][]): LevelData => ({ ...base, lanes });
 
   let current = cloneLanes(base.lanes);
-  let currentEval = evaluate(withLanes(current), brief, pictures, searchRuns, seed);
+  const aim = searchBand(brief.target);
+  let currentEval = evaluate(withLanes(current), brief, aim, pictures, searchRuns, seed);
   const startDifficulty = currentEval.difficulty;
   let best = { lanes: cloneLanes(current), evaluation: currentEval };
   const rejected = new Set<string>();
@@ -181,7 +194,7 @@ export function tuneLevel(brief: LevelBrief, pictures: Map<string, Picture>, opt
     const candidate = cloneLanes(current);
     const change = mutate(candidate, brief, pixels, rng);
     if (!change || rejected.has(JSON.stringify(candidate))) continue;
-    const evaluation = evaluate(withLanes(candidate), brief, pictures, searchRuns, seed);
+    const evaluation = evaluate(withLanes(candidate), brief, aim, pictures, searchRuns, seed);
     const temperature = 0.4 * (1 - e / maxEvaluations) + 0.02;
     const accepted = evaluation.loss <= currentEval.loss || rng() < Math.exp(-(evaluation.loss - currentEval.loss) / temperature);
     const step = { evaluation: e, change, difficulty: evaluation.difficulty, warnings: evaluation.warnings, winnable: evaluation.winnable, loss: evaluation.loss, accepted };

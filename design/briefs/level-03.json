@@ -1,0 +1,12 @@
+{
+  "id": "level-03",
+  "name": "Fruit Basket",
+  "intent": "Third board joins the carousel. Five colors, two of them (green, brown) shared across two boards so turning the carousel is rewarded. The chestnut's brown shell sits entirely on its orange base, which is the first time a board has a gating color the player has to notice. Still an intro: no features, wide margin.",
+  "target": { "min": 0.9, "max": 1.0 },
+  "lanes": 3,
+  "boards": [
+    { "picture": "lemon", "colors": { "1": "yellow", "2": "green" } },
+    { "picture": "grapes", "colors": { "1": "purple", "2": "brown", "3": "green" } },
+    { "picture": "chestnut", "colors": { "1": "brown", "2": "orange" } }
+  ]
+}
