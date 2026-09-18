@@ -1,16 +1,9 @@
 {
   "id": "popcorn",
   "name": "Popcorn",
-  "tags": [
-    "food"
-  ],
-  "status": "approved",
-  "origin": {
-    "method": "converted",
-    "source": "Fluent Emoji (Flat)",
-    "license": "MIT",
-    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Popcorn"
-  },
+  "tags": ["food"],
+  "status": "rejected",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Popcorn" },
   "art": [
     ".....33.....",
     "....3333....",
@@ -31,23 +24,8 @@
     ".1122112211."
   ],
   "groups": {
-    "1": {
-      "part": "stripes",
-      "suggest": [
-        "red"
-      ]
-    },
-    "2": {
-      "part": "box",
-      "suggest": [
-        "white"
-      ]
-    },
-    "3": {
-      "part": "popcorn",
-      "suggest": [
-        "yellow"
-      ]
-    }
+    "1": { "part": "stripes", "suggest": ["red"] },
+    "2": { "part": "box", "suggest": ["white"] },
+    "3": { "part": "popcorn", "suggest": ["yellow"] }
   }
 }
