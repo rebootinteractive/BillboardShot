@@ -1,9 +1,16 @@
 {
   "id": "castle",
   "name": "Castle",
-  "tags": ["object"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Castle" },
+  "tags": [
+    "object"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Castle"
+  },
   "art": [
     "................",
     ".......22.......",
@@ -23,8 +30,23 @@
     "1111113333111111"
   ],
   "groups": {
-    "1": { "part": "purple", "suggest": ["purple"] },
-    "2": { "part": "red", "suggest": ["red"] },
-    "3": { "part": "black", "suggest": ["black"] }
+    "1": {
+      "part": "walls",
+      "suggest": [
+        "purple"
+      ]
+    },
+    "2": {
+      "part": "roofs and flag",
+      "suggest": [
+        "red"
+      ]
+    },
+    "3": {
+      "part": "door and window",
+      "suggest": [
+        "black"
+      ]
+    }
   }
 }

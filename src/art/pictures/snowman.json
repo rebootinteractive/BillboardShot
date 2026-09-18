@@ -1,9 +1,16 @@
 {
   "id": "snowman",
   "name": "Snowman",
-  "tags": ["nature"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Snowman%20without%20snow" },
+  "tags": [
+    "nature"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Snowman%20without%20snow"
+  },
   "art": [
     "....44........",
     "...44244......",
@@ -24,10 +31,35 @@
     "...33333333..."
   ],
   "groups": {
-    "1": { "part": "white", "suggest": ["white"] },
-    "2": { "part": "blue", "suggest": ["blue"] },
-    "3": { "part": "purple", "suggest": ["purple"] },
-    "4": { "part": "black", "suggest": ["black"] },
-    "5": { "part": "orange", "suggest": ["orange"] }
+    "1": {
+      "part": "snow",
+      "suggest": [
+        "white"
+      ]
+    },
+    "2": {
+      "part": "scarf",
+      "suggest": [
+        "blue"
+      ]
+    },
+    "3": {
+      "part": "outline and base",
+      "suggest": [
+        "purple"
+      ]
+    },
+    "4": {
+      "part": "hat and arms",
+      "suggest": [
+        "black"
+      ]
+    },
+    "5": {
+      "part": "nose",
+      "suggest": [
+        "orange"
+      ]
+    }
   }
 }

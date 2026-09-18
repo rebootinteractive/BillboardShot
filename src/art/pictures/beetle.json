@@ -1,0 +1,56 @@
+{
+  "id": "beetle",
+  "name": "Beetle",
+  "tags": [
+    "animal"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Beetle"
+  },
+  "art": [
+    "...2......2...",
+    "...22....22...",
+    "....222222....",
+    "...22222222...",
+    "..2222222222..",
+    "..1111221111..",
+    "33111122111133",
+    ".311112211113.",
+    "..1111221111..",
+    "33111122111133",
+    ".311112211113.",
+    "..1111221111..",
+    "33111122111133",
+    ".311112211113.",
+    "..1111221111..",
+    "...11122111...",
+    "....112211...."
+  ],
+  "groups": {
+    "1": {
+      "part": "wing shell",
+      "suggest": [
+        "green",
+        "blue"
+      ]
+    },
+    "2": {
+      "part": "head and wing seam",
+      "suggest": [
+        "black",
+        "brown"
+      ]
+    },
+    "3": {
+      "part": "legs",
+      "suggest": [
+        "black",
+        "brown"
+      ]
+    }
+  }
+}

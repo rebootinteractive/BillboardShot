@@ -1,0 +1,29 @@
+{
+  "id": "rosette",
+  "name": "Rosette",
+  "tags": ["nature"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Rosette" },
+  "art": [
+    "......111......",
+    ".....11111.....",
+    "..11.11111.11..",
+    "..11122222111..",
+    "..11222222211..",
+    "..12222222221..",
+    "111222333222111",
+    "111222333222111",
+    "111222333222111",
+    "..12222222221..",
+    "..11222222211..",
+    "..11122222111..",
+    "..11.11111.11..",
+    ".....11111.....",
+    "......111......"
+  ],
+  "groups": {
+    "1": { "part": "outer petals", "suggest": ["orange", "red"] },
+    "2": { "part": "inner petals", "suggest": ["yellow", "orange"] },
+    "3": { "part": "center", "suggest": ["white", "red"] }
+  }
+}

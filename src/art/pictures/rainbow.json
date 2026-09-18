@@ -1,9 +1,16 @@
 {
   "id": "rainbow",
   "name": "Rainbow",
-  "tags": ["nature"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Rainbow" },
+  "tags": [
+    "nature"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Rainbow"
+  },
   "art": [
     "............1111",
     ".........1111111",
@@ -23,11 +30,41 @@
     "1124433556......"
   ],
   "groups": {
-    "1": { "part": "red band", "suggest": ["red"] },
-    "2": { "part": "orange band", "suggest": ["orange"] },
-    "3": { "part": "green band", "suggest": ["green"] },
-    "4": { "part": "yellow band", "suggest": ["yellow"] },
-    "5": { "part": "blue band", "suggest": ["blue"] },
-    "6": { "part": "purple band", "suggest": ["purple"] }
+    "1": {
+      "part": "red band",
+      "suggest": [
+        "red"
+      ]
+    },
+    "2": {
+      "part": "orange band",
+      "suggest": [
+        "orange"
+      ]
+    },
+    "3": {
+      "part": "green band",
+      "suggest": [
+        "green"
+      ]
+    },
+    "4": {
+      "part": "yellow band",
+      "suggest": [
+        "yellow"
+      ]
+    },
+    "5": {
+      "part": "blue band",
+      "suggest": [
+        "blue"
+      ]
+    },
+    "6": {
+      "part": "purple band",
+      "suggest": [
+        "purple"
+      ]
+    }
   }
 }

@@ -1,9 +1,16 @@
 {
   "id": "monkey",
   "name": "Monkey",
-  "tags": ["animal"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Monkey%20face" },
+  "tags": [
+    "animal"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Monkey%20face"
+  },
   "art": [
     ".....222222.....",
     "....22222222....",
@@ -20,9 +27,29 @@
     ".....222222....."
   ],
   "groups": {
-    "1": { "part": "pink", "suggest": ["pink"] },
-    "2": { "part": "brown", "suggest": ["brown"] },
-    "3": { "part": "red", "suggest": ["red"] },
-    "4": { "part": "black", "suggest": ["black"] }
+    "1": {
+      "part": "face and inner ears",
+      "suggest": [
+        "pink"
+      ]
+    },
+    "2": {
+      "part": "fur and ears",
+      "suggest": [
+        "brown"
+      ]
+    },
+    "3": {
+      "part": "muzzle",
+      "suggest": [
+        "red"
+      ]
+    },
+    "4": {
+      "part": "eyes",
+      "suggest": [
+        "black"
+      ]
+    }
   }
 }

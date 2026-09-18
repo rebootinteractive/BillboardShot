@@ -1,9 +1,16 @@
 {
   "id": "palm-tree",
   "name": "Palm Tree",
-  "tags": ["nature"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Palm%20tree" },
+  "tags": [
+    "nature"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Palm%20tree"
+  },
   "art": [
     "..2222...2222..",
     ".222222.222222.",
@@ -24,8 +31,25 @@
     "......111......"
   ],
   "groups": {
-    "1": { "part": "trunk", "suggest": ["brown"] },
-    "2": { "part": "leaves", "suggest": ["lime", "green"] },
-    "3": { "part": "coconuts", "suggest": ["orange", "brown"] }
+    "1": {
+      "part": "trunk",
+      "suggest": [
+        "brown"
+      ]
+    },
+    "2": {
+      "part": "leaves",
+      "suggest": [
+        "lime",
+        "green"
+      ]
+    },
+    "3": {
+      "part": "coconuts",
+      "suggest": [
+        "orange",
+        "brown"
+      ]
+    }
   }
 }

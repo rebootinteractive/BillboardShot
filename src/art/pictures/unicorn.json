@@ -1,9 +1,16 @@
 {
   "id": "unicorn",
   "name": "Unicorn",
-  "tags": ["animal"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Unicorn" },
+  "tags": [
+    "animal"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Unicorn"
+  },
   "art": [
     "................",
     "......1.........",
@@ -23,10 +30,35 @@
     ".....11122233344"
   ],
   "groups": {
-    "1": { "part": "white", "suggest": ["white"] },
-    "2": { "part": "blue", "suggest": ["blue"] },
-    "3": { "part": "purple", "suggest": ["purple"] },
-    "4": { "part": "pink", "suggest": ["pink"] },
-    "5": { "part": "black", "suggest": ["black"] }
+    "1": {
+      "part": "head and horn",
+      "suggest": [
+        "white"
+      ]
+    },
+    "2": {
+      "part": "ear and inner mane",
+      "suggest": [
+        "blue"
+      ]
+    },
+    "3": {
+      "part": "middle mane",
+      "suggest": [
+        "purple"
+      ]
+    },
+    "4": {
+      "part": "outer mane",
+      "suggest": [
+        "pink"
+      ]
+    },
+    "5": {
+      "part": "eye and nostril",
+      "suggest": [
+        "black"
+      ]
+    }
   }
 }

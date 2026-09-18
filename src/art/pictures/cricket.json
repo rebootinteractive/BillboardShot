@@ -1,0 +1,41 @@
+{
+  "id": "cricket",
+  "name": "Cricket",
+  "tags": [
+    "animal"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Cricket"
+  },
+  "art": [
+    "1.1......111.",
+    "1.1.....1111.",
+    "111....11111.",
+    ".11111111111.",
+    "111222222211.",
+    "1112222222111",
+    "1111111111111",
+    "..11..11..111",
+    ".111..11...11"
+  ],
+  "groups": {
+    "1": {
+      "part": "body and legs",
+      "suggest": [
+        "green",
+        "lime"
+      ]
+    },
+    "2": {
+      "part": "wing",
+      "suggest": [
+        "lime",
+        "yellow"
+      ]
+    }
+  }
+}

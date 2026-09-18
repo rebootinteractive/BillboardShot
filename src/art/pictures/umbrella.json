@@ -1,9 +1,16 @@
 {
   "id": "umbrella",
   "name": "Umbrella",
-  "tags": ["object"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Umbrella" },
+  "tags": [
+    "object"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Umbrella"
+  },
   "art": [
     "......1......",
     "...1111111...",
@@ -20,8 +27,23 @@
     "....222......"
   ],
   "groups": {
-    "1": { "part": "purple", "suggest": ["purple"] },
-    "2": { "part": "brown", "suggest": ["brown"] },
-    "3": { "part": "black", "suggest": ["black"] }
+    "1": {
+      "part": "canopy",
+      "suggest": [
+        "purple"
+      ]
+    },
+    "2": {
+      "part": "handle",
+      "suggest": [
+        "brown"
+      ]
+    },
+    "3": {
+      "part": "pole",
+      "suggest": [
+        "black"
+      ]
+    }
   }
 }

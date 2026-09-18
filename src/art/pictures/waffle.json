@@ -1,0 +1,53 @@
+{
+  "id": "waffle",
+  "name": "Waffle",
+  "tags": [
+    "food"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Waffle"
+  },
+  "art": [
+    "..3333333333..",
+    ".311111111113.",
+    "31221122112213",
+    "31221122112213",
+    "31111111111113",
+    "31111111111113",
+    "31221122112213",
+    "31221122112213",
+    "31111111111113",
+    "31111111111113",
+    "31221122112213",
+    "31221122112213",
+    ".311111111113.",
+    "..3333333333.."
+  ],
+  "groups": {
+    "1": {
+      "part": "batter",
+      "suggest": [
+        "yellow",
+        "orange"
+      ]
+    },
+    "2": {
+      "part": "pockets",
+      "suggest": [
+        "brown",
+        "red"
+      ]
+    },
+    "3": {
+      "part": "edge",
+      "suggest": [
+        "orange",
+        "brown"
+      ]
+    }
+  }
+}

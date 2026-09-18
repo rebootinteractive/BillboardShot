@@ -1,9 +1,16 @@
 {
   "id": "lemon",
   "name": "Lemon",
-  "tags": ["food"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Lemon" },
+  "tags": [
+    "food"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Lemon"
+  },
   "art": [
     "..222........",
     "2222211111...",
@@ -20,7 +27,19 @@
     "........111.."
   ],
   "groups": {
-    "1": { "part": "lemon", "suggest": ["yellow", "lime"] },
-    "2": { "part": "leaf", "suggest": ["lime", "green"] }
+    "1": {
+      "part": "lemon",
+      "suggest": [
+        "yellow",
+        "lime"
+      ]
+    },
+    "2": {
+      "part": "leaf",
+      "suggest": [
+        "lime",
+        "green"
+      ]
+    }
   }
 }

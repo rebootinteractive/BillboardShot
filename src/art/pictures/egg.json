@@ -1,0 +1,42 @@
+{
+  "id": "egg",
+  "name": "Egg",
+  "tags": [
+    "food"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Egg"
+  },
+  "art": [
+    "..1111..",
+    ".111111.",
+    ".122111.",
+    "11111111",
+    "11111221",
+    "11111111",
+    "12211111",
+    ".111221.",
+    ".111111.",
+    "..1111.."
+  ],
+  "groups": {
+    "1": {
+      "part": "shell",
+      "suggest": [
+        "white",
+        "brown"
+      ]
+    },
+    "2": {
+      "part": "speckles",
+      "suggest": [
+        "brown",
+        "black"
+      ]
+    }
+  }
+}

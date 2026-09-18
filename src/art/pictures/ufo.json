@@ -1,0 +1,23 @@
+{
+  "id": "ufo",
+  "name": "Flying Saucer",
+  "tags": ["vehicle"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Flying%20saucer" },
+  "art": [
+    "......111......",
+    ".....11111.....",
+    "....1111111....",
+    ".2222222222222.",
+    "222222222222222",
+    ".2222222222222.",
+    "....3333333....",
+    "...333333333...",
+    "..33333333333.."
+  ],
+  "groups": {
+    "1": { "part": "dome", "suggest": ["cyan", "green"] },
+    "2": { "part": "hull", "suggest": ["white", "purple"] },
+    "3": { "part": "beam", "suggest": ["lime", "yellow"] }
+  }
+}

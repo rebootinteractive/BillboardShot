@@ -1,9 +1,16 @@
 {
   "id": "dolphin",
   "name": "Dolphin",
-  "tags": ["animal"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Dolphin" },
+  "tags": [
+    "animal"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Dolphin"
+  },
   "art": [
     "...1111111111",
     "..11111111111",
@@ -24,7 +31,17 @@
     "..1.........."
   ],
   "groups": {
-    "1": { "part": "blue", "suggest": ["blue"] },
-    "2": { "part": "white", "suggest": ["white"] }
+    "1": {
+      "part": "body",
+      "suggest": [
+        "blue"
+      ]
+    },
+    "2": {
+      "part": "belly",
+      "suggest": [
+        "white"
+      ]
+    }
   }
 }

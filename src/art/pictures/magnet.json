@@ -1,0 +1,28 @@
+{
+  "id": "magnet",
+  "name": "Magnet",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Magnet" },
+  "art": [
+    ".....111111.....",
+    "...1111111111...",
+    "..111111111111..",
+    ".11111111111111.",
+    "111111....111111",
+    "11111......11111",
+    "11111......11111",
+    "11111......11111",
+    "11111......11111",
+    "11111......11111",
+    "22222......33333",
+    "22222......33333",
+    "22222......33333",
+    "22222......33333"
+  ],
+  "groups": {
+    "1": { "part": "body", "suggest": ["red", "orange"] },
+    "2": { "part": "north pole", "suggest": ["white", "red"] },
+    "3": { "part": "south pole", "suggest": ["white", "blue"] }
+  }
+}

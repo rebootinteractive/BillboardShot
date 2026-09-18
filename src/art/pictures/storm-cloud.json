@@ -1,0 +1,28 @@
+{
+  "id": "storm-cloud",
+  "name": "Cloud with Lightning",
+  "tags": ["nature"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Cloud%20with%20lightning" },
+  "art": [
+    "......1111......",
+    "....11111111....",
+    "..111111111111..",
+    ".11111111111111.",
+    "1111111111111111",
+    "1111111111111111",
+    "1111111111111111",
+    "1111111111111111",
+    ".11111111111111.",
+    "..111111111111..",
+    ".......222......",
+    "......222.......",
+    ".....2222222....",
+    "........222.....",
+    ".........22....."
+  ],
+  "groups": {
+    "1": { "part": "cloud", "suggest": ["blue", "purple"] },
+    "2": { "part": "lightning bolt", "suggest": ["yellow", "orange"] }
+  }
+}

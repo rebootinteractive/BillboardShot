@@ -1,0 +1,24 @@
+{
+  "id": "chestnut",
+  "name": "Chestnut",
+  "tags": ["food", "nature"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Chestnut" },
+  "art": [
+    ".....1.....",
+    "....111....",
+    "...11111...",
+    "..1111111..",
+    ".111111111.",
+    "11111111111",
+    "11111111111",
+    "22222222222",
+    "22222222222",
+    ".222222222.",
+    "..2222222.."
+  ],
+  "groups": {
+    "1": { "part": "shell", "suggest": ["brown", "black"] },
+    "2": { "part": "base", "suggest": ["orange", "yellow"] }
+  }
+}

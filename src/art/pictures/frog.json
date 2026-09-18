@@ -1,9 +1,16 @@
 {
   "id": "frog",
   "name": "Frog",
-  "tags": ["animal"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Frog" },
+  "tags": [
+    "animal"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Frog"
+  },
   "art": [
     "...222....222...",
     "..21122..22112..",
@@ -22,8 +29,25 @@
     "....11111111...."
   ],
   "groups": {
-    "1": { "part": "face", "suggest": ["yellow", "lime"] },
-    "2": { "part": "head", "suggest": ["green", "lime"] },
-    "3": { "part": "eyes", "suggest": ["black"] }
+    "1": {
+      "part": "face",
+      "suggest": [
+        "yellow",
+        "lime"
+      ]
+    },
+    "2": {
+      "part": "head",
+      "suggest": [
+        "green",
+        "lime"
+      ]
+    },
+    "3": {
+      "part": "eyes",
+      "suggest": [
+        "black"
+      ]
+    }
   }
 }

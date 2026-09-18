@@ -1,0 +1,30 @@
+{
+  "id": "abacus",
+  "name": "Abacus",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Abacus" },
+  "art": [
+    "111111111111111",
+    "111111111111111",
+    "1122.22.22.2211",
+    "1122.22.22.2211",
+    "114444444444411",
+    "1122.22.22.2211",
+    "1122.22.22.2211",
+    "114444444444411",
+    "1133.33.33.3311",
+    "1133.33.33.3311",
+    "114444444444411",
+    "1133.33.33.3311",
+    "1133.33.33.3311",
+    "111111111111111",
+    "111111111111111"
+  ],
+  "groups": {
+    "1": { "part": "frame", "suggest": ["brown", "black"] },
+    "2": { "part": "upper beads", "suggest": ["red", "orange"] },
+    "3": { "part": "lower beads", "suggest": ["blue", "green"] },
+    "4": { "part": "rods", "suggest": ["yellow", "white"] }
+  }
+}

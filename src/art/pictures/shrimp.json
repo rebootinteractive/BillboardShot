@@ -1,0 +1,23 @@
+{
+  "id": "shrimp",
+  "name": "Shrimp",
+  "tags": ["animal", "food"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Shrimp" },
+  "art": [
+    "..11122.......",
+    ".11112211.....",
+    "11111221122.22",
+    "11111221122122",
+    "11111221122122",
+    ".11112211221.2",
+    "..111221122...",
+    "...3333333....",
+    "....33333....."
+  ],
+  "groups": {
+    "1": { "part": "body", "suggest": ["red", "orange"] },
+    "2": { "part": "shell segments", "suggest": ["orange", "pink"] },
+    "3": { "part": "legs", "suggest": ["pink", "white"] }
+  }
+}

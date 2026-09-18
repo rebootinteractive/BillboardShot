@@ -1,9 +1,16 @@
 {
   "id": "parrot",
   "name": "Parrot",
-  "tags": ["animal"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Parrot" },
+  "tags": [
+    "animal"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Parrot"
+  },
   "art": [
     "...111.........",
     "..11411........",
@@ -24,10 +31,35 @@
     "...222222......"
   ],
   "groups": {
-    "1": { "part": "red", "suggest": ["red"] },
-    "2": { "part": "orange", "suggest": ["orange"] },
-    "3": { "part": "blue", "suggest": ["blue"] },
-    "4": { "part": "white", "suggest": ["white"] },
-    "5": { "part": "black", "suggest": ["black"] }
+    "1": {
+      "part": "head, body and tail",
+      "suggest": [
+        "red"
+      ]
+    },
+    "2": {
+      "part": "beak, wing and feet",
+      "suggest": [
+        "orange"
+      ]
+    },
+    "3": {
+      "part": "wing feathers",
+      "suggest": [
+        "blue"
+      ]
+    },
+    "4": {
+      "part": "eye",
+      "suggest": [
+        "white"
+      ]
+    },
+    "5": {
+      "part": "pupil",
+      "suggest": [
+        "black"
+      ]
+    }
   }
 }

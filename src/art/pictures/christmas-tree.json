@@ -1,9 +1,16 @@
 {
   "id": "christmas-tree",
   "name": "Christmas Tree",
-  "tags": ["nature"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Christmas%20tree" },
+  "tags": [
+    "nature"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Christmas%20tree"
+  },
   "art": [
     ".....2.....",
     "....222....",
@@ -24,8 +31,23 @@
     "...11111..."
   ],
   "groups": {
-    "1": { "part": "brown", "suggest": ["brown"] },
-    "2": { "part": "yellow", "suggest": ["yellow"] },
-    "3": { "part": "red", "suggest": ["red"] }
+    "1": {
+      "part": "tree",
+      "suggest": [
+        "brown"
+      ]
+    },
+    "2": {
+      "part": "star and ornaments",
+      "suggest": [
+        "yellow"
+      ]
+    },
+    "3": {
+      "part": "ornaments",
+      "suggest": [
+        "red"
+      ]
+    }
   }
 }

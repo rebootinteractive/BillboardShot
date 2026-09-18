@@ -1,0 +1,23 @@
+{
+  "id": "flashlight",
+  "name": "Flashlight",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Flashlight" },
+  "art": [
+    "41111..........",
+    "411111.......33",
+    "411111222222233",
+    "411111222222233",
+    "411111222222233",
+    "411111222222233",
+    "411111.......33",
+    "41111.........."
+  ],
+  "groups": {
+    "1": { "part": "head", "suggest": ["purple", "black"] },
+    "2": { "part": "barrel", "suggest": ["white", "purple"] },
+    "3": { "part": "end cap", "suggest": ["black", "purple"] },
+    "4": { "part": "lens", "suggest": ["yellow", "orange"] }
+  }
+}

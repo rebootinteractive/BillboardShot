@@ -1,0 +1,54 @@
+{
+  "id": "pretzel",
+  "name": "Pretzel",
+  "tags": [
+    "food"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Pretzel"
+  },
+  "art": [
+    "..1111....1111..",
+    ".113311..113311.",
+    "11....2222....11",
+    "11....2222....11",
+    "11....2222....11",
+    "1111111111111111",
+    "1111111111111111",
+    ".11111111111111.",
+    ".1111......1111.",
+    ".1331......1331.",
+    ".1111......1111.",
+    ".1111......1111.",
+    "..111......111..",
+    "...1111111111...",
+    ".....111111....."
+  ],
+  "groups": {
+    "1": {
+      "part": "dough",
+      "suggest": [
+        "brown",
+        "orange"
+      ]
+    },
+    "2": {
+      "part": "knot",
+      "suggest": [
+        "orange",
+        "yellow"
+      ]
+    },
+    "3": {
+      "part": "salt",
+      "suggest": [
+        "white",
+        "yellow"
+      ]
+    }
+  }
+}

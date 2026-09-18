@@ -1,0 +1,52 @@
+{
+  "id": "raccoon",
+  "name": "Raccoon",
+  "tags": [
+    "animal"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Raccoon"
+  },
+  "art": [
+    ".11....11......",
+    "1111..1111.....",
+    ".11111111......",
+    "1111111111..111",
+    "2222222222..111",
+    "2111221112.3333",
+    "2111221112.3333",
+    "2111221112.1111",
+    "2222222222.1111",
+    "22222222223333.",
+    ".222112223333..",
+    "..2222221111...",
+    "...22221111...."
+  ],
+  "groups": {
+    "1": {
+      "part": "fur and mask",
+      "suggest": [
+        "black",
+        "brown"
+      ]
+    },
+    "2": {
+      "part": "face and muzzle",
+      "suggest": [
+        "white",
+        "yellow"
+      ]
+    },
+    "3": {
+      "part": "tail rings",
+      "suggest": [
+        "white",
+        "yellow"
+      ]
+    }
+  }
+}

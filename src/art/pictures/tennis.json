@@ -1,0 +1,27 @@
+{
+  "id": "tennis",
+  "name": "Tennis racket",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Tennis" },
+  "art": [
+    "...111...",
+    ".1122211.",
+    "112222211",
+    "122222221",
+    "122222221",
+    "122222221",
+    "112222211",
+    ".1122211.",
+    "...111...",
+    "...333...",
+    "...333...",
+    "...333...",
+    "...333..."
+  ],
+  "groups": {
+    "1": { "part": "frame", "suggest": ["red", "blue"] },
+    "2": { "part": "strings", "suggest": ["white"] },
+    "3": { "part": "grip", "suggest": ["black", "brown"] }
+  }
+}

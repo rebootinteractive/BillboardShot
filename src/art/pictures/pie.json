@@ -1,0 +1,49 @@
+{
+  "id": "pie",
+  "name": "Pie",
+  "tags": [
+    "food"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Pie"
+  },
+  "art": [
+    "....22222222....",
+    "..222222222222..",
+    ".22211222112222.",
+    "2211222112221122",
+    "2222112221122222",
+    "2211222112221122",
+    ".22222222222222.",
+    "3333333333333333",
+    ".33333333333333.",
+    "...3333333333..."
+  ],
+  "groups": {
+    "1": {
+      "part": "filling",
+      "suggest": [
+        "red",
+        "purple"
+      ]
+    },
+    "2": {
+      "part": "crust",
+      "suggest": [
+        "orange",
+        "yellow"
+      ]
+    },
+    "3": {
+      "part": "dish",
+      "suggest": [
+        "white",
+        "cyan"
+      ]
+    }
+  }
+}

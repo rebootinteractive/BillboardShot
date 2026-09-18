@@ -23,9 +23,16 @@ should serve it.
 
 ## 2. Choose pictures
 
-- Browse `src/art/pictures/` or the gallery (`?gallery` on the dev server). Pick pictures
-  that belong together (a theme reads better than a random mix) and that were not used in
-  nearby levels.
+- Browse `src/art/pictures/` or the gallery (`?gallery` on the dev server), or list what
+  the library holds with `npm run art -- stats`. Pick pictures that belong together (a
+  theme reads better than a random mix).
+- Respect the reuse cap: a picture may not appear twice within eight levels, and may be
+  used at most twice across the forty, the second time in a different color and a
+  different job (see level-design-strategy.md, "Reusing pictures").
+- Match the picture's **proportion** to the intent, not just its subject. A tall narrow
+  board has deep columns and takes real digging; a wide flat board has many shallow
+  columns and forgives mistakes. Small pictures of 40–80 pixels are how a level holds six
+  boards without running long.
 - Get their facts:
 
   ```

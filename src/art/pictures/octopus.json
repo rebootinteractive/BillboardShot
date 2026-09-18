@@ -1,9 +1,16 @@
 {
   "id": "octopus",
   "name": "Octopus",
-  "tags": ["animal"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Octopus" },
+  "tags": [
+    "animal"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Octopus"
+  },
   "art": [
     ".....111111.....",
     "....11111111....",
@@ -22,9 +29,33 @@
     "..22222..22222.."
   ],
   "groups": {
-    "1": { "part": "body", "suggest": ["orange", "purple", "pink"] },
-    "2": { "part": "tentacles", "suggest": ["red", "pink"] },
-    "3": { "part": "suckers", "suggest": ["pink", "white"] },
-    "4": { "part": "eyes", "suggest": ["black"] }
+    "1": {
+      "part": "body",
+      "suggest": [
+        "orange",
+        "purple",
+        "pink"
+      ]
+    },
+    "2": {
+      "part": "tentacles",
+      "suggest": [
+        "red",
+        "pink"
+      ]
+    },
+    "3": {
+      "part": "suckers",
+      "suggest": [
+        "pink",
+        "white"
+      ]
+    },
+    "4": {
+      "part": "eyes",
+      "suggest": [
+        "black"
+      ]
+    }
   }
 }

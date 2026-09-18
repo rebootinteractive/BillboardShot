@@ -1,9 +1,16 @@
 {
   "id": "butterfly",
   "name": "Butterfly",
-  "tags": ["animal"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Butterfly" },
+  "tags": [
+    "animal"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Butterfly"
+  },
   "art": [
     "111..........111",
     "1111........1111",
@@ -23,7 +30,20 @@
     "..111......111.."
   ],
   "groups": {
-    "1": { "part": "wing edges", "suggest": ["black", "purple"] },
-    "2": { "part": "wings", "suggest": ["orange", "blue", "pink"] }
+    "1": {
+      "part": "wing edges",
+      "suggest": [
+        "black",
+        "purple"
+      ]
+    },
+    "2": {
+      "part": "wings",
+      "suggest": [
+        "orange",
+        "blue",
+        "pink"
+      ]
+    }
   }
 }

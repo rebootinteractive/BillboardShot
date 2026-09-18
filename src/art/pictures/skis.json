@@ -1,0 +1,41 @@
+{
+  "id": "skis",
+  "name": "Skis",
+  "tags": [
+    "object"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Skis"
+  },
+  "art": [
+    ".............111",
+    "...........11111",
+    "1111111111111...",
+    "11111111111.....",
+    "......222.......",
+    "......222....111",
+    "......222..11111",
+    "1111111111111...",
+    "11111111111....."
+  ],
+  "groups": {
+    "1": {
+      "part": "skis",
+      "suggest": [
+        "blue",
+        "red"
+      ]
+    },
+    "2": {
+      "part": "bindings",
+      "suggest": [
+        "black",
+        "orange"
+      ]
+    }
+  }
+}

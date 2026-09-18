@@ -1,9 +1,16 @@
 {
   "id": "alarm-clock",
   "name": "Alarm Clock",
-  "tags": ["object"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Alarm%20clock" },
+  "tags": [
+    "object"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Alarm%20clock"
+  },
   "art": [
     ".3333.....3333.",
     "33333.....33333",
@@ -24,9 +31,29 @@
     ".111111111111.."
   ],
   "groups": {
-    "1": { "part": "white", "suggest": ["white"] },
-    "2": { "part": "red", "suggest": ["red"] },
-    "3": { "part": "yellow", "suggest": ["yellow"] },
-    "4": { "part": "black", "suggest": ["black"] }
+    "1": {
+      "part": "face and base",
+      "suggest": [
+        "white"
+      ]
+    },
+    "2": {
+      "part": "rim",
+      "suggest": [
+        "red"
+      ]
+    },
+    "3": {
+      "part": "bells",
+      "suggest": [
+        "yellow"
+      ]
+    },
+    "4": {
+      "part": "hands",
+      "suggest": [
+        "black"
+      ]
+    }
   }
 }

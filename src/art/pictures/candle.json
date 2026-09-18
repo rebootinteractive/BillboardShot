@@ -1,0 +1,56 @@
+{
+  "id": "candle",
+  "name": "Candle",
+  "tags": [
+    "object"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Candle/Flat/candle_flat.svg"
+  },
+  "art": [
+    "...3...",
+    "..333..",
+    "..333..",
+    "..333..",
+    "...3...",
+    ".11111.",
+    ".11111.",
+    ".11111.",
+    ".11111.",
+    ".11111.",
+    ".11111.",
+    ".11111.",
+    "2222222",
+    "2222222",
+    ".22222."
+  ],
+  "groups": {
+    "1": {
+      "part": "wax",
+      "suggest": [
+        "white",
+        "pink",
+        "cyan"
+      ]
+    },
+    "2": {
+      "part": "holder",
+      "suggest": [
+        "brown",
+        "orange",
+        "yellow"
+      ]
+    },
+    "3": {
+      "part": "flame",
+      "suggest": [
+        "orange",
+        "yellow"
+      ]
+    }
+  }
+}

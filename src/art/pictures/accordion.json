@@ -1,0 +1,29 @@
+{
+  "id": "accordion",
+  "name": "Accordion",
+  "tags": ["object"],
+  "status": "draft",
+  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Accordion/Flat/accordion_flat.svg" },
+  "art": [
+    "2222........2222",
+    "2222........2222",
+    "2222222222222222",
+    "2332114411442332",
+    "2332114411442332",
+    "2222114411442222",
+    "2332114411442332",
+    "2332114411442332",
+    "2222114411442222",
+    "2332114411442332",
+    "2332114411442332",
+    "2222222222222222",
+    "2222........2222",
+    "2222........2222"
+  ],
+  "groups": {
+    "1": { "part": "bellows", "suggest": ["red", "blue"] },
+    "2": { "part": "case", "suggest": ["black", "brown", "purple"] },
+    "3": { "part": "keys", "suggest": ["white", "cyan"] },
+    "4": { "part": "folds", "suggest": ["yellow", "orange"] }
+  }
+}

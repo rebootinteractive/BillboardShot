@@ -1,9 +1,16 @@
 {
   "id": "train",
   "name": "Train",
-  "tags": ["vehicle"],
-  "status": "draft",
-  "origin": { "method": "converted", "source": "Fluent Emoji (Flat)", "license": "MIT", "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Locomotive" },
+  "tags": [
+    "vehicle"
+  ],
+  "status": "approved",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://github.com/microsoft/fluentui-emoji/tree/main/assets/Locomotive"
+  },
   "art": [
     "...111111.......",
     "...111111.......",
@@ -22,10 +29,35 @@
     "222211311111.11."
   ],
   "groups": {
-    "1": { "part": "brown", "suggest": ["brown"] },
-    "2": { "part": "red", "suggest": ["red"] },
-    "3": { "part": "white", "suggest": ["white"] },
-    "4": { "part": "black", "suggest": ["black"] },
-    "5": { "part": "orange", "suggest": ["orange"] }
+    "1": {
+      "part": "body",
+      "suggest": [
+        "brown"
+      ]
+    },
+    "2": {
+      "part": "cab and front",
+      "suggest": [
+        "red"
+      ]
+    },
+    "3": {
+      "part": "chassis and wheel rims",
+      "suggest": [
+        "white"
+      ]
+    },
+    "4": {
+      "part": "wheels",
+      "suggest": [
+        "black"
+      ]
+    },
+    "5": {
+      "part": "funnel band",
+      "suggest": [
+        "orange"
+      ]
+    }
   }
 }

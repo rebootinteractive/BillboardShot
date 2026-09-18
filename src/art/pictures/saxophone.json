@@ -1,0 +1,56 @@
+{
+  "id": "saxophone",
+  "name": "Saxophone",
+  "tags": [
+    "object"
+  ],
+  "status": "draft",
+  "origin": {
+    "method": "converted",
+    "source": "Fluent Emoji (Flat)",
+    "license": "MIT",
+    "url": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Saxophone/Flat/saxophone_flat.svg"
+  },
+  "art": [
+    "22........",
+    "22........",
+    "22........",
+    "113.......",
+    "113.......",
+    "113.111111",
+    "113.111111",
+    "113..11111",
+    "113..1111.",
+    "113..1111.",
+    "113...111.",
+    "113...111.",
+    "113...111.",
+    "1111111111",
+    "1111111111",
+    ".11111111.",
+    "..111111.."
+  ],
+  "groups": {
+    "1": {
+      "part": "horn",
+      "suggest": [
+        "yellow",
+        "orange"
+      ]
+    },
+    "2": {
+      "part": "mouthpiece",
+      "suggest": [
+        "black",
+        "brown"
+      ]
+    },
+    "3": {
+      "part": "keys",
+      "suggest": [
+        "white",
+        "black"
+      ]
+    }
+  }
+}
