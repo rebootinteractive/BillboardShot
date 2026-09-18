@@ -1,7 +1,7 @@
 # The 40-Level Plan
 
 What each level is for, how hard it should be, and which features it uses. The level
-designer takes one row of the table as a slot and works from
+designer takes one row of the tables below as a slot and works from
 [level-designer-workflow.md](level-designer-workflow.md).
 
 All forty levels are new. The ten MVP levels were built to span a range of difficulties
@@ -19,9 +19,13 @@ Where they conflict, **the funnel wins**. A level that introduces a feature is e
 if the curve wanted a peak there, because a player meeting a new rule for the first time
 should never also be fighting for the win. The curve resumes on the next level.
 
-That is why levels 1–15 do not look periodic. They are the onboarding funnel, with a
-single hard level at 12 to prove the game has teeth. From 16 on, every feature is known
-and the curve runs a clean five-level cycle.
+The funnel is **long**. Features arrive one every four or five levels, from level 7 to
+level 24, so a player has three or four levels to get comfortable with a rule before the
+next one lands. Crowding all five into the first fifteen levels would teach them faster
+than anyone could absorb them.
+
+The curve runs underneath the funnel the whole time, with a peak every five levels from
+12 onward. From 25 on every feature is known, and difficulty comes from combining them.
 
 ## 2. Difficulty bands
 
@@ -33,7 +37,7 @@ The difficulty score is the average bot's win rate. See level-design-strategy.md
 | Onboarding | 90–100% | A feature's first appearance. Very easy on purpose. |
 | Easy | 80–95% | Relief after a peak. |
 | Medium | 55–80% | The default level. |
-| Hard | 30–50% | Every fifth level from 20. Labeled in game. |
+| Hard | 30–50% | Every fifth level from 12. Labeled in game. |
 | Very hard | 15–30% | The peaks. Labeled, and **played by several people before shipping**. |
 
 Bands are a target, not a contract. The bots are calibrated against three players and are
@@ -49,79 +53,104 @@ and a badge in the level intro.
 deck slot for the rest of the attempt. It is deliberately not modeled by the simulator,
 so every band above describes the level *without* a continue.
 
-## 3. The funnel: levels 1–15
+## 3. Which features may share a level
 
-Feature order runs uncertainty → goals → planning → constraint: you first learn not to
-know what is coming, then to work toward something, then to plan two steps, and last to
-have choices taken away.
+Two rules, and they bind harder than the difficulty target:
 
-| # | Type | Target | Feature | Boards | Pixels | Theme |
-|---|---|---|---|---|---|---|
-| 1 | Intro | 95–100% | — | 2 | ~200 | Orchard |
-| 2 | Intro | 95–100% | — | 2 | ~250 | Orchard |
-| 3 | Intro | 90–100% | — | 3 | ~300 | Orchard |
-| 4 | Easy | 85–95% | — | 3 | ~350 | Orchard |
-| 5 | Easy | 80–95% | — | 3 | ~380 | Orchard |
-| 6 | Medium | 65–80% | — | 3 | ~420 | Orchard |
-| 7 | **Onboarding** | 90–100% | **Hidden containers** | 3 | ~380 | Harbor |
-| 8 | Medium | 60–80% | Hidden | 4 | ~470 | Harbor |
-| 9 | **Onboarding** | 90–100% | **Mystery pixels** | 3 | ~400 | Harbor |
-| 10 | Medium | 60–80% | Mystery, hidden | 4 | ~500 | Harbor |
-| 11 | **Onboarding** | 90–100% | **Frozen board** | 4 | ~450 | Harbor |
-| 12 | **Hard** | 30–50% | Frozen, mystery, hidden | 4 | ~560 | Garden |
-| 13 | **Onboarding** | 90–100% | **Key lock** | 4 | ~470 | Garden |
-| 14 | Medium | 55–75% | Key, hidden | 4 | ~540 | Garden |
-| 15 | **Onboarding** | 90–100% | **Linked containers** | 4 | ~500 | Garden |
+1. **At most three features in a level.** Four is no longer a puzzle, it is a list of
+   things to remember.
+2. **Never a key lock and a frozen board together.** They are the same idea wearing two
+   coats — a board closed until the player does something. Two of them at once gives the
+   player two unlock conditions to track and no new decision to make. One gate per level.
 
-Levels 1–6 teach the base game with no features at all: that only the lowest pixel of a
-column is pullable, that only the front board is pulled from, and that a color with no
-container left is a dead end. Six levels is not padding — every later feature assumes
-these are automatic.
+A consequence worth stating: **no level uses all five features**, including the finale.
+Level 40 is the hardest *planning* problem in the game rather than the busiest one.
 
-## 4. The engine: levels 16–40
+One soft guideline: hidden containers and mystery pixels are both about not being able to
+see, one in the deck and one on the board. Together they are the harshest pairing in the
+game, so they carry a level on their own and should not be the backdrop to a third
+feature on a peak.
 
-Every fifth level is a peak, alternating hard and very hard, with an easy level directly
-after each peak. Features now combine, which is where difficulty comes from: two features
-that are each mild become hard together, without the level needing to be bigger.
+## 4. Levels 1–25: the funnel
+
+Feature order runs uncertainty → goals → planning → constraint: first you learn not to
+know what is coming, then to work toward something, then to plan two steps ahead, and
+last to have choices taken away.
 
 | # | Type | Target | Features | Boards | Pixels | Theme |
 |---|---|---|---|---|---|---|
-| 16 | Easy | 80–95% | Links, mystery | 4 | ~520 | Workshop |
-| 17 | Medium | 55–75% | Links, hidden | 4 | ~580 | Workshop |
-| 18 | Medium | 55–75% | Key, mystery | 5 | ~620 | Workshop |
-| 19 | Easy | 80–95% | Frozen | 4 | ~540 | Workshop |
-| 20 | **Hard** | 30–50% | Key, links, hidden | 5 | ~680 | Workshop |
-| 21 | Easy | 80–95% | Mystery | 4 | ~560 | Night Sky |
-| 22 | Medium | 55–75% | Frozen, hidden | 5 | ~640 | Night Sky |
-| 23 | Medium | 55–75% | Key, links | 5 | ~660 | Night Sky |
-| 24 | Medium | 50–70% | Mystery, frozen | 5 | ~700 | Night Sky |
-| 25 | **Very hard** | 15–30% | Key, links, mystery | 5 | ~740 | Night Sky |
-| 26 | Easy | 80–95% | Hidden | 4 | ~580 | Farmyard |
-| 27 | Medium | 55–75% | Frozen, mystery | 5 | ~660 | Farmyard |
-| 28 | Medium | 55–75% | Key, hidden | 5 | ~700 | Farmyard |
-| 29 | Easy | 80–95% | Links | 5 | ~620 | Farmyard |
-| 30 | **Hard** | 30–50% | Frozen, key, mystery | 6 | ~780 | Farmyard |
-| 31 | Easy | 80–95% | Mystery | 5 | ~640 | Concert |
-| 32 | Medium | 55–75% | Links, hidden | 5 | ~700 | Concert |
-| 33 | Medium | 50–70% | Key, frozen | 6 | ~750 | Concert |
-| 34 | Medium | 50–70% | Mystery, links | 6 | ~780 | Concert |
-| 35 | **Very hard** | 15–30% | Frozen, key, links | 6 | ~820 | Concert |
-| 36 | Easy | 80–95% | Hidden | 5 | ~660 | Winter Games |
-| 37 | Medium | 55–75% | Key, mystery | 6 | ~740 | Winter Games |
-| 38 | Medium | 50–70% | Links, frozen | 6 | ~790 | Winter Games |
-| 39 | Easy | 80–95% | Mystery, hidden | 5 | ~700 | Winter Games |
-| 40 | **Very hard** | 15–30% | All five | 6 | ~900 | Winter Games |
+| 1 | Intro | 95–100% | — | 2 | ~200 | Orchard |
+| 2 | Intro | 95–100% | — | 2 | ~240 | Orchard |
+| 3 | Intro | 90–100% | — | 3 | ~290 | Orchard |
+| 4 | Easy | 85–95% | — | 3 | ~330 | Orchard |
+| 5 | Easy | 80–95% | — | 3 | ~370 | Orchard |
+| 6 | Medium | 65–80% | — | 3 | ~410 | Harbor |
+| **7** | **Onboarding** | 90–100% | **hidden** | 3 | ~390 | Harbor |
+| 8 | Medium | 60–80% | hidden | 4 | ~460 | Harbor |
+| 9 | Medium | 55–75% | hidden | 4 | ~500 | Harbor |
+| 10 | Easy | 80–95% | hidden | 4 | ~470 | Harbor |
+| **11** | **Onboarding** | 90–100% | **mystery** | 3 | ~420 | Garden |
+| **12** | **Hard** | 30–50% | hidden, mystery | 4 | ~570 | Garden |
+| 13 | Easy | 80–95% | mystery | 4 | ~500 | Garden |
+| 14 | Medium | 55–75% | mystery, hidden | 4 | ~560 | Garden |
+| **15** | **Onboarding** | 90–100% | **frozen** | 4 | ~480 | Garden |
+| 16 | Medium | 55–75% | frozen | 5 | ~600 | Workshop |
+| **17** | **Hard** | 30–50% | frozen, mystery, hidden | 5 | ~660 | Workshop |
+| 18 | Easy | 80–95% | frozen | 4 | ~540 | Workshop |
+| 19 | Medium | 55–75% | frozen, hidden | 5 | ~620 | Workshop |
+| **20** | **Onboarding** | 90–100% | **key lock** | 4 | ~520 | Workshop |
+| 21 | Medium | 55–75% | key | 5 | ~640 | Night Sky |
+| **22** | **Hard** | 30–50% | key, mystery, hidden | 5 | ~700 | Night Sky |
+| 23 | Easy | 80–95% | key | 5 | ~580 | Night Sky |
+| **24** | **Onboarding** | 90–100% | **links** | 4 | ~550 | Night Sky |
+| 25 | Medium | 55–75% | links | 5 | ~660 | Night Sky |
 
-Level 40 is the only level that uses all five features at once, and it is the finale.
+Levels 1–5 teach the base game with no features at all: that only the lowest pixel of a
+column is pullable, that only the front board is pulled from, and that a color with no
+container left is a dead end. Five levels is not padding — every later feature assumes
+these are automatic.
 
-## 5. Length
+## 5. Levels 26–40: the engine
+
+Every feature is known. Difficulty now comes from **combining** them, not from growing the
+level: two mild features are hard together, so boards and pixels grow gently.
+
+| # | Type | Target | Features | Boards | Pixels | Theme |
+|---|---|---|---|---|---|---|
+| 26 | Medium | 55–75% | links, key | 5 | ~700 | Farmyard |
+| **27** | **Very hard** | 15–30% | key, mystery, hidden | 5 | ~740 | Farmyard |
+| 28 | Easy | 80–95% | hidden | 5 | ~600 | Farmyard |
+| 29 | Medium | 55–75% | frozen, mystery | 5 | ~680 | Farmyard |
+| 30 | Medium | 55–75% | key, links | 6 | ~720 | Farmyard |
+| 31 | Medium | 50–70% | frozen, hidden | 6 | ~760 | Concert |
+| **32** | **Hard** | 30–50% | frozen, links, hidden | 6 | ~790 | Concert |
+| 33 | Easy | 80–95% | mystery | 5 | ~640 | Concert |
+| 34 | Medium | 55–75% | links, hidden | 6 | ~720 | Concert |
+| 35 | Medium | 50–70% | frozen, mystery, hidden | 6 | ~770 | Concert |
+| 36 | Medium | 50–70% | mystery, links | 6 | ~800 | Winter Games |
+| **37** | **Very hard** | 15–30% | frozen, links, mystery | 6 | ~830 | Winter Games |
+| 38 | Easy | 80–95% | hidden, mystery | 5 | ~680 | Winter Games |
+| 39 | Medium | 55–75% | key, links | 6 | ~750 | Winter Games |
+| **40** | **Very hard** | 15–30% | key, links, mystery | 6 | ~900 | Winter Games |
+
+The three very hard levels are deliberately given different characters, so the peaks do
+not feel like the same wall three times:
+
+- **27** is a hiding level: a key you must dig for while you can see neither the deck nor
+  parts of the board.
+- **37** is a counting level: a frozen board to feed while links keep taking your choices
+  away.
+- **40** is a planning level: the key, the links and the mystery groups all have to be
+  solved in the right order.
+
+## 6. Length
 
 Levels 8–10 of the MVP ran 100–160 seconds of engaged play and all three testers were
 comfortable there, so that is the ceiling. Early levels should be far shorter: level 1
 should be over in about 25 seconds. The report card estimates play time from the pixel
 budget, so the Pixels column above is the real length control.
 
-## 6. Themes and picture reuse
+## 7. Themes and picture reuse
 
 Eight themes, five levels each, drawn from the 191-picture library:
 
@@ -133,7 +162,7 @@ locked, frozen or mystery board. Themes mostly enforce this on their own. At two
 picture the ~200 board slots need 100 distinct pictures, and the library has 191, so there
 is room to refuse any picture that does not fit.
 
-## 7. How the levels get built
+## 8. How the levels get built
 
 In **batches of eight**, which is also the picture reuse window, so each batch draws on
 fresh art. For each batch:
@@ -145,6 +174,6 @@ fresh art. For each batch:
 4. **Play every level scored under 55% before it ships.** Both of the MVP's worst
    difficulty misses were in this range, and a bad estimate there is what makes a player
    quit.
-5. Send the very hard levels (25, 35, 40) to several players and watch for churn — how
+5. Send the very hard levels (27, 37, 40) to several players and watch for churn — how
    many attempts before they stop, not just whether they win.
 6. Review, then move to the next batch.
