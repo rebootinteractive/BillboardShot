@@ -206,6 +206,7 @@ export class GameApp {
       this.isSideLevel() ? `· ${level.name}` : String(this.levelNumber),
       this.sandboxName ? `sandbox:${this.sandboxName}` : `level:${((this.levelNumber - 1) % LEVELS.length) + 1}`,
     );
+    this.hud.setDifficultyLabel(level.label ?? null);
     const attempt = this.playtest.start({
       level: this.isSideLevel() ? 0 : this.levelNumber,
       file: this.level.file,

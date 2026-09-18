@@ -57,6 +57,11 @@ export interface LevelData {
   /** The input this level teaches. Only the first levels have one. */
   tutorial?: TutorialStep;
   /**
+   * Shown before the player enters, so a loss on a peak reads as a challenge taken on
+   * rather than a surprise. Only the levels the plan marks as peaks carry one.
+   */
+  label?: 'hard' | 'very hard';
+  /**
    * Size of one pixel in world units, overriding the tuning value. Used to try higher
    * resolution art at the same billboard size.
    */
@@ -101,6 +106,7 @@ export function validateLevel(level: LevelData, pictures: Map<string, Picture>):
   if (level.cellSize !== undefined && !(level.cellSize > 0)) errors.push('cellSize must be a positive number.');
   if (level.hint !== undefined && (typeof level.hint !== 'string' || !level.hint.trim())) errors.push('hint must be a non-empty string.');
   if (level.tutorial !== undefined && level.tutorial !== 'send' && level.tutorial !== 'rotate') errors.push(`tutorial '${level.tutorial}' must be 'send' or 'rotate'.`);
+  if (level.label !== undefined && level.label !== 'hard' && level.label !== 'very hard') errors.push(`label '${level.label}' must be 'hard' or 'very hard'.`);
   if (level.tutorial === 'rotate' && Array.isArray(level.boards) && level.boards.length < 2) errors.push('the rotate tutorial needs at least two boards to turn between.');
   if (!Array.isArray(level.lanes) || level.lanes.length === 0) errors.push('A level needs at least one lane.');
   if (errors.length) return errors;

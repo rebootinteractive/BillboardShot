@@ -33,15 +33,45 @@ carousel reached something new — a red strawberry in front and a yellow lemon 
 That is why the apple moved to level 3: an apple and a strawberry are both red, and level 2
 would have taught nothing.
 
+## Batch 2 — levels 9–16
+
+| # | Budget | Theme | Pictures (pixels) | Total |
+|---|---|---|---|---|
+| 9 | ~500 | Harbor | octopus (170), tropical-fish (166), swan (97), life-ring (68) | 501 |
+| 10 | ~470 | Harbor | whale (185), lighthouse (103), canoe (90), shrimp (87) | 465 |
+| 11 | ~420 | Garden | butterfly (206), hibiscus (109), potted-plant (104) | 419 |
+| 12 | ~570 | Garden | snail (214), beetle (162), ant (136), clover (55) | 567 |
+| 13 | ~500 | Garden | sunflower (144), blossom (135), mushroom (117), tulip (93) | 489 |
+| 14 | ~535 | Garden | rosette (145), honeybee (134), palm-tree (127), pine-tree (127) | 533 |
+| 15 | ~400 | Garden | ladybug (108), cactus (107), rose (95), spider (92) | 402 |
+| 16 | ~585 | Workshop | ruler (144), hammer (133), paintbrush (120), screwdriver (100), flashlight (86) | 583 |
+
+32 pictures, each used once, none shared with batch 1.
+
+Level 15 is budgeted at ~400 rather than the plan's ~480. Onboarding levels should be
+short as well as easy — level 7 came out at 362 and plays right — and the garden pictures
+that suit a frozen board are small ones.
+
+Level 11 introduces mystery pixels, so its hidden group must be one the facts mark
+`mystery ok`. Check with `npm run level -- facts butterfly hibiscus potted-plant` before
+choosing; if none of the three can hide a group, say so rather than hiding one that
+reveals at the start.
+
 ## Used so far
 
-pear, strawberry, lemon, apple, grapes, chestnut, watermelon, carrot, broccoli,
+Batch 1: pear, strawberry, lemon, apple, grapes, chestnut, watermelon, carrot, broccoli,
 avocado, peach, cherry-blossom, crab, sailboat, dolphin, shark, seal, jellyfish, turtle,
 fish, lobster, otter
+
+Batch 2: octopus, tropical-fish, swan, life-ring, whale, lighthouse, canoe, shrimp,
+butterfly, hibiscus, potted-plant, snail, beetle, ant, clover, sunflower, blossom,
+mushroom, tulip, rosette, honeybee, palm-tree, pine-tree, ladybug, cactus, rose, spider,
+ruler, hammer, paintbrush, screwdriver, flashlight
 
 **cherries** was allocated to level 1 and is now free again.
 
 ## Not available for reuse until
 
-Every picture above is first used in levels 1–8, so none may appear again before level 16,
-and each may be used only once more across the whole game.
+Batch 1's pictures are free again from level 17, batch 2's from level 25 — eight levels
+after their first use. Each may be used only once more across the whole game, and the
+second use must change both the picture's color and its job on the board.
