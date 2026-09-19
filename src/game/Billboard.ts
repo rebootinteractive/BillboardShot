@@ -3,8 +3,8 @@ import { roundedBox, beveledBorder } from './visuals';
 import type { ColorKey } from '../shared/types';
 import { COLOR_HEX } from '../shared/colors';
 import type { Settings } from '../shared/settings';
-import { artColor, isMysteryChar, type BoardData } from './level';
-import { KEY_HEX, drawCounter, keyTexture, mysteryTexture, type KeyColor } from './keys';
+import { KEY_HEIGHT, KEY_WIDTH, artColor, isMysteryChar, type BoardData } from './level';
+import { KEY_HEX, disposeObject, drawCounter, keyObject, mysteryTexture, type KeyColor } from './keys';
 import { floodGroup } from '../rules/core';
 
 const DISTANT_TINT = new THREE.Color(0xd2d6da);
@@ -35,9 +35,19 @@ export interface Tile {
   revealDelay: number;
   /** 0→1 while the reveal pop plays. */
   revealT: number;
-  /** The key sitting on this pixel, collected when the pixel lands. */
-  key: KeyColor | null;
-  keyIcon: THREE.Mesh | null;
+}
+
+/**
+ * A key on the board: KEY_WIDTH × KEY_HEIGHT cells with no pixels, blocking its columns.
+ * It is released once nothing stands beneath it.
+ */
+export interface BoardKey {
+  /** Left column and bottom row, row 0 = bottom. */
+  col: number;
+  row: number;
+  color: KeyColor;
+  /** Belongs to the board until the key is released, then to its flight. */
+  object: THREE.Object3D;
 }
 
 export type BoardLock =
@@ -98,9 +108,8 @@ export class Billboard {
   private overlayOpacity: number[] = [];
   private readonly mysteryTex = mysteryTexture();
   private readonly mysteryMat = new THREE.MeshStandardMaterial({ map: this.mysteryTex, roughness: 0.4 });
-  private readonly keyTextures = new Map<KeyColor, THREE.CanvasTexture>();
-  private readonly keyMats = new Map<KeyColor, THREE.MeshBasicMaterial>();
-  private readonly keyGeo: THREE.PlaneGeometry;
+  /** Keys still on the board. */
+  keys: BoardKey[] = [];
 
   get locked() { return this.lock !== null; }
 
@@ -168,10 +177,17 @@ export class Billboard {
     // Tiles.
     this.tileGeo = roundedBox(this.cell * 0.94, this.cell * 0.94, this.cell * 0.7, this.cell * 0.12);
     for (let c = 0; c < this.cols; c++) this.grid.push(new Array(this.rows).fill(null));
-    // Larger than a pixel, so the key reads at a glance from across the carousel.
-    this.keyGeo = new THREE.PlaneGeometry(this.cell * 1.6, this.cell * 1.6);
-    // Keys are written with rows from the top, like the art.
-    const keyAt = new Map((data.keys ?? []).map((k) => [`${k.col},${this.rows - 1 - k.row}`, k.color]));
+    // Keys are written with their top-left cell and rows from the top, like the art.
+    for (const k of data.keys ?? []) {
+      const key: BoardKey = { col: k.col, row: this.rows - k.row - KEY_HEIGHT, color: k.color, object: keyObject(k.color, this.cell) };
+      key.object.position.set(
+        (key.col + (KEY_WIDTH - 1) / 2 - (this.cols - 1) / 2) * this.cell,
+        (key.row + (KEY_HEIGHT - 1) / 2 - (this.rows - 1) / 2) * this.cell,
+        0,
+      );
+      this.board.add(key.object);
+      this.keys.push(key);
+    }
 
     for (let r = 0; r < this.rows; r++) {
       const srcRow = art[this.rows - 1 - r]; // row 0 = bottom
@@ -189,17 +205,9 @@ export class Billboard {
         mesh.castShadow = true;
         mesh.receiveShadow = true;
         this.board.add(mesh);
-        const key = keyAt.get(`${c},${r}`) ?? null;
-        let keyIcon: THREE.Mesh | null = null;
-        if (key) {
-          keyIcon = new THREE.Mesh(this.keyGeo, this.keyMaterial(key));
-          keyIcon.position.z = this.cell * 0.4;
-          keyIcon.renderOrder = 3;
-          mesh.add(keyIcon);
-        }
         const tile: Tile = {
           col: c, row: r, color, mesh, alive: true, reserved: false, popT: -1, board: this,
-          hidden, revealDelay: -1, revealT: 1, key, keyIcon,
+          hidden, revealDelay: -1, revealT: 1,
         };
         this.grid[c][r] = tile;
         this.tiles.push(tile);
@@ -224,15 +232,31 @@ export class Billboard {
     }
   }
 
-  private keyMaterial(color: KeyColor) {
-    let m = this.keyMats.get(color);
-    if (!m) {
-      const tex = keyTexture(color);
-      this.keyTextures.set(color, tex);
-      m = new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, toneMapped: false });
-      this.keyMats.set(color, m);
-    }
-    return m;
+  /** The key still covering a cell, if any. */
+  private keyAt(col: number, row: number): BoardKey | undefined {
+    return this.keys.find((k) => col >= k.col && col < k.col + KEY_WIDTH && row >= k.row && row < k.row + KEY_HEIGHT);
+  }
+
+  /**
+   * Take off the board every key with nothing left beneath it in any of its columns.
+   * A locked or frozen board holds on to its keys until it opens. The caller sends each
+   * key's object on its way.
+   */
+  releaseFreeKeys(): BoardKey[] {
+    if (this.locked || this.frameState !== 'hanging' || !this.keys.length) return [];
+    const free = this.keys.filter((k) => {
+      // A key beneath this one, in any shared column, goes first.
+      if (this.keys.some((o) => o.row < k.row && o.col < k.col + KEY_WIDTH && o.col + KEY_WIDTH > k.col)) return false;
+      for (let c = k.col; c < k.col + KEY_WIDTH; c++) {
+        for (let r = 0; r < k.row; r++) {
+          const t = this.grid[c][r];
+          if (t && t.alive && !t.reserved) return false;
+        }
+      }
+      return true;
+    });
+    this.keys = this.keys.filter((k) => !free.includes(k));
+    return free;
   }
 
   private overlayMesh(geo: THREE.BufferGeometry, mat: THREE.Material) {
@@ -374,12 +398,6 @@ export class Billboard {
     tile.mesh.material = this.material(tile.color);
   }
 
-  /** Remove the key icon from a pixel whose key has been collected. */
-  takeKey(tile: Tile) {
-    tile.keyIcon?.removeFromParent();
-    tile.keyIcon = null;
-  }
-
   moveToAngle(angle: number) {
     this.layoutFrom = this.angle;
     this.targetAngle = this.angle + Math.atan2(Math.sin(angle - this.angle), Math.cos(angle - this.angle));
@@ -403,8 +421,9 @@ export class Billboard {
   /** One uninterrupted top-and-side border. Preserve the open bottom through
    * which pixels leave, stopping the sides where the silhouette starts tapering. */
   private buildOutline(): THREE.BufferGeometry {
+    const filled = (col: number, row: number) => !!this.grid[col][row] || !!this.keyAt(col, row);
     const span = (row: number): [number, number] | null => {
-      const columns = this.grid.flatMap((column, c) => column[row] ? [c] : []);
+      const columns = this.grid.flatMap((_, c) => filled(c, row) ? [c] : []);
       return columns.length ? [columns[0], columns[columns.length - 1]] : null;
     };
     const top = this.rows - 1;
@@ -425,7 +444,7 @@ export class Billboard {
     const edge: THREE.Vector2[] = [point(left, bottom)];
     for (let col = left; col <= right; col++) {
       let ceiling = top;
-      while (ceiling > bottom && !this.grid[col][ceiling]) ceiling--;
+      while (ceiling > bottom && !filled(col, ceiling)) ceiling--;
       edge.push(point(col, ceiling + 1), point(col + 1, ceiling + 1));
     }
     edge.push(point(right + 1, bottom));
@@ -459,12 +478,8 @@ export class Billboard {
   addFirableColors(into: Set<ColorKey>) {
     if (this.locked) return;
     for (let c = 0; c < this.cols; c++) {
-      for (let r = 0; r < this.rows; r++) {
-        const t = this.grid[c][r];
-        if (!t || !t.alive || t.reserved) continue;
-        into.add(t.color);
-        break;
-      }
+      const t = this.lowestStanding(c);
+      if (t) into.add(t.color);
     }
   }
 
@@ -476,7 +491,11 @@ export class Billboard {
     const column = this.grid[col];
     for (let r = 0; r < this.rows; r++) {
       const t = column[r];
-      if (!t || !t.alive || t.reserved) continue; // holes and doomed tiles are empty
+      if (!t || !t.alive || t.reserved) {
+        // Holes and doomed tiles are empty; a key blocks everything above it.
+        if (!t && this.keyAt(col, r)) return null;
+        continue;
+      }
       return t;
     }
     return null;
@@ -620,9 +639,8 @@ export class Billboard {
     this.disposeOverlay();
     this.mysteryTex.dispose();
     this.mysteryMat.dispose();
-    this.keyGeo.dispose();
-    for (const m of this.keyMats.values()) m.dispose();
-    for (const t of this.keyTextures.values()) t.dispose();
+    for (const k of this.keys) disposeObject(k.object);
+    this.keys = [];
     this.arm.parent?.remove(this.arm);
     this.pivot.removeFromParent();
     this.tileGeo.dispose();

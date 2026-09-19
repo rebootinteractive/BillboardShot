@@ -54,8 +54,8 @@
         "......OOOOOOOOOO",
         ".MM...OOOOOOOOOO",
         "MMMM..OOOOOOOOOO",
-        "MMMMOOOOOOOOOOOO",
-        "..MMOOOOOOOOOOOO",
+        "MMMMOOOOOO...OOO",
+        "..MMOOOOOO...OOO",
         "..MNNNNOOOOOOOOO",
         "NNNNNNNNOOOOOOOO",
         "NNNNNNNNNOOOOOOO",
@@ -67,7 +67,7 @@
         "...MMMM.MMMM...."
       ],
       "source": { "picture": "turkey", "colors": { "1": "orange", "2": "brown", "3": "pink" } },
-      "keys": [{ "col": 11, "row": 5, "color": "gold" }]
+      "keys": [{ "col": 10, "row": 4, "color": "gold" }]
     },
     {
       "name": "Skull",
@@ -128,14 +128,14 @@
     [
       { "color": "red", "charges": 28 },
       { "color": "pink", "charges": 13 },
-      { "color": "orange", "charges": 38 },
+      { "color": "orange", "charges": 36 },
       { "color": "purple", "charges": 21 },
       { "color": "white", "charges": 36, "link": "b" },
       { "color": "yellow", "charges": 31, "link": "a" },
       { "color": "white", "charges": 36 },
       { "color": "yellow", "charges": 31 },
       { "color": "black", "charges": 38 },
-      { "color": "orange", "charges": 38 },
+      { "color": "orange", "charges": 37 },
       { "color": "white", "charges": 36 },
       { "color": "brown", "charges": 36 },
       { "color": "brown", "charges": 36 },
@@ -146,15 +146,15 @@
       { "color": "brown", "charges": 37 },
       { "color": "black", "charges": 39, "link": "b" },
       { "color": "black", "charges": 39 },
-      { "color": "orange", "charges": 38, "link": "a" },
+      { "color": "orange", "charges": 37, "link": "a" },
       { "color": "white", "charges": 36 },
       { "color": "yellow", "charges": 31 },
       { "color": "red", "charges": 28 },
-      { "color": "orange", "charges": 38 },
+      { "color": "orange", "charges": 37 },
       { "color": "red", "charges": 28 },
       { "color": "brown", "charges": 36 },
       { "color": "pink", "charges": 12 },
-      { "color": "orange", "charges": 38 }
+      { "color": "orange", "charges": 37 }
     ]
   ]
 }

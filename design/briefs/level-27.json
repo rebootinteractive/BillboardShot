@@ -22,11 +22,7 @@
       "hidden": [
         "1"
       ],
-      "key": {
-        "group": "1",
-        "pick": "middle",
-        "color": "gold"
-      }
+      "key": { "col": 7, "row": 9, "color": "gold" }
     },
     {
       "picture": "dog",

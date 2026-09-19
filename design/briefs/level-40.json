@@ -47,11 +47,7 @@
         "2": "brown",
         "3": "pink"
       },
-      "key": {
-        "group": "1",
-        "pick": "middle",
-        "color": "gold"
-      }
+      "key": { "col": 10, "row": 4, "color": "gold" }
     },
     {
       "picture": "skull",

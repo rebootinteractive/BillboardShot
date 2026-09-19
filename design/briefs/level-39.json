@@ -42,11 +42,7 @@
         "5": "white",
         "6": "red"
       },
-      "key": {
-        "group": "1",
-        "pick": "middle",
-        "color": "gold"
-      }
+      "key": { "col": 10, "row": 2, "color": "gold" }
     },
     {
       "picture": "fishing-pole",

@@ -3,18 +3,14 @@ import type { ColorKey } from '../shared/types';
 import { COLOR_CSS } from '../shared/colors';
 
 import type { KeyColor } from '../shared/keyColors';
+import { KEY_HEIGHT, KEY_WIDTH } from './level';
+import { roundedBox } from './visuals';
 export { KEY_COLORS, type KeyColor } from '../shared/keyColors';
 
 export const KEY_HEX: Record<KeyColor, number> = {
   gold: 0xf5b82e,
   silver: 0xaab7c4,
   bronze: 0xc8783f,
-};
-
-const KEY_CSS: Record<KeyColor, string> = {
-  gold: '#f5b82e',
-  silver: '#aab7c4',
-  bronze: '#c8783f',
 };
 
 function canvasTexture(size: number, draw: (ctx: CanvasRenderingContext2D) => void) {
@@ -26,34 +22,61 @@ function canvasTexture(size: number, draw: (ctx: CanvasRenderingContext2D) => vo
   return texture;
 }
 
-/** A key glyph on a transparent background, outlined so it reads on any pixel color. */
-export function keyTexture(color: KeyColor) {
-  return canvasTexture(128, (ctx) => {
-    const path = () => {
-      ctx.beginPath();
-      ctx.arc(40, 64, 22, 0, Math.PI * 2);
-      ctx.moveTo(60, 64);
-      ctx.lineTo(112, 64);
-      ctx.moveTo(98, 64);
-      ctx.lineTo(98, 86);
-      ctx.moveTo(84, 64);
-      ctx.lineTo(84, 80);
-    };
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    path();
-    ctx.strokeStyle = '#fffaf0';
-    ctx.lineWidth = 26;
-    ctx.stroke();
-    path();
-    ctx.strokeStyle = KEY_CSS[color];
-    ctx.lineWidth = 13;
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.arc(40, 64, 8, 0, Math.PI * 2);
-    ctx.fillStyle = '#fffaf0';
-    ctx.fill();
+/**
+ * The outline of a key lying on its side, bow on the left and teeth hanging from the tip,
+ * filling a 3 × 2 cell area centered on the origin. The bow has a hole through it.
+ */
+function keyShape(cell: number): THREE.Shape {
+  const r = 0.74 * cell;
+  const bx = -1.5 * cell + r + 0.04 * cell;
+  const t = 0.19 * cell;
+  const tip = 1.44 * cell;
+  const a = Math.asin(t / r);
+  const shape = new THREE.Shape();
+  shape.moveTo(bx + r * Math.cos(a), t);
+  shape.lineTo(tip, t);
+  shape.lineTo(tip, -0.66 * cell);
+  shape.lineTo(1.04 * cell, -0.66 * cell);
+  shape.lineTo(1.04 * cell, -t);
+  shape.lineTo(0.86 * cell, -t);
+  shape.lineTo(0.86 * cell, -0.5 * cell);
+  shape.lineTo(0.5 * cell, -0.5 * cell);
+  shape.lineTo(0.5 * cell, -t);
+  shape.lineTo(bx + r * Math.cos(a), -t);
+  // Around the far side of the bow, back to the top of the shaft.
+  shape.absarc(bx, 0, r, -a, a - Math.PI * 2, true);
+  const hole = new THREE.Path();
+  hole.absarc(bx, 0, 0.3 * cell, 0, Math.PI * 2, false);
+  shape.holes.push(hole);
+  return shape;
+}
+
+/**
+ * A key as it sits on a billboard: a metal key in its key color on a pale plate, 3 cells
+ * wide and 2 tall, centered on the origin. The plate is named 'plate' so a flight can
+ * shrink it away while the key itself travels on.
+ */
+export function keyObject(color: KeyColor, cell: number): THREE.Group {
+  const group = new THREE.Group();
+  const plate = new THREE.Mesh(
+    roundedBox(KEY_WIDTH * cell * 0.96, KEY_HEIGHT * cell * 0.96, cell * 0.5, cell * 0.16),
+    new THREE.MeshStandardMaterial({ color: new THREE.Color(KEY_HEX[color]).lerp(new THREE.Color(0xfff7e8), 0.78), roughness: 0.5 }),
+  );
+  plate.name = 'plate';
+  plate.position.z = -cell * 0.1;
+  plate.castShadow = true;
+  plate.receiveShadow = true;
+  group.add(plate);
+  const depth = cell * 0.22;
+  const geo = new THREE.ExtrudeGeometry(keyShape(cell * 0.94), {
+    depth, bevelEnabled: true, bevelThickness: cell * 0.06, bevelSize: cell * 0.05, bevelSegments: 2, curveSegments: 20,
   });
+  const key = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: KEY_HEX[color], roughness: 0.28, metalness: 0.4 }));
+  key.name = 'key';
+  key.position.z = cell * 0.18;
+  key.castShadow = true;
+  group.add(key);
+  return group;
 }
 
 /** The gray "?" face of a mystery pixel. */
@@ -97,60 +120,75 @@ export function drawCounter(ctx: CanvasRenderingContext2D, value: string, opts: 
 }
 
 /**
- * A collected key traveling from its container to the padlock it opens. The lock
- * opens when it arrives.
+ * A released key traveling from its board to the padlock it opens. It takes the key
+ * object off the board as it is, sheds the plate, and turns to face the camera on the
+ * way. The lock opens when it arrives.
  */
 export class KeyFlight {
   readonly color: KeyColor;
-  private readonly mesh: THREE.Mesh<THREE.PlaneGeometry, THREE.MeshBasicMaterial>;
   private readonly from = new THREE.Vector3();
   private readonly ctrl = new THREE.Vector3();
   private readonly to = new THREE.Vector3();
+  private readonly startRotation = new THREE.Quaternion();
+  private readonly facing = new THREE.Quaternion();
+  private readonly plate: THREE.Object3D | undefined;
+  private readonly baseScale: number;
   private t = 0;
 
   constructor(
     private readonly world: THREE.Object3D,
-    from: THREE.Vector3,
+    private readonly object: THREE.Object3D,
     private readonly target: THREE.Object3D,
     color: KeyColor,
     private readonly camera: THREE.Camera,
   ) {
     this.color = color;
-    const texture = keyTexture(color);
-    this.mesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.7, 0.7),
-      new THREE.MeshBasicMaterial({ map: texture, transparent: true, depthTest: false, toneMapped: false }),
-    );
-    this.mesh.renderOrder = 20;
-    this.from.copy(from);
-    this.mesh.position.copy(from);
-    world.add(this.mesh);
+    world.attach(object);
+    object.traverse((o) => { o.renderOrder = 20; });
+    this.from.copy(object.position);
+    this.startRotation.copy(object.quaternion);
+    this.baseScale = object.scale.x;
+    this.plate = object.getObjectByName('plate');
   }
 
   /** Returns true when the key has reached its lock. */
   update(dt: number): boolean {
-    this.t = Math.min(1, this.t + dt / 0.75);
+    this.t = Math.min(1, this.t + dt / 0.8);
     this.target.getWorldPosition(this.to);
     this.world.worldToLocal(this.to);
     this.ctrl.copy(this.from).lerp(this.to, 0.5);
     this.ctrl.y += 1.6;
     const t = this.t * this.t * (3 - 2 * this.t);
     const u = 1 - t;
-    this.mesh.position.set(
+    this.object.position.set(
       u * u * this.from.x + 2 * u * t * this.ctrl.x + t * t * this.to.x,
       u * u * this.from.y + 2 * u * t * this.ctrl.y + t * t * this.to.y,
       u * u * this.from.z + 2 * u * t * this.ctrl.z + t * t * this.to.z,
     );
-    this.mesh.quaternion.copy(this.camera.quaternion);
-    this.mesh.rotateZ(Math.sin(t * Math.PI) * 0.8);
-    this.mesh.scale.setScalar(1 + Math.sin(t * Math.PI) * 0.5);
+    // The world may be turned; face the camera in the world's own frame.
+    this.world.getWorldQuaternion(this.facing).invert().multiply(this.camera.quaternion);
+    this.object.quaternion.copy(this.startRotation).slerp(this.facing, THREE.MathUtils.smoothstep(this.t, 0, 0.35));
+    this.object.rotateZ(Math.sin(t * Math.PI) * 0.5);
+    this.object.scale.setScalar(this.baseScale * (1 + Math.sin(t * Math.PI) * 0.35));
+    if (this.plate) {
+      const k = 1 - THREE.MathUtils.smoothstep(this.t, 0, 0.25);
+      this.plate.scale.setScalar(Math.max(0.001, k));
+      this.plate.visible = k > 0;
+    }
     return this.t >= 1;
   }
 
   dispose() {
-    this.mesh.removeFromParent();
-    this.mesh.geometry.dispose();
-    this.mesh.material.map?.dispose();
-    this.mesh.material.dispose();
+    this.object.removeFromParent();
+    disposeObject(this.object);
   }
+}
+
+/** Free every geometry and material under an object built by keyObject. */
+export function disposeObject(object: THREE.Object3D) {
+  object.traverse((o) => {
+    if (!(o instanceof THREE.Mesh)) return;
+    o.geometry.dispose();
+    (Array.isArray(o.material) ? o.material : [o.material]).forEach((m) => m.dispose());
+  });
 }

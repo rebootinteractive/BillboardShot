@@ -9,7 +9,7 @@
     {
       "picture": "airplane",
       "colors": { "1": "white", "2": "cyan", "3": "pink" },
-      "key": { "group": "1", "pick": "middle", "color": "gold" }
+      "key": { "col": 6, "row": 7, "color": "gold" }
     },
     {
       "picture": "rainbow",

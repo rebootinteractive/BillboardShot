@@ -2,7 +2,7 @@ import type { ColorKey } from '../shared/types';
 import { COLOR_KEYS } from '../shared/colors';
 import type { KeyColor } from '../shared/keyColors';
 import { renderSource, type BoardSource, type Picture } from '../art/library';
-import { artColor, validateLevel, type BoardData, type ContainerData, type LevelData, type TutorialStep } from '../game/level';
+import { KEY_HEIGHT, KEY_WIDTH, artColor, keyCells, validateLevel, type BoardData, type ContainerData, type LevelData, type TutorialStep } from '../game/level';
 import { createState, exposedCount, isOpen } from '../rules/sim';
 
 /**
@@ -24,6 +24,10 @@ export interface BoardBrief {
   hidden?: string[];
   /** Odd pixels of another color. */
   overrides?: Array<PixelSpot & { color: ColorKey }>;
+  /**
+   * The key: its top-left cell (`col`, `row` from the top), or a group and where in it.
+   * The key covers KEY_WIDTH × KEY_HEIGHT cells, which lose their pixels.
+   */
   key?: PixelSpot & { color: KeyColor };
   lock?: { type: 'key'; color: KeyColor } | { type: 'frozen'; color: ColorKey; count: number };
 }
@@ -89,6 +93,43 @@ export function pickPixel(picture: Picture, spot: PixelSpot): { col: number; row
   return cells.sort((a, z) => Math.hypot(a.col - cx, a.row - cy) - Math.hypot(z.col - cx, z.row - cy))[0];
 }
 
+/**
+ * Where a key goes: the top-left cell of a KEY_WIDTH × KEY_HEIGHT area that lies wholly
+ * on the picture, so the key never hangs off its silhouette. Areas covering at least half
+ * their cells with the group come first. `highest` takes the top area, `lowest` the bottom
+ * area that still has something beneath it, `middle` the one nearest the group's center;
+ * ties go to the area nearest the middle column. Rows count from the top.
+ */
+export function pickKeyArea(picture: Picture, spot: PixelSpot): { col: number; row: number } | null {
+  if ('col' in spot) return { col: spot.col, row: spot.row };
+  const art = picture.art;
+  const width = art[0].length;
+  const areas: Array<{ col: number; row: number; inGroup: number; beneath: boolean }> = [];
+  for (let row = 0; row + KEY_HEIGHT <= art.length; row++) for (let col = 0; col + KEY_WIDTH <= width; col++) {
+    const cells = keyCells({ col, row });
+    if (cells.some((c) => art[c.row][c.col] === '.')) continue;
+    const inGroup = cells.filter((c) => art[c.row][c.col] === spot.group).length;
+    if (!inGroup) continue;
+    let beneath = false;
+    for (let c = col; c < col + KEY_WIDTH; c++) for (let r = row + KEY_HEIGHT; r < art.length && !beneath; r++) beneath = art[r][c] !== '.';
+    areas.push({ col, row, inGroup, beneath });
+  }
+  if (!areas.length) return null;
+  const mostly = areas.filter((a) => a.inGroup * 2 >= KEY_WIDTH * KEY_HEIGHT);
+  const pool = mostly.length ? mostly : areas;
+  const centered = (a: { col: number }) => Math.abs(a.col + (KEY_WIDTH - 1) / 2 - (width - 1) / 2);
+  if (spot.pick === 'highest') return pool.sort((a, z) => a.row - z.row || centered(a) - centered(z))[0];
+  if (spot.pick === 'lowest') {
+    const buried = pool.filter((a) => a.beneath);
+    return (buried.length ? buried : pool).sort((a, z) => z.row - a.row || centered(a) - centered(z))[0];
+  }
+  const cells: Array<{ col: number; row: number }> = [];
+  art.forEach((line, row) => [...line].forEach((ch, col) => { if (ch === spot.group) cells.push({ col, row }); }));
+  const cx = cells.reduce((n, c) => n + c.col, 0) / cells.length - (KEY_WIDTH - 1) / 2;
+  const cy = cells.reduce((n, c) => n + c.row, 0) / cells.length - (KEY_HEIGHT - 1) / 2;
+  return pool.sort((a, z) => Math.hypot(a.col - cx, a.row - cy) - Math.hypot(z.col - cx, z.row - cy) || centered(a) - centered(z))[0];
+}
+
 /** Build the boards of a brief: art, source records, keys and locks. */
 function buildBoards(brief: LevelBrief, pictures: Map<string, Picture>, errors: string[]): BoardData[] {
   return brief.boards.map((b, i) => {
@@ -106,13 +147,14 @@ function buildBoards(brief: LevelBrief, pictures: Map<string, Picture>, errors: 
       }
       return [{ col: at.col, row: at.row, color: o.color }];
     });
+    const key = b.key ? pickKeyArea(picture, b.key) : null;
+    if (b.key && !key) errors.push(`Board ${i} (${picture.name}): no ${KEY_WIDTH}×${KEY_HEIGHT} area on the picture for the key.`);
+    const blanks = key ? keyCells(key) : [];
+    // An odd pixel under the key would never be seen.
+    if (overrides.some((o) => blanks.some((c) => c.col === o.col && c.row === o.row))) errors.push(`Board ${i} (${picture.name}): an override sits under the key.`);
     const source: BoardSource = { picture: picture.id, colors, ...(b.hidden?.length ? { hidden: b.hidden } : {}), ...(overrides.length ? { overrides } : {}) };
-    const board: BoardData = { name: picture.name, art: renderSource(picture, source), source };
-    if (b.key) {
-      const at = pickPixel(picture, b.key);
-      if (at) board.keys = [{ col: at.col, row: at.row, color: b.key.color }];
-      else errors.push(`Board ${i} (${picture.name}): no pixel for the key.`);
-    }
+    const board: BoardData = { name: picture.name, art: renderSource(picture, source, blanks), source };
+    if (key && b.key) board.keys = [{ col: key.col, row: key.row, color: b.key.color }];
     if (b.lock) board.lock = b.lock;
     return board;
   });

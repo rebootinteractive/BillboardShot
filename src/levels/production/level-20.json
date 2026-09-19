@@ -1,6 +1,6 @@
 {
   "name": "The Golden Key",
-  "hint": "Collect the key and the padlocked billboard opens.",
+  "hint": "Clear the pixels under the key to free it. The key opens the padlocked billboard.",
   "boards": [
     {
       "name": "Treasure Chest",
@@ -26,13 +26,13 @@
       "art": [
         "..YYYY.......",
         ".YYYYYY......",
-        "YYY..YYYYYYYY",
-        "YYY..YYYYYYYY",
+        "YYY.....YYYYY",
+        "YYY.....YYYYY",
         ".YYYYYY.Y.Y.Y",
         "..YYYY..Y.Y.."
       ],
       "source": { "picture": "key", "colors": { "1": "yellow", "2": "yellow" } },
-      "keys": [{ "col": 5, "row": 4, "color": "gold" }]
+      "keys": [{ "col": 5, "row": 2, "color": "gold" }]
     },
     {
       "name": "Gift",
@@ -81,7 +81,7 @@
     [
       { "color": "red", "charges": 30 },
       { "color": "black", "charges": 19 },
-      { "color": "yellow", "charges": 35 },
+      { "color": "yellow", "charges": 33 },
       { "color": "blue", "charges": 28 },
       { "color": "brown", "charges": 39 }
     ],
@@ -94,8 +94,8 @@
     ],
     [
       { "color": "blue", "charges": 28 },
-      { "color": "yellow", "charges": 35 },
-      { "color": "yellow", "charges": 35 },
+      { "color": "yellow", "charges": 33 },
+      { "color": "yellow", "charges": 33 },
       { "color": "brown", "charges": 39 }
     ]
   ]

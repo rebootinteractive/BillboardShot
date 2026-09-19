@@ -4,8 +4,8 @@
     {
       "name": "Treasure Chest",
       "art": [
-        "...NNNNNNNNNN...",
-        "..YNNNNNNNNNNY..",
+        "...NNN...NNNN...",
+        "..YNNN...NNNNY..",
         ".NYNNNNNNNNNNYN.",
         "NNYNNNNNNNNNNYNN",
         "YYYYYYYYYYYYYYYY",
@@ -18,7 +18,7 @@
         ".NN..........NN."
       ],
       "source": { "picture": "treasure-chest", "colors": { "1": "brown", "2": "yellow", "3": "yellow", "4": "yellow", "5": "brown" } },
-      "keys": [{ "col": 7, "row": 0, "color": "gold" }]
+      "keys": [{ "col": 6, "row": 0, "color": "gold" }]
     },
     {
       "name": "Crown",
@@ -63,7 +63,7 @@
   ],
   "lanes": [
     [
-      { "color": "brown", "charges": 37 },
+      { "color": "brown", "charges": 34 },
       { "color": "pink", "charges": 27 },
       { "color": "red", "charges": 38 },
       { "color": "black", "charges": 4 },
@@ -77,8 +77,8 @@
     ],
     [
       { "color": "pink", "charges": 28 },
-      { "color": "brown", "charges": 37 },
-      { "color": "brown", "charges": 36, "link": "a" },
+      { "color": "brown", "charges": 35 },
+      { "color": "brown", "charges": 35, "link": "a" },
       { "color": "black", "charges": 4 },
       { "color": "black", "charges": 5, "hidden": true },
       { "color": "purple", "charges": 39 }

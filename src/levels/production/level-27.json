@@ -14,8 +14,8 @@
         "...wwwwwwwwwww..",
         "..Ywwwwwwwwwww..",
         ".YYwwKKwwwwwwwP.",
-        "YYYwwwwwwwwwwwP.",
-        "OOOwwwwwwwwwwww.",
+        "YYYwwww...wwwwP.",
+        "OOOwwww...wwwww.",
         ".OOwwwwwwwwwwww.",
         ".RRwwwwwwwwwwwwP",
         ".RRwwwwwwwwwwwwP",
@@ -24,7 +24,7 @@
         "...PPPPPPPPPPPP."
       ],
       "source": { "picture": "chicken", "colors": { "1": "white", "2": "red", "3": "purple", "4": "yellow", "5": "orange", "6": "black" }, "hidden": ["1"] },
-      "keys": [{ "col": 8, "row": 10, "color": "gold" }]
+      "keys": [{ "col": 7, "row": 9, "color": "gold" }]
     },
     {
       "name": "Dog",
@@ -117,15 +117,15 @@
     [
       { "color": "orange", "charges": 38 },
       { "color": "black", "charges": 26 },
-      { "color": "white", "charges": 37 },
+      { "color": "white", "charges": 35 },
       { "color": "orange", "charges": 39 },
-      { "color": "white", "charges": 37 },
+      { "color": "white", "charges": 35 },
       { "color": "white", "charges": 36 },
       { "color": "orange", "charges": 38, "hidden": true }
     ],
     [
       { "color": "purple", "charges": 21 },
-      { "color": "white", "charges": 37 },
+      { "color": "white", "charges": 36 },
       { "color": "yellow", "charges": 31 },
       { "color": "orange", "charges": 39 }
     ],
@@ -135,7 +135,7 @@
       { "color": "pink", "charges": 12 },
       { "color": "pink", "charges": 12, "hidden": true },
       { "color": "white", "charges": 36 },
-      { "color": "white", "charges": 37 }
+      { "color": "white", "charges": 36 }
     ]
   ]
 }

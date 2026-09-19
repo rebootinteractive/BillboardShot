@@ -15,11 +15,7 @@
         "2": "black",
         "3": "orange"
       },
-      "key": {
-        "group": "1",
-        "pick": "middle",
-        "color": "gold"
-      }
+      "key": { "col": 8, "row": 5, "color": "gold" }
     },
     {
       "picture": "cow",

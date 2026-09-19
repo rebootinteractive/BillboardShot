@@ -38,8 +38,8 @@ orientation: `col` from the left, `row` from the top, both starting at 0.
   "boards": [
     {
       "name": "Fish",
-      "art": ["..RR..", ".RrrR.", "BBBBBB"],
-      "keys": [{ "col": 2, "row": 2, "color": "gold" }]
+      "art": ["R...RR", "R...rR", "BBBBBB"],
+      "keys": [{ "col": 1, "row": 0, "color": "gold" }]
     },
     { "name": "Cactus", "art": ["..."], "lock": { "type": "key", "color": "gold" } },
     { "name": "Sun", "art": ["..."], "lock": { "type": "frozen", "color": "red", "count": 20 } }
@@ -64,8 +64,8 @@ Art characters: `R` red, `B` blue, `G` green, `Y` yellow, `P` purple, `O` orange
 `C` cyan, `M` pink, `N` brown, `L` lime, `K` black, `W` white, `.` empty. The lowercase letter is a mystery pixel of that color.
 
 Checked on load: equal row widths, known characters and colors, whole-number charges,
-zero-sum charges per color, key and lock pairing (one of each per key color, not on the
-same board, no loops), frozen-board counts that finished containers can reach, and links joining
+zero-sum charges per color, keys that fit on their board over empty cells, key and lock
+pairing (one of each per key color, not on the same board, no loops), frozen-board counts that finished containers can reach, and links joining
 exactly two containers in different lanes. Problems are logged to the browser console.
 Whether a level can be won is not checked yet; that is the solver's job in the pipeline.
 
@@ -100,34 +100,42 @@ A pixel whose color is hidden until its color group is revealed.
 - The player plans container order around colors they can't see. Keep the hidden share
   low enough that the visible part of the board still hints at what to send.
 
-## 2. Key pixel and locked billboard
+## 2. Key and locked billboard
 
-A colored key sits on one pixel. Collecting it opens the padlocked billboard of the same
-key color.
+A key is an object on a board, 3 pixels wide and 2 tall. Freeing it opens the padlocked
+billboard of the same key color.
 
 **Rules**
 - A locked board shows a padlock and chains over its frame. It stays on the carousel and
   can be rotated to the front, but nothing pulls from it while it is locked.
-- The key is drawn on its pixel as a small key icon in its key color, always visible,
-  even on a mystery pixel. The padlock is drawn in the same key color.
-- The board unlocks when the key pixel is **collected** (lands), not when it is pulled.
-  The key flies to the padlock, the padlock opens, and pulls start at once if that board
-  is in focus.
+- The key takes the place of pixels: where it sits there are none. It is drawn as a
+  metal key in its key color on a pale plate. The padlock is drawn in the same key color.
+- The key blocks its three columns like a pixel would: nothing above it can be pulled
+  while it is there.
+- The key is **released** the moment nothing is left standing beneath it in any of its
+  three columns (the last pixel under it has been pulled). It flies to the padlock, which
+  opens when it arrives, and pulls start at once if that board is in focus. Its columns
+  are free straight away.
+- A key on a locked or frozen board waits until that board opens, then is released if
+  nothing is beneath it.
 - A key only opens the lock of its own key color.
 
-**Level file:** `keys: [{ col, row, color }]` on the board holding the key. The locked
-board has `lock: { type: "key", color }`. Key colors are their own small palette
-(for example gold, silver, bronze), separate from pixel colors, so a key never reads
-as a pixel color.
+**Level file:** `keys: [{ col, row, color }]` on the board holding the key, where `col`
+and `row` are the key's top-left cell (row from the top). The six cells it covers are `.`
+in `art`. The locked board has `lock: { type: "key", color }`. Key colors are their own
+small palette (for example gold, silver, bronze), separate from pixel colors, so a key
+never reads as a pixel color.
 
 **Constraints**
+- A key lies wholly inside its board's art, over empty cells only, and keys never overlap.
 - A key cannot sit on the board it unlocks.
 - Every key color used in a level appears on exactly one key and exactly one lock.
 - A board has at most one lock (key or frozen).
 - Keys may sit on locked or frozen boards, but the chain of unlocks cannot loop.
 
 **Design notes:** keep it to two key/lock pairs per level at most. Burying the key high
-on its board makes the player clear that board first.
+on its board makes the player clear that board first. The key costs its board six pixels,
+so give it room inside the picture's silhouette, not hanging off an edge.
 
 ## 3. Frozen billboard
 
@@ -194,8 +202,9 @@ the next move. Hiding several containers in a row in one lane makes that lane a 
 ## Combining features
 
 - Container flags combine: `hidden` and `link` can both be on one container.
-- Mystery pixels can hold keys, and they count toward frozen-board targets like any
-  pixel once their container is finished.
+- A key can sit inside a mystery group; the cells it covers simply have no pixels.
+  Mystery pixels count toward frozen-board targets like any pixel once their container
+  is finished.
 - A board has at most one lock.
 
 ## Loss: the stuck rule
@@ -217,8 +226,8 @@ so if both of these hold, nothing can move again.
 
 - The file matches the schema; art rows have equal widths; colors are known.
 - Charges are zero-sum per color.
-- Keys: valid positions on non-empty pixels, one key and one lock per key color, no
-  loops, not on their own board.
+- Keys: 3×2 inside the art over empty cells, not overlapping, one key and one lock per
+  key color, no loops, not on their own board.
 - Links: exactly two containers per id, in different lanes.
 - Frozen board counts are reachable.
 - A solver finds at least one winning line, and reports how many lines win as a

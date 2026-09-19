@@ -9,27 +9,27 @@
         "....GG...",
         "..RRGRR..",
         ".RRRRRRR.",
-        "RRRRRRRRR",
-        "RRRRRRRRR",
+        "RRR...RRR",
+        "RRR...RRR",
         "RRRRRRRRR",
         ".RRRRRRR.",
         "..RR.RR.."
       ],
-      "keys": [{ "col": 4, "row": 5, "color": "gold" }]
+      "keys": [{ "col": 3, "row": 4, "color": "gold" }]
     },
     {
       "name": "Fish",
       "art": [
         "....BBB....",
         "..BBBBBB..Y",
-        ".BBYBBBBBYY",
-        "BBBBBBBBYYY",
+        ".BBY...BBYY",
+        "BBBB...BYYY",
         "BBBBBBBBYYY",
         ".BBBBBBBBYY",
         "..BBBBBB..Y",
         "....BBB...."
       ],
-      "keys": [{ "col": 5, "row": 3, "color": "silver" }],
+      "keys": [{ "col": 4, "row": 2, "color": "silver" }],
       "lock": { "type": "key", "color": "gold" }
     },
     {
@@ -53,21 +53,21 @@
   ],
   "lanes": [
     [
-      { "color": "red", "charges": 13 },
-      { "color": "red", "charges": 12 },
+      { "color": "red", "charges": 10 },
+      { "color": "red", "charges": 11 },
       { "color": "yellow", "charges": 9 },
       { "color": "yellow", "charges": 8 },
-      { "color": "blue", "charges": 15 }
+      { "color": "blue", "charges": 14 }
     ],
     [
-      { "color": "red", "charges": 12 },
-      { "color": "blue", "charges": 16 },
-      { "color": "blue", "charges": 15 },
-      { "color": "blue", "charges": 15 },
-      { "color": "blue", "charges": 15 }
+      { "color": "red", "charges": 11 },
+      { "color": "blue", "charges": 14 },
+      { "color": "blue", "charges": 14 },
+      { "color": "blue", "charges": 14 },
+      { "color": "blue", "charges": 14 }
     ],
     [
-      { "color": "red", "charges": 12 },
+      { "color": "red", "charges": 11 },
       { "color": "green", "charges": 12 },
       { "color": "green", "charges": 12 },
       { "color": "green", "charges": 12 }

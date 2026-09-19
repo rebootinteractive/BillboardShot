@@ -1,8 +1,8 @@
 {
   "id": "level-20",
   "name": "The Golden Key",
-  "intent": "The key lock arrives, so the level is built to explain itself and nothing else. The padlocked board is a treasure chest and the key sits on a picture of a key, on the open board right next to it, so the player can see the lesson without reading it. The key pixel is shallow - the lowest pixel of the key's bow that still has something under it - so one or two pulls of yellow open the chest, and the chest is never a wall the player stares at. There are no locked-only colours at all: the chest is brown wood and yellow bands, and brown is also the guitar's body and yellow is the whole key picture, both exposed from the first move, so nothing the player sends before the unlock can park. Six colours, 464 pixels, three lanes, no other feature.",
-  "hint": "Collect the key and the padlocked billboard opens.",
+  "intent": "The key lock arrives, so the level is built to explain itself and nothing else. The padlocked board is a treasure chest and the key sits on a picture of a key, on the open board right next to it, so the player can see the lesson without reading it. The key is shallow - it sits on the key picture's shaft with only three yellow pixels beneath it - so a few pulls of yellow free it and open the chest, and the chest is never a wall the player stares at. There are no locked-only colours at all: the chest is brown wood and yellow bands, and brown is also the guitar's body and yellow is the whole key picture, both exposed from the first move, so nothing the player sends before the unlock can park. Six colours, 464 pixels, three lanes, no other feature.",
+  "hint": "Clear the pixels under the key to free it. The key opens the padlocked billboard.",
   "target": { "min": 0.92, "max": 1.0 },
   "lanes": 3,
   "boards": [
@@ -14,7 +14,7 @@
     {
       "picture": "key",
       "colors": { "1": "yellow", "2": "yellow" },
-      "key": { "group": "1", "pick": "lowest", "color": "gold" }
+      "key": { "col": 5, "row": 2, "color": "gold" }
     },
     {
       "picture": "gift",

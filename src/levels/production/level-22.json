@@ -12,8 +12,8 @@
         ".....WWWWWW.....",
         ".....WWWWWW.....",
         ".CCCCWWWWWWCCCC.",
-        "CCCCCWWWWWWCCCCC",
-        "CCCCCWWWWWWCCCCC",
+        "CCCCCW...WWCCCCC",
+        "CCCCCW...WWCCCCC",
         "CCCCCWWWWWWCCCCC",
         "CCCCCWWWWWWCCCCC",
         ".CCCCWWWWWWCCCC.",
@@ -24,7 +24,7 @@
         "..MMMWWWWWWMMM.."
       ],
       "source": { "picture": "airplane", "colors": { "1": "white", "2": "cyan", "3": "pink" } },
-      "keys": [{ "col": 7, "row": 8, "color": "gold" }]
+      "keys": [{ "col": 6, "row": 7, "color": "gold" }]
     },
     {
       "name": "Rainbow",
@@ -135,16 +135,16 @@
       { "color": "cyan", "charges": 28 },
       { "color": "yellow", "charges": 33 },
       { "color": "black", "charges": 25 },
-      { "color": "white", "charges": 35, "hidden": true }
+      { "color": "white", "charges": 32, "hidden": true }
     ],
     [
       { "color": "red", "charges": 36 },
       { "color": "green", "charges": 40 },
-      { "color": "white", "charges": 34 },
+      { "color": "white", "charges": 33 },
       { "color": "orange", "charges": 31 },
       { "color": "orange", "charges": 31 },
       { "color": "orange", "charges": 31 },
-      { "color": "white", "charges": 35 }
+      { "color": "white", "charges": 33 }
     ]
   ]
 }

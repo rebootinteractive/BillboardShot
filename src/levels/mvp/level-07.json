@@ -13,13 +13,13 @@
         "MMNNMMMMMMMMNNMM",
         "MMNNMMMMMMMMNNMM",
         ".MNNNMRRRRMNNNM.",
-        "..NNNMRRRRMNNN..",
-        "...NNNNMMNNNN...",
+        "..NNN...RRMNNN..",
+        "...NN...MNNNN...",
         "....NNNNNNNN....",
         ".....NNNNNN....."
       ],
       "source": { "picture": "monkey", "colors": { "1": "pink", "2": "brown", "3": "red", "4": "black" } },
-      "keys": [{ "col": 6, "row": 10, "color": "gold" }]
+      "keys": [{ "col": 5, "row": 9, "color": "gold" }]
     },
     {
       "name": "Parrot",
@@ -91,9 +91,9 @@
   ],
   "lanes": [
     [
-      { "color": "brown", "charges": 35 },
-      { "color": "pink", "charges": 32 },
-      { "color": "red", "charges": 28 },
+      { "color": "brown", "charges": 34 },
+      { "color": "pink", "charges": 31 },
+      { "color": "red", "charges": 27 },
       { "color": "white", "charges": 37 },
       { "color": "green", "charges": 21 },
       { "color": "orange", "charges": 26 },
@@ -101,10 +101,10 @@
       { "color": "white", "charges": 37 }
     ],
     [
-      { "color": "red", "charges": 28 },
+      { "color": "red", "charges": 27 },
       { "color": "white", "charges": 37 },
-      { "color": "brown", "charges": 35 },
-      { "color": "pink", "charges": 32 },
+      { "color": "brown", "charges": 34 },
+      { "color": "pink", "charges": 31 },
       { "color": "blue", "charges": 13 },
       { "color": "brown", "charges": 35 },
       { "color": "orange", "charges": 26 }

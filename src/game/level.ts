@@ -17,11 +17,25 @@ export interface ContainerData {
   link?: string;
 }
 
+/**
+ * A key is an object on the board, KEY_WIDTH pixels wide and KEY_HEIGHT tall, with no
+ * pixels under it: its cells are '.' in the art. It blocks its columns like a pixel would.
+ */
 export interface KeyData {
-  /** Column from the left and row from the top of `art`, both from 0. */
+  /** The key's top-left cell: column from the left and row from the top of `art`, both from 0. */
   col: number;
   row: number;
   color: KeyColor;
+}
+
+export const KEY_WIDTH = 3;
+export const KEY_HEIGHT = 2;
+
+/** The cells a key covers, rows from the top like the art. */
+export function keyCells(key: { col: number; row: number }): Array<{ col: number; row: number }> {
+  const out: Array<{ col: number; row: number }> = [];
+  for (let r = 0; r < KEY_HEIGHT; r++) for (let c = 0; c < KEY_WIDTH; c++) out.push({ col: key.col + c, row: key.row + r });
+  return out;
 }
 
 export type LockData =
@@ -124,7 +138,10 @@ export function validateLevel(level: LevelData, pictures: Map<string, Picture>):
       errors.push(`${label} has no art.`);
       return;
     }
-    if (board.source) for (const e of validateSource(board.source, board.art, pictures)) errors.push(`${label}: ${e}`);
+    if (board.source) {
+      const blanks = (board.keys ?? []).flatMap((k) => keyCells(k));
+      for (const e of validateSource(board.source, board.art, pictures, blanks)) errors.push(`${label}: ${e}`);
+    }
     const width = board.art[0].length;
     board.art.forEach((row, r) => {
       if (row.length !== width) errors.push(`${label} row ${r} is ${row.length} wide, expected ${width}.`);
@@ -140,13 +157,23 @@ export function validateLevel(level: LevelData, pictures: Map<string, Picture>):
       }
     });
 
+    const covered = new Set<string>();
     for (const key of board.keys ?? []) {
       if (!KEY_COLORS.includes(key.color)) {
         errors.push(`${label} has a key with unknown key color '${key.color}'. Use ${KEY_COLORS.join(', ')}.`);
         continue;
       }
-      const ch = board.art[key.row]?.[key.col];
-      if (!ch || ch === '.') errors.push(`${label} ${key.color} key at col ${key.col}, row ${key.row} is not on a pixel.`);
+      const at = `${key.color} key at col ${key.col}, row ${key.row}`;
+      if (!Number.isInteger(key.col) || !Number.isInteger(key.row) || key.col < 0 || key.row < 0
+        || key.col + KEY_WIDTH > width || key.row + KEY_HEIGHT > board.art.length) {
+        errors.push(`${label} ${at} does not fit: a key is ${KEY_WIDTH}×${KEY_HEIGHT} and must lie inside the art.`);
+      } else {
+        for (const cell of keyCells(key)) {
+          if (board.art[cell.row][cell.col] !== '.') errors.push(`${label} ${at} covers a pixel at col ${cell.col}, row ${cell.row}; the art must be '.' under a key.`);
+          if (covered.has(`${cell.col},${cell.row}`)) errors.push(`${label} ${at} overlaps another key.`);
+          covered.add(`${cell.col},${cell.row}`);
+        }
+      }
       keyHolders.set(key.color, [...(keyHolders.get(key.color) ?? []), b]);
     }
 

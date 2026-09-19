@@ -26,11 +26,7 @@
         "3": "black",
         "4": "black"
       },
-      "key": {
-        "group": "1",
-        "pick": "middle",
-        "color": "silver"
-      }
+      "key": { "col": 6, "row": 5, "color": "silver" }
     },
     {
       "picture": "raccoon",

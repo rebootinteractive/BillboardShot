@@ -57,8 +57,10 @@ should serve it.
 
 Only what the intent calls for.
 
-- **Key lock:** put the key in a group of another board with `pick` `highest`, `middle` or
-  `lowest`. Higher keys stay locked longer. The locked board's colors wait for the key.
+- **Key lock:** put the key on another board, either at an exact top-left cell or in a
+  group with `pick` `highest`, `middle` or `lowest`. The key is 3 wide and 2 tall and
+  replaces the pixels under it; the picker only uses areas wholly on the picture. Higher
+  keys stay locked longer. The locked board's colors wait for the key.
 - **Frozen board:** set the color and count. One finished container's worth (about 30–40)
   is gentle; more pushes hard toward that color. The color must be fillable from other
   boards.
@@ -99,7 +101,7 @@ Fields:
 | `boards[].colors` | Color per group; groups left out use the first suggestion. |
 | `boards[].hidden` | Groups shown as mystery pixels. |
 | `boards[].overrides` | Odd pixels: `{ "group": "1", "pick": "middle", "color": "blue" }` or an exact `col`/`row` (row from the top). |
-| `boards[].key` | `{ "group": "2", "pick": "highest", "color": "gold" }` |
+| `boards[].key` | `{ "group": "2", "pick": "highest", "color": "gold" }` or the top-left cell `{ "col": 6, "row": 5, "color": "gold" }` (row from the top). The key covers 3×2 cells. |
 | `boards[].lock` | `{ "type": "key", "color": "gold" }` or `{ "type": "frozen", "color": "white", "count": 35 }` |
 | `hint` | One line shown before the first attempt. |
 | `containers.maxCharges` | Largest container (default 40). |
