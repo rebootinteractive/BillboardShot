@@ -105,7 +105,7 @@
         ".WWWWWWWWWWWW.."
       ],
       "source": { "picture": "alarm-clock", "colors": { "1": "white", "2": "red", "3": "yellow", "4": "black" } },
-      "lock": { "type": "frozen", "color": "green", "count": 35 }
+      "lock": { "type": "frozen", "color": "green", "containers": 2 }
     }
   ],
   "lanes": [

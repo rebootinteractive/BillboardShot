@@ -37,6 +37,7 @@ export interface Board {
   /** Keys still on the board. Their cells hold KEY in `color`. */
   keys: BoardKey[];
   alive: number;
+  /** A frozen board's `remaining` counts containers still to finish. */
   lock: null | { type: 'key'; key: number } | { type: 'frozen'; color: number; remaining: number };
 }
 
@@ -99,7 +100,7 @@ export function createState(level: LevelData, deckSlots = DEFAULT_SETTINGS.deckS
       forKeyCells(board, key, (i) => { board.color[i] = KEY; });
     }
     if (data.lock?.type === 'key') board.lock = { type: 'key', key: KEY_COLORS.indexOf(data.lock.color) };
-    if (data.lock?.type === 'frozen') board.lock = { type: 'frozen', color: colorIndex(data.lock.color), remaining: data.lock.count };
+    if (data.lock?.type === 'frozen') board.lock = { type: 'frozen', color: colorIndex(data.lock.color), remaining: data.lock.containers };
     return board;
   });
   let id = 0;
@@ -349,11 +350,11 @@ function pull(s: State, b: Board, col: number, row: number, c: Container, slot: 
   s.stats.pulls++;
   revealColumn(b, col);
   if (c.charges === 0) {
-    // A full container leaves; frozen boards of its color count its whole load.
+    // A full container leaves; frozen boards of its color count it as one.
     s.deck[slot] = null;
     for (const other of s.boards) {
       if (other.lock?.type !== 'frozen' || other.lock.color !== c.color || other.alive === 0) continue;
-      other.lock.remaining -= c.capacity;
+      other.lock.remaining--;
       if (other.lock.remaining <= 0) other.lock = null;
     }
   }

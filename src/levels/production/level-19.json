@@ -21,7 +21,7 @@
         "NNNNNNNNNNNNNNN"
       ],
       "source": { "picture": "abacus", "colors": { "1": "brown", "2": "red", "3": "blue", "4": "yellow" } },
-      "lock": { "type": "frozen", "color": "white", "count": 40 }
+      "lock": { "type": "frozen", "color": "white", "containers": 2 }
     },
     {
       "name": "Alarm Clock",

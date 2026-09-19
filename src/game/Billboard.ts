@@ -54,6 +54,7 @@ export interface BoardKey {
 
 export type BoardLock =
   | { type: 'key'; color: KeyColor }
+  /** `remaining` counts containers still to finish. */
   | { type: 'frozen'; color: ColorKey; remaining: number };
 
 /**
@@ -94,6 +95,8 @@ export class Billboard {
 
   /** While set, nothing can be pulled from this board. */
   lock: BoardLock | null = null;
+  /** Containers delivered to the ice so far, counting part of one while its cubes land. */
+  private frozenCubes = 0;
   /** Where a flying key heads for: the padlock, or the middle of the board. */
   readonly lockAnchor = new THREE.Object3D();
   private padlock: BoardPadlock | null = null;
@@ -220,7 +223,7 @@ export class Billboard {
       this.lock = { type: 'key', color: data.lock.color };
       this.buildPadlock(data.lock.color);
     } else if (data.lock?.type === 'frozen') {
-      this.lock = { type: 'frozen', color: data.lock.color, remaining: data.lock.count };
+      this.lock = { type: 'frozen', color: data.lock.color, remaining: data.lock.containers };
       this.buildIce();
     }
   }
@@ -281,13 +284,15 @@ export class Billboard {
   }
 
   /**
-   * Pixels delivered by a finished container of the frozen color. Returns true if this
+   * A hit from a finished container of the frozen color: `amount` is how many containers
+   * it counts for (a container's last cube carries 1, the rest 0). Returns true if this
    * thawed the board.
    */
-  addFrozenProgress(amount: number, impact = this.lockAnchor.position): boolean {
+  addFrozenProgress(amount: number, share: number, impact = this.lockAnchor.position): boolean {
     if (this.lock?.type !== 'frozen') return false;
     this.lock.remaining = Math.max(0, this.lock.remaining - amount);
-    this.ice?.hit(this.lock.remaining, impact);
+    this.frozenCubes += share;
+    this.ice?.hit(this.lock.remaining, impact, this.frozenCubes);
     if (this.lock.remaining > 0) return false;
     this.unlock();
     return true;

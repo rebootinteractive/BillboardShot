@@ -15,7 +15,7 @@
       "picture": "camera",
       "colors": { "1": "brown", "2": "black", "3": "cyan" },
       "hidden": ["1"],
-      "lock": { "type": "frozen", "color": "white", "count": 40 }
+      "lock": { "type": "frozen", "color": "white", "containers": 2 }
     },
     {
       "picture": "magnet",

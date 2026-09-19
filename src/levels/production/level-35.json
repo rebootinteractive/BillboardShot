@@ -43,7 +43,7 @@
         "..OOOOOOOOOO.."
       ],
       "source": { "picture": "waffle", "colors": { "1": "yellow", "2": "brown", "3": "orange" }, "hidden": ["1"] },
-      "lock": { "type": "frozen", "color": "cyan", "count": 70 }
+      "lock": { "type": "frozen", "color": "cyan", "containers": 3 }
     },
     {
       "name": "Pretzel",

@@ -1032,9 +1032,9 @@ export class GameApp {
   }
 
   /**
-   * A full container is leaving the deck. Frozen billboards of its color only count
-   * finished containers: its whole load flies over as a few cubes, each taking its
-   * share off the counter as it lands.
+   * A full container is leaving the deck. Frozen billboards of its color count finished
+   * containers: it flies over as a few cubes that crack the ice, and the last one to land
+   * takes one off the counter.
    */
   private launchProgress(sh: Shooter) {
     const from = sh.group.position.clone().add(new THREE.Vector3(0, 0.5, 0));
@@ -1042,8 +1042,7 @@ export class GameApp {
       if (bb.frameState !== 'hanging' || bb.lock?.type !== 'frozen' || bb.lock.color !== sh.color) continue;
       const count = Math.min(sh.capacity, 6);
       for (let i = 0; i < count; i++) {
-        const share = Math.floor(sh.capacity / count) + (i < sh.capacity % count ? 1 : 0);
-        this.progressShots.push(new ProgressShot(this.world, from, bb, sh.color, share, i * 0.08, i));
+        this.progressShots.push(new ProgressShot(this.world, from, bb, sh.color, i === count - 1 ? 1 : 0, 1 / count, i * 0.08, i));
       }
     }
   }
@@ -1055,7 +1054,7 @@ export class GameApp {
       shot.dispose();
       this.progressShots.splice(i, 1);
       shot.board.board.localToWorld(this.scratch2.copy(shot.impact));
-      const thawed = shot.board.addFrozenProgress(shot.amount, shot.impact);
+      const thawed = shot.board.addFrozenProgress(shot.amount, shot.share, shot.impact);
       this.feedback.burst(this.scratch2.clone(), thawed ? 0xbfeaff : 0xffffff, thawed);
       this.feedback.note(thawed ? 'complete' : 'land');
     }

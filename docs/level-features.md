@@ -42,7 +42,7 @@ orientation: `col` from the left, `row` from the top, both starting at 0.
       "keys": [{ "col": 1, "row": 0, "color": "gold" }]
     },
     { "name": "Cactus", "art": ["..."], "lock": { "type": "key", "color": "gold" } },
-    { "name": "Sun", "art": ["..."], "lock": { "type": "frozen", "color": "red", "count": 20 } }
+    { "name": "Sun", "art": ["..."], "lock": { "type": "frozen", "color": "red", "containers": 2 } }
   ],
   "lanes": [
     [
@@ -65,7 +65,7 @@ Art characters: `R` red, `B` blue, `G` green, `Y` yellow, `P` purple, `O` orange
 
 Checked on load: equal row widths, known characters and colors, whole-number charges,
 zero-sum charges per color, keys that fit on their board over empty cells, key and lock
-pairing (one of each per key color, not on the same board, no loops), frozen-board counts that finished containers can reach, and links joining
+pairing (one of each per key color, not on the same board, no loops), frozen boards whose containers can be finished from other boards, and links joining
 exactly two containers in different lanes. Problems are logged to the browser console.
 Whether a level can be won is not checked yet; that is the solver's job in the pipeline.
 
@@ -139,29 +139,31 @@ so give it room inside the picture's silhouette, not hanging off an edge.
 
 ## 3. Frozen billboard
 
-A board iced over until enough pixels of one color are collected.
+A board iced over until enough containers of one color are finished.
 
 **Rules**
-- A frozen board shows an ice cover with a color swatch and a number: how many pixels of
-  that color are still needed. It can be rotated to the front, but nothing pulls from it.
-- Only **finished** containers count. When a container of that color is full and leaves
-  the deck, its load flies to the frozen board as a few cubes, and each cube lowers the
-  number by its share as it lands. A container still filling counts for nothing.
-- The whole load counts, so the number can be overshot. Counting starts at the level start.
+- A frozen board shows an ice cover with a small container in its color and a number: how
+  many containers of that color still have to finish. It can be rotated to the front, but
+  nothing pulls from it.
+- Only **finished** containers count, one each whatever their size. When a container of
+  that color is full and leaves the deck, it flies to the frozen board as a few cubes that
+  crack the ice, and the number drops by one as the last cube lands. A container still
+  filling counts for nothing. Counting starts at the level start.
 - At zero the ice shatters and the board plays normally.
 
-**Level file:** `lock: { type: "frozen", color, count }`.
+**Level file:** `lock: { type: "frozen", color, containers }`.
 
 **Constraints**
 - While the board is frozen, every pixel a container of its color holds comes from other
-  boards. So some set of that color's containers must fit within the pixels of that color
-  on other boards and still add up to `count`. The checker rejects the level otherwise.
+  boards. So the level needs at least `containers` containers of that color, and the
+  smallest that many must fit within the pixels of that color on other boards. The checker
+  rejects the level otherwise.
 
 **Design notes:** a frozen board pushes the player toward one color early, so its color
 should compete with what the open boards ask for. Because only finished containers count,
 container sizes matter: a big container that cannot be filled from the open boards never
-counts, and a player who starts it may get stuck. A count equal to all of that color
-elsewhere makes the player clear everything else first. That can be intended, but it
+counts, and a player who starts it may get stuck. Asking for every container of that
+color makes the player clear all of it elsewhere first. That can be intended, but it
 often isn't.
 
 ## 4. Linked containers
@@ -203,8 +205,8 @@ the next move. Hiding several containers in a row in one lane makes that lane a 
 
 - Container flags combine: `hidden` and `link` can both be on one container.
 - A key can sit inside a mystery group; the cells it covers simply have no pixels.
-  Mystery pixels count toward frozen-board targets like any pixel once their container
-  is finished.
+  A container filled with mystery pixels counts toward a frozen board like any other
+  once it is finished.
 - A board has at most one lock.
 
 ## Loss: the stuck rule
@@ -229,6 +231,6 @@ so if both of these hold, nothing can move again.
 - Keys: 3×2 inside the art over empty cells, not overlapping, one key and one lock per
   key color, no loops, not on their own board.
 - Links: exactly two containers per id, in different lanes.
-- Frozen board counts are reachable.
+- Frozen boards ask for no more containers than can be finished from other boards.
 - A solver finds at least one winning line, and reports how many lines win as a
   difficulty signal.

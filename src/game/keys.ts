@@ -98,7 +98,7 @@ export function mysteryTexture() {
   });
 }
 
-/** A round label: an optional color swatch or snowflake, then a number. */
+/** A round label: an optional container in a color, then a number. */
 export function drawCounter(ctx: CanvasRenderingContext2D, value: string, opts: { swatch?: ColorKey; icy?: boolean }) {
   const { width: w, height: h } = ctx.canvas;
   ctx.clearRect(0, 0, w, h);
@@ -112,9 +112,21 @@ export function drawCounter(ctx: CanvasRenderingContext2D, value: string, opts: 
   ctx.stroke();
   let textX = w / 2;
   if (opts.swatch) {
+    // A small container in the color: the counter counts containers, not pixels.
+    const cx = h / 2, cy = h / 2 + 4, s = r * 0.62;
+    // Outlined, so a white or pale container still reads on the pale label.
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = 'rgba(58,64,80,0.35)';
     ctx.beginPath();
-    ctx.arc(h / 2, h / 2, r * 0.62, 0, Math.PI * 2);
+    ctx.roundRect(cx - s * 0.82, cy - s * 0.55, s * 1.64, s * 1.2, s * 0.22);
     ctx.fillStyle = COLOR_CSS[opts.swatch];
+    ctx.fill();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.roundRect(cx - s, cy - s * 0.85, s * 2, s * 0.5, s * 0.16);
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(0,0,0,0.18)';
     ctx.fill();
     textX = h + (w - h) / 2 - 8;
   }

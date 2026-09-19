@@ -1,7 +1,7 @@
 {
   "id": "level-29",
   "name": "Sleeping Koala",
-  "intent": "The frozen board and mystery pixels together, with nothing hidden in the deck, so every decision the player makes is one they can see the inputs for. The koala is iced over and wants 55 white before it thaws, and white is the eagle's head and beak, the dove's body and beak and two buried muzzles, 112 pixels on open boards split into three containers - so two of them have to finish before the ice breaks, which is a commitment rather than a first move. Behind the ice sit 144 purple and 21 pink, and both of those colours are deliberately given a wide open home as well: the monkey's fur is the same purple across twelve exposed columns and its face the same pink, so a purple container sent early always has somewhere to go. That was the level's one real fault on the first pass - with purple living only on the koala it parked 1.3 sends a run, the clog shape batch 3 warned about, and sharing it with the monkey cut that to a fraction at the same difficulty. The three mystery groups are chosen so none of them is a colour the player cannot otherwise see: the bear's white muzzle and the monkey's white muzzle sit above a colour with open homes everywhere, and the koala's black eyes are the same black as the eagle's wings, 86 pixels exposed across ten columns. The dove's 18 cyan wing is the one colour with a single buried home, but it sits under a 44-pixel white body exposed across ten columns, so it opens as soon as any white container visits the dove.",
+  "intent": "The frozen board and mystery pixels together, with nothing hidden in the deck, so every decision the player makes is one they can see the inputs for. The koala is iced over and wants 2 finished white containers before it thaws, and white is the eagle's head and beak, the dove's body and beak and two buried muzzles, 112 pixels on open boards split into three containers - so two of them have to finish before the ice breaks, which is a commitment rather than a first move. Behind the ice sit 144 purple and 21 pink, and both of those colours are deliberately given a wide open home as well: the monkey's fur is the same purple across twelve exposed columns and its face the same pink, so a purple container sent early always has somewhere to go. That was the level's one real fault on the first pass - with purple living only on the koala it parked 1.3 sends a run, the clog shape batch 3 warned about, and sharing it with the monkey cut that to a fraction at the same difficulty. The three mystery groups are chosen so none of them is a colour the player cannot otherwise see: the bear's white muzzle and the monkey's white muzzle sit above a colour with open homes everywhere, and the koala's black eyes are the same black as the eagle's wings, 86 pixels exposed across ten columns. The dove's 18 cyan wing is the one colour with a single buried home, but it sits under a 44-pixel white body exposed across ten columns, so it opens as soon as any white container visits the dove.",
   "target": {
     "min": 0.56,
     "max": 0.68
@@ -32,7 +32,7 @@
       "lock": {
         "type": "frozen",
         "color": "white",
-        "count": 55
+        "containers": 2
       }
     },
     {

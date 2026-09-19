@@ -21,7 +21,7 @@ function boardHtml(b: LevelData['boards'][number]): string {
   })).join('');
   const lock = b.lock ? (b.lock.type === 'key'
     ? `<span class="badge" style="background:${KEY_CSS[b.lock.color]}">locked · ${b.lock.color} key</span>`
-    : `<span class="badge ice">frozen · ${b.lock.count} ${b.lock.color}</span>`) : '';
+    : `<span class="badge ice">frozen · ${b.lock.containers} ${b.lock.color} container${b.lock.containers === 1 ? '' : 's'}</span>`) : '';
   const odd = b.source?.overrides?.length ? `<span class="badge">${b.source.overrides.length} odd pixel${b.source.overrides.length === 1 ? '' : 's'}</span>` : '';
   return `<figure><div class="art" style="grid-template-columns:repeat(${width},10px)">${cells}</div><figcaption>${esc(b.name)} ${lock}${odd}</figcaption></figure>`;
 }

@@ -44,7 +44,7 @@
         "GGGGGGGGGGGGGGGG"
       ],
       "source": { "picture": "house", "colors": { "1": "yellow", "2": "brown", "3": "red", "4": "green", "5": "cyan", "6": "brown" } },
-      "lock": { "type": "frozen", "color": "brown", "count": 30 }
+      "lock": { "type": "frozen", "color": "brown", "containers": 1 }
     },
     {
       "name": "Bell",

@@ -68,7 +68,7 @@
         "....NNNNN...."
       ],
       "source": { "picture": "pine-tree", "colors": { "1": "green", "2": "lime", "3": "brown" } },
-      "lock": { "type": "frozen", "color": "white", "count": 38 }
+      "lock": { "type": "frozen", "color": "white", "containers": 1 }
     },
     {
       "name": "Snowflake",
@@ -108,7 +108,7 @@
         ".BBBBRRRBBBB."
       ],
       "source": { "picture": "gift", "colors": { "1": "red", "2": "blue", "3": "purple" } },
-      "lock": { "type": "frozen", "color": "cyan", "count": 33 }
+      "lock": { "type": "frozen", "color": "cyan", "containers": 1 }
     }
   ],
   "lanes": [

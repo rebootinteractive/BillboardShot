@@ -38,9 +38,13 @@ export function keyCells(key: { col: number; row: number }): Array<{ col: number
   return out;
 }
 
+/**
+ * A key lock opens when the key of its color is released. A frozen board thaws once
+ * `containers` containers of its color have been finished, whatever their size.
+ */
 export type LockData =
   | { type: 'key'; color: KeyColor }
-  | { type: 'frozen'; color: ColorKey; count: number };
+  | { type: 'frozen'; color: ColorKey; containers: number };
 
 export interface BoardData {
   name: string;
@@ -183,7 +187,8 @@ export function validateLevel(level: LevelData, pictures: Map<string, Picture>):
       else lockHolders.set(lock.color, [...(lockHolders.get(lock.color) ?? []), b]);
     } else if (lock?.type === 'frozen') {
       if (!COLOR_KEYS.includes(lock.color)) errors.push(`${label} is frozen on unknown color '${lock.color}'.`);
-      if (!Number.isInteger(lock.count) || lock.count < 1) errors.push(`${label} frozen count must be a whole number of at least 1.`);
+      if ('count' in lock) errors.push(`${label}: frozen boards now count finished containers, not pixels. Replace count with containers.`);
+      if (!Number.isInteger(lock.containers) || lock.containers < 1) errors.push(`${label} frozen containers must be a whole number of at least 1.`);
     } else if (lock) {
       errors.push(`${label} has an unknown lock type.`);
     }
@@ -230,21 +235,21 @@ export function validateLevel(level: LevelData, pictures: Map<string, Picture>):
     });
   });
 
-  // A frozen board counts only finished containers of its color, and while it is frozen
-  // every pixel they hold comes from other boards. So some set of those containers must
-  // fit in the pixels elsewhere and still add up to the count.
+  // A frozen board counts finished containers of its color, and while it is frozen every
+  // pixel they hold comes from other boards. So that many of them, the smallest ones at
+  // best, must fit in the pixels elsewhere.
   level.boards.forEach((board, b) => {
     if (board.lock?.type !== 'frozen') return;
-    const { color, count } = board.lock;
+    const { color, containers } = board.lock;
     const elsewhere = (pixels.get(color) ?? 0) - (pixelsByBoard[b].get(color) ?? 0);
-    const reachable = new Set<number>([0]);
-    for (const c of level.lanes.flat()) {
-      if (c.color !== color) continue;
-      for (const sum of [...reachable]) if (sum + c.charges <= elsewhere) reachable.add(sum + c.charges);
+    const sizes = level.lanes.flat().filter((c) => c.color === color).map((c) => c.charges).sort((a, z) => a - z);
+    if (sizes.length < containers) {
+      errors.push(`Board ${b} (${board.name}) needs ${containers} finished ${color} containers, but the level has only ${sizes.length}.`);
+      return;
     }
-    const best = Math.max(...reachable);
-    if (best < count) {
-      errors.push(`Board ${b} (${board.name}) needs ${count} ${color} from finished containers, but at most ${best} can be finished from the ${elsewhere} ${color} pixels on other boards.`);
+    const smallest = sizes.slice(0, containers).reduce((n, x) => n + x, 0);
+    if (smallest > elsewhere) {
+      errors.push(`Board ${b} (${board.name}) needs ${containers} finished ${color} containers, but even the smallest ${containers} hold ${smallest} and only ${elsewhere} ${color} pixels are on other boards.`);
     }
   });
 

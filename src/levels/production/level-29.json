@@ -40,7 +40,7 @@
         "...PPPPPPPPPP..."
       ],
       "source": { "picture": "koala", "colors": { "1": "purple", "2": "black", "3": "pink" }, "hidden": ["2"] },
-      "lock": { "type": "frozen", "color": "white", "count": 55 }
+      "lock": { "type": "frozen", "color": "white", "containers": 2 }
     },
     {
       "name": "Monkey",

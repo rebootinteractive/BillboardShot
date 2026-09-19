@@ -23,7 +23,7 @@
         "..OOOOKKKKOOO..."
       ],
       "source": { "picture": "penguin", "colors": { "1": "white", "2": "black", "3": "orange" }, "hidden": ["1"] },
-      "lock": { "type": "frozen", "color": "orange", "count": 60 }
+      "lock": { "type": "frozen", "color": "orange", "containers": 2 }
     },
     {
       "name": "Snowman",

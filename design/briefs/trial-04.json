@@ -7,7 +7,7 @@
   "boards": [
     { "picture": "penguin", "colors": { "1": "white", "2": "black", "3": "orange" }, "hidden": ["1"] },
     { "picture": "snowman", "colors": { "1": "white", "2": "blue", "3": "cyan", "4": "black", "5": "orange" }, "overrides": [{ "group": "1", "pick": "lowest", "color": "blue" }] },
-    { "picture": "pine-tree", "colors": { "1": "green", "2": "lime", "3": "brown" }, "lock": { "type": "frozen", "color": "white", "count": 38 } }
+    { "picture": "pine-tree", "colors": { "1": "green", "2": "lime", "3": "brown" }, "lock": { "type": "frozen", "color": "white", "containers": 1 } }
   ],
   "queue": { "hidden": 1 }
 }

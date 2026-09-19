@@ -32,7 +32,7 @@
         "..YYYYYYY..",
         "..YYYYYYY.."
       ],
-      "lock": { "type": "frozen", "color": "yellow", "count": 12 }
+      "lock": { "type": "frozen", "color": "yellow", "containers": 1 }
     },
     {
       "name": "Apple",
