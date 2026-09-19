@@ -1,0 +1,135 @@
+{
+  "name": "Ring of Orange",
+  "boards": [
+    {
+      "name": "Alien",
+      "art": [
+        ".....LLLLLL.....",
+        "...LLLLLLLLLL...",
+        "..LLLLLLLLLLLL..",
+        ".LLLLLLLLLLLLLL.",
+        ".LLLLLLLLLLLLLL.",
+        "LLLKKKLLLLLKKLLL",
+        "LLKKWWKLLKKKWWKL",
+        "LKKKKWKLLKKKWWKL",
+        "LKKKKKKLLKKKKKKL",
+        "LLKKKKKLLKKKKKLL",
+        ".LLKKKKLLKKKKLL.",
+        ".LLLLLLLLLLLLLL.",
+        "..LLLLLLLLLLLL..",
+        "...LLLLKKKLLL...",
+        "....LLLLLLLL....",
+        "......LLLL......"
+      ],
+      "source": { "picture": "alien", "colors": { "1": "lime", "2": "black", "3": "white" } },
+      "keys": [{ "col": 7, "row": 7, "color": "silver" }]
+    },
+    {
+      "name": "Ringed Planet",
+      "art": [
+        ".....OOOOOO.....",
+        "...OOOOOOOOOO...",
+        "..OOOOOOOOOOOO..",
+        "..OOOOOOOOOOOO..",
+        "..OOOOOOOOOOOO..",
+        "..OOOOOOOOOOOO..",
+        "..OOOOOOOOOOOO..",
+        "WWWWWWWWWWWWWWWW",
+        "WWWWWWWWWWWWWWWW",
+        "..RRRRRRRRRRRR..",
+        "..RRRRRRRRRRRR..",
+        "..OOOOOOOOOOOO..",
+        "..OOOOOOOOOOOO..",
+        "...OOOOOOOOOO...",
+        "...OOOOOOOOOO...",
+        ".....OOOOOO....."
+      ],
+      "source": { "picture": "planet", "colors": { "1": "orange", "2": "white", "3": "red" } },
+      "lock": { "type": "key", "color": "silver" }
+    },
+    {
+      "name": "Rocket",
+      "art": [
+        ".............RR.",
+        "..........RRRRRR",
+        ".........RWWWRRR",
+        ".......RWWWWWWRR",
+        "......RWWPPPPWW.",
+        ".....RWWWPPPPWR.",
+        "....RWWWWWPPWW..",
+        "...RWWWWWWWWWR..",
+        ".RRRWWWWWWWWR...",
+        ".RRRRRRRWWWR....",
+        "..RRRRRWWWR.....",
+        "..KRRRRWWR......",
+        ".OOKRRRRR.......",
+        "OOOOKRRRR.......",
+        "OOOOK.RR........",
+        "OOO....R........"
+      ],
+      "source": { "picture": "rocket", "colors": { "1": "red", "2": "white", "3": "orange", "4": "purple", "5": "purple", "6": "black" } }
+    },
+    {
+      "name": "Satellite",
+      "art": [
+        ".....OOOOO.....",
+        "......OOO......",
+        "......WWW......",
+        "PPPPP.WWW.PPPPP",
+        "PPPPP.WWW.PPPPP",
+        "PPPPPWWWWWPPPPP",
+        "PPPPP.WWW.PPPPP",
+        "PPPPP.WWW.PPPPP",
+        "......WWW......",
+        "......WWW......"
+      ],
+      "source": { "picture": "satellite", "colors": { "1": "purple", "2": "white", "3": "orange" } }
+    },
+    {
+      "name": "Crescent Moon",
+      "art": [
+        "...YYYY",
+        ".YYYYYY",
+        "OYYYYYY",
+        "OYYYYY.",
+        "OYYYY..",
+        "OYYYY..",
+        "OYYYYY.",
+        "OYYYYYY",
+        ".YYYYYY",
+        "...YYYY"
+      ],
+      "source": { "picture": "moon", "colors": { "1": "yellow", "2": "orange" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "white", "charges": 38 },
+      { "color": "purple", "charges": 20 },
+      { "color": "black", "charges": 29 }
+    ],
+    [
+      { "color": "lime", "charges": 34 },
+      { "color": "purple", "charges": 20 },
+      { "color": "orange", "charges": 39 },
+      { "color": "white", "charges": 38 },
+      { "color": "black", "charges": 29 },
+      { "color": "red", "charges": 40 }
+    ],
+    [
+      { "color": "yellow", "charges": 25 },
+      { "color": "lime", "charges": 35 },
+      { "color": "lime", "charges": 34 },
+      { "color": "orange", "charges": 38 },
+      { "color": "orange", "charges": 38 }
+    ],
+    [
+      { "color": "orange", "charges": 38 },
+      { "color": "white", "charges": 38 },
+      { "color": "yellow", "charges": 25 },
+      { "color": "purple", "charges": 20 },
+      { "color": "red", "charges": 40 },
+      { "color": "lime", "charges": 34 }
+    ]
+  ]
+}

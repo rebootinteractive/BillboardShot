@@ -1,0 +1,32 @@
+{
+  "id": "level-23",
+  "name": "Weather Window",
+  "intent": "Relief after the hard level, and the key lock played gently: five weather boards, six colours and a bronze key sitting in the middle of a 46-pixel droplet, the smallest board in the level, so the padlocked tornado opens almost as soon as the player decides to open it. Everything the tornado holds has a home outside it - its white funnel is also the sunlit cloud, its cyan bands are also the whole rain cloud - so the lock costs a few turns of the carousel and nothing else. The one thing the player has to hold is pink: 23 pixels of the tornado's lower bands and four in the droplet's shine, so the pink container can start on the droplet and then has to wait for the ice-blue funnel above it. The storm cloud's purple is the level's floor, exposed across nine columns from the first move, and its yellow bolt is the same yellow as the sun hidden under the sun cloud, so a yellow container always has somewhere to go.",
+  "target": { "min": 0.78, "max": 0.88 },
+  "lanes": 4,
+  "boards": [
+    {
+      "picture": "storm-cloud",
+      "colors": { "1": "purple", "2": "yellow" }
+    },
+    {
+      "picture": "sun-cloud",
+      "colors": { "1": "white", "2": "yellow", "3": "purple" }
+    },
+    {
+      "picture": "rain-cloud",
+      "colors": { "1": "cyan", "2": "blue" }
+    },
+    {
+      "picture": "tornado",
+      "colors": { "1": "white", "2": "cyan", "3": "pink" },
+      "lock": { "type": "key", "color": "bronze" }
+    },
+    {
+      "picture": "droplet",
+      "colors": { "1": "blue", "2": "pink" },
+      "key": { "group": "1", "pick": "middle", "color": "bronze" }
+    }
+  ],
+  "queue": { "hidden": 0, "links": 0 }
+}

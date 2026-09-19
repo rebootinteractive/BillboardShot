@@ -1,0 +1,35 @@
+{
+  "id": "level-22",
+  "name": "Ten Colours High",
+  "intent": "The batch's second hard level, and a colour problem rather than a hiding one. Ten colours across five boards and very little sharing: the airplane alone owns white, cyan and pink, 182 pixels that no other board can help with, and the rainbow puts six more colours side by side in one 179-pixel stack where each band rests on the next, so the order the rainbow comes apart is fixed and the player has to feed it in that order. The gold key is in the middle of the airplane's fuselage, so the padlocked hot-air balloon waits on the same board the player is already fighting; the balloon's own red, yellow, orange and black all have open homes on the rainbow, the kite and the helicopter, so nothing is stranded behind the lock - the lock costs time, not slots. Three mystery groups (the helicopter's purple rotor and blue windows, the balloon's 44 yellow middle panels behind the padlock) and two hidden containers keep the player uncertain, but every hidden colour also has a visible exposed home somewhere, so the uncertainty is never a guess.",
+  "label": "hard",
+  "target": { "min": 0.32, "max": 0.48 },
+  "lanes": 4,
+  "boards": [
+    {
+      "picture": "airplane",
+      "colors": { "1": "white", "2": "cyan", "3": "pink" },
+      "key": { "group": "1", "pick": "middle", "color": "gold" }
+    },
+    {
+      "picture": "rainbow",
+      "colors": { "1": "red", "2": "orange", "3": "green", "4": "yellow", "5": "blue", "6": "purple" }
+    },
+    {
+      "picture": "helicopter",
+      "colors": { "1": "orange", "2": "purple", "3": "blue", "4": "yellow", "5": "orange" },
+      "hidden": ["2", "3"]
+    },
+    {
+      "picture": "hot-air-balloon",
+      "colors": { "1": "red", "2": "yellow", "3": "orange", "4": "black", "5": "black", "6": "black" },
+      "hidden": ["2"],
+      "lock": { "type": "key", "color": "gold" }
+    },
+    {
+      "picture": "kite",
+      "colors": { "1": "red", "2": "yellow", "3": "blue", "4": "green", "5": "black", "6": "red" }
+    }
+  ],
+  "queue": { "hidden": 2 }
+}

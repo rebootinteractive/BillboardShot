@@ -124,8 +124,17 @@ warnings, a proven winning line, and the careful bot winning at least 60% (so th
 difficulty is not a trap). It writes the level to `src/levels/trial/<id>.json` and a report
 card to `design/reports/<id>.html`.
 
-**When the tuner cannot reach the target**, it says why and keeps the closest level. The
-queue alone could not do it; change the brief, not the queue:
+**When the build lands far above the band**, raise the search budget before touching the
+brief. The default is 150 candidates, which is not enough when a level has to fall more
+than about 20 points: batch 3 had five levels starting at 85–100%, and one of them
+overshot and gave up at 150 but found its target on candidate 38 of a 400-candidate run.
+
+```
+npm run level -- tune design/briefs/level-18.json --production --quiet --evaluations 400
+```
+
+**When the tuner still cannot reach the target**, it says why and keeps the closest level.
+The queue alone could not do it; change the brief, not the queue:
 
 | Too easy (score above the band) | Too hard (score below the band) |
 |---|---|

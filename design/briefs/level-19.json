@@ -1,0 +1,31 @@
+{
+  "id": "level-19",
+  "name": "Counting Frame",
+  "intent": "The frozen board with a deck the player cannot read ahead. The abacus is iced over - 201 pixels, a third of the level - and wants 40 white, which is two finished white containers rather than one, so the ice is a project rather than a first move. White is the clock's face and the toothbrush's bristles, 108 pixels on open boards, and nothing on the abacus is white, so no white container is ever stranded. The abacus holds brown, red, yellow and blue behind the ice; brown, red and yellow all have exposed homes elsewhere (the headphone band, the clock rim, the clock bells), so the only colour that truly waits is the 32-pixel blue of the lower beads, one container the player must hold. Eight colours, four lanes and two hidden containers, so the lane heads are worth reading before tapping.",
+  "target": { "min": 0.56, "max": 0.68 },
+  "lanes": 4,
+  "boards": [
+    {
+      "picture": "abacus",
+      "colors": { "1": "brown", "2": "red", "3": "blue", "4": "yellow" },
+      "lock": { "type": "frozen", "color": "white", "count": 40 }
+    },
+    {
+      "picture": "alarm-clock",
+      "colors": { "1": "white", "2": "red", "3": "yellow", "4": "red" }
+    },
+    {
+      "picture": "graduation-cap",
+      "colors": { "1": "black", "2": "purple", "3": "yellow" }
+    },
+    {
+      "picture": "toothbrush",
+      "colors": { "1": "brown", "2": "cyan", "3": "white" }
+    },
+    {
+      "picture": "headphones",
+      "colors": { "1": "brown", "2": "purple" }
+    }
+  ],
+  "queue": { "hidden": 2 }
+}

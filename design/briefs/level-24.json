@@ -1,0 +1,28 @@
+{
+  "id": "level-24",
+  "name": "Tied Together",
+  "intent": "Linked containers arrive, so the level is the smallest of the batch: 398 pixels, four night-sky boards, six colours and one chain. One pair of containers is roped together and can only be sent when both are at the heads of their lanes with two free slots, which is the whole lesson - the player learns to keep a slot spare rather than to solve anything. Every colour has an exposed home from the first move, so there is never a reason to hold a container while the link waits: the castle's purple wall runs across twelve columns, the telescope's brown tripod across fourteen, the saucer's lime beam across eleven, the comet's red head and yellow tail are both open, and white is the saucer's hull. The castle's red roofs rest on the purple wall and the telescope's white tube on its own tripod, so the two buried groups sit directly above colours the player is already collecting. Red is split into three containers on purpose: at two it was 29 charges against the comet's 24 exposed pixels, so the first red container could not finish without digging the castle out first and it was the only thing in the level that parked.",
+  "hint": "Roped containers are sent together - both must be at the front with two slots free.",
+  "target": { "min": 0.92, "max": 1.0 },
+  "lanes": 3,
+  "boards": [
+    {
+      "picture": "castle",
+      "colors": { "1": "purple", "2": "red", "3": "brown" }
+    },
+    {
+      "picture": "telescope",
+      "colors": { "1": "white", "2": "yellow", "3": "brown" }
+    },
+    {
+      "picture": "ufo",
+      "colors": { "1": "lime", "2": "white", "3": "lime" }
+    },
+    {
+      "picture": "comet",
+      "colors": { "1": "yellow", "2": "red" }
+    }
+  ],
+  "containers": { "split": { "red": 3 } },
+  "queue": { "hidden": 0, "links": 1 }
+}

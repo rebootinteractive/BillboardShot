@@ -1,0 +1,150 @@
+{
+  "name": "Ten Colours High",
+  "label": "hard",
+  "boards": [
+    {
+      "name": "Airplane",
+      "art": [
+        "......WWWW......",
+        ".....WWWWWW.....",
+        ".....WWWWWW.....",
+        ".....WWWWWW.....",
+        ".....WWWWWW.....",
+        ".....WWWWWW.....",
+        ".CCCCWWWWWWCCCC.",
+        "CCCCCWWWWWWCCCCC",
+        "CCCCCWWWWWWCCCCC",
+        "CCCCCWWWWWWCCCCC",
+        "CCCCCWWWWWWCCCCC",
+        ".CCCCWWWWWWCCCC.",
+        "....WWWWWWWW....",
+        "....WWWWWWWW....",
+        ".MMMMWWWWWWMMMM.",
+        ".MMMMWWWWWWMMMM.",
+        "..MMMWWWWWWMMM.."
+      ],
+      "source": { "picture": "airplane", "colors": { "1": "white", "2": "cyan", "3": "pink" } },
+      "keys": [{ "col": 7, "row": 8, "color": "gold" }]
+    },
+    {
+      "name": "Rainbow",
+      "art": [
+        "............RRRR",
+        ".........RRRRRRR",
+        ".......RRRROOOOO",
+        "......RRROOOOOOY",
+        ".....RRROOOYYYYY",
+        "....RROOOYYYYGGG",
+        "...RROOOYYYGGGGG",
+        "..RRROOYYGGGGBBB",
+        "..RROOYYGGGBBBBB",
+        ".RROOYYGGGBBPPPP",
+        ".RROOYYGGBBPPPP.",
+        ".ROOYYGGBBPPP...",
+        "RROOYYGGBPPP....",
+        "RROOYGGBBPP.....",
+        "RROOYGGBBPP.....",
+        "RROYYGGBBP......"
+      ],
+      "source": { "picture": "rainbow", "colors": { "1": "red", "2": "orange", "3": "green", "4": "yellow", "5": "blue", "6": "purple" } }
+    },
+    {
+      "name": "Helicopter",
+      "art": [
+        "................",
+        ".ppppppppppp...O",
+        ".ppppppppppp..OO",
+        ".....YY......OOO",
+        "..bOObbOOOOOOOOO",
+        ".bbbObbOOOOOO...",
+        "bbbbbObOOOO.....",
+        "bbbbbOOOOOO.....",
+        "OOOOOOOOOOO.....",
+        "OOOOOOOOOO......",
+        ".YYYYYYYYY......",
+        "..OOOOOOO.......",
+        "...p....p.......",
+        "...p.....p......",
+        "OOOOOOOOOOOOO..."
+      ],
+      "source": { "picture": "helicopter", "colors": { "1": "orange", "2": "purple", "3": "blue", "4": "yellow", "5": "orange" }, "hidden": ["2", "3"] }
+    },
+    {
+      "name": "Hot Air Balloon",
+      "art": [
+        "....RyOyR....",
+        "..RRyyOyyRR..",
+        ".RRRyyOyyRRR.",
+        "RRRyyyOyyyRRR",
+        "RRRyyyOyyyRRR",
+        "RRRyyyOyyyRRR",
+        ".RRRyyOyyRRR.",
+        "..RRyyOyyRR..",
+        "...RyyOyyR...",
+        "....RyOyR....",
+        ".....yOy.....",
+        ".....K.K.....",
+        ".....K.K.....",
+        "....KKKKK....",
+        "....KKKKK....",
+        "....KKKKK...."
+      ],
+      "source": { "picture": "hot-air-balloon", "colors": { "1": "red", "2": "yellow", "3": "orange", "4": "black", "5": "black", "6": "black" }, "hidden": ["2"] },
+      "lock": { "type": "key", "color": "gold" }
+    },
+    {
+      "name": "Kite",
+      "art": [
+        ".....R.....",
+        "....RRY....",
+        "...RRRYY...",
+        "..RRRRYYY..",
+        ".RRRRRYYYY.",
+        "RRRRRRYYYYY",
+        ".BBBBBGGGG.",
+        "..BBBBGGG..",
+        "...BBBGG...",
+        "....BBG....",
+        ".....B.....",
+        "....KK.....",
+        "....K......",
+        "...KRK.....",
+        ".....K.....",
+        "..........."
+      ],
+      "source": { "picture": "kite", "colors": { "1": "red", "2": "yellow", "3": "blue", "4": "green", "5": "black", "6": "red" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "blue", "charges": 28 },
+      { "color": "yellow", "charges": 33 },
+      { "color": "cyan", "charges": 28 },
+      { "color": "red", "charges": 36 }
+    ],
+    [
+      { "color": "purple", "charges": 23 },
+      { "color": "red", "charges": 37 },
+      { "color": "blue", "charges": 27, "hidden": true },
+      { "color": "purple", "charges": 22 },
+      { "color": "yellow", "charges": 33 },
+      { "color": "orange", "charges": 31 }
+    ],
+    [
+      { "color": "pink", "charges": 22 },
+      { "color": "cyan", "charges": 28 },
+      { "color": "yellow", "charges": 33 },
+      { "color": "black", "charges": 25 },
+      { "color": "white", "charges": 35, "hidden": true }
+    ],
+    [
+      { "color": "red", "charges": 36 },
+      { "color": "green", "charges": 40 },
+      { "color": "white", "charges": 34 },
+      { "color": "orange", "charges": 31 },
+      { "color": "orange", "charges": 31 },
+      { "color": "orange", "charges": 31 },
+      { "color": "white", "charges": 35 }
+    ]
+  ]
+}
