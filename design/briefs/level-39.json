@@ -1,0 +1,78 @@
+{
+  "id": "level-39",
+  "name": "Parade Route",
+  "intent": "The key lock and the ropes for the last time before the finale, built the same careful way level 26 was: the padlock costs turns of the carousel, not slots. The gold key sits in the middle of the truck's trailer, under the blue cab that is exposed across eight columns, so digging for the key and digging for the truck's 65 orange are the same job - the one colour in the level that lives in a single buried place is also the colour that pays for the unlock. What the padlock holds is the ship, 183 pixels and a quarter of the level, and nothing on it is stranded: its yellow decks are also the bus body, its blue hull is also the truck cab and the whole anchor, its cyan windows are also the bus and truck windows and the fish on the line, its red funnels are part of the thirteen-pixel red that runs through both tail lights and the satellite's feed arm. Eight colours and 687 pixels across six boards, three big vehicles and three small objects, which is the shape that keeps a six-board carousel readable. The slot pressure is the small colours that each have to be carried somewhere: red, thirteen pixels spread over four boards including the locked one, so it is never spent in one go, with the satellite's three-pixel feed arm as its only open face; brown, eighteen pixels of fishing rod under the fish and the line; and cyan, 138 pixels across four boards with only the satellite dish showing at the start. A first pass gave the trailer's orange no open home at all and it parked 1.2 sends a run with the careless bot at 8%; painting the fish orange instead of cyan gave it one, and that alone took the careless bot to 15% and the parking to 0.5. The key was deliberately left at middle depth rather than at the top of the trailer - batch 4 measured a top-of-group key costing forty points of careless bot for two points of average difficulty, and a medium level is not the place to spend that.",
+  "target": {
+    "min": 0.54,
+    "max": 0.66
+  },
+  "lanes": 4,
+  "boards": [
+    {
+      "picture": "bus",
+      "colors": {
+        "1": "cyan",
+        "2": "yellow",
+        "3": "white",
+        "4": "black",
+        "5": "yellow",
+        "6": "red"
+      }
+    },
+    {
+      "picture": "ship",
+      "colors": {
+        "1": "yellow",
+        "2": "blue",
+        "3": "red",
+        "4": "cyan"
+      },
+      "lock": {
+        "type": "key",
+        "color": "gold"
+      }
+    },
+    {
+      "picture": "truck",
+      "colors": {
+        "1": "orange",
+        "2": "blue",
+        "3": "black",
+        "4": "cyan",
+        "5": "white",
+        "6": "red"
+      },
+      "key": {
+        "group": "1",
+        "pick": "middle",
+        "color": "gold"
+      }
+    },
+    {
+      "picture": "fishing-pole",
+      "colors": {
+        "1": "brown",
+        "2": "orange",
+        "3": "white"
+      }
+    },
+    {
+      "picture": "satellite-dish",
+      "colors": {
+        "1": "cyan",
+        "2": "red",
+        "3": "white"
+      }
+    },
+    {
+      "picture": "anchor",
+      "colors": {
+        "1": "blue"
+      }
+    }
+  ],
+  "queue": {
+    "hidden": 0,
+    "links": 2
+  }
+}

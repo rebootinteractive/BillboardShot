@@ -1,0 +1,71 @@
+{
+  "id": "level-34",
+  "name": "Order Up",
+  "intent": "Ropes and unreadable lane heads on a six-board table, with nothing hidden on the boards at all - everything the player has to work out is in the deck. Seven colours and 706 pixels. Two of them carry the level and are shared wide: yellow is the pizza's cheese and the whole taco shell, 211 pixels exposed across twenty-five columns, and orange is both burger buns, the croissant, the cheese rind and the taco's own cheese, 208 pixels with three open faces from the first move. Against that sit the four small colours that make the ropes bite: 60 red in three buried tomatoes and the croissant's folds, which are its one exposed home and only one column wide; 58 white, almost all of it the egg, with two sesame seeds buried in the burger's top bun; 41 lime of cheese under an orange rind eleven columns wide; and 8 black speckles that cannot be touched until the egg is gone. Each of those is a single container or two, and each of them is a slot held while a rope waits for its partner. Brown is the level's relief valve - the patty and the pizza crust are both exposed from the first move - so a rope that lands badly always has a brown to spend.",
+  "target": {
+    "min": 0.56,
+    "max": 0.68
+  },
+  "lanes": 4,
+  "boards": [
+    {
+      "picture": "hamburger",
+      "colors": {
+        "1": "orange",
+        "2": "brown",
+        "3": "orange",
+        "4": "red",
+        "5": "white"
+      }
+    },
+    {
+      "picture": "pizza",
+      "colors": {
+        "1": "yellow",
+        "2": "red",
+        "3": "brown"
+      }
+    },
+    {
+      "picture": "taco",
+      "colors": {
+        "1": "yellow",
+        "2": "brown",
+        "3": "red",
+        "4": "orange"
+      },
+      "overrides": [
+        { "group": "1", "pick": "lowest", "color": "lime" },
+        { "group": "1", "pick": "middle", "color": "lime" }
+      ]
+    },
+    {
+      "picture": "croissant",
+      "colors": {
+        "1": "orange",
+        "2": "red"
+      },
+      "overrides": [
+        { "group": "1", "pick": "lowest", "color": "lime" }
+      ]
+    },
+    {
+      "picture": "cheese",
+      "colors": {
+        "1": "lime",
+        "2": "orange"
+      }
+    },
+    {
+      "picture": "egg",
+      "colors": {
+        "1": "white",
+        "2": "black"
+      }
+    }
+  ],
+  "queue": {
+    "hidden": 2,
+    "links": 2
+  }
+}

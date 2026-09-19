@@ -1,0 +1,102 @@
+{
+  "id": "level-36",
+  "name": "Trophy Room",
+  "intent": "Mystery pixels and ropes over a board set that is almost entirely open - six pieces of sports kit, nearly every group exposed from the first move - so the difficulty has to come from the colours and from where a container is allowed to go, not from digging. Seven colours and 759 pixels. Black is the connective tissue, 161 pixels of seams, patches, tyres and grip across four boards, and orange is the opposite: 150 pixels of basketball on one board, fifteen columns wide, the place to dump a container when a rope is not ready. Between them sit red, yellow, brown and white at 79 to 153 pixels each, two boards apiece, which is what makes a rope that lands on the wrong pair expensive. Purple is the level's planning problem and the one thing here that is not a straight race: 24 pixels of griptape two columns wide, plus five odd pixels buried in the middle of the basketball, the soccer ball, the bicycle frame, the trophy cup and the racket frame, so the single purple container has to be carried around the whole carousel and each of those five columns stays shut until it gets there. Three odd pixels were tried first and the level tuned to the top of its band; five put it mid-band without touching anything else. The two mystery groups are the bicycle's white rims under its black tyres and the racket's white strings inside its red frame - both white, and white is also the whole soccer ball, so nothing hidden is the only home of anything. The board set departs from the allocation: the American football was swapped for the spare tennis racket, because the allocated six had only one group the facts mark mystery ok and a level whose second feature is mystery pixels needs more than one place to put them.",
+  "target": {
+    "min": 0.5,
+    "max": 0.62
+  },
+  "lanes": 4,
+  "boards": [
+    {
+      "picture": "basketball",
+      "colors": {
+        "1": "orange",
+        "2": "black"
+      },
+      "overrides": [
+        {
+          "group": "1",
+          "pick": "middle",
+          "color": "purple"
+        }
+      ]
+    },
+    {
+      "picture": "soccer-ball",
+      "colors": {
+        "1": "white",
+        "2": "black"
+      },
+      "overrides": [
+        {
+          "group": "1",
+          "pick": "middle",
+          "color": "purple"
+        }
+      ]
+    },
+    {
+      "picture": "bicycle",
+      "colors": {
+        "1": "red",
+        "2": "white",
+        "3": "black"
+      },
+      "hidden": [
+        "2"
+      ],
+      "overrides": [
+        {
+          "group": "1",
+          "pick": "middle",
+          "color": "purple"
+        }
+      ]
+    },
+    {
+      "picture": "trophy",
+      "colors": {
+        "1": "yellow",
+        "2": "brown"
+      },
+      "overrides": [
+        {
+          "group": "1",
+          "pick": "middle",
+          "color": "purple"
+        }
+      ]
+    },
+    {
+      "picture": "skateboard",
+      "colors": {
+        "1": "brown",
+        "2": "purple",
+        "3": "yellow"
+      }
+    },
+    {
+      "picture": "tennis",
+      "colors": {
+        "1": "red",
+        "2": "white",
+        "3": "black"
+      },
+      "hidden": [
+        "2"
+      ],
+      "overrides": [
+        {
+          "group": "1",
+          "pick": "middle",
+          "color": "purple"
+        }
+      ]
+    }
+  ],
+  "queue": {
+    "hidden": 0,
+    "links": 2
+  }
+}

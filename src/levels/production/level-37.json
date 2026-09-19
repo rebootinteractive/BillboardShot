@@ -1,0 +1,162 @@
+{
+  "name": "Cold Feet",
+  "label": "very hard",
+  "boards": [
+    {
+      "name": "Penguin",
+      "art": [
+        "......KKKK......",
+        ".....KwKKwK.....",
+        "....KwwwwwwK....",
+        "...KKwwwwwwKK...",
+        "...KwwwwwwwwK...",
+        "...KwwOOOOwwK...",
+        "..KKKwwwwwwKKK..",
+        ".KKKwwwwwwwwKKK.",
+        ".KKKwwwwwwwwKKK.",
+        "KKKwwwwwwwwwwKKK",
+        "KKKwwwwwwwwwwKKK",
+        "KKKKwwwwwwwwKKKK",
+        "...KwwwwwwwwK...",
+        "...KKwwwwwwKK...",
+        "...OKKwwwwKKO...",
+        "..OOOOKKKKOOO..."
+      ],
+      "source": { "picture": "penguin", "colors": { "1": "white", "2": "black", "3": "orange" }, "hidden": ["1"] },
+      "lock": { "type": "frozen", "color": "orange", "count": 60 }
+    },
+    {
+      "name": "Snowman",
+      "art": [
+        "....kk........",
+        "...kkrkk......",
+        "...rkkWWWW....",
+        "...kWWWWWWW...",
+        "...WWWWWWWW...",
+        "..WWWWWOOWWW..",
+        "..WWWWWWWWWW..",
+        "kk.WWWWWWWWWkk",
+        ".kWrrrrrrrrWk.",
+        ".kWrrrrrrrrWk.",
+        ".WWWWrrrrrrWW.",
+        ".WWWWWWWrrrWW.",
+        "WWWWWWWWrrrWWW",
+        ".WWWWWWWWWWWW.",
+        ".WWWWWWWWWWWW.",
+        "..WWWWWWWWWW..",
+        "...WWWWWWWW..."
+      ],
+      "source": { "picture": "snowman", "colors": { "1": "white", "2": "red", "3": "white", "4": "black", "5": "orange" }, "hidden": ["2", "4"] }
+    },
+    {
+      "name": "Ice skate",
+      "art": [
+        "..WWWWW......",
+        "..WWWWW......",
+        "..WWWWW......",
+        "..WWWWW......",
+        "..WWWWRR.....",
+        "..WWWWRRR....",
+        ".WWWWWWRRR...",
+        ".WWWWWWWRRR..",
+        "WWWWWWWWWWWW.",
+        "WWWWWWWWWWWWW",
+        "WWWWWWWWWWWWW",
+        "WWWWWWWWWWWWW",
+        ".CC......CC..",
+        ".CC......CC..",
+        "CCCCCCCCCCCCC",
+        "CCCCCCCCCCCCC"
+      ],
+      "source": { "picture": "ice-skate", "colors": { "1": "white", "2": "cyan", "3": "red" } }
+    },
+    {
+      "name": "Christmas Tree",
+      "art": [
+        ".....B.....",
+        "....BBB....",
+        ".....B.....",
+        ".....G.....",
+        "....GGG....",
+        "...GGGGG...",
+        "...GGGBG...",
+        "...GGGGG...",
+        "..GGBGGRG..",
+        "..GGGGGRG..",
+        "..GGGGGGG..",
+        ".GGGGBGGGG.",
+        "GGGGGBGGGGG",
+        "GGRGGGGGRRG",
+        "GGGGGGGGGGG",
+        "...GGRGG...",
+        "...GGGGG..."
+      ],
+      "source": { "picture": "christmas-tree", "colors": { "1": "green", "2": "blue", "3": "red" }, "overrides": [{ "col": 5, "row": 15, "color": "red" }] }
+    },
+    {
+      "name": "Maple Leaf",
+      "art": [
+        "......O......",
+        "....O.O.O....",
+        "....OOOOO....",
+        "....OOOOO....",
+        "..O.OOOOO.O..",
+        "OOOOOOOOOOOOO",
+        ".OOOOOKOOOOO.",
+        "OOOOOOOOOOOOO",
+        ".OOOOOOOOOOO.",
+        "...OOOOOOO...",
+        "...O..O..O...",
+        "......K......",
+        "......O......"
+      ],
+      "source": { "picture": "maple-leaf", "colors": { "1": "orange" }, "overrides": [{ "col": 6, "row": 11, "color": "black" }, { "col": 6, "row": 6, "color": "black" }] }
+    },
+    {
+      "name": "Skis",
+      "art": [
+        ".............BBB",
+        "...........BBBBB",
+        "BBBBBBBBBBBBB...",
+        "BBBBBBBBBBB.....",
+        "......ccc.......",
+        "......ccc....BBB",
+        "......ccc..BBBBB",
+        "BBBBBBBKBBBBB...",
+        "BBBBBBBBBBB....."
+      ],
+      "source": { "picture": "skis", "colors": { "1": "blue", "2": "cyan" }, "hidden": ["2"], "overrides": [{ "col": 7, "row": 7, "color": "black" }] }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "cyan", "charges": 22 },
+      { "color": "green", "charges": 27 },
+      { "color": "orange", "charges": 32 },
+      { "color": "white", "charges": 38 },
+      { "color": "white", "charges": 38 },
+      { "color": "black", "charges": 30 },
+      { "color": "black", "charges": 30 },
+      { "color": "white", "charges": 38, "link": "a" }
+    ],
+    [
+      { "color": "blue", "charges": 36 },
+      { "color": "black", "charges": 30 },
+      { "color": "white", "charges": 38 },
+      { "color": "red", "charges": 24 },
+      { "color": "white", "charges": 38 },
+      { "color": "orange", "charges": 31, "link": "b" },
+      { "color": "cyan", "charges": 21, "link": "a" },
+      { "color": "white", "charges": 38 }
+    ],
+    [
+      { "color": "green", "charges": 28 },
+      { "color": "blue", "charges": 36 },
+      { "color": "white", "charges": 38 },
+      { "color": "red", "charges": 23 },
+      { "color": "white", "charges": 38 },
+      { "color": "green", "charges": 27 },
+      { "color": "orange", "charges": 31, "link": "b" }
+    ]
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "id": "level-37",
+  "name": "Cold Feet",
+  "intent": "The batch's first very hard level and the counting peak the plan asks for: a frozen board to feed while two ropes keep taking the choice away. The penguin is iced over and wants 60 orange, and orange outside the ice is one board - the maple leaf, seventy-nine pixels thirteen columns wide - so two orange containers have to finish there before a quarter of the level opens at all. What the ice holds hostage is black, and black alone: 70 of the level's 90 black pixels are the penguin's back, another 17 are the snowman's hat under the snow, and the only black a player can reach from the first move is three odd pixels, two at the foot and middle of the maple leaf and one under the skis. So a black container is a slot spent on almost nothing until the penguin thaws - the same shape that made level 27 a wall rather than a jam, where one colour is starved and everything else flows. Everything else does flow: 304 white across the snowman, the skate boot and the frozen belly, with the snowman's snow and base merged into one region thirteen columns wide; 82 green of tree and 72 blue of skis, both open from the first move; cyan on the blade. Red is the second decision, 47 pixels in the scarf, the laces and the ornaments - all three buried, but all three under things the player wants to clear anyway - with one odd pixel at the foot of the tree as its only open face. Four mystery groups, and every one is a colour visible elsewhere: the belly is white like the snowman, the scarf red like the ornaments, the hat black like the odd pixels, the bindings cyan like the blade. An earlier pass froze white and black together and the careful bot fell to 63%; starving one colour instead of two is what brought it back. The level is dealt into three lanes rather than four for the same reason - at four lanes the tuner could only reach the band by loading every lane head with a trap and the careful bot sat at 73%, and at three it reaches 22% with the careful bot at 93%, which is what a peak should look like: a wall a good solver climbs, not a deck that jams.",
+  "label": "very hard",
+  "target": {
+    "min": 0.15,
+    "max": 0.28
+  },
+  "lanes": 3,
+  "boards": [
+    {
+      "picture": "penguin",
+      "colors": {
+        "1": "white",
+        "2": "black",
+        "3": "orange"
+      },
+      "hidden": [
+        "1"
+      ],
+      "lock": {
+        "type": "frozen",
+        "color": "orange",
+        "count": 60
+      }
+    },
+    {
+      "picture": "snowman",
+      "colors": {
+        "1": "white",
+        "2": "red",
+        "3": "white",
+        "4": "black",
+        "5": "orange"
+      },
+      "hidden": [
+        "2",
+        "4"
+      ]
+    },
+    {
+      "picture": "ice-skate",
+      "colors": {
+        "1": "white",
+        "2": "cyan",
+        "3": "red"
+      }
+    },
+    {
+      "picture": "christmas-tree",
+      "colors": {
+        "1": "green",
+        "2": "blue",
+        "3": "red"
+      },
+      "overrides": [
+        {
+          "group": "1",
+          "pick": "lowest",
+          "color": "red"
+        }
+      ]
+    },
+    {
+      "picture": "maple-leaf",
+      "colors": {
+        "1": "orange"
+      },
+      "overrides": [
+        {
+          "group": "1",
+          "pick": "lowest",
+          "color": "black"
+        },
+        {
+          "group": "1",
+          "pick": "middle",
+          "color": "black"
+        }
+      ]
+    },
+    {
+      "picture": "skis",
+      "colors": {
+        "1": "blue",
+        "2": "cyan"
+      },
+      "hidden": [
+        "2"
+      ],
+      "overrides": [
+        {
+          "group": "1",
+          "pick": "lowest",
+          "color": "black"
+        }
+      ]
+    }
+  ],
+  "containers": {
+    "split": {
+      "orange": 3
+    }
+  },
+  "queue": {
+    "hidden": 0,
+    "links": 2
+  }
+}

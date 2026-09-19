@@ -1,0 +1,152 @@
+{
+  "name": "Trophy Room",
+  "boards": [
+    {
+      "name": "Basketball",
+      "art": [
+        ".....OOKOOO.....",
+        "...OOKOKOOKOO...",
+        "..OOKOOKOOOKOO..",
+        ".OOKOOOKOOOOKOO.",
+        ".OOKOOOKOOOOKOO.",
+        "OOKOOOOKOOOOOKOO",
+        "OOKOOOOKOOOOOKOO",
+        "KKKKKKKKKKKKKKKK",
+        "OOKOOOOKPOOOOKOO",
+        "OOKOOOOKOOOOOKOO",
+        "OOKOOOOKOOOOOKOO",
+        ".OOKOOOKOOOOKOO.",
+        ".OOKOOOKOOOOKOO.",
+        "..OOKOOKOOOKOO..",
+        "...OOKOKOOKOO...",
+        ".....OOKOOO....."
+      ],
+      "source": { "picture": "basketball", "colors": { "1": "orange", "2": "black" }, "overrides": [{ "col": 8, "row": 8, "color": "purple" }] }
+    },
+    {
+      "name": "Soccer Ball",
+      "art": [
+        "....KKWKK....",
+        "..KKWWWWKKK..",
+        ".KWWWWWWKKKK.",
+        ".WWKKKWWWKKW.",
+        "KWWKKKWWWWWWK",
+        "KWWKKKWWWWWWK",
+        "KWWKKWPWWWWWK",
+        "KWWWWWWWKKKWK",
+        "KWWWWWWWKKKWK",
+        ".WWKWWWWKKWW.",
+        ".KWKKKWWWWWK.",
+        "..KKKKWWWWK..",
+        "....KKWKK...."
+      ],
+      "source": { "picture": "soccer-ball", "colors": { "1": "white", "2": "black" }, "overrides": [{ "col": 6, "row": 6, "color": "purple" }] }
+    },
+    {
+      "name": "Bicycle",
+      "art": [
+        ".RRRR......RRRR.",
+        "..RRR.......RRR.",
+        "....RR.....RR...",
+        "....RRRRRRRRR...",
+        ".....RRR..RRR...",
+        "......RRPRRR....",
+        "..KKK..RRRRKKK..",
+        ".KwwwKRRRRKwwwK.",
+        "KwwwwwKRRKwwwwwK",
+        "Kww.wwKRRKww.wwK",
+        "KwwwwwKRRKwwwwwK",
+        ".KwwwKRRRRKwwwK.",
+        "..KKKRRRRRRKKK.."
+      ],
+      "source": { "picture": "bicycle", "colors": { "1": "red", "2": "white", "3": "black" }, "hidden": ["2"], "overrides": [{ "col": 8, "row": 5, "color": "purple" }] }
+    },
+    {
+      "name": "Trophy",
+      "art": [
+        "..YYYYYYYY..",
+        "..YYYYYYYY..",
+        "YYYYYYYYYYYY",
+        "Y.YYYYYYYYYY",
+        ".YYYYYPYYYY.",
+        "...YYYYYY...",
+        "....YYYY....",
+        ".....YY.....",
+        ".....YY.....",
+        "..NNNYYNNN..",
+        ".NNNNNNNNN..",
+        ".NNNYYYYNNN.",
+        ".NNNNYYNNNN.",
+        ".NNNNNNNNNN."
+      ],
+      "source": { "picture": "trophy", "colors": { "1": "yellow", "2": "brown" }, "overrides": [{ "col": 6, "row": 4, "color": "purple" }] }
+    },
+    {
+      "name": "Skateboard",
+      "art": [
+        "PP............PP",
+        "PPP..........PPP",
+        ".PPPPPPPPPPPPPP.",
+        ".NNNNNNNNNNNNNN.",
+        ".NNNNNNNNNNNNNN.",
+        "..NNNNNNNNNNNN..",
+        "...YY......YY...",
+        "..YYYY....YYYY..",
+        "..YYYY....YYYY..",
+        "..YYYY....YYYY.."
+      ],
+      "source": { "picture": "skateboard", "colors": { "1": "brown", "2": "purple", "3": "yellow" } }
+    },
+    {
+      "name": "Tennis racket",
+      "art": [
+        "...RRR...",
+        ".RPwwwRR.",
+        "RRwwwwwRR",
+        "RwwwwwwwR",
+        "RwwwwwwwR",
+        "RwwwwwwwR",
+        "RRwwwwwRR",
+        ".RRwwwRR.",
+        "...RRR...",
+        "...KKK...",
+        "...KKK...",
+        "...KKK...",
+        "...KKK..."
+      ],
+      "source": { "picture": "tennis", "colors": { "1": "red", "2": "white", "3": "black" }, "hidden": ["2"], "overrides": [{ "col": 2, "row": 1, "color": "purple" }] }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "orange", "charges": 38 },
+      { "color": "red", "charges": 30 },
+      { "color": "black", "charges": 32, "link": "a" },
+      { "color": "yellow", "charges": 32 },
+      { "color": "black", "charges": 32 },
+      { "color": "brown", "charges": 40 },
+      { "color": "white", "charges": 38 }
+    ],
+    [
+      { "color": "yellow", "charges": 33 },
+      { "color": "brown", "charges": 39 },
+      { "color": "white", "charges": 38, "link": "a" },
+      { "color": "red", "charges": 30, "link": "b" },
+      { "color": "black", "charges": 33 },
+      { "color": "black", "charges": 32 }
+    ],
+    [
+      { "color": "purple", "charges": 29 },
+      { "color": "orange", "charges": 37 },
+      { "color": "black", "charges": 32 },
+      { "color": "orange", "charges": 37 }
+    ],
+    [
+      { "color": "orange", "charges": 38 },
+      { "color": "white", "charges": 39 },
+      { "color": "yellow", "charges": 33 },
+      { "color": "white", "charges": 38, "link": "b" },
+      { "color": "red", "charges": 29 }
+    ]
+  ]
+}
