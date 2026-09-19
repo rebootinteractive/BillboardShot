@@ -6,7 +6,7 @@ import { Billboard, type EligibleTarget, type Tile } from './Billboard';
 import { Shooter } from './Shooter';
 import { PulledCube } from './PulledCube';
 import { levelVersion, type LevelData } from './level';
-import { LEVELS, SANDBOX, levelFileForNumber } from './levels';
+import { LEVELS, SANDBOX, levelFileForNumber, levelIndexForNumber } from './levels';
 import { KeyFlight } from './keys';
 import { PICTURES } from '../art/pictures';
 import { previewLevel } from '../art/preview';
@@ -204,7 +204,7 @@ export class GameApp {
     this.hud.dismiss();
     this.hud.setLevel(
       this.isSideLevel() ? `· ${level.name}` : String(this.levelNumber),
-      this.sandboxName ? `sandbox:${this.sandboxName}` : `level:${((this.levelNumber - 1) % LEVELS.length) + 1}`,
+      this.sandboxName ? `sandbox:${this.sandboxName}` : `level:${levelIndexForNumber(this.levelNumber) + 1}`,
     );
     this.hud.setDifficultyLabel(level.label ?? null);
     const attempt = this.playtest.start({
