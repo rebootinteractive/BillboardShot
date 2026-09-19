@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { roundedBox, beveledBorder } from './visuals';
 import type { ColorKey } from '../shared/types';
 import { COLOR_HEX } from '../shared/colors';
@@ -357,40 +358,55 @@ export class Billboard {
     }
   }
 
-  /** One uninterrupted top-and-side border. Preserve the open bottom through
-   * which pixels leave, stopping the sides where the silhouette starts tapering. */
+  /** Follow both outer side edges through every widening and narrowing, leaving
+   * the bottom open for pixels to leave. Empty rows separate independent outlines. */
   private buildOutline(): THREE.BufferGeometry {
     const filled = (col: number, row: number) => !!this.grid[col][row] || !!this.keyAt(col, row);
-    const span = (row: number): [number, number] | null => {
-      const columns = this.grid.flatMap((_, c) => filled(c, row) ? [c] : []);
+    const spans = Array.from({ length: this.rows }, (_, row): [number, number] | null => {
+      const columns = this.grid.flatMap((_, col) => filled(col, row) ? [col] : []);
       return columns.length ? [columns[0], columns[columns.length - 1]] : null;
-    };
-    const top = this.rows - 1;
-    const first = span(top);
-    if (!first) return new THREE.BufferGeometry();
-    let [left, right] = first;
-    let bottom = top;
-    for (let row = top - 1; row >= 0; row--) {
-      const current = span(row);
-      if (!current || current[0] > left || current[1] < right) break;
-      [left, right] = current;
-      bottom = row;
-    }
+    });
     const point = (col: number, row: number) => new THREE.Vector2(
       (col - this.cols / 2) * this.cell,
       (row - this.rows / 2) * this.cell,
     );
-    this.frameMounts = [point(left - 0.12, bottom + 0.65), point(right + 1.12, bottom + 0.65)];
-    const edge: THREE.Vector2[] = [point(left, bottom)];
-    for (let col = left; col <= right; col++) {
-      let ceiling = top;
-      while (ceiling > bottom && !filled(col, ceiling)) ceiling--;
-      edge.push(point(col, ceiling + 1), point(col + 1, ceiling + 1));
+    const occupiedRows = spans.flatMap((span, row) => span ? [row] : []);
+    if (!occupiedRows.length) return new THREE.BufferGeometry();
+    // Keep chains on real side edges, a little above their central padlock.
+    const mountRow = occupiedRows.reduce((best, row) =>
+      Math.abs(row - this.rows * 0.6) < Math.abs(best - this.rows * 0.6) ? row : best);
+    const [mountLeft, mountRight] = spans[mountRow]!;
+    this.frameMounts = [point(mountLeft - 0.12, mountRow + 0.5), point(mountRight + 1.12, mountRow + 0.5)];
+
+    const geometries: THREE.BufferGeometry[] = [];
+    for (let bottom = 0; bottom < this.rows; bottom++) {
+      if (!spans[bottom]) continue;
+      let top = bottom;
+      while (top + 1 < this.rows && spans[top + 1]) top++;
+      const edge: THREE.Vector2[] = [];
+      // Ascend the complete left edge, including the undersides of wider rows.
+      for (let row = bottom; row <= top; row++) {
+        edge.push(point(spans[row]![0], row), point(spans[row]![0], row + 1));
+      }
+      // Preserve notches in the upper silhouette (for example a heart's lobes).
+      const [left, right] = spans[top]!;
+      for (let col = left; col <= right; col++) {
+        let ceiling = top;
+        while (ceiling > bottom && !filled(col, ceiling)) ceiling--;
+        edge.push(point(col, ceiling + 1), point(col + 1, ceiling + 1));
+      }
+      // Descend the complete right edge to the final occupied row.
+      for (let row = top; row >= bottom; row--) {
+        edge.push(point(spans[row]![1] + 1, row + 1), point(spans[row]![1] + 1, row));
+      }
+      const unique = edge.filter((p, i) => i === 0 || !p.equals(edge[i - 1]));
+      geometries.push(beveledBorder(unique, this.cell * 0.34, this.cell * 0.75, this.cell * 0.24));
+      bottom = top;
     }
-    edge.push(point(right + 1, bottom));
-    // Adjacent columns at the same height share an endpoint.
-    const unique = edge.filter((p, i) => i === 0 || !p.equals(edge[i - 1]));
-    return beveledBorder(unique, this.cell * 0.34, this.cell * 0.75, this.cell * 0.24);
+    if (geometries.length === 1) return geometries[0];
+    const merged = mergeGeometries(geometries)!;
+    geometries.forEach(geometry => geometry.dispose());
+    return merged;
   }
 
   private material(c: ColorKey): THREE.MeshStandardMaterial {

@@ -31,10 +31,10 @@ ceiling height, rope length or pixel size are tuned. Below that, on the ground,
 ## Pulling (automatic)
 
 Each billboard carries an **outline hugging its own silhouette** — top and side edges
-only, never the bottom. The outline is traced downward from the top row and stops at
-the first row narrower than everything above it: the sides may widen as they descend
-but never pull back in. On the heart that ends the sides after the fourth row, where
-the lobes give way to the taper.
+only, never the bottom. Both outer side edges continue through every occupied row,
+following the silhouette inward and outward as it narrows or widens. On the heart,
+the frame follows both lobes and continues down the taper to the tip. Completely
+empty rows separate independent outlines.
 
 A gap inside a row that drains out of the bottom gets no side edges either, so the
 ghost's feet do not sprout teeth. A gap that is closed off below — the notch between
