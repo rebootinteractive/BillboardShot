@@ -12,6 +12,7 @@
   "cellSize": 0.15,
   "ceilingHeight": 8.7,
   "ropeLength": 0.6,
+  "frameStyle": "off",
   "swingStiffness": 22,
   "swingDamping": 6,
   "swingImpulse": 0.045,

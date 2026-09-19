@@ -23,3 +23,23 @@ export function saveLevelNumber(n: number) {
     /* storage blocked: progress lasts for this visit only */
   }
 }
+
+/** Every key the game stores in this browser starts with this. */
+const PREFIX = 'billboardshot.';
+
+/**
+ * Erase everything the game keeps in this browser: level progress, playtest results
+ * and the device id. The caller should reload afterwards.
+ */
+export function clearSavedData() {
+  try {
+    const keys: string[] = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key?.startsWith(PREFIX)) keys.push(key);
+    }
+    for (const key of keys) localStorage.removeItem(key);
+  } catch {
+    /* storage blocked: there is nothing saved to clear */
+  }
+}

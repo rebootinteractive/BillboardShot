@@ -12,9 +12,9 @@ import { PICTURES } from '../art/pictures';
 import { previewLevel } from '../art/preview';
 import { LinkChain } from './LinkChain';
 import { ProgressShot } from './ProgressShot';
-import { Playtest, sendResults } from './analytics';
+import { Playtest, savedAttemptCount, sendResults } from './analytics';
 import { chooseFirers, chooseTarget, isStuck, nextFront, sendBlocker, slotColumn } from '../rules/core';
-import { loadLevelNumber, saveLevelNumber } from './progress';
+import { clearSavedData, loadLevelNumber, saveLevelNumber } from './progress';
 import { Hud } from './Hud';
 import { Tutorial } from './Tutorial';
 import { Feedback } from './Feedback';
@@ -159,6 +159,16 @@ export class GameApp {
           else if (how === 'mail-partial') this.hud.flash('Too many results for one email: please attach the saved file');
         });
       },
+      savedAttempts: () => savedAttemptCount(),
+      onClearData: () => {
+        // Drop the attempt in progress first, or leaving the page would save it again.
+        this.playtest.discard();
+        clearSavedData();
+        const params = new URLSearchParams(location.search);
+        params.delete('level');
+        const query = params.toString().replace(/=(?=&|$)/g, '');
+        location.replace(`${location.pathname}${query ? `?${query}` : ''}`);
+      },
     });
     this.tutorial = new Tutorial(parent);
     window.addEventListener('pagehide', this.onPageHide);
@@ -241,7 +251,7 @@ export class GameApp {
     // --- billboards ---
     level.boards.forEach((data, i) => {
       const angle = (i / level.boards.length) * Math.PI * 2;
-      const bb = new Billboard(data, angle, s, i, level.cellSize ?? s.cellSize);
+      const bb = new Billboard(data, angle, s, i, level.cellSize ?? s.cellSize, s.frameStyle);
       const spoke = new THREE.Mesh(spokeGeo, ringMat);
       spoke.position.set(0, s.ceilingHeight, s.carouselRadius / 2);
       spoke.rotation.y = Math.PI / 2;
@@ -772,7 +782,6 @@ export class GameApp {
       sh.updateVisual(dt, this.camera.quaternion);
     }
     this.hud.tick(dt);
-    this.updateHud();
     if (this.over === 'none') this.checkEnd();
     if (this.winReveal > 0) {
       this.winReveal -= dt;
@@ -1004,15 +1013,6 @@ export class GameApp {
     const set = new Set<ColorKey>();
     for (const bb of this.billboards) bb.addFirableColors(set);
     return set;
-  }
-
-  private updateHud() {
-    let tiles = 0;
-    for (const bb of this.billboards) tiles += bb.aliveCount;
-    const deckUsed = this.deckOccupants.filter((o) => o !== null).length;
-    let ammo = 0;
-    for (const lane of this.lanes) ammo += lane.length;
-    this.hud.setStats(tiles, deckUsed, this.deckSlots.length, ammo);
   }
 
   /**
