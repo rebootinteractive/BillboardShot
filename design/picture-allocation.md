@@ -57,6 +57,28 @@ Level 11 introduces mystery pixels, so its hidden group must be one the facts ma
 choosing; if none of the three can hide a group, say so rather than hiding one that
 reveals at the start.
 
+## Batch 3 — levels 17–24
+
+| # | Budget | Theme | Pictures (pixels) | Total |
+|---|---|---|---|---|
+| 17 | ~650 | Workshop | gear (192), camera (167), magnet (144), light-bulb (80), scissors (70) | 653 |
+| 18 | ~555 | Workshop | door (200), house (170), bell (115), umbrella (68) | 553 |
+| 19 | ~615 | Workshop | abacus (201), alarm-clock (197), graduation-cap (87), toothbrush (78), headphones (50) | 613 |
+| 20 | ~465 | Workshop | treasure-chest (168), gift (154), guitar (95), key (47) | 464 |
+| 21 | ~650 | Night Sky | alien (198), planet (182), rocket (132), satellite (84), moon (56) | 652 |
+| 22 | ~680 | Night Sky | airplane (182), rainbow (179), helicopter (132), hot-air-balloon (118), kite (68) | 679 |
+| 23 | ~595 | Night Sky | storm-cloud (146), sun-cloud (146), rain-cloud (140), tornado (118), droplet (46) | 596 |
+| 24 | ~400 | Night Sky | castle (164), telescope (100), ufo (83), comet (51) | 398 |
+
+37 pictures, each used once, none shared with batches 1 or 2.
+
+Level 20 introduces the key lock, so the **treasure chest is its locked board** and the
+`key` picture sits on an open one — the lesson reads itself. Levels 20 and 24 are
+onboarding and are budgeted short as well as easy, like levels 7 and 15 before them.
+
+Level 23 is deliberately all weather, which gives the Night Sky block a change of
+texture halfway through.
+
 ## Used so far
 
 Batch 1: pear, strawberry, lemon, apple, grapes, chestnut, watermelon, carrot, broccoli,
@@ -68,10 +90,16 @@ butterfly, hibiscus, potted-plant, snail, beetle, ant, clover, sunflower, blosso
 mushroom, tulip, rosette, honeybee, palm-tree, pine-tree, ladybug, cactus, rose, spider,
 ruler, hammer, paintbrush, screwdriver, flashlight
 
+Batch 3: gear, camera, magnet, light-bulb, scissors, door, house, bell, umbrella, abacus,
+alarm-clock, graduation-cap, toothbrush, headphones, treasure-chest, gift, guitar, key,
+alien, planet, rocket, satellite, moon, airplane, rainbow, helicopter, hot-air-balloon,
+kite, storm-cloud, sun-cloud, rain-cloud, tornado, droplet, castle, telescope, ufo, comet
+
 **cherries** was allocated to level 1 and is now free again.
 
 ## Not available for reuse until
 
-Batch 1's pictures are free again from level 17, batch 2's from level 25 — eight levels
-after their first use. Each may be used only once more across the whole game, and the
-second use must change both the picture's color and its job on the board.
+Batch 1's pictures are free again from level 17, batch 2's from level 25 and batch 3's
+from level 33 — eight levels after their first use. Each may be used only once more across
+the whole game, and the second use must change both the picture's color and its job on the
+board.
