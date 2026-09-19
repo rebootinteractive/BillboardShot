@@ -1,0 +1,117 @@
+{
+  "name": "Under the Leaves",
+  "label": "hard",
+  "boards": [
+    {
+      "name": "Snail",
+      "art": [
+        "oooo............",
+        "oooo............",
+        ".o.o..nnnnnn....",
+        ".YYYnnnnnnnnnn..",
+        "YYYYnnnnnnnnnnn.",
+        "YYYYYnnnnnnnnnn.",
+        "YYYYYnnnnnnnnnnn",
+        "YYYYYnnnnnnnnnnn",
+        "YYYYYnnnnnnnnnnn",
+        "YYYYYnnnnnnnnnnn",
+        "YYYYYnnnnnnnnnnn",
+        "YYYYYnnnnnnnnnn.",
+        "YYYYYnnnnnnnnnn.",
+        "YYYYYYnnnnnnnnYY",
+        ".YYYYYYnnnnnnYYY",
+        "..YYYYYYYYYYYYYY"
+      ],
+      "source": { "picture": "snail", "colors": { "1": "brown", "2": "yellow", "3": "orange" }, "hidden": ["1", "3"] }
+    },
+    {
+      "name": "Beetle",
+      "art": [
+        "...K......K...",
+        "...KK....KK...",
+        "....KKKKKK....",
+        "...KKKKKKKK...",
+        "..KKKKKKKKKK..",
+        "..GGGGKKGGGG..",
+        "PPGGGGKKGGGGPP",
+        ".PGGGGKKGGGGP.",
+        "..GGGGKKGGGG..",
+        "PPGGGGKKGGGGPP",
+        ".PGGGGKKGGGGP.",
+        "..GGGGKKGGGG..",
+        "PPGGGGKKGGGGPP",
+        ".PGGGGKKGGGGP.",
+        "..GGGGKKGGGG..",
+        "...GGGKKGGG...",
+        "....GGKKGG...."
+      ],
+      "source": { "picture": "beetle", "colors": { "1": "green", "2": "black", "3": "purple" } }
+    },
+    {
+      "name": "Ant",
+      "art": [
+        "....r...r....",
+        "...rrrrrrr...",
+        "..rrrrrrrrr..",
+        "...rrrrrrr...",
+        "..KKKKKKKKK..",
+        "KKK..KKK..KKK",
+        "..KKKKKKKKK..",
+        "KKK..KKK..KKK",
+        "..KKKKKKKKK..",
+        "KKK..KKK..KKK",
+        ".....KKK.....",
+        "...MMMMMMM...",
+        "..MMMMMMMMM..",
+        ".MMMMMMMMMMM.",
+        ".MMMMMMMMMMM.",
+        "..MMMMMMMMM..",
+        "...MMMMMMM..."
+      ],
+      "source": { "picture": "ant", "colors": { "1": "red", "2": "black", "3": "pink" }, "hidden": ["1"] }
+    },
+    {
+      "name": "Four leaf clover",
+      "art": [
+        ".LL...LL.",
+        "LLLL.LLLL",
+        "LLLLLLLLL",
+        ".LLLLLLL.",
+        "LLLLLLLLL",
+        "LLLL.LLLL",
+        ".LL...LL.",
+        "......CC.",
+        "...CCCC.."
+      ],
+      "source": { "picture": "clover", "colors": { "1": "lime", "2": "cyan" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "brown", "charges": 32 },
+      { "color": "black", "charges": 37, "hidden": true },
+      { "color": "orange", "charges": 10 },
+      { "color": "pink", "charges": 27 },
+      { "color": "brown", "charges": 31 },
+      { "color": "green", "charges": 30 }
+    ],
+    [
+      { "color": "black", "charges": 37 },
+      { "color": "green", "charges": 30 },
+      { "color": "yellow", "charges": 39 },
+      { "color": "purple", "charges": 18 },
+      { "color": "cyan", "charges": 6 },
+      { "color": "brown", "charges": 32 },
+      { "color": "brown", "charges": 31 },
+      { "color": "pink", "charges": 27 }
+    ],
+    [
+      { "color": "lime", "charges": 25 },
+      { "color": "lime", "charges": 24 },
+      { "color": "black", "charges": 37 },
+      { "color": "red", "charges": 25 },
+      { "color": "yellow", "charges": 39, "hidden": true },
+      { "color": "green", "charges": 30 }
+    ]
+  ]
+}

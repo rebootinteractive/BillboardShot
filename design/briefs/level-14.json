@@ -1,0 +1,53 @@
+{
+  "id": "level-14",
+  "name": "Garden Shade",
+  "intent": "The last mystery level of the batch and the first to put mystery pixels and hidden containers together, at medium weight rather than level 12's. Eight colours and two hidden groups, both chosen so the player is never guessing blind: the rosette's 60-pixel inner petals are orange, a colour whose only other home is the palm tree's ten coconuts, so an orange container has a little visible work and a lot of invisible work; the pine's lime highlights hide under a colour that is also the palm's leaves, so lime is always safe to send. The honeybee's white wings are left visible on purpose - white exists nowhere else in the level, and hiding a single-purpose colour as well was what made an earlier cut of this level collapse for careless play. The rosette's nine-pixel yellow centre sits on top of the hidden orange, which is the level's one real ordering problem. Two hidden containers.",
+  "target": {
+    "min": 0.58,
+    "max": 0.66
+  },
+  "lanes": 3,
+  "boards": [
+    {
+      "picture": "rosette",
+      "colors": {
+        "1": "red",
+        "2": "orange",
+        "3": "yellow"
+      },
+      "hidden": [
+        "2"
+      ]
+    },
+    {
+      "picture": "honeybee",
+      "colors": {
+        "1": "black",
+        "2": "yellow",
+        "3": "white"
+      }
+    },
+    {
+      "picture": "palm-tree",
+      "colors": {
+        "1": "brown",
+        "2": "lime",
+        "3": "orange"
+      }
+    },
+    {
+      "picture": "pine-tree",
+      "colors": {
+        "1": "green",
+        "2": "lime",
+        "3": "brown"
+      },
+      "hidden": [
+        "2"
+      ]
+    }
+  ],
+  "queue": {
+    "hidden": 2
+  }
+}

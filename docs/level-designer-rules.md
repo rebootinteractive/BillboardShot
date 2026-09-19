@@ -87,8 +87,10 @@ pulling is expensive.
 4. **Number of colors.** More colors means more distinct containers competing for slots.
    [hypothesis]
 5. **Color spread across boards.** A color on several boards can be pulled from more
-   places, which is easier to use but makes the player turn the carousel more.
-   [hypothesis]
+   places, which is easier to use but makes the player turn the carousel more. Removing
+   sharing is the reliable way to make a level harder: level 12 would not come below 82%
+   on its queue alone, and de-sharing two colors took it to 46% without a single odd
+   pixel. [verified, batch 2]
 6. **Container sizes.** Large containers stay on the deck longer; sizes that don't match
    the exposed pixels leave partly filled containers. [hypothesis]
 7. **Lanes.** Not a dependable lever, and weaker than it looks. Re-dealing the same
@@ -96,9 +98,30 @@ pulling is expensive.
    harder with fewer lanes, another easier, a third was hardest at 3 lanes and easier at
    both 2 and 4. Choose a lane count for the shape of the level and tune with something
    else. [verified, batch 1]
-8. **Hidden information** (mystery pixels, hidden containers). Adds uncertainty rather than
-   hard constraints; its weight depends on how much the hidden part matters to the order.
-   [hypothesis]
+8. **Hidden information** (mystery pixels, hidden containers). A **weak** lever on its own.
+   Level 12 pairs both features and still would not come below 82% until its palette was
+   de-shared; hiding things makes a level uncertain, not hard. Use it for how a level
+   feels and lean on colors for how hard it is. [verified, batch 2]
+
+### Where a color lives, and the careless bot
+
+Two shapes make a level far harsher for a new player than its difficulty score suggests.
+Both were found in batch 2, where the average bot sat comfortably in band while the
+careless bot — the closest model we have of someone in their first week — collapsed.
+
+- **A color whose every home is buried.** Its containers reach the deck with nowhere to
+  go and park there. Level 16's brown lived only in two buried handles and clogged 1.8
+  sends a run; giving brown one exposed home moved the careless bot from 13% to 29% and
+  barely touched the average bot.
+- **A color with exactly one home, hidden as mystery pixels.** The player cannot see the
+  only place that container can go, so they cannot plan around it at all. Level 14 hid the
+  only white on the board and the careless bot sat at 17%; un-hiding it reached 34% at the
+  same average difficulty, with two mystery groups still in the level.
+
+So: check the careless bot on every level, not just the average. When it is far below what
+the slot implies, the fix is usually structural — give a color an exposed home, or stop
+hiding a single-purpose one — rather than another pass of the queue tuner. [verified,
+batch 2]
 
 ---
 

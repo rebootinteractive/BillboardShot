@@ -67,6 +67,22 @@ export class Hud {
   }
 
   /**
+   * The peak marker beside the level number. Naming a hard level before it is played
+   * turns a loss into a challenge taken on rather than something that came out of nowhere.
+   */
+  setDifficultyLabel(label: 'hard' | 'very hard' | null) {
+    const existing = this.root.querySelector('.hud-level-peak');
+    if (!label) {
+      existing?.remove();
+      return;
+    }
+    const chip = existing ?? document.createElement('div');
+    chip.className = `hud-level-peak${label === 'very hard' ? ' severe' : ''}`;
+    chip.textContent = label === 'very hard' ? 'VERY HARD' : 'HARD';
+    if (!existing) this.root.querySelector('.hud-level-row')!.appendChild(chip);
+  }
+
+  /**
    * Debug only: turns the level pill into a dropdown of every level, with a step back and
    * forward either side of it. The native select sits invisibly over the pill, so a tap
    * opens the system picker on a phone too; the arrows are siblings of the pill rather

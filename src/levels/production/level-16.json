@@ -1,0 +1,133 @@
+{
+  "name": "Cold Workbench",
+  "boards": [
+    {
+      "name": "Ruler",
+      "art": [
+        "KWKWKWKWKWKWKWKW",
+        "KWKWKWKWKWKWKWKW",
+        "KWWWKWWWKWWWKWWW",
+        "KWWWWWWWKWWWWWWW",
+        "YYYYYYYYYYYYYYYY",
+        "YYYYYYYYYYYYYYYY",
+        "YYYYYYYYYYYYYYYY",
+        "YYYYYYYYYYYYYYYY",
+        "YYYYYYYYYYYYYYYY"
+      ],
+      "source": { "picture": "ruler", "colors": { "1": "yellow", "2": "white", "3": "black" } },
+      "lock": { "type": "frozen", "color": "purple", "count": 36 }
+    },
+    {
+      "name": "Hammer",
+      "art": [
+        "......PPPPPPP",
+        "...PPPPPPPPPP",
+        "PPPPPPPPPPPPP",
+        "PPPPPPPPPPPPP",
+        "PPP..PPPPPPPP",
+        "PP...PPPPPPPP",
+        "PP....PPPPPPP",
+        ".....NNNNN...",
+        ".....NNNNN...",
+        ".....NNNNN...",
+        ".....NNNNN...",
+        ".....NNNNN...",
+        "....NNNNNNN..",
+        "....NNNNNNN..",
+        "....NNNNNNN..",
+        "....NNNNNNN..",
+        "....NNNNNNN.."
+      ],
+      "source": { "picture": "hammer", "colors": { "1": "purple", "2": "brown", "3": "brown" } }
+    },
+    {
+      "name": "Paintbrush",
+      "art": [
+        "...NNNN...",
+        "...NNNN...",
+        "...NNNN...",
+        "...NNNN...",
+        "...NNNN...",
+        "..NNNNNN..",
+        "..NNNNNN..",
+        ".WWWWWWWW.",
+        ".WWWWWWWW.",
+        ".WWWWWWWW.",
+        "YYYYYYYYYY",
+        "YYYYYYYYYY",
+        "YYYYYYYYYY",
+        "YYYYYYYYYY",
+        "BBBBBBBBBB",
+        ".BBBBBBBB.",
+        "..BBBBBB.."
+      ],
+      "source": { "picture": "paintbrush", "colors": { "1": "yellow", "2": "brown", "3": "white", "4": "blue" } }
+    },
+    {
+      "name": "Screwdriver",
+      "art": [
+        "..CCCCC..",
+        "..CCCCC..",
+        "...CCC...",
+        "...CCC...",
+        "...CCC...",
+        "...CCC...",
+        "..WWWWW..",
+        ".WWWWWWW.",
+        "RRRRRRRRR",
+        "RRRRRRRRR",
+        "RRRRRRRRR",
+        "RRRRRRRRR",
+        "RRRRRRRRR",
+        "RRRRRRRRR",
+        ".RRRRRRR.",
+        "..RRRRR.."
+      ],
+      "source": { "picture": "screwdriver", "colors": { "1": "red", "2": "cyan", "3": "white" } }
+    },
+    {
+      "name": "Flashlight",
+      "art": [
+        "OPPPP..........",
+        "OPPPPP.......KK",
+        "OPPPPPWWWWWWWKK",
+        "OPPPPPWWWWWWWKK",
+        "OPPPPPWWWWWWWKK",
+        "OPPPPPWWWWWWWKK",
+        "OPPPPP.......KK",
+        "OPPPP.........."
+      ],
+      "source": { "picture": "flashlight", "colors": { "1": "purple", "2": "white", "3": "black", "4": "orange" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "white", "charges": 35 },
+      { "color": "orange", "charges": 4 },
+      { "color": "purple", "charges": 37 },
+      { "color": "cyan", "charges": 11 },
+      { "color": "red", "charges": 33 }
+    ],
+    [
+      { "color": "brown", "charges": 31 },
+      { "color": "yellow", "charges": 40 },
+      { "color": "black", "charges": 34 },
+      { "color": "yellow", "charges": 40 }
+    ],
+    [
+      { "color": "white", "charges": 36 },
+      { "color": "white", "charges": 35 },
+      { "color": "orange", "charges": 4 },
+      { "color": "brown", "charges": 31 },
+      { "color": "blue", "charges": 24 },
+      { "color": "purple", "charges": 37 }
+    ],
+    [
+      { "color": "red", "charges": 33 },
+      { "color": "brown", "charges": 30 },
+      { "color": "yellow", "charges": 40 },
+      { "color": "purple", "charges": 37 },
+      { "color": "cyan", "charges": 11 }
+    ]
+  ]
+}

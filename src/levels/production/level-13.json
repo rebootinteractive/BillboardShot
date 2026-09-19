@@ -1,0 +1,108 @@
+{
+  "name": "Flower Bed",
+  "boards": [
+    {
+      "name": "Sunflower",
+      "art": [
+        "......Y......",
+        "...YYYYYYY...",
+        "...YYYYYYY...",
+        ".YYYYNNNYYYY.",
+        "YYYYNNNNNYYYY",
+        ".YYNNNNNNNYY.",
+        ".YYNNNNNNNYYY",
+        "YYYNNNNNNNYYY",
+        "YYYNNNNNNNYY.",
+        "..YYNNNNNYYY.",
+        ".YYYYYYYYYYY.",
+        "..Y.YYYYY....",
+        "....YYNYY....",
+        "......N......",
+        "..NNN.N.NNNN.",
+        "..NNNNNNNNN..",
+        "...NNNNNNN..."
+      ],
+      "source": { "picture": "sunflower", "colors": { "1": "yellow", "2": "brown" } }
+    },
+    {
+      "name": "Blossom",
+      "art": [
+        "...WW.....WW...",
+        "..WWWW...WWWW..",
+        ".WWWWWW.WWWWWW.",
+        ".WWWWWWWWWWWWW.",
+        "WWWWWyyyyyWWWWW",
+        "WWWWWyyyyyWWWWW",
+        "WWWWWyyyyyWWWWW",
+        ".WWWWWWWWWWWWW.",
+        ".WWWWWWWWWWWWW.",
+        "..WWW..G..WWW..",
+        "..GGGG.G.GGGG..",
+        "..GGGGGGGGGGG.."
+      ],
+      "source": { "picture": "blossom", "colors": { "1": "white", "2": "green", "3": "yellow" }, "hidden": ["3"] }
+    },
+    {
+      "name": "Mushroom",
+      "art": [
+        "....wRRRR....",
+        "..wwwRRRRww..",
+        ".wwwRRRRwwww.",
+        ".RRRRRRRRwww.",
+        "RRRRRwwRRwwww",
+        "RRRRwwwRRRwww",
+        "RRRRRwwRRRRRR",
+        "RRRRRRRRRRRRR",
+        ".RRRRRRRRRRR.",
+        ".....YYY.....",
+        "....YYYYY....",
+        "....YYYYY....",
+        "....YYYYY...."
+      ],
+      "source": { "picture": "mushroom", "colors": { "1": "red", "2": "white", "3": "yellow" }, "hidden": ["2"] }
+    },
+    {
+      "name": "Tulip",
+      "art": [
+        "MM..R..MM",
+        "MMMRRRMMM",
+        "MMMRRRMMM",
+        "MMMMRMMMM",
+        "MMMMRMMMM",
+        "MMMMMMMMM",
+        "MMMMMMMMM",
+        ".MMMMMMM.",
+        "..MMMMM..",
+        "....M....",
+        "....G....",
+        ".G..G.GG.",
+        "GGGGGGGGG",
+        ".GGGGGGG."
+      ],
+      "source": { "picture": "tulip", "colors": { "1": "pink", "2": "green", "3": "red" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "white", "charges": 32 },
+      { "color": "green", "charges": 21 },
+      { "color": "yellow", "charges": 36 },
+      { "color": "red", "charges": 39 },
+      { "color": "brown", "charges": 33 }
+    ],
+    [
+      { "color": "yellow", "charges": 37 },
+      { "color": "pink", "charges": 31 },
+      { "color": "white", "charges": 32 },
+      { "color": "pink", "charges": 32 },
+      { "color": "red", "charges": 39 }
+    ],
+    [
+      { "color": "white", "charges": 33 },
+      { "color": "yellow", "charges": 37 },
+      { "color": "green", "charges": 21 },
+      { "color": "white", "charges": 32 },
+      { "color": "brown", "charges": 34 }
+    ]
+  ]
+}

@@ -23,6 +23,7 @@ export function formatLevel(level: LevelData): string {
   const head = [`  "name": ${j(level.name)}`];
   if (level.hint) head.push(`  "hint": ${j(level.hint)}`);
   if (level.tutorial) head.push(`  "tutorial": ${j(level.tutorial)}`);
+  if (level.label) head.push(`  "label": ${j(level.label)}`);
   if (level.cellSize !== undefined) head.push(`  "cellSize": ${level.cellSize}`);
   return `{\n${head.join(',\n')},\n  "boards": [\n${boards}\n  ],\n  "lanes": [\n${lanes}\n  ]\n}\n`;
 }

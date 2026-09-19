@@ -1,0 +1,29 @@
+{
+  "id": "level-15",
+  "name": "Frost on the Cactus",
+  "intent": "The frozen billboard is introduced, so the level around it is the smallest of the batch: 402 pixels, four little garden boards and only five colours. The cactus is iced over and asks for 35 red. Red is the ladybug's shell and the rose's petals, 109 pixels in all and both exposed from the start, so a single finished red container thaws it and the player can see exactly where that red is coming from. The cactus holds 107 pixels of lime and black behind the ice, but lime is also the rose's stem and black is also the ladybug's spots and the spider's legs, so no container is stranded while the board is shut - the worst case is a short wait, not a stuck deck. Only the rose's 13-pixel inner petal has to be held for a moment.",
+  "hint": "The iced billboard opens when enough of its colour has been collected - and only full containers count.",
+  "target": { "min": 0.92, "max": 1.0 },
+  "lanes": 3,
+  "boards": [
+    {
+      "picture": "ladybug",
+      "colors": { "1": "black", "2": "red" }
+    },
+    {
+      "picture": "rose",
+      "colors": { "1": "red", "2": "pink", "3": "lime" }
+    },
+    {
+      "picture": "spider",
+      "colors": { "1": "black", "2": "purple" }
+    },
+    {
+      "picture": "cactus",
+      "colors": { "1": "lime", "2": "black" },
+      "lock": { "type": "frozen", "color": "red", "count": 35 }
+    }
+  ],
+  "containers": { "split": { "red": 3 } },
+  "queue": { "hidden": 0 }
+}

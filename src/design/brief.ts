@@ -37,6 +37,8 @@ export interface LevelBrief {
   hint?: string;
   /** The input this level teaches; see LevelData. */
   tutorial?: TutorialStep;
+  /** Marks a peak in the game; see LevelData. */
+  label?: 'hard' | 'very hard';
   /** Target band for the difficulty score (the average bot's win rate), 0 to 1. */
   target: { min: number; max: number };
   lanes: number;
@@ -229,7 +231,7 @@ export function buildLevel(brief: LevelBrief, pictures: Map<string, Picture>): B
   }
   placeLinks(lanes, brief.queue?.links ?? 0);
   placeHidden(lanes, brief.queue?.hidden ?? 0);
-  const level: LevelData = { name: brief.name, ...(brief.hint ? { hint: brief.hint } : {}), ...(brief.tutorial ? { tutorial: brief.tutorial } : {}), boards, lanes };
+  const level: LevelData = { name: brief.name, ...(brief.hint ? { hint: brief.hint } : {}), ...(brief.tutorial ? { tutorial: brief.tutorial } : {}), ...(brief.label ? { label: brief.label } : {}), boards, lanes };
   errors.push(...validateLevel(level, pictures));
   return { level, errors };
 }
