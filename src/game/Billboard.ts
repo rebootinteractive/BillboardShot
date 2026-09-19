@@ -4,7 +4,9 @@ import type { ColorKey } from '../shared/types';
 import { COLOR_HEX } from '../shared/colors';
 import type { Settings } from '../shared/settings';
 import { KEY_HEIGHT, KEY_WIDTH, artColor, isMysteryChar, type BoardData } from './level';
-import { KEY_HEX, disposeObject, drawCounter, keyObject, mysteryTexture, type KeyColor } from './keys';
+import { disposeObject, keyObject, mysteryTexture, type KeyColor } from './keys';
+import { BoardPadlock } from './BoardPadlock';
+import { BoardIce } from './BoardIce';
 import { floodGroup } from '../rules/core';
 
 const DISTANT_TINT = new THREE.Color(0xd2d6da);
@@ -94,18 +96,9 @@ export class Billboard {
   lock: BoardLock | null = null;
   /** Where a flying key heads for: the padlock, or the middle of the board. */
   readonly lockAnchor = new THREE.Object3D();
-  private overlay: THREE.Group | null = null;
-  private overlayMats: THREE.Material[] = [];
-  private overlayGeos: THREE.BufferGeometry[] = [];
-  private shackle: THREE.Object3D | null = null;
-  private counterCanvas: HTMLCanvasElement | null = null;
-  private counterTex: THREE.CanvasTexture | null = null;
-  private counterLabel: THREE.Object3D | null = null;
-  /** 1→0 while the counter bumps after a delivery. */
-  private counterPulse = 0;
-  private unlockT = -1;
-  /** Each overlay material's opacity when the unlock began, so the fade starts from it. */
-  private overlayOpacity: number[] = [];
+  private padlock: BoardPadlock | null = null;
+  private ice: BoardIce | null = null;
+  private frameMounts: THREE.Vector2[] = [];
   private readonly mysteryTex = mysteryTexture();
   private readonly mysteryMat = new THREE.MeshStandardMaterial({ map: this.mysteryTex, roughness: 0.4 });
   /** Keys still on the board. */
@@ -259,112 +252,53 @@ export class Billboard {
     return free;
   }
 
-  private overlayMesh(geo: THREE.BufferGeometry, mat: THREE.Material) {
-    this.overlayGeos.push(geo);
-    if (!this.overlayMats.includes(mat)) this.overlayMats.push(mat);
-    return new THREE.Mesh(geo, mat);
-  }
-
-  /** Two straps across the artwork and a padlock in the key's color. */
+  /** Soft molded hardware, attached to the silhouette's cream frame. */
   private buildPadlock(color: KeyColor) {
-    const cell = this.cell;
-    const w = this.cols * cell;
-    const h = this.rows * cell;
-    const group = new THREE.Group();
-    const metal = new THREE.MeshStandardMaterial({ color: KEY_HEX[color], roughness: 0.3, metalness: 0.35 });
-    const strap = new THREE.MeshStandardMaterial({
-      color: new THREE.Color(KEY_HEX[color]).multiplyScalar(0.72), roughness: 0.5, metalness: 0.2,
-    });
-    const diagonal = Math.hypot(w, h);
-    for (const sign of [-1, 1]) {
-      const band = this.overlayMesh(roundedBox(diagonal, cell * 0.55, cell * 0.2, cell * 0.08), strap);
-      band.rotation.z = sign * Math.atan2(h, w);
-      band.position.z = cell * 0.5;
-      band.castShadow = true;
-      group.add(band);
-    }
-    const body = this.overlayMesh(roundedBox(cell * 2.6, cell * 2.2, cell * 0.9, cell * 0.3), metal);
-    body.position.z = cell * 0.95;
-    body.castShadow = true;
-    group.add(body);
-    const shackle = this.overlayMesh(new THREE.TorusGeometry(cell * 0.8, cell * 0.22, 10, 24, Math.PI), metal);
-    const shackleHolder = new THREE.Group();
-    shackleHolder.position.set(0, cell * 1.05, cell * 0.95);
-    shackleHolder.add(shackle);
-    group.add(shackleHolder);
-    this.shackle = shackleHolder;
-    const holeMat = new THREE.MeshBasicMaterial({ color: new THREE.Color(KEY_HEX[color]).multiplyScalar(0.3) });
-    const hole = this.overlayMesh(new THREE.CircleGeometry(cell * 0.28, 16), holeMat);
-    hole.position.set(0, cell * 0.15, cell * 1.42);
-    group.add(hole);
-    const slot = this.overlayMesh(new THREE.PlaneGeometry(cell * 0.18, cell * 0.55), holeMat);
-    slot.position.set(0, -cell * 0.25, cell * 1.42);
-    group.add(slot);
-    this.lockAnchor.position.set(0, 0, cell * 1.5);
-    this.overlay = group;
-    this.board.add(group);
+    this.padlock = new BoardPadlock(color, this.cell, this.frameMounts, this.rows * this.cell);
+    this.lockAnchor.position.copy(this.padlock.socket.position);
+    this.board.add(this.padlock.group);
   }
 
-  /** A sheet of ice over the artwork with the color and count still needed. */
+  keyApproaching(progress: number) { this.padlock?.keyApproaching(progress); }
+  get lockVisualPhase() { return this.padlock?.phase ?? this.ice?.phase ?? null; }
+
+  /** A beveled shell following the actual occupied cells, including rear faces. */
   private buildIce() {
     if (this.lock?.type !== 'frozen') return;
-    const cell = this.cell;
-    const group = new THREE.Group();
-    const iceMat = new THREE.MeshStandardMaterial({
-      color: 0xdff5ff, roughness: 0.12, metalness: 0, transparent: true, opacity: 0.66,
-      emissive: 0x6fb8d8, emissiveIntensity: 0.12,
-    });
-    const ice = this.overlayMesh(
-      roundedBox(this.cols * cell + cell * 0.5, this.rows * cell + cell * 0.5, cell * 0.3, cell * 0.3), iceMat);
-    ice.position.z = cell * 0.52;
-    group.add(ice);
-    this.counterCanvas = document.createElement('canvas');
-    this.counterCanvas.width = 256;
-    this.counterCanvas.height = 128;
-    this.counterTex = new THREE.CanvasTexture(this.counterCanvas);
-    this.counterTex.colorSpace = THREE.SRGBColorSpace;
-    const labelMat = new THREE.MeshBasicMaterial({ map: this.counterTex, transparent: true, toneMapped: false });
-    const label = this.overlayMesh(new THREE.PlaneGeometry(cell * 4.4, cell * 2.2), labelMat);
-    label.position.z = cell * 0.72;
-    label.renderOrder = 4;
-    group.add(label);
-    this.counterLabel = label;
-    this.refreshCounter();
-    this.lockAnchor.position.set(0, 0, cell * 0.8);
-    this.overlay = group;
-    this.board.add(group);
+    const cells: THREE.Vector2[] = [];
+    for (let col = 0; col < this.cols; col++) for (let row = 0; row < this.rows; row++) {
+      if (this.grid[col][row] || this.keyAt(col, row)) cells.push(new THREE.Vector2(col, row));
+    }
+    this.ice = new BoardIce(this.cell, this.cols, this.rows, cells, this.lock.color, this.lock.remaining);
+    this.lockAnchor.position.set(0, 0, this.cell * 1.02);
+    this.board.add(this.ice.group);
   }
 
-  private refreshCounter() {
-    if (this.lock?.type !== 'frozen' || !this.counterCanvas || !this.counterTex) return;
-    drawCounter(this.counterCanvas.getContext('2d')!, String(this.lock.remaining), { swatch: this.lock.color, icy: true });
-    this.counterTex.needsUpdate = true;
+  /** Pick an occupied ice surface on the side facing the launching container. */
+  frozenImpactPoint(sourceWorld: THREE.Vector3, index: number) {
+    const source = this.board.worldToLocal(sourceWorld.clone());
+    return this.ice?.impactPoint(source, index) ?? this.lockAnchor.position.clone();
   }
 
   /**
    * Pixels delivered by a finished container of the frozen color. Returns true if this
    * thawed the board.
    */
-  addFrozenProgress(amount: number): boolean {
+  addFrozenProgress(amount: number, impact = this.lockAnchor.position): boolean {
     if (this.lock?.type !== 'frozen') return false;
     this.lock.remaining = Math.max(0, this.lock.remaining - amount);
-    this.refreshCounter();
-    this.counterPulse = 1;
+    this.ice?.hit(this.lock.remaining, impact);
     if (this.lock.remaining > 0) return false;
     this.unlock();
     return true;
   }
 
-  /** Lift the lock now; the cover animates away over the next half second. */
+  /** Release gameplay immediately while the hardware or ice finishes breaking. */
   unlock() {
     if (!this.lock) return;
     this.lock = null;
-    this.unlockT = 0;
-    this.overlayOpacity = this.overlayMats.map((m) => m.opacity);
-    for (const m of this.overlayMats) {
-      m.transparent = true;
-      m.needsUpdate = true;
-    }
+    this.padlock?.unlock();
+    this.ice?.shatter();
   }
 
   /**
@@ -441,6 +375,7 @@ export class Billboard {
       (col - this.cols / 2) * this.cell,
       (row - this.rows / 2) * this.cell,
     );
+    this.frameMounts = [point(left - 0.12, bottom + 0.65), point(right + 1.12, bottom + 0.65)];
     const edge: THREE.Vector2[] = [point(left, bottom)];
     for (let col = left; col <= right; col++) {
       let ceiling = top;
@@ -537,6 +472,14 @@ export class Billboard {
   }
 
   update(dt: number, time: number, s: Settings) {
+    if (this.ice?.update(dt, time)) {
+      this.ice.dispose();
+      this.ice = null;
+    }
+    if (this.padlock?.update(dt, time)) {
+      this.padlock.dispose();
+      this.padlock = null;
+    }
     if (this.frameState === 'gone') return;
     if (this.frameState === 'falling') {
       this.dropT = Math.min(1, this.dropT + dt / 0.8);
@@ -585,12 +528,6 @@ export class Billboard {
       }
     }
 
-    if (this.counterPulse > 0 && this.counterLabel) {
-      this.counterPulse = Math.max(0, this.counterPulse - dt / 0.3);
-      this.counterLabel.scale.setScalar(1 + Math.sin(this.counterPulse * Math.PI) * 0.25);
-    }
-    this.updateUnlock(dt);
-
     // Pop animation for destroyed tiles.
     for (const t of this.tiles) {
       if (t.popT < 0) continue;
@@ -607,36 +544,11 @@ export class Billboard {
     }
   }
 
-  private updateUnlock(dt: number) {
-    if (this.unlockT < 0 || !this.overlay) return;
-    this.unlockT = Math.min(1, this.unlockT + dt / 0.55);
-    const t = this.unlockT;
-    if (this.shackle) this.shackle.position.y = this.cell * (1.05 + THREE.MathUtils.smoothstep(t, 0, 0.3) * 0.7);
-    const fade = THREE.MathUtils.smoothstep(t, 0.3, 1);
-    this.overlay.scale.setScalar(1 + fade * 0.18);
-    this.overlayMats.forEach((m, i) => { m.opacity = this.overlayOpacity[i] * (1 - fade); });
-    if (t >= 1) {
-      this.overlay.removeFromParent();
-      this.disposeOverlay();
-      this.unlockT = -1;
-    }
-  }
-
-  private disposeOverlay() {
-    for (const g of this.overlayGeos) g.dispose();
-    for (const m of this.overlayMats) m.dispose();
-    this.counterTex?.dispose();
-    this.overlayGeos = [];
-    this.overlayMats = [];
-    this.overlay = null;
-    this.shackle = null;
-    this.counterTex = null;
-    this.counterCanvas = null;
-    this.counterLabel = null;
-  }
-
   dispose() {
-    this.disposeOverlay();
+    this.padlock?.dispose();
+    this.padlock = null;
+    this.ice?.dispose();
+    this.ice = null;
     this.mysteryTex.dispose();
     this.mysteryMat.dispose();
     for (const k of this.keys) disposeObject(k.object);

@@ -59,21 +59,27 @@ function keyShape(cell: number): THREE.Shape {
 export function keyObject(color: KeyColor, cell: number): THREE.Group {
   const group = new THREE.Group();
   const plate = new THREE.Mesh(
-    roundedBox(KEY_WIDTH * cell * 0.96, KEY_HEIGHT * cell * 0.96, cell * 0.5, cell * 0.16),
-    new THREE.MeshStandardMaterial({ color: new THREE.Color(KEY_HEX[color]).lerp(new THREE.Color(0xfff7e8), 0.78), roughness: 0.5 }),
+    roundedBox(KEY_WIDTH * cell * 0.96, KEY_HEIGHT * cell * 0.96, cell * 0.5, cell * 0.27),
+    new THREE.MeshStandardMaterial({ color: 0xfff1d5, roughness: 0.5 }),
   );
   plate.name = 'plate';
   plate.position.z = -cell * 0.1;
   plate.castShadow = true;
   plate.receiveShadow = true;
   group.add(plate);
-  const depth = cell * 0.22;
+  const inset = new THREE.Mesh(
+    roundedBox(cell * 2.65, cell * 1.62, cell * 0.12, cell * 0.24),
+    new THREE.MeshStandardMaterial({ color: 0x786956, roughness: 0.65 }),
+  );
+  inset.position.z = cell * 0.26;
+  plate.add(inset);
+  const depth = cell * 0.3;
   const geo = new THREE.ExtrudeGeometry(keyShape(cell * 0.94), {
-    depth, bevelEnabled: true, bevelThickness: cell * 0.06, bevelSize: cell * 0.05, bevelSegments: 2, curveSegments: 20,
+    depth, bevelEnabled: true, bevelThickness: cell * 0.06, bevelSize: cell * 0.05, bevelSegments: 4, curveSegments: 24,
   });
-  const key = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: KEY_HEX[color], roughness: 0.28, metalness: 0.4 }));
+  const key = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: KEY_HEX[color], roughness: 0.3, metalness: 0.12 }));
   key.name = 'key';
-  key.position.z = cell * 0.18;
+  key.position.z = cell * 0.24;
   key.castShadow = true;
   group.add(key);
   return group;
@@ -131,6 +137,7 @@ export class KeyFlight {
   private readonly to = new THREE.Vector3();
   private readonly startRotation = new THREE.Quaternion();
   private readonly facing = new THREE.Quaternion();
+  private readonly docking = new THREE.Quaternion();
   private readonly plate: THREE.Object3D | undefined;
   private readonly baseScale: number;
   private t = 0;
@@ -151,14 +158,17 @@ export class KeyFlight {
     this.plate = object.getObjectByName('plate');
   }
 
-  /** Returns true when the key has reached its lock. */
+  get progress() { return this.t; }
+
+  /** Returns true after arrival and a small unlocking turn. */
   update(dt: number): boolean {
-    this.t = Math.min(1, this.t + dt / 0.8);
+    this.t = Math.min(1, this.t + dt / 1.05);
     this.target.getWorldPosition(this.to);
     this.world.worldToLocal(this.to);
     this.ctrl.copy(this.from).lerp(this.to, 0.5);
     this.ctrl.y += 1.6;
-    const t = this.t * this.t * (3 - 2 * this.t);
+    const travel = Math.min(1, this.t / 0.78);
+    const t = travel * travel * (3 - 2 * travel);
     const u = 1 - t;
     this.object.position.set(
       u * u * this.from.x + 2 * u * t * this.ctrl.x + t * t * this.to.x,
@@ -168,8 +178,14 @@ export class KeyFlight {
     // The world may be turned; face the camera in the world's own frame.
     this.world.getWorldQuaternion(this.facing).invert().multiply(this.camera.quaternion);
     this.object.quaternion.copy(this.startRotation).slerp(this.facing, THREE.MathUtils.smoothstep(this.t, 0, 0.35));
-    this.object.rotateZ(Math.sin(t * Math.PI) * 0.5);
-    this.object.scale.setScalar(this.baseScale * (1 + Math.sin(t * Math.PI) * 0.35));
+    // Settle against the actual lock face before the unlocking quarter-turn.
+    this.target.getWorldQuaternion(this.docking);
+    this.world.getWorldQuaternion(this.facing).invert();
+    this.docking.premultiply(this.facing);
+    this.object.quaternion.slerp(this.docking, THREE.MathUtils.smoothstep(this.t, 0.55, 0.8));
+    const turn = THREE.MathUtils.smoothstep(this.t, 0.8, 0.98);
+    this.object.rotateZ(Math.sin(t * Math.PI) * 0.45 - turn * Math.PI / 2);
+    this.object.scale.setScalar(this.baseScale * (1 + Math.sin(t * Math.PI) * 0.35 - THREE.MathUtils.smoothstep(this.t, 0.68, 0.82) * 0.3));
     if (this.plate) {
       const k = 1 - THREE.MathUtils.smoothstep(this.t, 0, 0.25);
       this.plate.scale.setScalar(Math.max(0.001, k));
