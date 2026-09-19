@@ -18,7 +18,7 @@
   "ambientSway": 0.08,
   "holdFireWhileDragging": true,
   "deckSlots": 5,
-  "deckSlotSpacingDeg": 15.2,
+  "deckSlotSpacingDeg": 20,
   "deckGap": 1.65,
   "queueVisible": 4,
   "queueLaneSpacing": 1.15,
