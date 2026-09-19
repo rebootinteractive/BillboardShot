@@ -1043,7 +1043,7 @@ export class GameApp {
       const count = Math.min(sh.capacity, 6);
       for (let i = 0; i < count; i++) {
         const share = Math.floor(sh.capacity / count) + (i < sh.capacity % count ? 1 : 0);
-        this.progressShots.push(new ProgressShot(this.world, from, bb, sh.color, share, i * 0.08));
+        this.progressShots.push(new ProgressShot(this.world, from, bb, sh.color, share, i * 0.08, i));
       }
     }
   }
@@ -1054,8 +1054,8 @@ export class GameApp {
       if (!shot.update(dt)) continue;
       shot.dispose();
       this.progressShots.splice(i, 1);
-      shot.board.lockAnchor.getWorldPosition(this.scratch2);
-      const thawed = shot.board.addFrozenProgress(shot.amount);
+      shot.board.board.localToWorld(this.scratch2.copy(shot.impact));
+      const thawed = shot.board.addFrozenProgress(shot.amount, shot.impact);
       this.feedback.burst(this.scratch2.clone(), thawed ? 0xbfeaff : 0xffffff, thawed);
       this.feedback.note(thawed ? 'complete' : 'land');
     }

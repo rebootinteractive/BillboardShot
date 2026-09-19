@@ -17,6 +17,7 @@ export class ProgressShot {
   private readonly to = new THREE.Vector3();
   private readonly ctrl = new THREE.Vector3();
   private t = 0;
+  readonly impact: THREE.Vector3;
 
   constructor(
     private readonly world: THREE.Object3D,
@@ -25,7 +26,9 @@ export class ProgressShot {
     color: ColorKey,
     readonly amount: number,
     private delay: number,
+    impactIndex = 0,
   ) {
+    this.impact = board.frozenImpactPoint(world.localToWorld(from.clone()), impactIndex);
     this.mesh = new THREE.Mesh(
       roundedBox(0.17, 0.17, 0.17, 0.035),
       new THREE.MeshStandardMaterial({ color: COLOR_HEX[color], emissive: COLOR_HEX[color], emissiveIntensity: 0.35, roughness: 0.3 }),
@@ -45,7 +48,7 @@ export class ProgressShot {
     this.mesh.visible = true;
     this.t = Math.min(1, this.t + dt / FLIGHT_TIME);
     // Follow the board: it may swing or turn while the cube is in the air.
-    this.board.lockAnchor.getWorldPosition(this.to);
+    this.board.board.localToWorld(this.to.copy(this.impact));
     this.world.worldToLocal(this.to);
     this.ctrl.copy(this.from).lerp(this.to, 0.5);
     this.ctrl.y += 1.4;
