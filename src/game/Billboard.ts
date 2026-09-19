@@ -4,7 +4,8 @@ import type { ColorKey } from '../shared/types';
 import { COLOR_HEX } from '../shared/colors';
 import type { Settings } from '../shared/settings';
 import { KEY_HEIGHT, KEY_WIDTH, artColor, isMysteryChar, type BoardData } from './level';
-import { KEY_HEX, disposeObject, drawCounter, keyObject, mysteryTexture, type KeyColor } from './keys';
+import { disposeObject, drawCounter, keyObject, mysteryTexture, type KeyColor } from './keys';
+import { BoardPadlock } from './BoardPadlock';
 import { floodGroup } from '../rules/core';
 
 const DISTANT_TINT = new THREE.Color(0xd2d6da);
@@ -97,7 +98,8 @@ export class Billboard {
   private overlay: THREE.Group | null = null;
   private overlayMats: THREE.Material[] = [];
   private overlayGeos: THREE.BufferGeometry[] = [];
-  private shackle: THREE.Object3D | null = null;
+  private padlock: BoardPadlock | null = null;
+  private frameMounts: THREE.Vector2[] = [];
   private counterCanvas: HTMLCanvasElement | null = null;
   private counterTex: THREE.CanvasTexture | null = null;
   private counterLabel: THREE.Object3D | null = null;
@@ -265,45 +267,15 @@ export class Billboard {
     return new THREE.Mesh(geo, mat);
   }
 
-  /** Two straps across the artwork and a padlock in the key's color. */
+  /** Soft molded hardware, attached to the silhouette's cream frame. */
   private buildPadlock(color: KeyColor) {
-    const cell = this.cell;
-    const w = this.cols * cell;
-    const h = this.rows * cell;
-    const group = new THREE.Group();
-    const metal = new THREE.MeshStandardMaterial({ color: KEY_HEX[color], roughness: 0.3, metalness: 0.35 });
-    const strap = new THREE.MeshStandardMaterial({
-      color: new THREE.Color(KEY_HEX[color]).multiplyScalar(0.72), roughness: 0.5, metalness: 0.2,
-    });
-    const diagonal = Math.hypot(w, h);
-    for (const sign of [-1, 1]) {
-      const band = this.overlayMesh(roundedBox(diagonal, cell * 0.55, cell * 0.2, cell * 0.08), strap);
-      band.rotation.z = sign * Math.atan2(h, w);
-      band.position.z = cell * 0.5;
-      band.castShadow = true;
-      group.add(band);
-    }
-    const body = this.overlayMesh(roundedBox(cell * 2.6, cell * 2.2, cell * 0.9, cell * 0.3), metal);
-    body.position.z = cell * 0.95;
-    body.castShadow = true;
-    group.add(body);
-    const shackle = this.overlayMesh(new THREE.TorusGeometry(cell * 0.8, cell * 0.22, 10, 24, Math.PI), metal);
-    const shackleHolder = new THREE.Group();
-    shackleHolder.position.set(0, cell * 1.05, cell * 0.95);
-    shackleHolder.add(shackle);
-    group.add(shackleHolder);
-    this.shackle = shackleHolder;
-    const holeMat = new THREE.MeshBasicMaterial({ color: new THREE.Color(KEY_HEX[color]).multiplyScalar(0.3) });
-    const hole = this.overlayMesh(new THREE.CircleGeometry(cell * 0.28, 16), holeMat);
-    hole.position.set(0, cell * 0.15, cell * 1.42);
-    group.add(hole);
-    const slot = this.overlayMesh(new THREE.PlaneGeometry(cell * 0.18, cell * 0.55), holeMat);
-    slot.position.set(0, -cell * 0.25, cell * 1.42);
-    group.add(slot);
-    this.lockAnchor.position.set(0, 0, cell * 1.5);
-    this.overlay = group;
-    this.board.add(group);
+    this.padlock = new BoardPadlock(color, this.cell, this.frameMounts, this.rows * this.cell);
+    this.lockAnchor.position.copy(this.padlock.socket.position);
+    this.board.add(this.padlock.group);
   }
+
+  keyApproaching(progress: number) { this.padlock?.keyApproaching(progress); }
+  get lockVisualPhase() { return this.padlock?.phase ?? (this.locked ? 'frozen' : null); }
 
   /** A sheet of ice over the artwork with the color and count still needed. */
   private buildIce() {
@@ -359,6 +331,10 @@ export class Billboard {
   unlock() {
     if (!this.lock) return;
     this.lock = null;
+    if (this.padlock) {
+      this.padlock.unlock();
+      return;
+    }
     this.unlockT = 0;
     this.overlayOpacity = this.overlayMats.map((m) => m.opacity);
     for (const m of this.overlayMats) {
@@ -441,6 +417,7 @@ export class Billboard {
       (col - this.cols / 2) * this.cell,
       (row - this.rows / 2) * this.cell,
     );
+    this.frameMounts = [point(left - 0.12, bottom + 0.65), point(right + 1.12, bottom + 0.65)];
     const edge: THREE.Vector2[] = [point(left, bottom)];
     for (let col = left; col <= right; col++) {
       let ceiling = top;
@@ -537,6 +514,10 @@ export class Billboard {
   }
 
   update(dt: number, time: number, s: Settings) {
+    if (this.padlock?.update(dt, time)) {
+      this.padlock.dispose();
+      this.padlock = null;
+    }
     if (this.frameState === 'gone') return;
     if (this.frameState === 'falling') {
       this.dropT = Math.min(1, this.dropT + dt / 0.8);
@@ -611,7 +592,6 @@ export class Billboard {
     if (this.unlockT < 0 || !this.overlay) return;
     this.unlockT = Math.min(1, this.unlockT + dt / 0.55);
     const t = this.unlockT;
-    if (this.shackle) this.shackle.position.y = this.cell * (1.05 + THREE.MathUtils.smoothstep(t, 0, 0.3) * 0.7);
     const fade = THREE.MathUtils.smoothstep(t, 0.3, 1);
     this.overlay.scale.setScalar(1 + fade * 0.18);
     this.overlayMats.forEach((m, i) => { m.opacity = this.overlayOpacity[i] * (1 - fade); });
@@ -629,13 +609,14 @@ export class Billboard {
     this.overlayGeos = [];
     this.overlayMats = [];
     this.overlay = null;
-    this.shackle = null;
     this.counterTex = null;
     this.counterCanvas = null;
     this.counterLabel = null;
   }
 
   dispose() {
+    this.padlock?.dispose();
+    this.padlock = null;
     this.disposeOverlay();
     this.mysteryTex.dispose();
     this.mysteryMat.dispose();

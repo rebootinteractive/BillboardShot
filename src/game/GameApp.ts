@@ -7,7 +7,7 @@ import { Shooter } from './Shooter';
 import { PulledCube } from './PulledCube';
 import { levelVersion, type LevelData } from './level';
 import { LEVELS, SANDBOX, levelFileForNumber, levelIndexForNumber } from './levels';
-import { KeyFlight } from './keys';
+import { KEY_HEX, KeyFlight } from './keys';
 import { PICTURES } from '../art/pictures';
 import { previewLevel } from '../art/preview';
 import { LinkChain } from './LinkChain';
@@ -1064,12 +1064,14 @@ export class GameApp {
   private updateKeyFlights(dt: number) {
     for (let i = this.keyFlights.length - 1; i >= 0; i--) {
       const { flight, board } = this.keyFlights[i];
-      if (!flight.update(dt)) continue;
+      const arrived = flight.update(dt);
+      board.keyApproaching(flight.progress);
+      if (!arrived) continue;
       flight.dispose();
       this.keyFlights.splice(i, 1);
       board.unlock();
       board.lockAnchor.getWorldPosition(this.scratch2);
-      this.feedback.burst(this.scratch2.clone(), 0xf5d36b, true);
+      this.feedback.burst(this.scratch2.clone(), KEY_HEX[flight.color], true);
       this.feedback.note('complete');
     }
   }
@@ -1152,6 +1154,7 @@ export class GameApp {
       remaining: this.billboards.reduce((sum, board) => sum + board.aliveCount, 0),
       boards: this.billboards.map(board => ({ remaining: board.aliveCount, frame: board.frameState,
         lock: board.lock ? { ...board.lock } : null,
+        lockVisual: board.lockVisualPhase,
         mystery: board.tiles.filter(t => t.alive && t.hidden).length,
         keys: board.keys.map(k => ({ color: k.color, col: k.col, row: k.row })),
         angle: Number(board.angle.toFixed(5)), targetAngle: Number(board.targetAngle.toFixed(5)),
