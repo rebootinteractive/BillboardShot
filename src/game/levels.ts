@@ -31,13 +31,32 @@ export const SANDBOX: Map<string, LevelData> = new Map([
 ]);
 
 /**
- * The level shown as "Level n". Once the last file is beaten the list starts over,
- * while the number the player sees keeps climbing.
+ * Where the game loops back to after the last level, counting from 1.
+ *
+ * Not level 1: somebody who has beaten the whole game should not be handed a one-board
+ * tutorial with a pointing hand. Level 25 is the first level after the last feature is
+ * introduced, so everything from here assumes the player knows all five, uses all five
+ * across its span, and contains none of the deliberately-trivial levels that teach them.
+ * It also opens at a medium, which is the right breath after the finale.
  */
+export const LOOP_START = 25;
+
+/**
+ * The level shown as "Level n". Once the last file is beaten the list starts over from
+ * LOOP_START, while the number the player sees keeps climbing.
+ */
+export function levelIndexForNumber(n: number): number {
+  const i = Math.max(1, Math.floor(n)) - 1;
+  if (i < LEVELS.length) return i;
+  // Loop over the tail. Guard the span in case the list is ever shorter than LOOP_START.
+  const first = Math.min(LOOP_START - 1, LEVELS.length - 1);
+  const span = LEVELS.length - first;
+  return first + ((i - LEVELS.length) % span);
+}
+
 export function levelFileForNumber(n: number): { file: string; data: LevelData } {
   if (!LEVELS.length) throw new Error('No levels in src/levels/production. See docs/level-plan.md.');
-  const i = (Math.max(1, Math.floor(n)) - 1) % LEVELS.length;
-  return LEVELS[i];
+  return LEVELS[levelIndexForNumber(n)];
 }
 
 for (const { file, data } of [...LEVELS, ...[...SANDBOX].map(([file, data]) => ({ file: `sandbox/${file}`, data }))]) {

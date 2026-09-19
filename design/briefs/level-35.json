@@ -1,0 +1,86 @@
+{
+  "id": "level-35",
+  "name": "Breakfast on Ice",
+  "intent": "A frozen waffle and four groups of mystery pixels, with nothing hidden in the deck, so every decision has visible inputs even when the board does not. The waffle wants 70 cyan before it thaws, and all 70 cyan in the level is the milk glass and the butter dish - both open, both exposed from the first move, two containers of 35 that have to finish. That is the whole thaw, and it is deliberately cheap to start and impossible to do by accident: cyan is otherwise a colour a player would ignore. What it costs is the waffle itself, a quarter of the level, sitting shut while the deck fills. Behind the ice are 104 yellow batter, 36 brown pockets and 44 orange edge, and each of those three is given a home outside the ice big enough to matter - yellow in the milk, the baguette slashes and the butter block, brown in the whole pretzel, orange in the baguette crust - which is the difference between a wall and a jam. Clearing the glass and the dish for the thaw is also what opens the milk's yellow and the butter's block, so the counting move and the digging move are the same move. The one colour with nowhere to go is purple: twelve pixels of cup rim under the coffee, eight of milk rim under the milk, one container of twenty that is worth holding rather than spending.",
+  "target": {
+    "min": 0.50,
+    "max": 0.62
+  },
+  "lanes": 4,
+  "boards": [
+    {
+      "picture": "coffee",
+      "colors": {
+        "1": "white",
+        "2": "brown",
+        "3": "purple"
+      },
+      "hidden": [
+        "2"
+      ]
+    },
+    {
+      "picture": "waffle",
+      "colors": {
+        "1": "yellow",
+        "2": "brown",
+        "3": "orange"
+      },
+      "hidden": [
+        "1"
+      ],
+      "lock": {
+        "type": "frozen",
+        "color": "cyan",
+        "count": 70
+      }
+    },
+    {
+      "picture": "pretzel",
+      "colors": {
+        "1": "brown",
+        "2": "orange",
+        "3": "white"
+      }
+    },
+    {
+      "picture": "milk",
+      "colors": {
+        "1": "yellow",
+        "2": "cyan",
+        "3": "purple"
+      },
+      "hidden": [
+        "1"
+      ]
+    },
+    {
+      "picture": "baguette",
+      "colors": {
+        "1": "orange",
+        "2": "yellow"
+      }
+    },
+    {
+      "picture": "butter",
+      "colors": {
+        "1": "yellow",
+        "2": "cyan",
+        "3": "white"
+      },
+      "hidden": [
+        "3"
+      ]
+    }
+  ],
+  "containers": {
+    "split": {
+      "cyan": 2,
+      "yellow": 5
+    }
+  },
+  "queue": {
+    "hidden": 0,
+    "links": 0
+  }
+}

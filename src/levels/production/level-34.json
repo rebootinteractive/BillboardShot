@@ -1,0 +1,143 @@
+{
+  "name": "Order Up",
+  "boards": [
+    {
+      "name": "Hamburger",
+      "art": [
+        "....OOOOOOOO....",
+        "...OOOWOOWOOO...",
+        "..OOOOOOOOOOOO..",
+        "..OOOOOOOOOOOO..",
+        ".OONNNOOOONNNOO.",
+        "NNNNNNNNNNNNNNNN",
+        "NNRRRRRNNRRRRRNN",
+        ".OOOOOOOOOOOOOO.",
+        "NNNNNOOOOOONNNNN",
+        "NNNNNNNNNNNNNNNN",
+        ".NOOOOOOOOOOOON.",
+        ".OOOOOOOOOOOOOO.",
+        "..OOOOOOOOOOOO.."
+      ],
+      "source": { "picture": "hamburger", "colors": { "1": "orange", "2": "brown", "3": "orange", "4": "red", "5": "white" } }
+    },
+    {
+      "name": "Pizza",
+      "art": [
+        "...........YYNN",
+        "........YYYYYNN",
+        "......YYYYYYYNN",
+        ".....YYYYYYYYNN",
+        "...YYYYYYYYYYNN",
+        "..YYYYYYYYYYYNN",
+        ".YYYYYYYYYRRRNN",
+        "YYYYYYYYYYRRRRN",
+        "YYYYYYYYYYRRRRN",
+        "YYYYYYYYYYYRRNN",
+        ".YYYYYRRRYYYYNN",
+        "...YYYRRRYYYYNN",
+        ".....YYRYYYRRNN",
+        ".......YYYYRRNN",
+        "........YYYYYNN",
+        "..........YYYNN",
+        "............NN."
+      ],
+      "source": { "picture": "pizza", "colors": { "1": "yellow", "2": "red", "3": "brown" } }
+    },
+    {
+      "name": "Taco",
+      "art": [
+        "......NNNN......",
+        ".....NNNNNRRR...",
+        "..NNNNNYYYYYRR..",
+        ".NNRRYYYYYYYYRN.",
+        "NNRRYYYYYYYYYYNN",
+        "NNRRYYYYYYYYYYYN",
+        "NNRYYYYYYLYYYYYN",
+        "NNNYYYYYYYYYYYYY",
+        "OONYYYYYYYYYYYY.",
+        "OONYYYYLYYYYYYY.",
+        ".OOYYYYYYYYYYYY."
+      ],
+      "source": { "picture": "taco", "colors": { "1": "yellow", "2": "brown", "3": "red", "4": "orange" }, "overrides": [{ "col": 7, "row": 9, "color": "lime" }, { "col": 9, "row": 6, "color": "lime" }] }
+    },
+    {
+      "name": "Croissant",
+      "art": [
+        "....OOOOO....",
+        "..OOOOROOOO..",
+        ".OOROOROOROO.",
+        "OOROOOROOOROO",
+        "OOROOOROOOROO",
+        "OOROOOROOOROO",
+        "OOOO.....OOOO",
+        "OLO.......OOO",
+        "OO.........OO"
+      ],
+      "source": { "picture": "croissant", "colors": { "1": "orange", "2": "red" }, "overrides": [{ "col": 1, "row": 7, "color": "lime" }] }
+    },
+    {
+      "name": "Cheese",
+      "art": [
+        "LLOO.......",
+        "LLLOO......",
+        "LLL.OO.....",
+        "LLLLLOO....",
+        "LL.LLLOO...",
+        "LLLLLLLOO..",
+        "LLLL.LLLOO.",
+        "LLLLLLLLLOO",
+        "OOOOOOOOOOO"
+      ],
+      "source": { "picture": "cheese", "colors": { "1": "lime", "2": "orange" } }
+    },
+    {
+      "name": "Egg",
+      "art": [
+        "..WWWW..",
+        ".WWWWWW.",
+        ".WKKWWW.",
+        "WWWWWWWW",
+        "WWWWWKKW",
+        "WWWWWWWW",
+        "WKKWWWWW",
+        ".WWWKKW.",
+        ".WWWWWW.",
+        "..WWWW.."
+      ],
+      "source": { "picture": "egg", "colors": { "1": "white", "2": "black" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "orange", "charges": 35 },
+      { "color": "red", "charges": 30, "link": "a" },
+      { "color": "orange", "charges": 35 },
+      { "color": "orange", "charges": 34 },
+      { "color": "black", "charges": 4 },
+      { "color": "orange", "charges": 34 }
+    ],
+    [
+      { "color": "white", "charges": 29 },
+      { "color": "orange", "charges": 35 },
+      { "color": "yellow", "charges": 35 },
+      { "color": "yellow", "charges": 35 },
+      { "color": "lime", "charges": 22, "hidden": true, "link": "b" },
+      { "color": "yellow", "charges": 34 },
+      { "color": "yellow", "charges": 35 }
+    ],
+    [
+      { "color": "brown", "charges": 40 },
+      { "color": "white", "charges": 29 },
+      { "color": "orange", "charges": 34 },
+      { "color": "brown", "charges": 40 },
+      { "color": "yellow", "charges": 35 }
+    ],
+    [
+      { "color": "red", "charges": 30 },
+      { "color": "brown", "charges": 40 },
+      { "color": "lime", "charges": 22, "link": "b" },
+      { "color": "black", "charges": 4, "link": "a" },
+      { "color": "yellow", "charges": 35, "hidden": true }
+    ]
+  ]
+}

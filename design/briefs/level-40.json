@@ -1,0 +1,86 @@
+{
+  "id": "level-40",
+  "name": "The Lion's Share",
+  "intent": "The last level of the game, and the hardest planning problem in it rather than the busiest one - three features, not five, exactly as the plan asks. The gold key sits in the middle of the turkey's tail fan, in plain sight, and everything the player needs to reach it is visible from the first move: that is deliberate, because the difficulty here is choosing an order, not guessing. What the padlock holds is the lion, 224 pixels and a quarter of the level, and inside it lives the level's one starved colour: 124 of the 181 brown is the mane and the chin, and brown's only open home is the turkey's body, 57 pixels four columns wide and directly under the tail fan the player is already digging for the key. So the two jobs compete for the same board - every orange container spent on the tail brings the key closer, every brown container wants the body underneath it, and the turkey cannot serve both at once. Everything else is built to flow, which is what keeps a very hard level fair rather than a trap: orange has 112 pixels outside the lock, white 128 in the robot and yellow 93 in the skull, red 84 across the heart, the robot's ears and nothing buried, and black opens as soon as the robot's body or the skull is touched. Four mystery groups and every one is a colour visible elsewhere - the lion's orange face and white muzzle stay hidden even after the padlock falls, so unlocking the biggest board rewards you with a field of question marks, and the robot's visor and the note's stem are black like the skull's outline. Two ropes finish it. Nine colours, 867 pixels and six boards - the biggest level in the game - dealt into two long lanes rather than four short ones, which is the whole difference between a wall and a trap here: at four lanes the tuner could only reach the band by loading every lane head, and the careful bot fell to 70%; at two it reaches 20% with the careful bot at 100% and the deck parking 0.9 sends a run. A deeper key, a third rope, five odd pixels of a touring colour and smaller containers were all tried on top of that and every one of them bought difficulty by taking the careful bot down to 60-83%, so none of them ship. The careless bot sits at 6%, which is what a last level should do to someone tapping without looking, and it is allowed because nothing is clogging: the two colours that wait, brown behind the padlock and black under the robot and the skull, are waiting on purpose and on things the player is already clearing.",
+  "label": "very hard",
+  "target": {
+    "min": 0.15,
+    "max": 0.28
+  },
+  "lanes": 2,
+  "boards": [
+    {
+      "picture": "lion",
+      "colors": {
+        "1": "brown",
+        "2": "orange",
+        "3": "white",
+        "4": "brown",
+        "5": "black"
+      },
+      "hidden": [
+        "2",
+        "3"
+      ],
+      "lock": {
+        "type": "key",
+        "color": "gold"
+      }
+    },
+    {
+      "picture": "robot",
+      "colors": {
+        "1": "white",
+        "2": "black",
+        "3": "red",
+        "4": "orange",
+        "5": "blue"
+      },
+      "hidden": [
+        "2"
+      ]
+    },
+    {
+      "picture": "turkey",
+      "colors": {
+        "1": "orange",
+        "2": "brown",
+        "3": "pink"
+      },
+      "key": {
+        "group": "1",
+        "pick": "middle",
+        "color": "gold"
+      }
+    },
+    {
+      "picture": "skull",
+      "colors": {
+        "1": "yellow",
+        "2": "black",
+        "3": "black"
+      }
+    },
+    {
+      "picture": "heart",
+      "colors": {
+        "1": "red"
+      }
+    },
+    {
+      "picture": "music-note",
+      "colors": {
+        "1": "purple",
+        "2": "black",
+        "3": "blue"
+      },
+      "hidden": [
+        "2"
+      ]
+    }
+  ],
+  "queue": {
+    "hidden": 0,
+    "links": 2
+  }
+}

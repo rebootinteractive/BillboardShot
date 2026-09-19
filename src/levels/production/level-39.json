@@ -1,0 +1,151 @@
+{
+  "name": "Parade Route",
+  "boards": [
+    {
+      "name": "Bus",
+      "art": [
+        "WWWWWWWWWWWWWWWW",
+        "KKWWCCWWCCWWCCWW",
+        "KKWCCCCCCCCCCCCW",
+        "CCKCCCCCCCCCCCCW",
+        "CCKCCCCCCCCCCCCW",
+        "CCWCCCCCCCCCCCCW",
+        "CCWWCCWWCCWWCCWW",
+        "YYYYYYYYYYYYYYYY",
+        "YYYYYYYYYYYYYYYR",
+        "YYKKKYYYYYYKKKYY",
+        "YYKWKKYYYYKKWKYY",
+        "..KWKK....KKWK..",
+        "...KK......KK..."
+      ],
+      "source": { "picture": "bus", "colors": { "1": "cyan", "2": "yellow", "3": "white", "4": "black", "5": "yellow", "6": "red" } }
+    },
+    {
+      "name": "Passenger ship",
+      "art": [
+        ".........RR.RR..",
+        ".........RR.RR..",
+        "....YYYYYYYYYYY.",
+        "...YYYYYYYYYYYYY",
+        "..YCCCCCCCCCCYYY",
+        ".YYYYYYYYYYYYYYY",
+        ".YCCCCCCCCCCCCYY",
+        "YYYYYYYYYYYYYYYY",
+        "BBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBB",
+        ".BBBBBBBBBBBBBBB",
+        "...BBBBBBBBBBBB."
+      ],
+      "source": { "picture": "ship", "colors": { "1": "yellow", "2": "blue", "3": "red", "4": "cyan" } },
+      "lock": { "type": "key", "color": "gold" }
+    },
+    {
+      "name": "Truck",
+      "art": [
+        ".......OOOOOOOOO",
+        ".......OOOOOOOOO",
+        ".......OOOOOOOOO",
+        "..CCWWWOOOOOOOOO",
+        ".CCCCWWOOOOOOOOO",
+        ".CCCCWWOOOOOOOOO",
+        "CCCCWWWOOOOOOOOO",
+        "BBBBBBBBBBBBBBBB",
+        "OBBBBBBBBBBBBBBB",
+        "OBBKKBBBBBBKKBBR",
+        "BBKWKKBBBBKKWKBB",
+        ".BKWKK....KKWKB.",
+        "..KKK......KKK.."
+      ],
+      "source": { "picture": "truck", "colors": { "1": "orange", "2": "blue", "3": "black", "4": "cyan", "5": "white", "6": "red" } },
+      "keys": [{ "col": 11, "row": 3, "color": "gold" }]
+    },
+    {
+      "name": "Fishing pole",
+      "art": [
+        ".......NN",
+        "......NNN",
+        "......NN.",
+        ".....NNN.",
+        ".....NN..",
+        "....NNN..",
+        "...WWNN..",
+        "...WWN...",
+        "...WW....",
+        "....W....",
+        "....W....",
+        "....W....",
+        "..OOOO...",
+        ".OOOOO.OO",
+        "OOOOOOOOO",
+        ".OOOOO.OO"
+      ],
+      "source": { "picture": "fishing-pole", "colors": { "1": "brown", "2": "orange", "3": "white" } }
+    },
+    {
+      "name": "Satellite Dish",
+      "art": [
+        "..CCCC..",
+        ".CCCCCCR",
+        "CCCCCCCR",
+        "CCCCCCCR",
+        ".CCCCCC.",
+        "..CCCC..",
+        "...WW...",
+        "...WW...",
+        "..WWWW..",
+        ".WWWWWW."
+      ],
+      "source": { "picture": "satellite-dish", "colors": { "1": "cyan", "2": "red", "3": "white" } }
+    },
+    {
+      "name": "Anchor",
+      "art": [
+        "....BB....",
+        "....BB....",
+        "....BB....",
+        "..BBBBBB..",
+        "....BB....",
+        "....BB....",
+        "BB..BB..BB",
+        "BB..BB..BB",
+        ".B..BB..B.",
+        ".BBBBBBBB.",
+        "...BBBB..."
+      ],
+      "source": { "picture": "anchor", "colors": { "1": "blue" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "white", "charges": 39 },
+      { "color": "cyan", "charges": 35 },
+      { "color": "red", "charges": 13 },
+      { "color": "cyan", "charges": 34, "link": "a" },
+      { "color": "brown", "charges": 18 }
+    ],
+    [
+      { "color": "black", "charges": 25 },
+      { "color": "black", "charges": 25 },
+      { "color": "cyan", "charges": 34 },
+      { "color": "orange", "charges": 30, "link": "b" },
+      { "color": "cyan", "charges": 35 }
+    ],
+    [
+      { "color": "orange", "charges": 31 },
+      { "color": "orange", "charges": 31 },
+      { "color": "blue", "charges": 38 },
+      { "color": "blue", "charges": 37 },
+      { "color": "yellow", "charges": 37, "link": "a" }
+    ],
+    [
+      { "color": "blue", "charges": 37 },
+      { "color": "blue", "charges": 37 },
+      { "color": "yellow", "charges": 37, "link": "b" },
+      { "color": "yellow", "charges": 37 },
+      { "color": "blue", "charges": 37 },
+      { "color": "white", "charges": 40 }
+    ]
+  ]
+}

@@ -174,14 +174,28 @@ not feel like the same wall three times:
 - **40** is a planning level: the key, the links and the mystery groups all have to be
   solved in the right order.
 
-## 6. Length
+## 6. What happens after level 40
+
+The game loops back to **level 25**, not level 1, while the number the player sees keeps
+climbing — beat 40 and the next screen says Level 41 and plays level 25's file.
+
+Level 25 is the first level after the last feature is introduced, which makes it the right
+seam. Everything from 25 on assumes the player knows all five features, the span uses all
+five, and it contains none of the deliberately-trivial levels that teach them — a player
+who has just finished the game should not be handed a one-board tutorial with a pointing
+hand, nor four onboarding levels sitting at 99%. It also opens at a medium, which is the
+right breath after a 20% finale.
+
+That gives a sixteen-level loop containing four of the game's seven peaks.
+
+## 7. Length
 
 Levels 8–10 of the MVP ran 100–160 seconds of engaged play and all three testers were
 comfortable there, so that is the ceiling. Early levels should be far shorter: level 1
 should be over in about 25 seconds. The report card estimates play time from the pixel
 budget, so the Pixels column above is the real length control.
 
-## 7. Themes and picture reuse
+## 8. Themes and picture reuse
 
 Eight themes, five levels each, drawn from the 191-picture library:
 
@@ -193,7 +207,7 @@ locked, frozen or mystery board. Themes mostly enforce this on their own. At two
 picture the ~200 board slots need 100 distinct pictures, and the library has 191, so there
 is room to refuse any picture that does not fit.
 
-## 8. How the levels get built
+## 9. How the levels get built
 
 In **batches of eight**, which is also the picture reuse window, so each batch draws on
 fresh art. For each batch:

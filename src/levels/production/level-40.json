@@ -1,0 +1,160 @@
+{
+  "name": "The Lion's Share",
+  "label": "very hard",
+  "boards": [
+    {
+      "name": "Lion",
+      "art": [
+        "..NNNNN..NNNNN..",
+        "..NNooNNNNooNN..",
+        "NNNooooNNooooNNN",
+        "NNNooooooooooNNN",
+        "NNNooooooooooNNN",
+        "NNNooooooooooNNN",
+        ".NoooKooooKoooN.",
+        "NNoooKowwoKoooNN",
+        "NNoooowwwwooooNN",
+        "NNooowwKKwwoooNN",
+        "NNNoowwwwwwooNNN",
+        "NNNNNNNNNNNNNNNN",
+        "NNNNNNNNNNNNNNNN",
+        ".NNNNNNNNNNNNNN.",
+        "...NNNNNNNNNN...",
+        "......NNNN......"
+      ],
+      "source": { "picture": "lion", "colors": { "1": "brown", "2": "orange", "3": "white", "4": "brown", "5": "black" }, "hidden": ["2", "3"] },
+      "lock": { "type": "key", "color": "gold" }
+    },
+    {
+      "name": "Robot",
+      "art": [
+        "..............RR",
+        ".....OOOOOO...RR",
+        "...WWWWWWWWWW.R.",
+        "..WWWWWWWWWWWWR.",
+        ".WWWWWWWWWWWWWW.",
+        ".WkkkkkkkkkkkkW.",
+        "RWkkBkkkkkkBkkWR",
+        "RWkkBkkkkkkBkkWR",
+        "RWkkkkkkkkkkkkWR",
+        "RWWWWWWWWWWWWWWR",
+        "RWWWWWWWWWWWWWWR",
+        "RWWWWWWWWWWWWWWR",
+        ".WWWWWkkkkWWWWW.",
+        ".WWWWWkkkkWWWWW.",
+        "..WWWWWWWWWWWW..",
+        "...WWWWWWWWWW..."
+      ],
+      "source": { "picture": "robot", "colors": { "1": "white", "2": "black", "3": "red", "4": "orange", "5": "blue" }, "hidden": ["2"] }
+    },
+    {
+      "name": "Turkey",
+      "art": [
+        "........OO.OO.OO",
+        "......OOOOOOOOOO",
+        ".MM...OOOOOOOOOO",
+        "MMMM..OOOOOOOOOO",
+        "MMMMOOOOOOOOOOOO",
+        "..MMOOOOOOOOOOOO",
+        "..MNNNNOOOOOOOOO",
+        "NNNNNNNNOOOOOOOO",
+        "NNNNNNNNNOOOOOOO",
+        "NNNNNNNNNOOOOOOO",
+        "NNNNNNNNNNOOOOOO",
+        ".NNNNNNNNNOOOOO.",
+        "..NNNNNNNNOOOO..",
+        "....MM...MM.....",
+        "...MMMM.MMMM...."
+      ],
+      "source": { "picture": "turkey", "colors": { "1": "orange", "2": "brown", "3": "pink" } },
+      "keys": [{ "col": 11, "row": 5, "color": "gold" }]
+    },
+    {
+      "name": "Skull",
+      "art": [
+        "....KYYYK....",
+        "..KYYYYYYYK..",
+        ".KYYYYYYYYYK.",
+        ".YYYYYYYYYYY.",
+        "KYYYYYYYYYYYK",
+        "YYKKKYYYKKKYY",
+        "YYKKKKYKKKKYY",
+        "KYKKKYYYKKKYY",
+        "KYYYYYKYYYYYK",
+        "..KYYYYYYYK..",
+        "...YYYYYYY...",
+        "...YYYYYYY...",
+        "...KYKYKYK..."
+      ],
+      "source": { "picture": "skull", "colors": { "1": "yellow", "2": "black", "3": "black" } }
+    },
+    {
+      "name": "Heart",
+      "art": [
+        ".RRR..RRR.",
+        "RRRRRRRRRR",
+        "RRRRRRRRRR",
+        "RRRRRRRRRR",
+        "RRRRRRRRRR",
+        ".RRRRRRRR.",
+        "..RRRRRR..",
+        "...RRRR...",
+        "....RR...."
+      ],
+      "source": { "picture": "heart", "colors": { "1": "red" } }
+    },
+    {
+      "name": "Music note",
+      "art": [
+        "....kkBB",
+        "....kkBB",
+        "....kkBB",
+        "....kkBB",
+        "....kkB.",
+        "....kk..",
+        "....kk..",
+        "....kk..",
+        "....kk..",
+        "....kk..",
+        ".PPPPP..",
+        "PPPPPP..",
+        "PPPPPP..",
+        ".PPPP..."
+      ],
+      "source": { "picture": "music-note", "colors": { "1": "purple", "2": "black", "3": "blue" }, "hidden": ["2"] }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "red", "charges": 28 },
+      { "color": "pink", "charges": 13 },
+      { "color": "orange", "charges": 38 },
+      { "color": "purple", "charges": 21 },
+      { "color": "white", "charges": 36, "link": "b" },
+      { "color": "yellow", "charges": 31, "link": "a" },
+      { "color": "white", "charges": 36 },
+      { "color": "yellow", "charges": 31 },
+      { "color": "black", "charges": 38 },
+      { "color": "orange", "charges": 38 },
+      { "color": "white", "charges": 36 },
+      { "color": "brown", "charges": 36 },
+      { "color": "brown", "charges": 36 },
+      { "color": "brown", "charges": 36 }
+    ],
+    [
+      { "color": "blue", "charges": 13 },
+      { "color": "brown", "charges": 37 },
+      { "color": "black", "charges": 39, "link": "b" },
+      { "color": "black", "charges": 39 },
+      { "color": "orange", "charges": 38, "link": "a" },
+      { "color": "white", "charges": 36 },
+      { "color": "yellow", "charges": 31 },
+      { "color": "red", "charges": 28 },
+      { "color": "orange", "charges": 38 },
+      { "color": "red", "charges": 28 },
+      { "color": "brown", "charges": 36 },
+      { "color": "pink", "charges": 12 },
+      { "color": "orange", "charges": 38 }
+    ]
+  ]
+}

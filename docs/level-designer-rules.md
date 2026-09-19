@@ -93,11 +93,25 @@ pulling is expensive.
    pixel. [verified, batch 2]
 6. **Container sizes.** Large containers stay on the deck longer; sizes that don't match
    the exposed pixels leave partly filled containers. [hypothesis]
-7. **Lanes.** Not a dependable lever, and weaker than it looks. Re-dealing the same
-   containers into 2, 3 and 4 lanes moved five levels in no consistent direction: one got
-   harder with fewer lanes, another easier, a third was hardest at 3 lanes and easier at
-   both 2 and 4. Choose a lane count for the shape of the level and tune with something
-   else. [verified, batch 1]
+7. **Lanes.** Not a dependable *difficulty* lever — re-dealing the same containers into 2,
+   3 and 4 lanes moved five levels in no consistent direction — but a reliable **fairness**
+   lever, which is the more useful way to think about it.
+
+   Fewer lanes means fewer lane heads, and a lane head is where the tuner can put a trap.
+   Given four lanes it can reach a low difficulty score by making the opening punishing;
+   given two it has to find the difficulty in the structure instead. The same score then
+   arrives with a much healthier careful bot. Three levels in batch 5 needed this:
+
+   | Level | At 4 lanes | Reduced |
+   |---|---|---|
+   | 37 | in band, careful 73% | 3 lanes: 22%, careful 93% |
+   | 38 | bottom of band, a color parked 1.3/run | 2 lanes: mid-band, careful 100% |
+   | 40 | in band, careful 70% | 2 lanes: 20%, careful 100% |
+
+   So: when a level hits its band but the careful bot is poor, try taking a lane away
+   before you change anything else. The cost is lookahead — two lanes show eight upcoming
+   containers instead of sixteen — so it is a real trade on a level that is meant to be a
+   planning problem. [verified, batches 1 and 5]
 8. **Hidden information** (mystery pixels, hidden containers). A **weak** lever on its own.
    Level 12 pairs both features and still would not come below 82% until its palette was
    de-shared; hiding things makes a level uncertain, not hard. Use it for how a level

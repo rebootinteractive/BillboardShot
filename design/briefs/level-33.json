@@ -1,0 +1,69 @@
+{
+  "id": "level-33",
+  "name": "Sweet Relief",
+  "intent": "Relief straight after the batch's hard peak, and the first level of the Feast. One feature only - mystery pixels - and it is used for texture rather than pressure: three hidden groups, and every one of them is a colour the player can already see somewhere else. The cookie's brown chips are the popsicle's stick, the popsicle's red top is the candy wrapper, and the doughnut's pink frosting is the whole top of the cupcake, so nothing hidden is the only home of anything. Six colours across five small sweets, heavily shared: pink runs through the cupcake, the doughnut and the candy stripe, yellow through the cookie and the doughnut's dough, cyan through the cupcake wrapper and the popsicle. The only two colours that live in one place, the cupcake's four white sprinkles and the cookie's chips, are both tiny and both sit under a colour that is exposed across most of its board. The dig is the cupcake: 124 pink frosting reachable through two columns until the doughnut's dough opens the second pink face twelve columns wide.",
+  "target": {
+    "min": 0.78,
+    "max": 0.88
+  },
+  "lanes": 3,
+  "boards": [
+    {
+      "picture": "cupcake",
+      "colors": {
+        "1": "pink",
+        "2": "cyan",
+        "3": "white",
+        "4": "white"
+      }
+    },
+    {
+      "picture": "cookie",
+      "colors": {
+        "1": "yellow",
+        "2": "brown"
+      },
+      "hidden": [
+        "2"
+      ]
+    },
+    {
+      "picture": "doughnut",
+      "colors": {
+        "1": "pink",
+        "2": "yellow",
+        "3": "pink",
+        "4": "pink"
+      },
+      "hidden": [
+        "1",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "picture": "popsicle",
+      "colors": {
+        "1": "red",
+        "2": "white",
+        "3": "cyan",
+        "4": "brown"
+      },
+      "hidden": [
+        "1"
+      ]
+    },
+    {
+      "picture": "candy",
+      "colors": {
+        "1": "red",
+        "2": "white",
+        "3": "pink"
+      }
+    }
+  ],
+  "queue": {
+    "hidden": 0,
+    "links": 0
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "name": "Breakfast on Ice",
+  "boards": [
+    {
+      "name": "Coffee",
+      "art": [
+        ".....WWWW.......",
+        "...WWPPPPWW.....",
+        "..WPPnnnnPPW....",
+        "..WPnnnnnnPWWW..",
+        ".WPnnnnnnnnPWWW.",
+        ".WnnnnnnnnnnW.WW",
+        ".WnnnnnnnnnnW..W",
+        "WWnnnnnnnnnnWW.W",
+        "WWWnnnnnnnnWWWWW",
+        "WWWnnnnnnnnWWWW.",
+        "WWWWWnnnnWWWWW..",
+        "WWWWWWWWWWWWWW..",
+        ".WWWWWWWWWWWWW..",
+        ".WWWWWWWWWWWW...",
+        "..WWWWWWWWWW....",
+        "...WWWWWWWW.....",
+        ".....WWWW......."
+      ],
+      "source": { "picture": "coffee", "colors": { "1": "white", "2": "brown", "3": "purple" }, "hidden": ["2"] }
+    },
+    {
+      "name": "Waffle",
+      "art": [
+        "..OOOOOOOOOO..",
+        ".OyyyyyyyyyyO.",
+        "OyNNyyNNyyNNyO",
+        "OyNNyyNNyyNNyO",
+        "OyyyyyyyyyyyyO",
+        "OyyyyyyyyyyyyO",
+        "OyNNyyNNyyNNyO",
+        "OyNNyyNNyyNNyO",
+        "OyyyyyyyyyyyyO",
+        "OyyyyyyyyyyyyO",
+        "OyNNyyNNyyNNyO",
+        "OyNNyyNNyyNNyO",
+        ".OyyyyyyyyyyO.",
+        "..OOOOOOOOOO.."
+      ],
+      "source": { "picture": "waffle", "colors": { "1": "yellow", "2": "brown", "3": "orange" }, "hidden": ["1"] },
+      "lock": { "type": "frozen", "color": "cyan", "count": 70 }
+    },
+    {
+      "name": "Pretzel",
+      "art": [
+        "..NNNN....NNNN..",
+        ".NNWWNN..NNWWNN.",
+        "NN....OOOO....NN",
+        "NN....OOOO....NN",
+        "NN....OOOO....NN",
+        "NNNNNNNNNNNNNNNN",
+        "NNNNNNNNNNNNNNNN",
+        ".NNNNNNNNNNNNNN.",
+        ".NNNN......NNNN.",
+        ".NWWN......NWWN.",
+        ".NNNN......NNNN.",
+        ".NNNN......NNNN.",
+        "..NNN......NNN..",
+        "...NNNNNNNNNN...",
+        ".....NNNNNN....."
+      ],
+      "source": { "picture": "pretzel", "colors": { "1": "brown", "2": "orange", "3": "white" } }
+    },
+    {
+      "name": "Milk",
+      "art": [
+        "PPPPPPPP",
+        "CyyyyyyC",
+        "CyyyyyyC",
+        "CyyyyyyC",
+        "CyyyyyyC",
+        "CyyyyyyC",
+        "CyyyyyyC",
+        ".CyyyyC.",
+        ".CyyyyC.",
+        ".CyyyyC.",
+        ".CCCCCC.",
+        ".CCCCCC.",
+        ".CCCCCC.",
+        ".CCCCCC.",
+        "CCCCCCCC"
+      ],
+      "source": { "picture": "milk", "colors": { "1": "yellow", "2": "cyan", "3": "purple" }, "hidden": ["1"] }
+    },
+    {
+      "name": "Baguette",
+      "art": [
+        "....OOOOOOOO....",
+        "..OYYOOOYYOOOY..",
+        "OOOOYYOOOYYOOYYO",
+        "OOOOOYYOOOYYOOYY",
+        "..OOOOYYOOOYYO..",
+        "....OOOOOOOO...."
+      ],
+      "source": { "picture": "baguette", "colors": { "1": "orange", "2": "yellow" } }
+    },
+    {
+      "name": "Butter",
+      "art": [
+        "...wwwww...",
+        "..wwwwwww..",
+        ".wwwwwwwww.",
+        ".YYYYYYYYY.",
+        ".YYYYYYYYY.",
+        ".YYYYYYYYY.",
+        "CCCCCCCCCCC",
+        ".CCCCCCCCC."
+      ],
+      "source": { "picture": "butter", "colors": { "1": "yellow", "2": "cyan", "3": "white" }, "hidden": ["3"] }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "cyan", "charges": 24 },
+      { "color": "white", "charges": 37 },
+      { "color": "brown", "charges": 38 },
+      { "color": "brown", "charges": 38 },
+      { "color": "yellow", "charges": 34 }
+    ],
+    [
+      { "color": "purple", "charges": 20 },
+      { "color": "brown", "charges": 38 },
+      { "color": "yellow", "charges": 34 },
+      { "color": "yellow", "charges": 33 },
+      { "color": "white", "charges": 36 },
+      { "color": "cyan", "charges": 23 }
+    ],
+    [
+      { "color": "white", "charges": 36 },
+      { "color": "cyan", "charges": 23 },
+      { "color": "brown", "charges": 38 },
+      { "color": "yellow", "charges": 33 },
+      { "color": "brown", "charges": 38 },
+      { "color": "white", "charges": 36 },
+      { "color": "yellow", "charges": 33 }
+    ],
+    [
+      { "color": "orange", "charges": 36 },
+      { "color": "brown", "charges": 38 },
+      { "color": "orange", "charges": 36 },
+      { "color": "orange", "charges": 35 },
+      { "color": "yellow", "charges": 33 }
+    ]
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "name": "Stripes and Spots",
+  "boards": [
+    {
+      "name": "Panda",
+      "art": [
+        ".KKK..KKKK..KKK.",
+        "KKKKKWWWWWWKKKKK",
+        "KKKWWWWWWWWWWKKK",
+        "KKWWWWWWWWWWWWKK",
+        ".KWWWKWWWWKWWWK.",
+        "KWWWKKKWWKKKWWWK",
+        "KWWKKKKWWKKKKWWK",
+        "KWWKKKWWWWKKKWWK",
+        "KWWWWWWWKWWWWWWK",
+        "KWWWWWWWWWWWWWWK",
+        "KWWWWWKKKKWWWWWK",
+        ".KWWWWWWWWWWWWK.",
+        "..KWWWWWWWWWWK..",
+        "....KKKKKKKK...."
+      ],
+      "source": { "picture": "panda", "colors": { "1": "white", "2": "black" } }
+    },
+    {
+      "name": "Tiger",
+      "art": [
+        "..OOO..KK..OOO..",
+        ".OOOOOOOOOOOOOO.",
+        ".OOOOOOKKOOOOOO.",
+        "..OOOOOKKOOOOO..",
+        "..OOOOOOOOOOOO..",
+        ".OOOOOOOOOOOOOO.",
+        "OOOOOKOOOOKOOOOO",
+        "KOOOOKOOOOKOOOOK",
+        "KKOWOWWKKWWOWOKK",
+        "KKKOWWWKKWWWOOKK",
+        "KKOOWWWWWWWWOOKK",
+        "KKKWWWWWWWWWWKKK",
+        ".OOOWWWWWWWWOOO.",
+        "..OOOWWWWWWWOO..",
+        "......WWWW......"
+      ],
+      "source": { "picture": "tiger", "colors": { "1": "orange", "2": "white", "3": "black" } }
+    },
+    {
+      "name": "Frog",
+      "art": [
+        "...ggg....ggg...",
+        "..gLLgg..ggLLg..",
+        ".gLkkLg..gLkkLg.",
+        ".gLkkkggggkkkLg.",
+        ".ggLkLggggLkLgg.",
+        ".gggggggggggggg.",
+        "gggggggggggggggg",
+        "gggggggggggggggg",
+        "gggggLLLLLLggggg",
+        "gggLLLLLLLLLLggg",
+        "LLLLLLLLLLLLLLLL",
+        ".LLLLLLLLLLLLLL.",
+        ".LLLLLLLLLLLLLL.",
+        "..LLLLLLLLLLLL..",
+        "....LLLLLLLL...."
+      ],
+      "source": { "picture": "frog", "colors": { "1": "lime", "2": "green", "3": "black" }, "hidden": ["2", "3"] }
+    },
+    {
+      "name": "Cricket",
+      "art": [
+        "G.G......GGG.",
+        "G.G.....GGGG.",
+        "GGG....GGGGG.",
+        ".GGGGGGGGGGG.",
+        "GGGlllllllGG.",
+        "GGGlllllllGGG",
+        "GGGGGGGGGGGGG",
+        "..GG..GG..GGG",
+        ".GGG..GG...GG"
+      ],
+      "source": { "picture": "cricket", "colors": { "1": "green", "2": "lime" }, "hidden": ["2"] }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "black", "charges": 33 },
+      { "color": "white", "charges": 34 },
+      { "color": "lime", "charges": 36, "hidden": true },
+      { "color": "orange", "charges": 39 },
+      { "color": "green", "charges": 40 },
+      { "color": "black", "charges": 32 },
+      { "color": "orange", "charges": 38 },
+      { "color": "lime", "charges": 36 },
+      { "color": "white", "charges": 33 },
+      { "color": "white", "charges": 33 }
+    ],
+    [
+      { "color": "white", "charges": 34 },
+      { "color": "green", "charges": 40 },
+      { "color": "black", "charges": 33, "hidden": true },
+      { "color": "orange", "charges": 39 },
+      { "color": "lime", "charges": 36 },
+      { "color": "white", "charges": 34 },
+      { "color": "green", "charges": 40 },
+      { "color": "black", "charges": 32 },
+      { "color": "green", "charges": 40 }
+    ]
+  ]
+}

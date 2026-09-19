@@ -1,0 +1,127 @@
+{
+  "name": "Sweet Relief",
+  "boards": [
+    {
+      "name": "Cupcake",
+      "art": [
+        ".......MM......",
+        ".....MMMMM.....",
+        ".....MMWMM.....",
+        "....MMMMMMM....",
+        "..MMMMMMMCMMM..",
+        "..MMMMMMMMMMM..",
+        "..MMMMMMMMMMM..",
+        ".MMMMMMMMMMMMM.",
+        "MMWMMMMMMMMMWMM",
+        "MMMMMWMMMMMMMMM",
+        ".MMMMMMMMMMMMM.",
+        ".MMMMMMMMMMMMM.",
+        ".CCMMMMCMMCMCM.",
+        ".CCCCCCCCCCCCC.",
+        ".CCCCCCCCCCCCC.",
+        ".CCCCCCCCCCCCC.",
+        "..CCCCCCCCCCC.."
+      ],
+      "source": { "picture": "cupcake", "colors": { "1": "pink", "2": "cyan", "3": "white", "4": "white" } }
+    },
+    {
+      "name": "Cookie",
+      "art": [
+        "....YYYYY....",
+        "..YYYYYYYYY..",
+        ".YYnnYYYnYYY.",
+        ".YYnnYYYYYYY.",
+        "YYYnYYYYYYYYY",
+        "YYYYYYnnYYnYY",
+        "YYYYYYnnYYYYY",
+        "YYnYYYYYYYYYY",
+        "YYYYYYYYYYYYY",
+        ".YYYnYYYnnYY.",
+        ".YYYnnYYYnYY.",
+        "..YYYYYYYYY..",
+        "....YYYYY...."
+      ],
+      "source": { "picture": "cookie", "colors": { "1": "yellow", "2": "brown" }, "hidden": ["2"] }
+    },
+    {
+      "name": "Doughnut",
+      "art": [
+        "....mmmm....",
+        "..mmmmmmmm..",
+        ".mmmmmmmmmm.",
+        "mmmmmmmmmmm.",
+        "mmmmmYYmmmmm",
+        "mmmmYYYYmmmm",
+        "mmmm....mmmm",
+        "mmmmm..mmmmm",
+        "YmmmmmmmmmmY",
+        "YmmmmmmmmmmY",
+        ".YmmmmmmmmY.",
+        ".YYYmmmmYYY.",
+        "..YYYYYYYY..",
+        "....YYYY...."
+      ],
+      "source": { "picture": "doughnut", "colors": { "1": "pink", "2": "yellow", "3": "pink", "4": "pink" }, "hidden": ["1", "3", "4"] }
+    },
+    {
+      "name": "Popsicle",
+      "art": [
+        "..rrrrr..",
+        ".rrrrrrr.",
+        "rrrrrrrrr",
+        "rrrrrrrrr",
+        "WWWWWWWWW",
+        "WWWWWWWWW",
+        "WWWWWWWWW",
+        "CCCCCCCCC",
+        "CCCCCCCCC",
+        "CCCCCCCCC",
+        ".CCCCCCC.",
+        "...NNN...",
+        "...NNN...",
+        "...NNN...",
+        "...NNN..."
+      ],
+      "source": { "picture": "popsicle", "colors": { "1": "red", "2": "white", "3": "cyan", "4": "brown" }, "hidden": ["1"] }
+    },
+    {
+      "name": "Candy",
+      "art": [
+        "RR........RR",
+        "RRR.WWWW.RRR",
+        "RRRRWMMWRRRR",
+        "RRRRWMMWRRRR",
+        "RRRRWMMWRRRR",
+        "RRR.WWWW.RRR",
+        "RR........RR"
+      ],
+      "source": { "picture": "candy", "colors": { "1": "red", "2": "white", "3": "pink" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "pink", "charges": 39 },
+      { "color": "yellow", "charges": 38 },
+      { "color": "pink", "charges": 39 },
+      { "color": "yellow", "charges": 37 },
+      { "color": "cyan", "charges": 30 },
+      { "color": "yellow", "charges": 37 }
+    ],
+    [
+      { "color": "white", "charges": 23 },
+      { "color": "brown", "charges": 30 },
+      { "color": "white", "charges": 22 },
+      { "color": "red", "charges": 37 },
+      { "color": "yellow", "charges": 37 },
+      { "color": "pink", "charges": 38 }
+    ],
+    [
+      { "color": "cyan", "charges": 30 },
+      { "color": "red", "charges": 37 },
+      { "color": "cyan", "charges": 30 },
+      { "color": "pink", "charges": 39 },
+      { "color": "pink", "charges": 38 },
+      { "color": "pink", "charges": 38 }
+    ]
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "id": "level-38",
+  "name": "Stripes and Spots",
+  "intent": "Relief after the batch's frozen peak, and the only level in the last eight with no gate of any kind - no ice, no padlock, nothing waiting on a count. Four large animals, five colours, and every one of those colours has a face open from the first move: white in the panda's fur and the tiger's muzzle, black across the panda's patches fourteen columns wide, orange in the whole tiger, lime in the frog's face sixteen columns wide, green in the cricket's body. Nothing in the level has only one home except orange, and orange is a single board that is wide open, so a container is almost never holding a slot it cannot use. The two features are both about not being able to see rather than not being able to move: three mystery groups - the frog's green head under its face, its black eyes, the cricket's lime wing - and two hidden containers in the deck. Each mystery group is a colour the player can already see on another board, so the uncertainty is texture, not a trap. The one genuine reading problem is deliberate: the frog's face is lime and its head is green, two colours that read close together, so the board that is half hidden is also the board that rewards a second look. Two lanes rather than three, because it is a breather: at three and four lanes the tuner could only reach the band by parking a colour, and at two it lands mid-band with the careful bot at 100% and the deck barely jamming at all.",
+  "target": {
+    "min": 0.78,
+    "max": 0.88
+  },
+  "lanes": 2,
+  "boards": [
+    {
+      "picture": "panda",
+      "colors": {
+        "1": "white",
+        "2": "black"
+      }
+    },
+    {
+      "picture": "tiger",
+      "colors": {
+        "1": "orange",
+        "2": "white",
+        "3": "black"
+      }
+    },
+    {
+      "picture": "frog",
+      "colors": {
+        "1": "lime",
+        "2": "green",
+        "3": "black"
+      },
+      "hidden": [
+        "2",
+        "3"
+      ]
+    },
+    {
+      "picture": "cricket",
+      "colors": {
+        "1": "green",
+        "2": "lime"
+      },
+      "hidden": [
+        "2"
+      ]
+    }
+  ],
+  "queue": {
+    "hidden": 2,
+    "links": 0
+  }
+}
