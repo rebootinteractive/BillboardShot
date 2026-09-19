@@ -1,6 +1,6 @@
-import type { LevelData } from '../game/level';
 import { COLOR_KEYS } from '../shared/colors';
-import { UNKNOWN, colorName, createState, lowestRow, type State } from './sim';
+import { KEY, UNKNOWN, colorName, createState, lowestRow, type State } from './sim';
+import { KEY_WIDTH, type LevelData } from '../game/level';
 
 /**
  * Automatic checks for the rules in docs/level-designer-rules.md that can be decided
@@ -85,10 +85,9 @@ export function lintLevel(level: LevelData): LintItem[] {
 
   // ---- notes: key depth, small color pieces, odd pixels
   s.boards.forEach((b, i) => {
-    for (let col = 0; col < b.cols; col++) for (let row = 0; row < b.rows; row++) {
-      const idx = col * b.rows + row;
-      if (b.key[idx] < 0) continue;
-      const below = Array.from({ length: row }, (_, r) => b.color[col * b.rows + r]).filter((c) => c >= 0).length;
+    for (const key of b.keys) {
+      let below = 0;
+      for (let col = key.col; col < key.col + KEY_WIDTH; col++) for (let row = 0; row < key.row; row++) if (b.color[col * b.rows + row] >= 0) below++;
       note('key depth', `Board ${i} (${level.boards[i].name}) holds a key with ${below} pixel${below === 1 ? '' : 's'} beneath it.`);
     }
   });
@@ -106,7 +105,7 @@ export function lintLevel(level: LevelData): LintItem[] {
     const bottoms = new Set<number>();
     for (let col = 0; col < b.cols; col++) {
       const row = lowestRow(b, col);
-      if (row < b.rows) bottoms.add(b.color[col * b.rows + row]);
+      if (row < b.rows && b.color[col * b.rows + row] !== KEY) bottoms.add(b.color[col * b.rows + row]);
     }
     if (bottoms.size === 1) {
       const [only] = bottoms;

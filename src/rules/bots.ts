@@ -2,7 +2,7 @@ import {
   UNKNOWN, applyMove, cloneState, createState, exposedCount, freeSlots, isOpen, legalMoves, lowestRow, maskState,
   openExposedColors, remainingPixels, type Move, type State,
 } from './sim';
-import type { LevelData } from '../game/level';
+import { KEY_WIDTH, type LevelData } from '../game/level';
 
 /**
  * Bots that play a level from what a player can see. Their win rates are the difficulty
@@ -31,19 +31,16 @@ function visibleCount(s: State, color: number): number {
 }
 
 /**
- * Colors at the bottom of a column that holds a key, on open boards. Pulling them digs
+ * Colors at the bottom of a column beneath a key, on open boards. Pulling them digs
  * toward the key, which opens a locked board: players go for keys on purpose.
  */
 function keyColumnColors(s: State): Set<number> {
   const out = new Set<number>();
   for (const b of s.boards) {
     if (!isOpen(b)) continue;
-    for (let col = 0; col < b.cols; col++) {
-      let hasKey = false;
-      for (let row = 0; row < b.rows && !hasKey; row++) hasKey = b.key[col * b.rows + row] >= 0;
-      if (!hasKey) continue;
+    for (const key of b.keys) for (let col = key.col; col < key.col + KEY_WIDTH; col++) {
       const row = lowestRow(b, col);
-      if (row < b.rows) out.add(b.color[col * b.rows + row]);
+      if (row < key.row) out.add(b.color[col * b.rows + row]);
     }
   }
   return out;

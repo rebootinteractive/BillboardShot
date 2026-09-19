@@ -1,5 +1,5 @@
 import { COLOR_CSS } from '../shared/colors';
-import { artColor, isMysteryChar, type LevelData } from '../game/level';
+import { artColor, isMysteryChar, keyCells, type LevelData } from '../game/level';
 import type { LevelReport } from '../rules/report';
 import type { LevelBrief } from './brief';
 import type { TuneResult } from './tune';
@@ -10,13 +10,14 @@ const pct = (x: number) => `${Math.round(x * 100)}%`;
 
 function boardHtml(b: LevelData['boards'][number]): string {
   const width = b.art[0].length;
-  const keys = new Map((b.keys ?? []).map((k) => [`${k.col},${k.row}`, k.color]));
+  const keys = new Map((b.keys ?? []).flatMap((k) => keyCells(k).map((c) => [`${c.col},${c.row}`, k.color] as const)));
   const cells = b.art.flatMap((line, row) => [...line].map((ch, col) => {
+    const key = keys.get(`${col},${row}`);
+    if (key) return `<i class="key" style="background:${KEY_CSS[key]}"></i>`;
     const color = artColor(ch);
     if (!color) return '<i></i>';
-    const key = keys.get(`${col},${row}`);
     const style = isMysteryChar(ch) ? 'background:#b3bac3' : `background:${COLOR_CSS[color]}`;
-    return `<i class="px${key ? ' key' : ''}" style="${style}${key ? `;outline-color:${KEY_CSS[key]}` : ''}">${isMysteryChar(ch) ? '?' : ''}</i>`;
+    return `<i class="px" style="${style}">${isMysteryChar(ch) ? '?' : ''}</i>`;
   })).join('');
   const lock = b.lock ? (b.lock.type === 'key'
     ? `<span class="badge" style="background:${KEY_CSS[b.lock.color]}">locked · ${b.lock.color} key</span>`
@@ -58,7 +59,7 @@ export function reportCard(level: LevelData, report: LevelReport, options: { bri
   figcaption { margin-top:8px; font-size:13px; }
   .art { display:grid; gap:1px; }
   .art i { width:10px; height:10px; border-radius:2px; font-style:normal; font-size:7px; line-height:10px; text-align:center; color:#fff; }
-  .art i.key { outline:2px solid; outline-offset:0; z-index:1; }
+  .art i.key { border-radius:0; box-shadow:inset 0 0 0 1px rgba(0,0,0,.25); }
   .badge { display:inline-block; font-size:11px; padding:1px 7px; border-radius:999px; background:var(--line); color:#2f3140; margin-left:4px; }
   .badge.ice { background:#d6f1ff; }
   .queue { display:flex; gap:12px; flex-wrap:wrap; }

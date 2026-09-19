@@ -7,8 +7,8 @@
       "art": [
         "......Y......",
         "...YYYYYYY...",
-        "...YYYYYYY...",
-        ".YYYYNNNYYYY.",
+        "...YY...YY...",
+        ".YYYY...YYYY.",
         "YYYYNNNNNYYYY",
         ".YYNNNNNNNYY.",
         ".YYNNNNNNNYYY",
@@ -24,7 +24,7 @@
         "...NNNNNNN..."
       ],
       "source": { "picture": "sunflower", "colors": { "1": "yellow", "2": "brown" } },
-      "keys": [{ "col": 6, "row": 3, "color": "gold" }]
+      "keys": [{ "col": 5, "row": 2, "color": "gold" }]
     },
     {
       "name": "Popcorn",
@@ -76,22 +76,22 @@
   ],
   "lanes": [
     [
-      { "color": "brown", "charges": 34 },
-      { "color": "yellow", "charges": 40 },
+      { "color": "brown", "charges": 32 },
+      { "color": "yellow", "charges": 39 },
       { "color": "red", "charges": 35 },
       { "color": "white", "charges": 37 },
       { "color": "white", "charges": 37 }
     ],
     [
-      { "color": "yellow", "charges": 40 },
+      { "color": "yellow", "charges": 39 },
       { "color": "red", "charges": 34 },
-      { "color": "brown", "charges": 33 },
+      { "color": "brown", "charges": 32 },
       { "color": "orange", "charges": 34 },
       { "color": "white", "charges": 37 }
     ],
     [
       { "color": "red", "charges": 34 },
-      { "color": "yellow", "charges": 40 },
+      { "color": "yellow", "charges": 39 },
       { "color": "white", "charges": 37 },
       { "color": "white", "charges": 37 }
     ]

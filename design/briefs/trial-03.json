@@ -17,11 +17,7 @@
         "4": "yellow",
         "5": "brown"
       },
-      "key": {
-        "group": "1",
-        "pick": "highest",
-        "color": "gold"
-      }
+      "key": { "col": 6, "row": 0, "color": "gold" }
     },
     {
       "picture": "crown",

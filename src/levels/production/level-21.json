@@ -10,8 +10,8 @@
         ".LLLLLLLLLLLLLL.",
         ".LLLLLLLLLLLLLL.",
         "LLLKKKLLLLLKKLLL",
-        "LLKKWWKLLKKKWWKL",
-        "LKKKKWKLLKKKWWKL",
+        "LLKKWW...KKKWWKL",
+        "LKKKKW...KKKWWKL",
         "LKKKKKKLLKKKKKKL",
         "LLKKKKKLLKKKKKLL",
         ".LLKKKKLLKKKKLL.",
@@ -22,7 +22,7 @@
         "......LLLL......"
       ],
       "source": { "picture": "alien", "colors": { "1": "lime", "2": "black", "3": "white" } },
-      "keys": [{ "col": 7, "row": 7, "color": "silver" }]
+      "keys": [{ "col": 6, "row": 6, "color": "silver" }]
     },
     {
       "name": "Ringed Planet",
@@ -106,20 +106,20 @@
     [
       { "color": "white", "charges": 38 },
       { "color": "purple", "charges": 20 },
-      { "color": "black", "charges": 29 }
+      { "color": "black", "charges": 28 }
     ],
     [
-      { "color": "lime", "charges": 34 },
+      { "color": "lime", "charges": 33 },
       { "color": "purple", "charges": 20 },
       { "color": "orange", "charges": 39 },
       { "color": "white", "charges": 38 },
-      { "color": "black", "charges": 29 },
+      { "color": "black", "charges": 28 },
       { "color": "red", "charges": 40 }
     ],
     [
       { "color": "yellow", "charges": 25 },
-      { "color": "lime", "charges": 35 },
-      { "color": "lime", "charges": 34 },
+      { "color": "lime", "charges": 33 },
+      { "color": "lime", "charges": 33 },
       { "color": "orange", "charges": 38 },
       { "color": "orange", "charges": 38 }
     ],

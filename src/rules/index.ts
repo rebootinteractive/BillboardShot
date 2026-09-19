@@ -4,4 +4,4 @@ export * from './bots';
 export * from './solver';
 export * from './lint';
 export * from './report';
-export { levelVersion, validateLevel, type LevelData } from '../game/level';
+export { KEY_HEIGHT, KEY_WIDTH, keyCells, levelVersion, validateLevel, type LevelData } from '../game/level';

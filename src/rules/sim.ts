@@ -1,7 +1,7 @@
 import type { ColorKey } from '../shared/types';
 import { COLOR_KEYS } from '../shared/colors';
 import { KEY_COLORS, type KeyColor } from '../shared/keyColors';
-import { artColor, isMysteryChar, type LevelData } from '../game/level';
+import { KEY_HEIGHT, KEY_WIDTH, artColor, isMysteryChar, type LevelData } from '../game/level';
 import { DEFAULT_SETTINGS } from '../shared/settings';
 import { chooseFirers, chooseTarget, floodGroup, isStuck, nextFront, sendBlocker, slotColumn } from './core';
 
@@ -12,9 +12,21 @@ import { chooseFirers, chooseTarget, floodGroup, isStuck, nextFront, sendBlocker
  * pulled. Timing (walking, flight, animations) is left out.
  */
 
-/** Color index into COLOR_KEYS; EMPTY for no pixel, UNKNOWN for a color the viewer cannot see. */
+/**
+ * Color index into COLOR_KEYS; EMPTY for no pixel, KEY for a cell a key still covers,
+ * UNKNOWN for a color the viewer cannot see.
+ */
 export const EMPTY = -1;
+export const KEY = -3;
 export const UNKNOWN = 99;
+
+/** A key still on its board. `row` is its bottom row, counted from the bottom. */
+export interface BoardKey {
+  col: number;
+  row: number;
+  /** Index into KEY_COLORS. */
+  color: number;
+}
 
 export interface Board {
   cols: number;
@@ -22,8 +34,8 @@ export interface Board {
   /** Per cell, index col * rows + row, row 0 at the bottom. */
   color: Int8Array;
   hidden: Uint8Array;
-  /** Key color index on the cell, or -1. */
-  key: Int8Array;
+  /** Keys still on the board. Their cells hold KEY in `color`. */
+  keys: BoardKey[];
   alive: number;
   lock: null | { type: 'key'; key: number } | { type: 'frozen'; color: number; remaining: number };
 }
@@ -69,7 +81,7 @@ export function createState(level: LevelData, deckSlots = DEFAULT_SETTINGS.deckS
     const rows = data.art.length;
     const cols = data.art[0].length;
     const n = cols * rows;
-    const board: Board = { cols, rows, color: new Int8Array(n).fill(EMPTY), hidden: new Uint8Array(n), key: new Int8Array(n).fill(-1), alive: 0, lock: null };
+    const board: Board = { cols, rows, color: new Int8Array(n).fill(EMPTY), hidden: new Uint8Array(n), keys: [], alive: 0, lock: null };
     data.art.forEach((line, top) => {
       const row = rows - 1 - top;
       [...line].forEach((ch, col) => {
@@ -81,7 +93,11 @@ export function createState(level: LevelData, deckSlots = DEFAULT_SETTINGS.deckS
         board.alive++;
       });
     });
-    for (const k of data.keys ?? []) board.key[k.col * rows + (rows - 1 - k.row)] = KEY_COLORS.indexOf(k.color);
+    for (const k of data.keys ?? []) {
+      const key: BoardKey = { col: k.col, row: rows - k.row - KEY_HEIGHT, color: KEY_COLORS.indexOf(k.color) };
+      board.keys.push(key);
+      forKeyCells(board, key, (i) => { board.color[i] = KEY; });
+    }
     if (data.lock?.type === 'key') board.lock = { type: 'key', key: KEY_COLORS.indexOf(data.lock.color) };
     if (data.lock?.type === 'frozen') board.lock = { type: 'frozen', color: colorIndex(data.lock.color), remaining: data.lock.count };
     return board;
@@ -95,6 +111,7 @@ export function createState(level: LevelData, deckSlots = DEFAULT_SETTINGS.deckS
     stats: { sends: 0, focuses: 0, pulls: 0, minFreeSlots: deckSlots, parkedSends: 0, parkedByColor: {} },
   };
   for (const lane of lanes) if (lane[0]) lane[0].hidden = false;
+  releaseKeys(state);
   for (const b of boards) revealExposed(b);
   return state;
 }
@@ -102,7 +119,7 @@ export function createState(level: LevelData, deckSlots = DEFAULT_SETTINGS.deckS
 export function cloneState(s: State): State {
   const copy = (c: Container | null) => (c ? { ...c } : null);
   return {
-    boards: s.boards.map((b) => ({ ...b, color: b.color.slice(), hidden: b.hidden.slice(), key: b.key.slice(), lock: b.lock ? { ...b.lock } : null })),
+    boards: s.boards.map((b) => ({ ...b, color: b.color.slice(), hidden: b.hidden.slice(), keys: b.keys.slice(), lock: b.lock ? { ...b.lock } : null })),
     lanes: s.lanes.map((l) => l.map((c) => ({ ...c }))),
     deck: s.deck.map(copy),
     focus: s.focus,
@@ -138,20 +155,56 @@ export function stateKey(s: State): string {
 
 // ------------------------------------------------------------------ board queries
 
+/** The lowest row of a column holding a pixel or a key. */
 export function lowestRow(b: Board, col: number): number {
   for (let row = 0; row < b.rows; row++) if (b.color[col * b.rows + row] !== EMPTY) return row;
   return b.rows;
 }
 
+function forKeyCells(b: Board, key: BoardKey, visit: (i: number) => void) {
+  for (let c = key.col; c < key.col + KEY_WIDTH; c++) for (let r = key.row; r < key.row + KEY_HEIGHT; r++) visit(c * b.rows + r);
+}
+
+/** Nothing stands beneath the key in any of its columns. */
+export function keyFree(b: Board, key: BoardKey): boolean {
+  for (let c = key.col; c < key.col + KEY_WIDTH; c++) if (lowestRow(b, c) < key.row) return false;
+  return true;
+}
+
+/**
+ * Release every key on an open board with nothing beneath it: it leaves the board, which
+ * frees its columns, and opens the board locked in its color. Opening a board can free
+ * a key on it in turn.
+ */
+function releaseKeys(s: State) {
+  for (let again = true; again;) {
+    again = false;
+    for (const b of s.boards) {
+      if (b.lock !== null || !b.keys.length) continue;
+      for (const key of b.keys.filter((k) => keyFree(b, k))) {
+        b.keys = b.keys.filter((k) => k !== key);
+        forKeyCells(b, key, (i) => { b.color[i] = EMPTY; });
+        for (let c = key.col; c < key.col + KEY_WIDTH; c++) revealColumn(b, c);
+        for (const other of s.boards) {
+          if (other.lock?.type === 'key' && other.lock.key === key.color) {
+            other.lock = null;
+            again = true;
+          }
+        }
+      }
+    }
+  }
+}
+
 export const isOpen = (b: Board) => b.lock === null && b.alive > 0;
 
-/** Colors at the bottom of some column of a board (unknown colors excluded). */
+/** Colors at the bottom of some column of a board (keys and unknown colors excluded). */
 export function exposedColors(b: Board, into = new Set<number>()): Set<number> {
   for (let c = 0; c < b.cols; c++) {
     const row = lowestRow(b, c);
     if (row < b.rows) {
       const color = b.color[c * b.rows + row];
-      if (color !== UNKNOWN) into.add(color);
+      if (color >= 0 && color !== UNKNOWN) into.add(color);
     }
   }
   return into;
@@ -289,23 +342,22 @@ export function settle(s: State) {
 
 function pull(s: State, b: Board, col: number, row: number, c: Container, slot: number) {
   const i = col * b.rows + row;
-  const key = b.key[i];
   b.color[i] = EMPTY;
   b.hidden[i] = 0;
-  b.key[i] = -1;
   b.alive--;
   c.charges--;
   s.stats.pulls++;
-  if (key >= 0) for (const other of s.boards) if (other.lock?.type === 'key' && other.lock.key === key) other.lock = null;
   revealColumn(b, col);
-  if (c.charges > 0) return;
-  // A full container leaves; frozen boards of its color count its whole load.
-  s.deck[slot] = null;
-  for (const other of s.boards) {
-    if (other.lock?.type !== 'frozen' || other.lock.color !== c.color || other.alive === 0) continue;
-    other.lock.remaining -= c.capacity;
-    if (other.lock.remaining <= 0) other.lock = null;
+  if (c.charges === 0) {
+    // A full container leaves; frozen boards of its color count its whole load.
+    s.deck[slot] = null;
+    for (const other of s.boards) {
+      if (other.lock?.type !== 'frozen' || other.lock.color !== c.color || other.alive === 0) continue;
+      other.lock.remaining -= c.capacity;
+      if (other.lock.remaining <= 0) other.lock = null;
+    }
   }
+  releaseKeys(s);
 }
 
 function checkEnd(s: State) {

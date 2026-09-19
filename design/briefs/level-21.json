@@ -8,7 +8,7 @@
     {
       "picture": "alien",
       "colors": { "1": "lime", "2": "black", "3": "white" },
-      "key": { "group": "1", "pick": "middle", "color": "silver" }
+      "key": { "col": 6, "row": 6, "color": "silver" }
     },
     {
       "picture": "planet",

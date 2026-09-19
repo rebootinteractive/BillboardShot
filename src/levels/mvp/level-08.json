@@ -77,8 +77,8 @@
         "..WWWWWWWWWWWWR.",
         ".WWWWWWWWWWWWWW.",
         ".WKKKKKKKKKKKKW.",
-        "RWKKCKKKKKKCKKWR",
-        "RWKKCKKKKKKCKKWR",
+        "RWKKCK...KKCKKWR",
+        "RWKKCK...KKCKKWR",
         "RWKKKKKKKKKKKKWR",
         "RWWWWWWWWWWWWWWR",
         "RWWWWWWWWWWWWWWR",
@@ -89,7 +89,7 @@
         "...WWWWWWWWWW..."
       ],
       "source": { "picture": "robot", "colors": { "1": "white", "2": "black", "3": "red", "4": "cyan", "5": "cyan" }, "overrides": [{ "col": 7, "row": 12, "color": "purple" }] },
-      "keys": [{ "col": 7, "row": 7, "color": "silver" }]
+      "keys": [{ "col": 6, "row": 6, "color": "silver" }]
     },
     {
       "name": "Gift",
@@ -119,7 +119,7 @@
       { "color": "yellow", "charges": 33 },
       { "color": "white", "charges": 36 },
       { "color": "purple", "charges": 23 },
-      { "color": "black", "charges": 31, "link": "a" },
+      { "color": "black", "charges": 27, "link": "a" },
       { "color": "brown", "charges": 31 },
       { "color": "pink", "charges": 36, "hidden": true },
       { "color": "yellow", "charges": 33 },
@@ -133,7 +133,7 @@
       { "color": "orange", "charges": 37 },
       { "color": "lime", "charges": 22 },
       { "color": "white", "charges": 36 },
-      { "color": "black", "charges": 30 },
+      { "color": "black", "charges": 28 },
       { "color": "brown", "charges": 30 },
       { "color": "green", "charges": 38 }
     ],

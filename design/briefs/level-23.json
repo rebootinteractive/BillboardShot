@@ -25,7 +25,7 @@
     {
       "picture": "droplet",
       "colors": { "1": "blue", "2": "pink" },
-      "key": { "group": "1", "pick": "middle", "color": "bronze" }
+      "key": { "col": 3, "row": 4, "color": "bronze" }
     }
   ],
   "queue": { "hidden": 0, "links": 0 }

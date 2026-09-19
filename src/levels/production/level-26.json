@@ -9,8 +9,8 @@
         "..KKWWWWWWWWWWWW",
         ".KKKWWWWWWWWWWWW",
         "KKKKWWWWWWWWWWWW",
-        "KKKKWWWWWWWWWWWW",
-        "KKKKWWWWWWWWWWWW",
+        "KKKKWWWW...WWWWW",
+        "KKKKWWWW...WWWWW",
         ".KKKWWWWWWWWWWWW",
         "..KKWWWWWWWWWWWW",
         "...WWWWWWWWWWWWW",
@@ -20,7 +20,7 @@
         "..OOO...OOOO...."
       ],
       "source": { "picture": "sheep", "colors": { "1": "white", "2": "black", "3": "orange" } },
-      "keys": [{ "col": 9, "row": 6, "color": "gold" }]
+      "keys": [{ "col": 8, "row": 5, "color": "gold" }]
     },
     {
       "name": "Cow",
@@ -102,9 +102,9 @@
   ],
   "lanes": [
     [
-      { "color": "white", "charges": 35 },
+      { "color": "white", "charges": 34 },
       { "color": "pink", "charges": 40 },
-      { "color": "white", "charges": 36, "link": "b" },
+      { "color": "white", "charges": 34, "link": "b" },
       { "color": "pink", "charges": 40 },
       { "color": "brown", "charges": 30 }
     ],
@@ -115,11 +115,11 @@
       { "color": "black", "charges": 38 }
     ],
     [
-      { "color": "white", "charges": 35 },
+      { "color": "white", "charges": 34 },
       { "color": "orange", "charges": 37 },
       { "color": "pink", "charges": 40 },
-      { "color": "white", "charges": 35, "link": "a" },
-      { "color": "white", "charges": 35 },
+      { "color": "white", "charges": 34, "link": "a" },
+      { "color": "white", "charges": 34 },
       { "color": "pink", "charges": 40 }
     ],
     [

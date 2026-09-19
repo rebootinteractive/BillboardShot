@@ -90,15 +90,15 @@
         "..BBB..",
         "..BBB..",
         ".BBBBB.",
-        ".BBBBB.",
-        "BBMBBBB",
+        ".BB....",
+        "BBM...B",
         "BBMBBBB",
         "BBMBBBB",
         ".BMBBB.",
         "..BBB.."
       ],
       "source": { "picture": "droplet", "colors": { "1": "blue", "2": "pink" } },
-      "keys": [{ "col": 3, "row": 5, "color": "bronze" }]
+      "keys": [{ "col": 3, "row": 4, "color": "bronze" }]
     }
   ],
   "lanes": [
@@ -110,12 +110,12 @@
       { "color": "purple", "charges": 35 }
     ],
     [
-      { "color": "blue", "charges": 31 },
+      { "color": "blue", "charges": 28 },
       { "color": "white", "charges": 33 },
       { "color": "white", "charges": 33 }
     ],
     [
-      { "color": "blue", "charges": 31 },
+      { "color": "blue", "charges": 28 },
       { "color": "white", "charges": 33 },
       { "color": "pink", "charges": 14 },
       { "color": "purple", "charges": 35 },

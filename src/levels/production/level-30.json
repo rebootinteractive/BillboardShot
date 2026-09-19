@@ -30,8 +30,8 @@
         "WMMMMMW..WMMMMMW",
         "WMMMMMWWWWMMMMMW",
         "WMMMMWWWWWWMMMMW",
-        "WMMMWWWWWWWWMMMW",
-        ".WMWWWWWWWWWWMW.",
+        "WMMMWW...WWWMMMW",
+        ".WMWWW...WWWWMW.",
         "...WWWWWWWWWW...",
         "...WWWWWWWWWW...",
         "...WWKWWWWKWW...",
@@ -41,7 +41,7 @@
         ".......WW......."
       ],
       "source": { "picture": "mouse", "colors": { "1": "white", "2": "pink", "3": "black", "4": "black" } },
-      "keys": [{ "col": 7, "row": 6, "color": "silver" }]
+      "keys": [{ "col": 6, "row": 5, "color": "silver" }]
     },
     {
       "name": "Raccoon",
@@ -108,10 +108,10 @@
     [
       { "color": "blue", "charges": 25 },
       { "color": "black", "charges": 37 },
-      { "color": "white", "charges": 36 },
+      { "color": "white", "charges": 34 },
       { "color": "pink", "charges": 21, "link": "b" },
       { "color": "blue", "charges": 24 },
-      { "color": "white", "charges": 35 },
+      { "color": "white", "charges": 34 },
       { "color": "black", "charges": 38 }
     ],
     [
@@ -119,7 +119,7 @@
       { "color": "brown", "charges": 27 },
       { "color": "cyan", "charges": 19, "link": "a" },
       { "color": "blue", "charges": 24 },
-      { "color": "white", "charges": 36, "link": "b" },
+      { "color": "white", "charges": 35, "link": "b" },
       { "color": "white", "charges": 35 }
     ],
     [
@@ -132,8 +132,8 @@
     [
       { "color": "orange", "charges": 24 },
       { "color": "pink", "charges": 21 },
-      { "color": "white", "charges": 36 },
-      { "color": "white", "charges": 36 },
+      { "color": "white", "charges": 35 },
+      { "color": "white", "charges": 35 },
       { "color": "red", "charges": 40 },
       { "color": "brown", "charges": 28 }
     ]

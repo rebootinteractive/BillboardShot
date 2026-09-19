@@ -22,17 +22,17 @@
     {
       "name": "Neighbors",
       "art": [
-        "NNNNOOOORRR",
-        "NNNNOOOORRR",
-        "LLLLGGGGYYY",
+        "...NOOOORRR",
+        "...NOOOO...",
+        "LLLLGGGG...",
         "LLLLGGGGYYY",
         "KKKKPPPPBBB",
-        "KKKKPPPPBBB",
-        "WWWWCCCCMMM",
+        "...KPPPPBBB",
+        "...WCCCCMMM",
         "WWWWwwwwMMM",
         "WWWWCCCCMMM"
       ],
-      "keys": [{ "col": 1, "row": 0, "color": "bronze" }, { "col": 9, "row": 2, "color": "gold" }, { "col": 1, "row": 6, "color": "silver" }]
+      "keys": [{ "col": 0, "row": 0, "color": "bronze" }, { "col": 8, "row": 1, "color": "gold" }, { "col": 0, "row": 5, "color": "silver" }]
     },
     {
       "name": "Brown Orange",
@@ -71,27 +71,27 @@
       { "color": "cyan", "charges": 8 },
       { "color": "green", "charges": 14 },
       { "color": "purple", "charges": 9 },
-      { "color": "black", "charges": 15 },
+      { "color": "black", "charges": 13 },
       { "color": "lime", "charges": 13 },
-      { "color": "brown", "charges": 13 }
+      { "color": "brown", "charges": 10 }
     ],
     [
       { "color": "pink", "charges": 9 },
-      { "color": "white", "charges": 14 },
+      { "color": "white", "charges": 12 },
       { "color": "lime", "charges": 14 },
       { "color": "orange", "charges": 14 },
-      { "color": "red", "charges": 9 },
+      { "color": "red", "charges": 7 },
       { "color": "purple", "charges": 9 },
-      { "color": "black", "charges": 15 }
+      { "color": "black", "charges": 14 }
     ],
     [
       { "color": "blue", "charges": 6 },
-      { "color": "yellow", "charges": 15 },
-      { "color": "white", "charges": 14 },
-      { "color": "brown", "charges": 14 },
+      { "color": "yellow", "charges": 12 },
+      { "color": "white", "charges": 13 },
+      { "color": "brown", "charges": 11 },
       { "color": "green", "charges": 13 },
       { "color": "orange", "charges": 13 },
-      { "color": "red", "charges": 9 }
+      { "color": "red", "charges": 8 }
     ]
   ]
 }

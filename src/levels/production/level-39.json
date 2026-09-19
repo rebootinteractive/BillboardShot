@@ -46,8 +46,8 @@
       "art": [
         ".......OOOOOOOOO",
         ".......OOOOOOOOO",
-        ".......OOOOOOOOO",
-        "..CCWWWOOOOOOOOO",
+        ".......OOO...OOO",
+        "..CCWWWOOO...OOO",
         ".CCCCWWOOOOOOOOO",
         ".CCCCWWOOOOOOOOO",
         "CCCCWWWOOOOOOOOO",
@@ -59,7 +59,7 @@
         "..KKK......KKK.."
       ],
       "source": { "picture": "truck", "colors": { "1": "orange", "2": "blue", "3": "black", "4": "cyan", "5": "white", "6": "red" } },
-      "keys": [{ "col": 11, "row": 3, "color": "gold" }]
+      "keys": [{ "col": 10, "row": 2, "color": "gold" }]
     },
     {
       "name": "Fishing pole",
@@ -129,12 +129,12 @@
       { "color": "black", "charges": 25 },
       { "color": "black", "charges": 25 },
       { "color": "cyan", "charges": 34 },
-      { "color": "orange", "charges": 30, "link": "b" },
+      { "color": "orange", "charges": 28, "link": "b" },
       { "color": "cyan", "charges": 35 }
     ],
     [
-      { "color": "orange", "charges": 31 },
-      { "color": "orange", "charges": 31 },
+      { "color": "orange", "charges": 29 },
+      { "color": "orange", "charges": 29 },
       { "color": "blue", "charges": 38 },
       { "color": "blue", "charges": 37 },
       { "color": "yellow", "charges": 37, "link": "a" }

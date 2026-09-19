@@ -216,8 +216,8 @@ shape difficulty. Plan every one of them.
 3. **Count and pattern.**
    - One odd pixel: a single decision.
    - Two odd pixels in the same column in different colors: forces an order, X before Y.
-   - An odd pixel directly below a key: the unlock now also waits for that color. A very
-     precise way to set key depth.
+   - An odd pixel directly below a key, in any of its three columns: the unlock now also
+     waits for that color. A very precise way to set key depth.
    - A color that exists only as odd pixels scattered across boards (at least 3 in total):
      one container has to visit several boards to fill. Strong planning pressure.
 
@@ -282,12 +282,13 @@ it into a neighboring group's color.
 
 ### Key and locked board
 
-- **Key depth is the difficulty.** The number of pixels beneath the key in its column, and
-  the colors they need, decide how long the lock stays. A key at the bottom opens at once;
-  a key at the top of a board's center (Key to the Coop) needs most of that board cleared.
-  [verified]
-- The board unlocks when the key pixel **lands**, about three quarters of a second after it
-  is pulled. [verified]
+- **Key depth is the difficulty.** The number of pixels beneath the key in its three
+  columns, and the colors they need, decide how long the lock stays. A key at the bottom
+  opens at once; a key at the top of a board's center (Key to the Coop) needs most of that
+  board cleared. [verified with the one-pixel key; the 3×2 key follows the same logic]
+- The key is released the moment the last pixel beneath it is pulled, and the board
+  unlocks when it arrives, about three quarters of a second later.
+- The key blocks its three columns, so everything above it waits for it too.
 - Every key color has exactly one key and one lock, a key is never on the board it opens,
   and locks never form a loop. The checker enforces this. [verified]
 - Check rule 3 in section 2: the locked board's colors wait for the key. [verified]

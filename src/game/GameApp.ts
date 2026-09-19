@@ -756,6 +756,7 @@ export class GameApp {
       pad.material.color.lerp(color, 1 - Math.exp(-8 * dt));
     });
     this.feedback.update(dt);
+    this.releaseKeys();
     for (const bb of this.billboards) if (bb.frameState === 'hanging') bb.revealExposed();
     this.buildTargets();
     this.updateKeyFlights(dt);
@@ -979,7 +980,6 @@ export class GameApp {
       this.feedback.burst(landing, COLOR_HEX[tile.color]);
       this.feedback.note('land');
       tile.board.releaseTile(tile);
-      this.onCollected(tile, landing);
       if (tile.board.aliveCount === 0) {
         tile.board.board.getWorldPosition(this.scratch);
         this.feedback.burst(this.scratch, COLOR_HEX[tile.color], true);
@@ -1015,14 +1015,18 @@ export class GameApp {
     this.hud.setStats(tiles, deckUsed, this.deckSlots.length, ammo);
   }
 
-  /** A pixel has landed in its container: collect its key. */
-  private onCollected(tile: Tile, landing: THREE.Vector3) {
-    if (tile.key) {
-      const target = this.billboards.find((bb) => bb.lock?.type === 'key' && bb.lock.color === tile.key);
-      tile.board.takeKey(tile);
-      if (target) {
-        const from = this.world.worldToLocal(landing.clone());
-        this.keyFlights.push({ flight: new KeyFlight(this.world, from, target.lockAnchor, tile.key, this.camera), board: target });
+  /**
+   * A key with nothing left beneath it leaves its board and flies to the padlock of its
+   * color, freeing its columns straight away.
+   */
+  private releaseKeys() {
+    for (const bb of this.billboards) {
+      for (const key of bb.releaseFreeKeys()) {
+        const target = this.billboards.find((other) => other.lock?.type === 'key' && other.lock.color === key.color);
+        const flight = new KeyFlight(this.world, key.object, target?.lockAnchor ?? key.object, key.color, this.camera);
+        if (target) this.keyFlights.push({ flight, board: target });
+        else flight.dispose();
+        this.feedback.note('tap');
       }
     }
   }
@@ -1149,7 +1153,7 @@ export class GameApp {
       boards: this.billboards.map(board => ({ remaining: board.aliveCount, frame: board.frameState,
         lock: board.lock ? { ...board.lock } : null,
         mystery: board.tiles.filter(t => t.alive && t.hidden).length,
-        keys: board.tiles.filter(t => t.alive && t.key).map(t => ({ color: t.key, col: t.col, row: t.row })),
+        keys: board.keys.map(k => ({ color: k.color, col: k.col, row: k.row })),
         angle: Number(board.angle.toFixed(5)), targetAngle: Number(board.targetAngle.toFixed(5)),
         frameY: Number(board.pivot.position.y.toFixed(3)) })),
       activeBoards: this.billboards.filter(board => board.frameState === 'hanging').length,

@@ -114,9 +114,9 @@ export function countIslands(art: string[]): number {
 
 /**
  * The art a level board plays, built from a picture and its source record: color
- * letters, lowercase where hidden.
+ * letters, lowercase where hidden. `blanks` are cells left empty, e.g. under a key.
  */
-export function renderSource(picture: Picture, source: BoardSource): string[] {
+export function renderSource(picture: Picture, source: BoardSource, blanks: Array<{ col: number; row: number }> = []): string[] {
   const hiddenGroups = new Set(source.hidden ?? []);
   const rows = picture.art.map((row) =>
     [...row].map((ch) => {
@@ -132,11 +132,15 @@ export function renderSource(picture: Picture, source: BoardSource): string[] {
     const letter = COLOR_TO_CHAR[o.color] ?? '?';
     rows[o.row][o.col] = hidden ? letter.toLowerCase() : letter;
   }
+  for (const b of blanks) if (rows[b.row]?.[b.col] !== undefined) rows[b.row][b.col] = '.';
   return rows.map((r) => r.join(''));
 }
 
-/** Problems with a board's source record, including art that no longer matches it. */
-export function validateSource(source: BoardSource, art: string[], pictures: Map<string, Picture>): string[] {
+/**
+ * Problems with a board's source record, including art that no longer matches it.
+ * `blanks` are cells the art leaves empty on purpose, e.g. under a key.
+ */
+export function validateSource(source: BoardSource, art: string[], pictures: Map<string, Picture>, blanks: Array<{ col: number; row: number }> = []): string[] {
   const picture = pictures.get(source.picture);
   if (!picture) return [`source picture '${source.picture}' is not in the library.`];
   const errors: string[] = [];
@@ -151,7 +155,7 @@ export function validateSource(source: BoardSource, art: string[], pictures: Map
     if (!ch || ch === '.') errors.push(`override at col ${o.col}, row ${o.row} is not on a pixel.`);
   }
   if (errors.length) return errors;
-  const expected = renderSource(picture, source);
-  if (expected.join('\n') !== art.join('\n')) errors.push(`art does not match source picture '${source.picture}' with its colors and overrides.`);
+  const expected = renderSource(picture, source, blanks);
+  if (expected.join('\n') !== art.join('\n')) errors.push(`art does not match source picture '${source.picture}' with its colors, overrides and keys.`);
   return errors;
 }
