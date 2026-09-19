@@ -106,6 +106,37 @@ Two places this departs from the plan, both because of what the library actually
 **Level 27 is the game's first very hard level.** It needs `"label": "very hard"`, and it
 is one of the three levels the plan sends to several players before shipping.
 
+## Batch 5 — levels 33–40
+
+| # | Budget | Theme | Pictures (pixels) | Total |
+|---|---|---|---|---|
+| 33 | ~620 | Feast | cupcake (184), cookie (137), doughnut (131), popsicle (103), candy (64) | 619 |
+| 34 | ~705 | Feast | hamburger (174), pizza (172), taco (146), croissant (82), cheese (68), egg (64) | 706 |
+| 35 | ~770 | Feast | coffee (196), waffle (184), pretzel (144), milk (106), baguette (72), butter (68) | 770 |
+| 36 | ~765 | Winter Games | basketball (208), soccer-ball (137), bicycle (135), trophy (110), skateboard (92), football (84) | 766 |
+| 37 | ~730 | Winter Games | penguin (177), snowman (167), ice-skate (137), christmas-tree (97), maple-leaf (81), skis (73) | 732 |
+| 38 | ~680 | Menagerie | panda (202), tiger (200), frog (198), cricket (82) | 682 |
+| 39 | ~690 | Parade | bus (188), ship (183), truck (167), fishing-pole (54), satellite-dish (51), anchor (44) | 687 |
+| 40 | ~865 | Finale | lion (224), robot (208), turkey (188), skull (131), heart (66), music-note (50) | 867 |
+
+45 pictures, each used once, none shared with batches 1–4. Eleven pictures are left over —
+french-fries, shortcake, teapot, pie, honey-pot, smiley, gold-medal, tennis, baseball,
+seedling, candle — so there is a spare if one of these does not work.
+
+**The themes for 33–40 depart from the plan, because the plan asked for art the library no
+longer has.** The Concert used all twelve instruments at levels 31 and 32, so 33–35 become
+a **Feast** instead: the table after the concert rather than more of the band. The last
+three levels then run **Menagerie**, **Parade** and a **Finale** that gathers the biggest
+pictures left — a lion, a robot and a turkey — which is a reasonable shape for a last
+level anyway.
+
+Two board counts differ from the plan for the same reason: **38 has four boards** (the
+animals still free are all large, and four of them already fill an easy level's budget) and
+**39 has six small ones**. Board count is a shape choice; the pixel budget is the length.
+
+**Levels 37 and 40 are very hard**, need `"label": "very hard"`, and both go to several
+players before shipping. Level 40 is the game's last level.
+
 ## Used so far
 
 Batch 1: pear, strawberry, lemon, apple, grapes, chestnut, watermelon, carrot, broccoli,
