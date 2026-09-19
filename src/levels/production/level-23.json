@@ -1,0 +1,133 @@
+{
+  "name": "Weather Window",
+  "boards": [
+    {
+      "name": "Cloud with Lightning",
+      "art": [
+        "......PPPP......",
+        "....PPPPPPPP....",
+        "..PPPPPPPPPPPP..",
+        ".PPPPPPPPPPPPPP.",
+        "PPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPP",
+        ".PPPPPPPPPPPPPP.",
+        "..PPPPPPPPPPPP..",
+        ".......YYY......",
+        "......YYY.......",
+        ".....YYYYYYY....",
+        "........YYY.....",
+        ".........YY....."
+      ],
+      "source": { "picture": "storm-cloud", "colors": { "1": "purple", "2": "yellow" } }
+    },
+    {
+      "name": "Sun Behind Cloud",
+      "art": [
+        "..YYYY..........",
+        ".YYYYYY.........",
+        ".YYYYYYY........",
+        ".YYYYYYWWWW.....",
+        ".YYYYYWWWWWWW...",
+        "..YYYWWWWWWWWWWW",
+        ".WWWWWWWWWWWWWWW",
+        "WWWWWWWWWWWWWWWW",
+        "WWWWWWWWWWWWWWWW",
+        "WWWWWWWWWWWWWWWW",
+        "WWWWWWWWWWWWWWWW",
+        ".PPPPPPPPPPPPPP."
+      ],
+      "source": { "picture": "sun-cloud", "colors": { "1": "white", "2": "yellow", "3": "purple" } }
+    },
+    {
+      "name": "Cloud with Rain",
+      "art": [
+        ".....CCCCCC.....",
+        "...CCCCCCCCCC...",
+        "..CCCCCCCCCCCC..",
+        ".CCCCCCCCCCCCCC.",
+        "CCCCCCCCCCCCCCCC",
+        "CCCCCCCCCCCCCCCC",
+        "CCCCCCCCCCCCCCCC",
+        "CCCCCCCCCCCCCCCC",
+        ".CCCCCCCCCCCCCC.",
+        "..B..B..B..B..B.",
+        "..B..B..B..B..B.",
+        "..B..B..B..B..B.",
+        "..B..B..B..B..B."
+      ],
+      "source": { "picture": "rain-cloud", "colors": { "1": "cyan", "2": "blue" } }
+    },
+    {
+      "name": "Tornado",
+      "art": [
+        "WWWWWWWWWW",
+        "WWWWWWWWWW",
+        "CCCCCCCCCC",
+        "CCCCCCCCCC",
+        "WWWWWWWWW.",
+        ".WWWWWWWWW",
+        ".MMMMMMMM.",
+        "..MMMMMMMM",
+        "..WWWWWWW.",
+        "...WWWWWWW",
+        "...CCCCCC.",
+        "....CCCCC.",
+        "....WWWWW.",
+        ".....WWWW.",
+        ".....MMMM.",
+        ".....MMM..",
+        ".....WWW.."
+      ],
+      "source": { "picture": "tornado", "colors": { "1": "white", "2": "cyan", "3": "pink" } },
+      "lock": { "type": "key", "color": "bronze" }
+    },
+    {
+      "name": "Droplet",
+      "art": [
+        "...B...",
+        "..BBB..",
+        "..BBB..",
+        ".BBBBB.",
+        ".BBBBB.",
+        "BBMBBBB",
+        "BBMBBBB",
+        "BBMBBBB",
+        ".BMBBB.",
+        "..BBB.."
+      ],
+      "source": { "picture": "droplet", "colors": { "1": "blue", "2": "pink" } },
+      "keys": [{ "col": 3, "row": 5, "color": "bronze" }]
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "yellow", "charges": 25 },
+      { "color": "purple", "charges": 36 },
+      { "color": "yellow", "charges": 24 },
+      { "color": "white", "charges": 33 },
+      { "color": "purple", "charges": 35 }
+    ],
+    [
+      { "color": "blue", "charges": 31 },
+      { "color": "white", "charges": 33 },
+      { "color": "white", "charges": 33 }
+    ],
+    [
+      { "color": "blue", "charges": 31 },
+      { "color": "white", "charges": 33 },
+      { "color": "pink", "charges": 14 },
+      { "color": "purple", "charges": 35 },
+      { "color": "cyan", "charges": 37 },
+      { "color": "pink", "charges": 13 }
+    ],
+    [
+      { "color": "cyan", "charges": 38 },
+      { "color": "cyan", "charges": 38 },
+      { "color": "purple", "charges": 36 },
+      { "color": "cyan", "charges": 38 },
+      { "color": "white", "charges": 33 }
+    ]
+  ]
+}

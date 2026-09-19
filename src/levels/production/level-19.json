@@ -1,0 +1,134 @@
+{
+  "name": "Counting Frame",
+  "boards": [
+    {
+      "name": "Abacus",
+      "art": [
+        "NNNNNNNNNNNNNNN",
+        "NNNNNNNNNNNNNNN",
+        "NNRR.RR.RR.RRNN",
+        "NNRR.RR.RR.RRNN",
+        "NNYYYYYYYYYYYNN",
+        "NNRR.RR.RR.RRNN",
+        "NNRR.RR.RR.RRNN",
+        "NNYYYYYYYYYYYNN",
+        "NNBB.BB.BB.BBNN",
+        "NNBB.BB.BB.BBNN",
+        "NNYYYYYYYYYYYNN",
+        "NNBB.BB.BB.BBNN",
+        "NNBB.BB.BB.BBNN",
+        "NNNNNNNNNNNNNNN",
+        "NNNNNNNNNNNNNNN"
+      ],
+      "source": { "picture": "abacus", "colors": { "1": "brown", "2": "red", "3": "blue", "4": "yellow" } },
+      "lock": { "type": "frozen", "color": "white", "count": 40 }
+    },
+    {
+      "name": "Alarm Clock",
+      "art": [
+        ".YYYY.....YYYY.",
+        "YYYYY.....YYYYY",
+        "YYYYY.RRR..YYYY",
+        "YYY.RRRRRRR.YYY",
+        "YY.RRRWWWRRRYYY",
+        "..RRWWWWWWWRR..",
+        "..RRWWWRWWWRR..",
+        ".RRWWWWRWWWWRR.",
+        ".RRWWWWRWWWWRR.",
+        ".RRWWWWRRWWWRR.",
+        ".RRWWWWWRRWWRR.",
+        "..RRWWWWWWWRR..",
+        "..RRRWWWWWRRR..",
+        "...RRRRRRRRR...",
+        "..WWWRRRRRWWW..",
+        ".WWWWWWWWWWWW..",
+        ".WWWWWWWWWWWW.."
+      ],
+      "source": { "picture": "alarm-clock", "colors": { "1": "white", "2": "red", "3": "yellow", "4": "red" } }
+    },
+    {
+      "name": "Graduation cap",
+      "art": [
+        "......KKK......",
+        "....KKKKKKK....",
+        "..KKKKKKKKKKK..",
+        "KKKKKKKKKKKKKKK",
+        ".KKKKKKKKKKKKK.",
+        "....PPPPPPP.YY.",
+        "....PPPPPPP.YY.",
+        "....PPPPPPP.YY.",
+        "....PPPPPPPYYYY"
+      ],
+      "source": { "picture": "graduation-cap", "colors": { "1": "black", "2": "purple", "3": "yellow" } }
+    },
+    {
+      "name": "Toothbrush",
+      "art": [
+        "WWWWWWWW",
+        ".WWWWWW.",
+        ".WWWWWW.",
+        ".NNNNNN.",
+        ".NNNNNN.",
+        "..NNNN..",
+        "..NNNN..",
+        "..NNNN..",
+        "..NNNN..",
+        "..NNNN..",
+        "..NNNN..",
+        ".CCCCCC.",
+        ".CCCCCC.",
+        ".CCCCCC.",
+        "..CCCC.."
+      ],
+      "source": { "picture": "toothbrush", "colors": { "1": "brown", "2": "cyan", "3": "white" } }
+    },
+    {
+      "name": "Headphones",
+      "art": [
+        "...NNNNN...",
+        "..NNNNNNN..",
+        ".NN.....NN.",
+        "NN.......NN",
+        "NN.......NN",
+        "PP.......PP",
+        "PPP.....PPP",
+        "PPP.....PPP",
+        "PPP.....PPP",
+        ".PP.....PP."
+      ],
+      "source": { "picture": "headphones", "colors": { "1": "brown", "2": "purple" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "brown", "charges": 33 },
+      { "color": "white", "charges": 36 },
+      { "color": "red", "charges": 26 },
+      { "color": "yellow", "charges": 27 },
+      { "color": "black", "charges": 25, "hidden": true }
+    ],
+    [
+      { "color": "black", "charges": 24 },
+      { "color": "brown", "charges": 33 },
+      { "color": "yellow", "charges": 27 },
+      { "color": "cyan", "charges": 22 },
+      { "color": "brown", "charges": 33 },
+      { "color": "brown", "charges": 32 }
+    ],
+    [
+      { "color": "purple", "charges": 18 },
+      { "color": "red", "charges": 26 },
+      { "color": "yellow", "charges": 27, "hidden": true },
+      { "color": "red", "charges": 26 }
+    ],
+    [
+      { "color": "white", "charges": 36 },
+      { "color": "white", "charges": 36 },
+      { "color": "purple", "charges": 18 },
+      { "color": "blue", "charges": 32 },
+      { "color": "brown", "charges": 33 },
+      { "color": "red", "charges": 25 },
+      { "color": "purple", "charges": 18 }
+    ]
+  ]
+}

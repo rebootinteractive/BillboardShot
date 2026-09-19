@@ -1,0 +1,134 @@
+{
+  "name": "Frozen Shutter",
+  "label": "hard",
+  "boards": [
+    {
+      "name": "Gear",
+      "art": [
+        "..PPP..PP..PPP..",
+        "..PPP..PP..PPP..",
+        "PPWWWWWWWWWWWWPP",
+        "PPWWWWWWWWWWWWPP",
+        "PPWWWWWWWWWWWWPP",
+        "..WWWkkkkkkWWW..",
+        "..WWWk....kWWW..",
+        "PPWWWk....kWWWPP",
+        "PPWWWk....kWWWPP",
+        "..WWWk....kWWW..",
+        "..WWWkkkkkkWWW..",
+        "PPWWWWWWWWWWWWPP",
+        "PPWWWWWWWWWWWWPP",
+        "PPWWWWWWWWWWWWPP",
+        "..PPP..PP..PPP..",
+        "..PPP..PP..PPP.."
+      ],
+      "source": { "picture": "gear", "colors": { "1": "white", "2": "purple", "3": "black" }, "hidden": ["3"] }
+    },
+    {
+      "name": "Camera",
+      "art": [
+        ".KKK.......KKKK.",
+        "KKKKKKKKKKKKKKKK",
+        "KKKKKKKCCKKKKKKK",
+        "nnnnnCCCCCCnnnnn",
+        "nnnnCCnnnnCCnnnn",
+        "nnnnCnnnnKnCnnnn",
+        "nnnnCnnnnnnCnnnn",
+        "nnnnCnnnnnnCnnnn",
+        "nnnnnCnnnnCnnnnn",
+        "nnnnnCCCCCCnnnnn",
+        "KKKKKKKKKKKKKKKK"
+      ],
+      "source": { "picture": "camera", "colors": { "1": "brown", "2": "black", "3": "cyan" }, "hidden": ["1"] },
+      "lock": { "type": "frozen", "color": "white", "count": 40 }
+    },
+    {
+      "name": "Magnet",
+      "art": [
+        ".....RRRRRR.....",
+        "...RRRRRRRRRR...",
+        "..RRRRRRRRRRRR..",
+        ".RRRRRRRRRRRRRR.",
+        "RRRRRR....RRRRRR",
+        "RRRRR......RRRRR",
+        "RRRRR......RRRRR",
+        "RRRRR......RRRRR",
+        "RRRRR......RRRRR",
+        "RRRRR......RRRRR",
+        "WWWWW......PPPPP",
+        "WWWWW......PPPPP",
+        "WWWWW......PPPPP",
+        "WWWWW......PPPPP"
+      ],
+      "source": { "picture": "magnet", "colors": { "1": "red", "2": "white", "3": "purple" } }
+    },
+    {
+      "name": "Light Bulb",
+      "art": [
+        "..YYYYY..",
+        ".YYYYYYY.",
+        ".YYYYYYY.",
+        "YYYYYYYYY",
+        "YYYOYYYYY",
+        "YYYYYYYYY",
+        ".YYYYYYY.",
+        ".YYOYOYY.",
+        "..YYYYY..",
+        "...YOY...",
+        "...KOY...",
+        "...KWW...",
+        "...KWW...",
+        "...KKK..."
+      ],
+      "source": { "picture": "light-bulb", "colors": { "1": "yellow", "2": "black", "3": "orange", "4": "white" } }
+    },
+    {
+      "name": "Scissors",
+      "art": [
+        ".P......P.",
+        ".PP....PP.",
+        ".PPP..PPP.",
+        "..PP..PP..",
+        "...PPPP...",
+        "....PP....",
+        ".CCCCCCCC.",
+        "CCCCCCCCCC",
+        "CC..CC..CC",
+        "CC..CC..CC",
+        "CCCCCCCCCC",
+        ".CCCCCCCC."
+      ],
+      "source": { "picture": "scissors", "colors": { "1": "cyan", "2": "purple" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "red", "charges": 34 },
+      { "color": "purple", "charges": 36 },
+      { "color": "orange", "charges": 5 },
+      { "color": "brown", "charges": 29 },
+      { "color": "black", "charges": 40 }
+    ],
+    [
+      { "color": "white", "charges": 33 },
+      { "color": "white", "charges": 33 },
+      { "color": "cyan", "charges": 37 },
+      { "color": "cyan", "charges": 37 },
+      { "color": "brown", "charges": 29 }
+    ],
+    [
+      { "color": "red", "charges": 35 },
+      { "color": "red", "charges": 35 },
+      { "color": "purple", "charges": 35 },
+      { "color": "brown", "charges": 29 },
+      { "color": "black", "charges": 40, "hidden": true }
+    ],
+    [
+      { "color": "yellow", "charges": 33 },
+      { "color": "yellow", "charges": 32 },
+      { "color": "white", "charges": 33 },
+      { "color": "white", "charges": 33 },
+      { "color": "purple", "charges": 35, "hidden": true }
+    ]
+  ]
+}

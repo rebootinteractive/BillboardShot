@@ -1,0 +1,113 @@
+{
+  "name": "Locking Up",
+  "boards": [
+    {
+      "name": "Door",
+      "art": [
+        ".NNNNNNNNNN.",
+        "NNNNNNNNNNNN",
+        "NOOOOOOOOOON",
+        "NOOOOOOOOOON",
+        "NOOOOOOOOOON",
+        "NOOOOOOOOOON",
+        "NOOOOOOOOOON",
+        "NNNNNNNNNNNN",
+        "NNNNNNNYYYNN",
+        "NNNNNNNYYYNN",
+        "NNNNNNNYYYNN",
+        "NNNNNNNNNNNN",
+        "NOOOOOOOOOON",
+        "NOOOOOOOOOON",
+        "NOOOOOOOOOON",
+        "NNNNNNNNNNNN",
+        ".NNNNNNNNNN."
+      ],
+      "source": { "picture": "door", "colors": { "1": "brown", "2": "orange", "3": "yellow" } }
+    },
+    {
+      "name": "House",
+      "art": [
+        "...Y...RR.......",
+        "..YYY.RRRR......",
+        "..YYYRRYYRR.....",
+        "..YYRRYYYYRR....",
+        "..YRRYYYYYYRR...",
+        "..RRYYYYYYYYRR..",
+        ".RRYYYYYYYYYYRR.",
+        "RRYYNNNNYCCCYYRR",
+        "..YNNNNNYCCCCY..",
+        "..YNNNNNYCCCCY..",
+        "..YNNNNNYCCCYY..",
+        "..YNNNNNYYYYYY..",
+        "..YNNNNNYYYYYY..",
+        "..YNNNNNYYYYYY..",
+        "GGGGGGGGGGGGGGGG"
+      ],
+      "source": { "picture": "house", "colors": { "1": "yellow", "2": "brown", "3": "red", "4": "green", "5": "cyan", "6": "brown" } },
+      "lock": { "type": "frozen", "color": "brown", "count": 30 }
+    },
+    {
+      "name": "Bell",
+      "art": [
+        "......O......",
+        "....YYYY.....",
+        "...YYYYYYY...",
+        "...YYYYYYY...",
+        "..YYYYYYYYY..",
+        "..YYYYYYYYY..",
+        "..YYYYYYYYY..",
+        "..YYYYYYYYY..",
+        "..YYYYYYYYY..",
+        ".YYYYYYYYYYY.",
+        ".YYYYYYYYYYY.",
+        "YYYYYYYYYYYYY",
+        "YYYYYYYYYYYYY",
+        ".....OOO....."
+      ],
+      "source": { "picture": "bell", "colors": { "1": "yellow", "2": "orange" } }
+    },
+    {
+      "name": "Umbrella",
+      "art": [
+        "......G......",
+        "...GGGGGGG...",
+        "..GGGGGGGGG..",
+        ".GGGGGGGGGGG.",
+        "GGGGGGGGGGGGG",
+        "GGGGGGGGGGGGG",
+        "G..G..G..G..G",
+        "......N......",
+        "......N......",
+        "......N......",
+        "......N......",
+        "....N.N......",
+        "....NNN......"
+      ],
+      "source": { "picture": "umbrella", "colors": { "1": "green", "2": "brown", "3": "brown" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "orange", "charges": 28 },
+      { "color": "green", "charges": 37 },
+      { "color": "brown", "charges": 39 },
+      { "color": "yellow", "charges": 39 },
+      { "color": "cyan", "charges": 14 }
+    ],
+    [
+      { "color": "yellow", "charges": 40 },
+      { "color": "orange", "charges": 28 },
+      { "color": "yellow", "charges": 39 },
+      { "color": "red", "charges": 30 },
+      { "color": "orange", "charges": 28 }
+    ],
+    [
+      { "color": "yellow", "charges": 39 },
+      { "color": "brown", "charges": 39 },
+      { "color": "brown", "charges": 38 },
+      { "color": "brown", "charges": 38 },
+      { "color": "yellow", "charges": 39 },
+      { "color": "green", "charges": 38 }
+    ]
+  ]
+}

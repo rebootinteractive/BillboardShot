@@ -1,0 +1,32 @@
+{
+  "id": "level-21",
+  "name": "Ring of Orange",
+  "intent": "The key lock at working weight, one level after it was taught. The silver key is buried in the middle of the alien's head, so the ringed planet stays padlocked until the player has cleared a good part of the biggest board in the level. What waits behind the lock is orange: the planet is 126 orange pixels and the only orange anywhere else is the rocket's thirteen-pixel flame, the satellite's dish and the moon's rim, twenty-seven pixels in all, so an orange container sent before the unlock pulls a handful and then holds a slot. That is the level's whole shape - everything else is generous. Lime is the alien's head and nothing else, exposed across the full width; white runs through the rocket body, the satellite and the planet's ring; red through the rocket's nose and the planet's stripe; and the alien's black eyes rest directly on the lime, so the key is never further away than the head above it.",
+  "target": { "min": 0.58, "max": 0.7 },
+  "lanes": 4,
+  "boards": [
+    {
+      "picture": "alien",
+      "colors": { "1": "lime", "2": "black", "3": "white" },
+      "key": { "group": "1", "pick": "middle", "color": "silver" }
+    },
+    {
+      "picture": "planet",
+      "colors": { "1": "orange", "2": "white", "3": "red" },
+      "lock": { "type": "key", "color": "silver" }
+    },
+    {
+      "picture": "rocket",
+      "colors": { "1": "red", "2": "white", "3": "orange", "4": "purple", "5": "purple", "6": "black" }
+    },
+    {
+      "picture": "satellite",
+      "colors": { "1": "purple", "2": "white", "3": "orange" }
+    },
+    {
+      "picture": "moon",
+      "colors": { "1": "yellow", "2": "orange" }
+    }
+  ],
+  "queue": { "hidden": 0, "links": 0 }
+}

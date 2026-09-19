@@ -1,0 +1,102 @@
+{
+  "name": "The Golden Key",
+  "hint": "Collect the key and the padlocked billboard opens.",
+  "boards": [
+    {
+      "name": "Treasure Chest",
+      "art": [
+        "...NNNNNNNNNN...",
+        "..YNNNNNNNNNNY..",
+        ".NYNNNNNNNNNNYN.",
+        "NNYNNNNNNNNNNYNN",
+        "YYYYYYYYYYYYYYYY",
+        "NNYNNNNYYNNNNYNN",
+        "NNYNNNYYYYNNNYNN",
+        "NNYNNNYYYYNNNYNN",
+        "NNYNNNNNNNNNNYNN",
+        "NNYNNNNNNNNNNYNN",
+        "YYYYYYYYYYYYYYYY",
+        ".NN..........NN."
+      ],
+      "source": { "picture": "treasure-chest", "colors": { "1": "brown", "2": "yellow", "3": "yellow", "4": "yellow", "5": "brown" } },
+      "lock": { "type": "key", "color": "gold" }
+    },
+    {
+      "name": "Key",
+      "art": [
+        "..YYYY.......",
+        ".YYYYYY......",
+        "YYY..YYYYYYYY",
+        "YYY..YYYYYYYY",
+        ".YYYYYY.Y.Y.Y",
+        "..YYYY..Y.Y.."
+      ],
+      "source": { "picture": "key", "colors": { "1": "yellow", "2": "yellow" } },
+      "keys": [{ "col": 5, "row": 4, "color": "gold" }]
+    },
+    {
+      "name": "Gift",
+      "art": [
+        "..RR..R..RR..",
+        ".RRRRRRRRRRR.",
+        ".RRRRRRRRRRR.",
+        "WWWWWRRRWWWWW",
+        "WWWWWRRRWWWWW",
+        "WWWWWRRRWWWWW",
+        ".WWWWRRRWWWW.",
+        ".BBBBRRRBBBB.",
+        ".BBBBRRRBBBB.",
+        ".BBBBRRRBBBB.",
+        ".BBBBRRRBBBB.",
+        ".BBBBRRRBBBB.",
+        ".BBBBRRRBBBB.",
+        ".BBBBRRRBBBB."
+      ],
+      "source": { "picture": "gift", "colors": { "1": "red", "2": "blue", "3": "white" } }
+    },
+    {
+      "name": "Guitar",
+      "art": [
+        "..............W.",
+        "............WNNN",
+        "............NNNN",
+        "...........KKN..",
+        "......NN..KKK...",
+        "......NN.KKK....",
+        ".....NN.KKK.....",
+        "....NNNKKK......",
+        "..NNWWWKK.......",
+        ".NNWWWWWWWN.....",
+        "NNNWWWWWWN......",
+        "NNNWWWWWN.......",
+        "NNKKWWWN........",
+        "NNNKWWWN........",
+        ".NNNNWN.........",
+        "..NNNN.........."
+      ],
+      "source": { "picture": "guitar", "colors": { "1": "brown", "2": "white", "3": "black", "4": "black" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "red", "charges": 30 },
+      { "color": "black", "charges": 19 },
+      { "color": "yellow", "charges": 35 },
+      { "color": "blue", "charges": 28 },
+      { "color": "brown", "charges": 39 }
+    ],
+    [
+      { "color": "brown", "charges": 39 },
+      { "color": "red", "charges": 30 },
+      { "color": "white", "charges": 34 },
+      { "color": "brown", "charges": 39 },
+      { "color": "white", "charges": 34 }
+    ],
+    [
+      { "color": "blue", "charges": 28 },
+      { "color": "yellow", "charges": 35 },
+      { "color": "yellow", "charges": 35 },
+      { "color": "brown", "charges": 39 }
+    ]
+  ]
+}

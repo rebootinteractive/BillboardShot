@@ -1,0 +1,27 @@
+{
+  "id": "level-18",
+  "name": "Locking Up",
+  "intent": "Relief after the hard level, and the frozen board on its own with nothing hiding anywhere. The house is iced over and wants 30 brown, and brown is the door's 111-pixel frame, exposed across twelve columns from the first move, so the first container the player sends can be the one that thaws it. Six colours and heavy sharing: brown runs through the door, the house and the umbrella, yellow through the door knob, the house and the whole bell, orange through the door panel and the bell's clapper, so almost every container has somewhere to go at any moment. The level's one real decision is the house's red roof edge and cyan window, thirty and fourteen pixels that live nowhere else, so their two small containers have to be held until the ice breaks - late in their lanes, and the only thing in the level that can clog a slot.",
+  "target": { "min": 0.78, "max": 0.88 },
+  "lanes": 3,
+  "boards": [
+    {
+      "picture": "door",
+      "colors": { "1": "brown", "2": "orange", "3": "yellow" }
+    },
+    {
+      "picture": "house",
+      "colors": { "1": "yellow", "2": "brown", "3": "red", "4": "green", "5": "cyan", "6": "brown" },
+      "lock": { "type": "frozen", "color": "brown", "count": 30 }
+    },
+    {
+      "picture": "bell",
+      "colors": { "1": "yellow", "2": "orange" }
+    },
+    {
+      "picture": "umbrella",
+      "colors": { "1": "green", "2": "brown", "3": "brown" }
+    }
+  ],
+  "queue": { "hidden": 0 }
+}

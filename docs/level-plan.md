@@ -74,8 +74,18 @@ Level 40 is the hardest *planning* problem in the game rather than the busiest o
 
 One soft guideline: hidden containers and mystery pixels are both about not being able to
 see, one in the deck and one on the board. Together they are the harshest pairing in the
-game, so they carry a level on their own and should not be the backdrop to a third
-feature on a peak.
+game, so they should not usually be the backdrop to a third feature.
+
+Batch 3 tested that, because the plan asked for it twice and contradicted itself. Levels
+17 and 22 both stack a third feature on both hiders, both landed in band, and both
+produced the worst bot profiles in the game: **17 has the lowest careful bot anywhere
+(70%, against 93–100% everywhere else), and 22 the lowest careless bot (17%)**. So the
+combination is buildable but it costs at both ends — it is harder for a solver *and*
+harsher on a beginner than its difficulty score admits.
+
+It is kept on **27**, which is a very hard peak that is meant to be brutal and gets played
+by real people before shipping. It is **removed from 35**, which is a medium level: a
+medium level whose careless bot is in the teens is exactly the trap batch 2 warned about.
 
 ## 4. Levels 1–25: the funnel
 
@@ -147,7 +157,7 @@ level: two mild features are hard together, so boards and pixels grow gently.
 | **32** | **Hard** | 32–46% | frozen, links, hidden | 6 | ~790 | Concert |
 | 33 | Easy | 78–88% | mystery | 5 | ~640 | Concert |
 | 34 | Medium | 56–68% | links, hidden | 6 | ~720 | Concert |
-| 35 | Medium | 50–62% | frozen, mystery, hidden | 6 | ~770 | Concert |
+| 35 | Medium | 50–62% | frozen, mystery | 6 | ~770 | Concert |
 | 36 | Medium | 50–62% | mystery, links | 6 | ~800 | Winter Games |
 | **37** | **Very hard** | 15–28% | frozen, links, mystery | 6 | ~830 | Winter Games |
 | 38 | Easy | 78–88% | hidden, mystery | 5 | ~680 | Winter Games |

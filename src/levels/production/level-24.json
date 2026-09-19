@@ -1,0 +1,105 @@
+{
+  "name": "Tied Together",
+  "hint": "Roped containers are sent together - both must be at the front with two slots free.",
+  "boards": [
+    {
+      "name": "Castle",
+      "art": [
+        "................",
+        ".......RR.......",
+        ".......RR.......",
+        "......PPPP......",
+        "......PPPP......",
+        "...R..PPPP..R...",
+        "..RRR.PPNP.RRR..",
+        "..RRR.PPPP.RRR..",
+        ".RRRRRPPPPRRRRR.",
+        "PRPRPRPPPPRPRPRP",
+        "PPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPP",
+        "PPPPPPNNNNPPPPPP",
+        "PPPPPPNNNNPPPPPP",
+        "PPPPPPNNNNPPPPPP"
+      ],
+      "source": { "picture": "castle", "colors": { "1": "purple", "2": "red", "3": "brown" } }
+    },
+    {
+      "name": "Telescope",
+      "art": [
+        "..........YYYYYY",
+        ".........YYYYYY.",
+        "........WWWWWW..",
+        ".......WWWWWW...",
+        "......WWWWWW....",
+        ".....WWWWWW.....",
+        "....WWWWWW......",
+        "...WWWWWW.......",
+        "..YYWWWW........",
+        ".....NNNN.......",
+        "....NNNNNN......",
+        "...NN.NN.NN.....",
+        "...NN.NN.NN.....",
+        "..NN..NN..NN....",
+        ".NN...NN...NN...",
+        "NN....NN....NN..",
+        "NN....NN....NN.."
+      ],
+      "source": { "picture": "telescope", "colors": { "1": "white", "2": "yellow", "3": "brown" } }
+    },
+    {
+      "name": "Flying Saucer",
+      "art": [
+        "......LLL......",
+        ".....LLLLL.....",
+        "....LLLLLLL....",
+        ".WWWWWWWWWWWWW.",
+        "WWWWWWWWWWWWWWW",
+        ".WWWWWWWWWWWWW.",
+        "....LLLLLLL....",
+        "...LLLLLLLLL...",
+        "..LLLLLLLLLLL.."
+      ],
+      "source": { "picture": "ufo", "colors": { "1": "lime", "2": "white", "3": "lime" } }
+    },
+    {
+      "name": "Comet",
+      "art": [
+        "........YYY",
+        "......YYYYY",
+        ".....YYYYY.",
+        "...YYYYYY..",
+        "..YYYYYY...",
+        ".RRRRYY....",
+        "RRRRRR.....",
+        "RRRRRR.....",
+        "RRRRR......",
+        ".RRR......."
+      ],
+      "source": { "picture": "comet", "colors": { "1": "yellow", "2": "red" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "red", "charges": 20 },
+      { "color": "yellow", "charges": 21, "link": "a" },
+      { "color": "red", "charges": 19 },
+      { "color": "yellow", "charges": 20 },
+      { "color": "red", "charges": 19 }
+    ],
+    [
+      { "color": "purple", "charges": 39 },
+      { "color": "purple", "charges": 39, "link": "a" },
+      { "color": "purple", "charges": 39 },
+      { "color": "white", "charges": 27 },
+      { "color": "white", "charges": 27 }
+    ],
+    [
+      { "color": "brown", "charges": 30 },
+      { "color": "lime", "charges": 21 },
+      { "color": "brown", "charges": 29 },
+      { "color": "white", "charges": 27 },
+      { "color": "lime", "charges": 21 }
+    ]
+  ]
+}
