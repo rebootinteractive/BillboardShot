@@ -1,0 +1,30 @@
+{
+  "id": "level-28",
+  "name": "Fox and Friends",
+  "intent": "Relief straight after the game's first very hard level, so it is built to be forgiving on purpose: no lock, no ice, no mystery pixels, and the only feature is a pair of hidden containers that cost one step of lookahead and nothing else. Seven colours across five small farm animals, and every one of them is shared or exposed from the first move - white is the fox's face, the whole bunny and the flamingo's wing, 223 pixels across three boards; orange is the fox's fur, the chipmunk and the hedgehog's face across three more; brown is the chipmunk's tail and the hedgehog's spines; yellow the chipmunk's belly and the hedgehog's belly. Nothing in the level has only one buried home, so a container is almost never holding a slot it cannot use. The two colours that live in one place, the flamingo's 17 red legs and the 34 black of the eyes and noses, are the level's only small decisions: red is exposed across seven columns from the first move, and black is buried everywhere except the flamingo's beak tip, so it is the one container worth saving for later.",
+  "target": { "min": 0.78, "max": 0.88 },
+  "lanes": 3,
+  "boards": [
+    {
+      "picture": "fox",
+      "colors": { "1": "orange", "2": "white", "3": "black" }
+    },
+    {
+      "picture": "bunny",
+      "colors": { "1": "white", "2": "pink", "3": "black", "4": "black", "5": "pink" }
+    },
+    {
+      "picture": "flamingo",
+      "colors": { "1": "pink", "2": "white", "3": "red", "4": "black" }
+    },
+    {
+      "picture": "chipmunk",
+      "colors": { "1": "orange", "2": "yellow", "3": "brown" }
+    },
+    {
+      "picture": "hedgehog",
+      "colors": { "1": "brown", "2": "orange", "3": "yellow" }
+    }
+  ],
+  "queue": { "hidden": 2, "links": 0 }
+}

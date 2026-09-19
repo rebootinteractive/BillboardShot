@@ -79,6 +79,33 @@ onboarding and are budgeted short as well as easy, like levels 7 and 15 before t
 Level 23 is deliberately all weather, which gives the Night Sky block a change of
 texture halfway through.
 
+## Batch 4 — levels 25–32
+
+| # | Budget | Theme | Pictures (pixels) | Total |
+|---|---|---|---|---|
+| 25 | ~600 | Night Sky | owl (198), unicorn (167), crown (90), star (82), snowflake (64) | 601 |
+| 26 | ~695 | Farmyard | sheep (181), cow (161), tractor (147), rooster (105), pig (102) | 696 |
+| 27 | ~725 | Farmyard | chicken (202), dog (200), cat (170), deer (93), duck (58) | 723 |
+| 28 | ~580 | Farmyard | fox (183), bunny (157), flamingo (99), chipmunk (76), hedgehog (66) | 581 |
+| 29 | ~715 | Farmyard | bear (194), koala (189), monkey (148), eagle (120), dove (65) | 716 |
+| 30 | ~730 | Farmyard | train (165), mouse (151), raccoon (146), parrot (136), car (130) | 728 |
+| 31 | ~755 | Concert | accordion (192), violin (132), piano (128), saxophone (104), banjo (103), trumpet (98) | 757 |
+| 32 | ~790 | Concert | drum (200), birthday-cake (195), confetti (126), party-popper (99), microphone (94), balloon (76) | 790 |
+
+42 pictures, each used once, none shared with batches 1–3.
+
+Two places this departs from the plan, both because of what the library actually holds:
+
+- **Level 25 is 601 pixels, not the plan's ~660.** The Night Sky is nearly spent after batch
+  3 — nineteen of its pictures are gone — so this level leans on night-time subjects (an
+  owl, a unicorn, a crown, a star, a snowflake) rather than more sky.
+- **Level 30 has five boards, not six.** Every farmyard picture still free is large, so six
+  of them would overshoot the pixel budget badly. Board count is a shape choice and five
+  boards at 728 pixels runs the same length.
+
+**Level 27 is the game's first very hard level.** It needs `"label": "very hard"`, and it
+is one of the three levels the plan sends to several players before shipping.
+
 ## Used so far
 
 Batch 1: pear, strawberry, lemon, apple, grapes, chestnut, watermelon, carrot, broccoli,
@@ -95,11 +122,17 @@ alarm-clock, graduation-cap, toothbrush, headphones, treasure-chest, gift, guita
 alien, planet, rocket, satellite, moon, airplane, rainbow, helicopter, hot-air-balloon,
 kite, storm-cloud, sun-cloud, rain-cloud, tornado, droplet, castle, telescope, ufo, comet
 
+Batch 4: owl, unicorn, crown, star, snowflake, sheep, cow, tractor, rooster, pig, chicken,
+dog, cat, deer, duck, fox, bunny, flamingo, chipmunk, hedgehog, bear, koala, monkey,
+eagle, dove, train, mouse, raccoon, parrot, car, accordion, violin, piano, saxophone,
+banjo, trumpet, drum, birthday-cake, confetti, party-popper, microphone, balloon
+
 **cherries** was allocated to level 1 and is now free again.
 
 ## Not available for reuse until
 
-Batch 1's pictures are free again from level 17, batch 2's from level 25 and batch 3's
-from level 33 — eight levels after their first use. Each may be used only once more across
+Batch 1's pictures are free again from level 17, batch 2's from level 25, batch 3's from
+level 33 and batch 4's from level 41 — eight levels after their first use. Each may be
+used only once more across
 the whole game, and the second use must change both the picture's color and its job on the
 board.

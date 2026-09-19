@@ -1,0 +1,58 @@
+{
+  "id": "level-25",
+  "name": "Night Watch",
+  "intent": "Linked containers at working weight, one level after they were taught, and the last Night Sky level. Two ropes instead of one, on a deck that now has nine colours competing for five slots, so keeping a slot spare is no longer free. Nothing is hidden or locked: every colour has an exposed home from the first move, which is what makes the links the only thing to plan around. Orange is the spine - the owl beak and feet, the whole crown and the star core - so an orange container always has somewhere to go. The owl is the dig: its brown feathers cover the belly, the pupils and the eyes, so three colours wait behind one, and the snowflake is a single cyan board, a clean place to spend a container when a rope is not ready. The careless bot sits near 20% here whatever the picture set: swapping the snowflake for a three-colour candle was tried and moved it 23% to 20%, so the cost is the nine colours, not the boards.",
+  "target": {
+    "min": 0.56,
+    "max": 0.68
+  },
+  "lanes": 4,
+  "boards": [
+    {
+      "picture": "owl",
+      "colors": {
+        "1": "brown",
+        "2": "white",
+        "3": "black",
+        "4": "yellow",
+        "5": "orange"
+      }
+    },
+    {
+      "picture": "unicorn",
+      "colors": {
+        "1": "white",
+        "2": "blue",
+        "3": "purple",
+        "4": "pink",
+        "5": "black"
+      }
+    },
+    {
+      "picture": "crown",
+      "colors": {
+        "1": "orange",
+        "2": "pink",
+        "3": "blue"
+      }
+    },
+    {
+      "picture": "star",
+      "colors": {
+        "1": "yellow",
+        "2": "orange",
+        "3": "yellow"
+      }
+    },
+    {
+      "picture": "snowflake",
+      "colors": {
+        "1": "cyan"
+      }
+    }
+  ],
+  "queue": {
+    "hidden": 0,
+    "links": 2
+  }
+}

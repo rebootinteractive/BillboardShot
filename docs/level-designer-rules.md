@@ -123,6 +123,19 @@ the slot implies, the fix is usually structural — give a color an exposed home
 hiding a single-purpose one — rather than another pass of the queue tuner. [verified,
 batch 2]
 
+Two qualifications, both from batch 4:
+
+- **Not every careless gap has a structural cause.** Level 25 sits at 62% with the careless
+  bot at 23%, and it does not clog at all (0.2 parked sends a run). Seven different picture
+  sets, color counts and link counts were tried, including swapping its single-color
+  snowflake for a three-color candle, and every one landed between 19% and 23%. When the
+  deck is not jamming, a low careless figure can simply be what a wide palette does to
+  someone tapping without looking, and there is nothing to fix.
+- **The careless bot models a *new* player, so weight it by where the level sits.** A
+  careless figure of 25% on level 8 is a warning, because the player has known the game for
+  four minutes. The same figure on level 30 is much less alarming: anyone who got there has
+  already beaten two labeled hard levels. Spend the worry early.
+
 ---
 
 ## 3. Queue construction

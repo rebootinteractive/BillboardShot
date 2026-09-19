@@ -1,0 +1,141 @@
+{
+  "name": "Fetch the Key",
+  "label": "very hard",
+  "boards": [
+    {
+      "name": "Chicken",
+      "art": [
+        ".........RRR....",
+        ".....RRRRRRRR...",
+        "....RRRRRRRRR...",
+        "....RRwwwwRRR...",
+        "...RRwwwwwwwP...",
+        "..RRwwwwwwwwwP..",
+        "...wwwwwwwwwww..",
+        "..Ywwwwwwwwwww..",
+        ".YYwwKKwwwwwwwP.",
+        "YYYwwwwwwwwwwwP.",
+        "OOOwwwwwwwwwwww.",
+        ".OOwwwwwwwwwwww.",
+        ".RRwwwwwwwwwwwwP",
+        ".RRwwwwwwwwwwwwP",
+        "..RwwwwwwwwwwwwP",
+        "..PwwwwwwwwwwwwP",
+        "...PPPPPPPPPPPP."
+      ],
+      "source": { "picture": "chicken", "colors": { "1": "white", "2": "red", "3": "purple", "4": "yellow", "5": "orange", "6": "black" }, "hidden": ["1"] },
+      "keys": [{ "col": 8, "row": 10, "color": "gold" }]
+    },
+    {
+      "name": "Dog",
+      "art": [
+        ".NNNNNYYYYNNNNN.",
+        "NNNNNYYYYYYNNNNN",
+        "NNNNNYYYYYYNNNNN",
+        "NNNNYYYYYYYYNNNN",
+        "NNNYYYYYYYYYYNNN",
+        "NNNYYYkYYkYYYYNN",
+        "NNYYYYYYYYYYYYNN",
+        ".YYYYWWWkWWYYYY.",
+        ".YYYWWWkkWWWYYY.",
+        ".YYYWWWWWWWWWYY.",
+        ".YYWWWWWkWWWWYY.",
+        ".YYYWWkMMkWWYYY.",
+        "..YYWWMMMMWWYY..",
+        ".....WMMMMW.....",
+        ".......MM......."
+      ],
+      "source": { "picture": "dog", "colors": { "1": "yellow", "2": "brown", "3": "white", "4": "pink", "5": "black" }, "hidden": ["5"] }
+    },
+    {
+      "name": "Cat",
+      "art": [
+        ".OO..........OO.",
+        ".OMO........OMO.",
+        ".OMMO......OMMO.",
+        ".OOOOOOOOOOOOOO.",
+        ".OOOOOOOOOOOOOO.",
+        ".OOOOOOOOOOOOOO.",
+        ".OOOOOOOOOOOOOO.",
+        ".OOOOKOOOOKOOOO.",
+        ".OOOOOOOOOOOOOO.",
+        ".OOOOOOOOOOOOOO.",
+        ".OOOOOOOOOOOOOO.",
+        ".OOOOOMMMMOOOOO.",
+        ".OOOOOOMMOOOOOO.",
+        "..OOOOOOOOOOOO.."
+      ],
+      "source": { "picture": "cat", "colors": { "1": "orange", "2": "pink", "3": "black", "4": "pink" } },
+      "lock": { "type": "key", "color": "gold" }
+    },
+    {
+      "name": "Deer",
+      "art": [
+        ".K...K....",
+        ".KK.KK....",
+        "..KKK.....",
+        "OOOOO.....",
+        "OOOOO.....",
+        ".OOOO.....",
+        "..OOOOO...",
+        "..OOOOOOO.",
+        ".OOOOOOOOO",
+        "OOOOOOOOOO",
+        "OOWWWWWWWO",
+        ".OWWWWWWWO",
+        ".OO...OOO.",
+        ".OO...OOO.",
+        ".OO...OOO.",
+        ".KK...KKK."
+      ],
+      "source": { "picture": "deer", "colors": { "1": "orange", "2": "white", "3": "black" } }
+    },
+    {
+      "name": "Duck",
+      "art": [
+        "...nnn....",
+        "..nnnnn...",
+        "OOnnnnn...",
+        "OOnnnnn...",
+        "...nnn..WW",
+        "..WWWWWWWW",
+        ".WWWWWWWWW",
+        ".WWWWWWWW.",
+        "..WWWWWW.."
+      ],
+      "source": { "picture": "duck", "colors": { "1": "brown", "2": "orange", "3": "white" }, "hidden": ["1"] }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "brown", "charges": 37 },
+      { "color": "orange", "charges": 38 },
+      { "color": "red", "charges": 34 },
+      { "color": "brown", "charges": 37 },
+      { "color": "orange", "charges": 38, "hidden": true }
+    ],
+    [
+      { "color": "orange", "charges": 38 },
+      { "color": "black", "charges": 26 },
+      { "color": "white", "charges": 37 },
+      { "color": "orange", "charges": 39 },
+      { "color": "white", "charges": 37 },
+      { "color": "white", "charges": 36 },
+      { "color": "orange", "charges": 38, "hidden": true }
+    ],
+    [
+      { "color": "purple", "charges": 21 },
+      { "color": "white", "charges": 37 },
+      { "color": "yellow", "charges": 31 },
+      { "color": "orange", "charges": 39 }
+    ],
+    [
+      { "color": "yellow", "charges": 32 },
+      { "color": "yellow", "charges": 31 },
+      { "color": "pink", "charges": 12 },
+      { "color": "pink", "charges": 12, "hidden": true },
+      { "color": "white", "charges": 36 },
+      { "color": "white", "charges": 37 }
+    ]
+  ]
+}

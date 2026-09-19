@@ -1,0 +1,130 @@
+{
+  "name": "Sleeping Koala",
+  "boards": [
+    {
+      "name": "Bear",
+      "art": [
+        "..NNN.NNNN.NNN..",
+        ".NwwNNNNNNNNwwN.",
+        ".NwNNNNNNNNNNwN.",
+        ".NNNNNNNNNNNNNN.",
+        ".NNNNNNNNNNNNNN.",
+        ".NNNNNNNNNNNNNN.",
+        "NNNNNKNNNNKNNNNN",
+        "NNNNNNNNNNNNNNNN",
+        "NNNNNwwKKwwNNNNN",
+        "NNNNNwwwwwwNNNNN",
+        "NNNNNwKKKwwNNNNN",
+        ".NNNNNwwwwNNNNN.",
+        "..NNNNNNNNNNNN..",
+        "....NNNNNNNN...."
+      ],
+      "source": { "picture": "bear", "colors": { "1": "brown", "2": "white", "3": "black" }, "hidden": ["2"] }
+    },
+    {
+      "name": "Koala",
+      "art": [
+        "..PPPP....PPPP..",
+        ".PMMMPPPPPPMMMP.",
+        "PPMMPPPPPPPPMMMP",
+        "PMMPPPPPPPPPPMMP",
+        "PMMPPPPPPPPPPMMP",
+        ".PMPPPPPPPPPPMPP",
+        ".PPPPPPPPPPPPPP.",
+        "..PPkPPkkPPkPP..",
+        ".PPPkPkkkkPkPPP.",
+        ".PPPPPkkkkPPPPP.",
+        ".PPPPPkkkkPPPPP.",
+        ".PPPPPkkkkPPPPP.",
+        "..PPPPPkkPPPPP..",
+        "...PPPPPPPPPP..."
+      ],
+      "source": { "picture": "koala", "colors": { "1": "purple", "2": "black", "3": "pink" }, "hidden": ["2"] },
+      "lock": { "type": "frozen", "color": "white", "count": 55 }
+    },
+    {
+      "name": "Monkey",
+      "art": [
+        ".....PPPPPP.....",
+        "....PPPPPPPP....",
+        "...PMMMMMMMMP...",
+        "..PMMMMMMMMMMP..",
+        ".MPMMMMMMMMMMPM.",
+        "MMPMMMKMMKMMMPMM",
+        "MMPPMMMMMMMMPPMM",
+        "MMPPMMMMMMMMPPMM",
+        ".MPPPMwwwwMPPPM.",
+        "..PPPMwwwwMPPP..",
+        "...PPPPMMPPPP...",
+        "....PPPPPPPP....",
+        ".....PPPPPP....."
+      ],
+      "source": { "picture": "monkey", "colors": { "1": "pink", "2": "purple", "3": "white", "4": "black" }, "hidden": ["3"] }
+    },
+    {
+      "name": "Eagle",
+      "art": [
+        "KK....WWWW....KK",
+        "KKK..WWWWWW..KKK",
+        "KKKK.WWWWWW.KKKK",
+        "KKKKK.WWWW.KKKKK",
+        "KKKKKKKKKKKKKKKK",
+        ".KKKKKKKKKKKKKK.",
+        "..KKKKKKKKKKKK..",
+        "...KKKKKKKKKK...",
+        ".....KKKKKK.....",
+        ".....WWWWWW.....",
+        "......WWWW......",
+        "......WWWW......"
+      ],
+      "source": { "picture": "eagle", "colors": { "1": "black", "2": "white", "3": "white" } }
+    },
+    {
+      "name": "Dove",
+      "art": [
+        "...WWW.....",
+        "..WWWWW....",
+        "WWWWWWW....",
+        "WWWWWWWWW..",
+        ".WCCCCCCWWW",
+        ".WCCCCCCWWW",
+        ".WWCCCCCCW.",
+        "..WWWWWWW..",
+        "...WWWWW..."
+      ],
+      "source": { "picture": "dove", "colors": { "1": "white", "2": "cyan", "3": "white" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "purple", "charges": 35 },
+      { "color": "pink", "charges": 24 },
+      { "color": "black", "charges": 39 },
+      { "color": "cyan", "charges": 18 },
+      { "color": "purple", "charges": 34 },
+      { "color": "purple", "charges": 35 },
+      { "color": "white", "charges": 38 }
+    ],
+    [
+      { "color": "pink", "charges": 24 },
+      { "color": "white", "charges": 37 },
+      { "color": "black", "charges": 40 },
+      { "color": "pink", "charges": 24 }
+    ],
+    [
+      { "color": "brown", "charges": 33 },
+      { "color": "brown", "charges": 33 },
+      { "color": "purple", "charges": 35 },
+      { "color": "purple", "charges": 35 },
+      { "color": "brown", "charges": 33 }
+    ],
+    [
+      { "color": "pink", "charges": 23 },
+      { "color": "black", "charges": 40 },
+      { "color": "brown", "charges": 33 },
+      { "color": "purple", "charges": 34 },
+      { "color": "white", "charges": 37 },
+      { "color": "brown", "charges": 32 }
+    ]
+  ]
+}
