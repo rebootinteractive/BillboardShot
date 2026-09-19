@@ -43,7 +43,7 @@
         ".OOOOOOOOOOOOOO."
       ],
       "source": { "picture": "birthday-cake", "colors": { "1": "white", "2": "orange", "3": "cyan", "4": "yellow", "5": "white" } },
-      "lock": { "type": "frozen", "color": "purple", "count": 85 }
+      "lock": { "type": "frozen", "color": "purple", "containers": 3 }
     },
     {
       "name": "Confetti ball",

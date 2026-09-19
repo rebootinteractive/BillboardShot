@@ -29,7 +29,7 @@
       "lock": {
         "type": "frozen",
         "color": "purple",
-        "count": 85
+        "containers": 3
       }
     },
     {

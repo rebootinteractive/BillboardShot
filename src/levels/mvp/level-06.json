@@ -84,7 +84,7 @@
         "..R..RR..RR..R.."
       ],
       "source": { "picture": "crab", "colors": { "1": "red", "2": "orange", "3": "black" } },
-      "lock": { "type": "frozen", "color": "blue", "count": 38 }
+      "lock": { "type": "frozen", "color": "blue", "containers": 1 }
     }
   ],
   "lanes": [

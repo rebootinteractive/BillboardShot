@@ -61,8 +61,8 @@ Only what the intent calls for.
   group with `pick` `highest`, `middle` or `lowest`. The key is 3 wide and 2 tall and
   replaces the pixels under it; the picker only uses areas wholly on the picture. Higher
   keys stay locked longer. The locked board's colors wait for the key.
-- **Frozen board:** set the color and count. One finished container's worth (about 30–40)
-  is gentle; more pushes hard toward that color. The color must be fillable from other
+- **Frozen board:** set the color and how many of its containers must finish. One is
+  gentle; more pushes hard toward that color. The containers must be fillable from other
   boards.
 - **Mystery pixels:** hide only groups the facts mark `mystery ok`, or they reveal at the
   start.
@@ -86,7 +86,7 @@ Save it as `design/briefs/<id>.json`:
     { "picture": "sailboat", "colors": { "1": "blue", "2": "orange", "3": "yellow", "4": "white" } },
     { "picture": "whale", "colors": { "1": "cyan", "2": "white", "3": "blue" }, "hidden": ["3"] },
     { "picture": "crab", "colors": { "1": "red", "2": "orange", "3": "white" },
-      "lock": { "type": "frozen", "color": "cyan", "count": 30 } }
+      "lock": { "type": "frozen", "color": "cyan", "containers": 1 } }
   ],
   "queue": { "hidden": 1, "links": 0 }
 }
@@ -102,7 +102,7 @@ Fields:
 | `boards[].hidden` | Groups shown as mystery pixels. |
 | `boards[].overrides` | Odd pixels: `{ "group": "1", "pick": "middle", "color": "blue" }` or an exact `col`/`row` (row from the top). |
 | `boards[].key` | `{ "group": "2", "pick": "highest", "color": "gold" }` or the top-left cell `{ "col": 6, "row": 5, "color": "gold" }` (row from the top). The key covers 3×2 cells. |
-| `boards[].lock` | `{ "type": "key", "color": "gold" }` or `{ "type": "frozen", "color": "white", "count": 35 }` |
+| `boards[].lock` | `{ "type": "key", "color": "gold" }` or `{ "type": "frozen", "color": "white", "containers": 2 }` |
 | `hint` | One line shown before the first attempt. |
 | `containers.maxCharges` | Largest container (default 40). |
 | `containers.split` | Exact container count for a color, e.g. `{ "white": 5 }`. |
@@ -141,7 +141,7 @@ The queue alone could not do it; change the brief, not the queue:
 | Too easy (score above the band) | Too hard (score below the band) |
 |---|---|
 | More colors, fewer shared | Fewer colors, more shared |
-| A lock or frozen board, or a higher key | Remove a lock, lower the key, smaller frozen count |
+| A lock or frozen board, or a higher key | Remove a lock, lower the key, fewer frozen containers |
 | An odd pixel low in a tall column | Remove odd pixels |
 | A trap at the front of a lane | Move buried and locked colors later in the queue |
 | More pixels (bigger or more boards) | Fewer pixels |

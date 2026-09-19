@@ -8,8 +8,8 @@ const FLIGHT_TIME = 0.7;
 
 /**
  * A cube launched from a finished container to a frozen billboard of its color. It
- * carries part of the container's load, and takes that much off the board's counter
- * when it lands.
+ * cracks the ice where it lands, and takes `amount` containers off the board's counter:
+ * 1 for a container's last cube, 0 for the others.
  */
 export class ProgressShot {
   private readonly mesh: THREE.Mesh<THREE.BufferGeometry, THREE.MeshStandardMaterial>;
@@ -25,6 +25,8 @@ export class ProgressShot {
     readonly board: Billboard,
     color: ColorKey,
     readonly amount: number,
+    /** This cube's share of its container, for how far the ice cracks. */
+    readonly share: number,
     private delay: number,
     impactIndex = 0,
   ) {

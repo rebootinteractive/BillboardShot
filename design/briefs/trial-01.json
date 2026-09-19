@@ -7,7 +7,7 @@
   "boards": [
     { "picture": "sailboat", "colors": { "1": "blue", "2": "orange", "3": "yellow", "4": "white" } },
     { "picture": "whale", "colors": { "1": "cyan", "2": "white", "3": "blue" }, "hidden": ["3"] },
-    { "picture": "crab", "colors": { "1": "red", "2": "orange", "3": "white" }, "lock": { "type": "frozen", "color": "cyan", "count": 30 } }
+    { "picture": "crab", "colors": { "1": "red", "2": "orange", "3": "white" }, "lock": { "type": "frozen", "color": "cyan", "containers": 2 } }
   ],
   "queue": { "hidden": 1 }
 }

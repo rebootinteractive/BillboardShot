@@ -20,7 +20,7 @@
         "KKKK........KKKK"
       ],
       "source": { "picture": "accordion", "colors": { "1": "orange", "2": "black", "3": "white", "4": "yellow" } },
-      "lock": { "type": "frozen", "color": "red", "count": 60 }
+      "lock": { "type": "frozen", "color": "red", "containers": 2 }
     },
     {
       "name": "Violin",

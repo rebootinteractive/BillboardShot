@@ -21,7 +21,7 @@
     {
       "picture": "cactus",
       "colors": { "1": "lime", "2": "black" },
-      "lock": { "type": "frozen", "color": "red", "count": 35 }
+      "lock": { "type": "frozen", "color": "red", "containers": 1 }
     }
   ],
   "containers": { "split": { "red": 3 } },

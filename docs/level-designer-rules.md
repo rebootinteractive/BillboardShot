@@ -295,17 +295,18 @@ it into a neighboring group's color.
 
 ### Frozen billboard
 
-- **Only finished containers count.** A container of the frozen color counts its full
-  capacity when it leaves the deck, never while filling. [verified]
+- **Only finished containers count, one each.** A container of the frozen color counts as
+  one when it leaves the deck, never while filling, whatever its size. [verified]
 - **Every pixel in such a container comes from other boards while the board is frozen.** So
-  some set of that color's containers must fill completely from other boards and add up to
-  the count. The checker enforces this. [verified]
+  that many of that color's containers must fill completely from other boards. The checker
+  enforces this. [verified]
 - A large container of the frozen color that cannot be filled from open boards never
   counts, and a player who sends it may get stuck. Size those containers to what the open
   boards hold. [verified]
-- In Deep Sea Secrets the crab thaws after one blue container (38) finishes on the whale.
-  One container's worth is a gentle count; counts that need several finished containers
-  push the player hard toward one color. [verified]
+- In Deep Sea Secrets the crab thaws after one blue container finishes on the whale. One
+  container is gentle; several push the player hard toward one color. [verified]
+- Container sizes still matter: asking for 2 finished containers is a light ask when that
+  color comes in small containers and a heavy one when they are large.
 
 ### Linked containers
 
@@ -377,7 +378,7 @@ Rules of thumb:
 ## 7. Checklist before a level is done
 
 1. The level checker passes: art matches source, charges are zero-sum, keys and locks pair
-   up, frozen counts are reachable, links are valid. Every container holds 3–40 charges
+   up, frozen boards ask for containers that can be finished, links are valid. Every container holds 3–40 charges
    (not yet checked automatically).
 2. Pixels are within the level cap, and the level stays within the board, color and lane
    limits.

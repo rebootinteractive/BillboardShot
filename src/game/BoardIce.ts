@@ -180,10 +180,11 @@ export class BoardIce {
     return p;
   }
 
-  hit(remaining: number, point: THREE.Vector3) {
+  /** `remaining` is the counter; `progress` counts containers delivered, fractions included. */
+  hit(remaining: number, point: THREE.Vector3, progress = this.total - remaining) {
     if (this.breakTime >= 0) return;
     this.setCounter(remaining);
-    this.uniforms.iceDamage.value = 1 - remaining / this.total;
+    this.uniforms.iceDamage.value = Math.min(1, progress / this.total);
     this.uniforms.iceImpact.value.set(point.x / this.cell, point.y / this.cell);
     this.hitPulse = 1;
     this.emit(point, 7, false);

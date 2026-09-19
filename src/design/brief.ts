@@ -29,7 +29,7 @@ export interface BoardBrief {
    * The key covers KEY_WIDTH × KEY_HEIGHT cells, which lose their pixels.
    */
   key?: PixelSpot & { color: KeyColor };
-  lock?: { type: 'key'; color: KeyColor } | { type: 'frozen'; color: ColorKey; count: number };
+  lock?: { type: 'key'; color: KeyColor } | { type: 'frozen'; color: ColorKey; containers: number };
 }
 
 export interface LevelBrief {

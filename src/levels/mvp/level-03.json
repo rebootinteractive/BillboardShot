@@ -64,7 +64,7 @@
         "OOO.........."
       ],
       "source": { "picture": "carrot", "colors": { "1": "orange", "2": "green" } },
-      "lock": { "type": "frozen", "color": "white", "count": 35 }
+      "lock": { "type": "frozen", "color": "white", "containers": 1 }
     }
   ],
   "lanes": [
