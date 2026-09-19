@@ -1,0 +1,135 @@
+{
+  "name": "Night Watch",
+  "boards": [
+    {
+      "name": "Owl",
+      "art": [
+        "NNNNN...NNNNN",
+        "NNNNNNNNNNNNN",
+        "NKKKKNNNNKKKN",
+        "NYYKYNNNYKYYN",
+        "KYKKYNNNYKKYK",
+        "NYKKYNNNYKKYN",
+        "NNYYNNONNYYNN",
+        "NNNNNNNNNNNNN",
+        "NWWWWNNNWWWWN",
+        "NWWWWWWWWWWWN",
+        "NWWWWWWWWWWWN",
+        "NNWWWWWWWWWNN",
+        ".NWWWWWWWWWN.",
+        ".NNWWWWWWWNN.",
+        "..NNWWWWWNN..",
+        "...OOWWWOO...",
+        "...OOOOOOO..."
+      ],
+      "source": { "picture": "owl", "colors": { "1": "brown", "2": "white", "3": "black", "4": "yellow", "5": "orange" } }
+    },
+    {
+      "name": "Unicorn",
+      "art": [
+        "................",
+        "......W.........",
+        "...BBBWWBBB.....",
+        "...BPBWWPBBB....",
+        "...BBWWWWPBBP...",
+        "...BWWWWWPBBPP..",
+        "...WWKWWWWBBPPP.",
+        "..WWWWWWWWBBPPPM",
+        "..WWWWWWWPBBPPPM",
+        ".WWWWWWWWBBBPPMM",
+        "WWWWWWWWWBBPPPMM",
+        "WWWKWW.WBBBPPPMM",
+        "......WWBBBPPPMM",
+        "......WWBBBPPPMM",
+        ".....WWWBBBPPPMM",
+        ".....WWWBBBPPPMM"
+      ],
+      "source": { "picture": "unicorn", "colors": { "1": "white", "2": "blue", "3": "purple", "4": "pink", "5": "black" } }
+    },
+    {
+      "name": "Crown",
+      "art": [
+        "......O......",
+        "......O......",
+        "O..O..OO.O..O",
+        "OO.O.OOO.O.OO",
+        ".OOOOOOOOOOO.",
+        ".OOOOOOOOOOO.",
+        ".OOOOOOOOOOO.",
+        ".OOMOBBBOMOO.",
+        ".OOMOOBOOMOO.",
+        "..OOOOOOOOO..",
+        "..OOOOOOOOO.."
+      ],
+      "source": { "picture": "crown", "colors": { "1": "orange", "2": "pink", "3": "blue" } }
+    },
+    {
+      "name": "Star",
+      "art": [
+        "......Y......",
+        ".....YYY.....",
+        ".....YOY.....",
+        "....YOOOY....",
+        "YYYYYOOOYYYYY",
+        ".YYYOOOOOYYY.",
+        "..YYOOYOOYY..",
+        "...YOOOOOY...",
+        "...YOOOOOY...",
+        "..YYOOYOOYY..",
+        "..YYY...YYY..",
+        ".YY.......YY.",
+        "YY.........YY"
+      ],
+      "source": { "picture": "star", "colors": { "1": "yellow", "2": "orange", "3": "yellow" } }
+    },
+    {
+      "name": "Snowflake",
+      "art": [
+        "......C......",
+        ".....CCC.....",
+        "..C...C...C..",
+        ".CC...C...CC.",
+        ".CCC.CCC.CCC.",
+        "CC..CC.CC..CC",
+        ".C..C...C..C.",
+        "CC.CCC.CCC.CC",
+        ".CCC.CCC.CCC.",
+        ".CC...C...CC.",
+        "..C...C...C..",
+        ".....CCC.....",
+        "......C......"
+      ],
+      "source": { "picture": "snowflake", "colors": { "1": "cyan" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "brown", "charges": 29 },
+      { "color": "white", "charges": 33 },
+      { "color": "cyan", "charges": 32, "link": "a" },
+      { "color": "white", "charges": 33 },
+      { "color": "orange", "charges": 31 }
+    ],
+    [
+      { "color": "blue", "charges": 24 },
+      { "color": "black", "charges": 21 },
+      { "color": "brown", "charges": 29, "link": "a" },
+      { "color": "yellow", "charges": 35, "link": "b" },
+      { "color": "white", "charges": 33 }
+    ],
+    [
+      { "color": "yellow", "charges": 35 },
+      { "color": "purple", "charges": 37 },
+      { "color": "blue", "charges": 24 },
+      { "color": "cyan", "charges": 32 },
+      { "color": "orange", "charges": 31 }
+    ],
+    [
+      { "color": "orange", "charges": 31 },
+      { "color": "pink", "charges": 20 },
+      { "color": "brown", "charges": 28, "link": "b" },
+      { "color": "orange", "charges": 31 },
+      { "color": "white", "charges": 32 }
+    ]
+  ]
+}

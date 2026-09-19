@@ -1,0 +1,156 @@
+{
+  "name": "Squeezebox",
+  "boards": [
+    {
+      "name": "Accordion",
+      "art": [
+        "KKKK........KKKK",
+        "KKKK........KKKK",
+        "KKKKKKKKKKKKKKKK",
+        "KWWKOOYYOOYYKWWK",
+        "KWWKOOYYOOYYKWWK",
+        "KKKKOOYYOOYYKKKK",
+        "KWWKOOYYOOYYKWWK",
+        "KWWKOOYYOOYYKWWK",
+        "KKKKOOYYOOYYKKKK",
+        "KWWKOOYYOOYYKWWK",
+        "KWWKOOYYOOYYKWWK",
+        "KKKKKKKKKKKKKKKK",
+        "KKKK........KKKK",
+        "KKKK........KKKK"
+      ],
+      "source": { "picture": "accordion", "colors": { "1": "orange", "2": "black", "3": "white", "4": "yellow" } },
+      "lock": { "type": "frozen", "color": "red", "count": 60 }
+    },
+    {
+      "name": "Violin",
+      "art": [
+        "....KKKK....",
+        "....KKKK....",
+        ".....KK.....",
+        ".....KK.....",
+        ".....KK.....",
+        ".....KK.....",
+        "..RRRKKRRR..",
+        ".RRRRKKRRRR.",
+        "RRRRRKKRRRRR",
+        "RRRRRKKRRRRR",
+        ".RRRRKKRRRR.",
+        "..RRRRRRRR..",
+        ".RRRRRRRRRR.",
+        "RRRRRRRRRRRR",
+        "RRRRRRRRRRRR",
+        "RRRRRRRRRRRR",
+        ".RRRRRRRRRR."
+      ],
+      "source": { "picture": "violin", "colors": { "1": "red", "2": "black", "3": "black" } }
+    },
+    {
+      "name": "Piano keyboard",
+      "art": [
+        "PPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPP",
+        "WWKWKWWWKWKWKWWW",
+        "WWKWKWWWKWKWKWWW",
+        "WWKWKWWWKWKWKWWW",
+        "WWWWWWWWWWWWWWWW",
+        "WWWWWWWWWWWWWWWW",
+        "WWWWWWWWWWWWWWWW"
+      ],
+      "source": { "picture": "piano", "colors": { "1": "white", "2": "purple", "3": "black" } }
+    },
+    {
+      "name": "Saxophone",
+      "art": [
+        "KK........",
+        "KK........",
+        "KK........",
+        "YYW.......",
+        "YYW.......",
+        "YYW.YYYYYY",
+        "YYW.YYYYYY",
+        "YYW..YYYYY",
+        "YYW..YYYY.",
+        "YYW..YYYY.",
+        "YYW...YYY.",
+        "YYW...YYY.",
+        "YYW...YYY.",
+        "YYYYYYYYYY",
+        "YYYYYYYYYY",
+        ".YYYYYYYY.",
+        "..YYYYYY.."
+      ],
+      "source": { "picture": "saxophone", "colors": { "1": "yellow", "2": "black", "3": "white" } }
+    },
+    {
+      "name": "Banjo",
+      "art": [
+        "...KKKKK...",
+        "...KKKKK...",
+        "....KKK....",
+        "....KKK....",
+        "....KKK....",
+        "....KKK....",
+        "....KKK....",
+        "....KKK....",
+        "...KKKKK...",
+        "..KKKKKKK..",
+        ".KKWWWWWKK.",
+        "KKWWWWWWWKK",
+        "KKWWWWWWWKK",
+        "KKWWWWWWWKK",
+        ".KKWWWWWKK.",
+        "..KKKKKKK..",
+        "...KKKKK..."
+      ],
+      "source": { "picture": "banjo", "colors": { "1": "white", "2": "black", "3": "black" } }
+    },
+    {
+      "name": "Trumpet",
+      "art": [
+        "..OO.OO.OO.....",
+        "..OO.OO.OO...OO",
+        "..OO.OO.OO..OOO",
+        "..OO.OO.OO.OOOO",
+        "YYYYYYYYYYYOOOO",
+        "YYYYYYYYYYYOOOO",
+        "..OO.OO.OO.OOOO",
+        ".YYYYYYYYYY.OOO",
+        ".YYYYYYYYYY..OO"
+      ],
+      "source": { "picture": "trumpet", "colors": { "1": "yellow", "2": "orange", "3": "orange" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "yellow", "charges": 32 },
+      { "color": "white", "charges": 37 },
+      { "color": "black", "charges": 38 },
+      { "color": "black", "charges": 37 },
+      { "color": "white", "charges": 36 }
+    ],
+    [
+      { "color": "white", "charges": 37 },
+      { "color": "orange", "charges": 30, "hidden": true },
+      { "color": "red", "charges": 36 },
+      { "color": "orange", "charges": 29 },
+      { "color": "red", "charges": 35 },
+      { "color": "red", "charges": 35 }
+    ],
+    [
+      { "color": "black", "charges": 37 },
+      { "color": "yellow", "charges": 33 },
+      { "color": "orange", "charges": 29 },
+      { "color": "purple", "charges": 32 },
+      { "color": "black", "charges": 37 },
+      { "color": "black", "charges": 37 }
+    ],
+    [
+      { "color": "yellow", "charges": 33 },
+      { "color": "black", "charges": 37 },
+      { "color": "white", "charges": 36, "hidden": true },
+      { "color": "yellow", "charges": 32 },
+      { "color": "yellow", "charges": 32, "hidden": true }
+    ]
+  ]
+}

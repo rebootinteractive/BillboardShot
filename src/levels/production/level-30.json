@@ -1,0 +1,141 @@
+{
+  "name": "Last Train Out",
+  "boards": [
+    {
+      "name": "Train",
+      "art": [
+        "...NNNNNN.......",
+        "...NNNNNN.......",
+        "...OOOOOO.RRRRR.",
+        "...NNNNNN.R...R.",
+        "...NNNNN..R...R.",
+        "....NNNN..R...R.",
+        "...NNNNNNNRRRRR.",
+        "..NNNNNNNNRRRRR.",
+        "..NNNNNNNNRRRRR.",
+        "..NNNNNNNNRRRRR.",
+        "..NNNNNNNNRRRRR.",
+        "..WWWWWWWWWWWWWW",
+        "..RKKKKKKNWWNWWN",
+        ".RRKNWWWKNWWNWWN",
+        "RRRRNNWNNNNN.NN."
+      ],
+      "source": { "picture": "train", "colors": { "1": "brown", "2": "red", "3": "white", "4": "black", "5": "orange" } }
+    },
+    {
+      "name": "Mouse",
+      "art": [
+        "..WWW......WWW..",
+        ".WMMWWW..WWWMMW.",
+        "WMMMMMW..WMMMMMW",
+        "WMMMMMWWWWMMMMMW",
+        "WMMMMWWWWWWMMMMW",
+        "WMMMWWWWWWWWMMMW",
+        ".WMWWWWWWWWWWMW.",
+        "...WWWWWWWWWW...",
+        "...WWWWWWWWWW...",
+        "...WWKWWWWKWW...",
+        "...WWWWWWWWWW...",
+        "...KWWWMMWWW....",
+        ".....KWWWWK.....",
+        ".......WW......."
+      ],
+      "source": { "picture": "mouse", "colors": { "1": "white", "2": "pink", "3": "black", "4": "black" } },
+      "keys": [{ "col": 7, "row": 6, "color": "silver" }]
+    },
+    {
+      "name": "Raccoon",
+      "art": [
+        ".KK....KK......",
+        "KKKK..KKKK.....",
+        ".KKKKKKKK......",
+        "KKKKKKKKKK..KKK",
+        "WWWWWWWWWW..KKK",
+        "WKKKWWKKKW.WWWW",
+        "WKKKWWKKKW.WWWW",
+        "WKKKWWKKKW.KKKK",
+        "WWWWWWWWWW.KKKK",
+        "WWWWWWWWWWWWWW.",
+        ".WWWKKWWWWWWW..",
+        "..WWWWWWKKKK...",
+        "...WWWWKKKK...."
+      ],
+      "source": { "picture": "raccoon", "colors": { "1": "black", "2": "white", "3": "white" } },
+      "lock": { "type": "key", "color": "silver" }
+    },
+    {
+      "name": "Parrot",
+      "art": [
+        "...RRR.........",
+        "..RRWRR........",
+        ".OOWKWRR.......",
+        "OOORWWRR.......",
+        ".OORRRRR.......",
+        ".RRRRRRR.......",
+        ".RRRROOOR......",
+        "RRRROOOOO......",
+        "RRRROOOOO......",
+        "RRRRBOOOO......",
+        "RRRRBOOOO......",
+        ".RRRRBOOOO.....",
+        ".RRRRBBBOORRRRR",
+        "..RRRRBBBBRRRRR",
+        "...RRRRRBBRRRR.",
+        ".....O.O.......",
+        "...OOOOOO......"
+      ],
+      "source": { "picture": "parrot", "colors": { "1": "red", "2": "orange", "3": "blue", "4": "white", "5": "black" } }
+    },
+    {
+      "name": "Car",
+      "art": [
+        "......BBBBBBBB..",
+        "......CCBCCCBBC.",
+        ".....CCCBCCCCBC.",
+        "....CCCCBCCCCBCC",
+        "...BKKCCBBCCBBCC",
+        "BBBBBBBBBBBBBBBB",
+        "WBBBBBBBBBBBBBBB",
+        "BBKKKBBBBBBKKKBB",
+        "CCKWKKCCCCKKWKCC",
+        "..KWKK....KKWK..",
+        "..KKK......KKK.."
+      ],
+      "source": { "picture": "car", "colors": { "1": "blue", "2": "cyan", "3": "black", "4": "cyan", "5": "white" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "blue", "charges": 25 },
+      { "color": "black", "charges": 37 },
+      { "color": "white", "charges": 36 },
+      { "color": "pink", "charges": 21, "link": "b" },
+      { "color": "blue", "charges": 24 },
+      { "color": "white", "charges": 35 },
+      { "color": "black", "charges": 38 }
+    ],
+    [
+      { "color": "orange", "charges": 24 },
+      { "color": "brown", "charges": 27 },
+      { "color": "cyan", "charges": 19, "link": "a" },
+      { "color": "blue", "charges": 24 },
+      { "color": "white", "charges": 36, "link": "b" },
+      { "color": "white", "charges": 35 }
+    ],
+    [
+      { "color": "red", "charges": 40 },
+      { "color": "brown", "charges": 27, "link": "a" },
+      { "color": "cyan", "charges": 19 },
+      { "color": "red", "charges": 39 },
+      { "color": "black", "charges": 37 }
+    ],
+    [
+      { "color": "orange", "charges": 24 },
+      { "color": "pink", "charges": 21 },
+      { "color": "white", "charges": 36 },
+      { "color": "white", "charges": 36 },
+      { "color": "red", "charges": 40 },
+      { "color": "brown", "charges": 28 }
+    ]
+  ]
+}

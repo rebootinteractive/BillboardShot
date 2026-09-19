@@ -1,0 +1,129 @@
+{
+  "name": "Fox and Friends",
+  "boards": [
+    {
+      "name": "Fox",
+      "art": [
+        "....K......K....",
+        "...KKK....KKK...",
+        "...KKKK..KKKK...",
+        "..OOOOO..OOOOO..",
+        "..OOOOOOOOOOOO..",
+        "..OOOOOOOOOOOO..",
+        "..OOOOOOOOOOOO..",
+        "..OOOOOOOOOOOO..",
+        "..OOOOOOOOOOOO..",
+        "..OOOKOOOOOOOO..",
+        "OOOOOKOOOOOOOOOO",
+        "OWWWWOOKKOOWWWWO",
+        ".WWWWWWKKWWWWWW.",
+        ".WWWWWWWWWWWWWW.",
+        "..WWWWWKKWWWWW..",
+        "....WWWWWWWWW...",
+        "......WWWW......"
+      ],
+      "source": { "picture": "fox", "colors": { "1": "orange", "2": "white", "3": "black" } }
+    },
+    {
+      "name": "Bunny",
+      "art": [
+        "....WW....WW....",
+        "....WMW..WMW....",
+        "....WMW..WMW....",
+        "....WMW..WMW....",
+        "....WMWWWWMW....",
+        "....WWWWWWWW....",
+        "...WWWWWWWWWW...",
+        "..WWWWWWWWWWW...",
+        "..WWWWWWWWWWWW..",
+        ".WWWWKWWWWKWWW..",
+        ".WWWWWWWWWWWWWW.",
+        ".WWWWWWMMWWWWWK.",
+        ".WWKWWWWWWWWKWW.",
+        "KKWWWWWWWWWWWW..",
+        "...WWWWWWWWWW...",
+        "....WWWWWWW....."
+      ],
+      "source": { "picture": "bunny", "colors": { "1": "white", "2": "pink", "3": "black", "4": "black", "5": "pink" } }
+    },
+    {
+      "name": "Flamingo",
+      "art": [
+        ".KWMM........",
+        "KKWMM........",
+        "...MM........",
+        "..MM.........",
+        ".MM.MMMMMM...",
+        "MM.MMWWWWWM..",
+        "MMMMMWWWWWWM.",
+        "MMMMMWWWWWWMM",
+        "MMMMMWWWWWWWM",
+        ".MMMMMMMMMMMM",
+        "......R.RM...",
+        "......R..R...",
+        "...RRRRRRR...",
+        "...R..R......",
+        "......R......",
+        "......R......",
+        ".....RR......"
+      ],
+      "source": { "picture": "flamingo", "colors": { "1": "pink", "2": "white", "3": "red", "4": "black" } }
+    },
+    {
+      "name": "Chipmunk",
+      "art": [
+        ".O.O..NNN.",
+        ".OOO..NNN.",
+        "OOOOO.NNNN",
+        "OOOOO.NNNN",
+        "OOOYYONNN.",
+        "OOYYYONNN.",
+        "OOYYYONNN.",
+        ".OOYYYOO..",
+        ".OOYYYYOO.",
+        "..OOOOO..."
+      ],
+      "source": { "picture": "chipmunk", "colors": { "1": "orange", "2": "yellow", "3": "brown" } }
+    },
+    {
+      "name": "Hedgehog",
+      "art": [
+        "....N.N.N..",
+        "..NNNNNNNNN",
+        ".NNNNNNNNNN",
+        ".NNNNNNNNNN",
+        "OONNNNNNNNN",
+        "OOONNNNNNNN",
+        ".OOYYYYYY..",
+        "..OO..YY..."
+      ],
+      "source": { "picture": "hedgehog", "colors": { "1": "brown", "2": "orange", "3": "yellow" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "black", "charges": 34 },
+      { "color": "yellow", "charges": 12 },
+      { "color": "orange", "charges": 37 },
+      { "color": "pink", "charges": 31, "hidden": true },
+      { "color": "yellow", "charges": 11 },
+      { "color": "white", "charges": 37 },
+      { "color": "white", "charges": 37 }
+    ],
+    [
+      { "color": "orange", "charges": 38 },
+      { "color": "red", "charges": 17 },
+      { "color": "orange", "charges": 37 },
+      { "color": "brown", "charges": 36 },
+      { "color": "white", "charges": 37 }
+    ],
+    [
+      { "color": "brown", "charges": 36 },
+      { "color": "white", "charges": 38 },
+      { "color": "pink", "charges": 32, "hidden": true },
+      { "color": "white", "charges": 37 },
+      { "color": "orange", "charges": 37 },
+      { "color": "white", "charges": 37 }
+    ]
+  ]
+}

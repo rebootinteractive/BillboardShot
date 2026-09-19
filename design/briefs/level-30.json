@@ -1,0 +1,72 @@
+{
+  "id": "level-30",
+  "name": "Last Train Out",
+  "intent": "The key lock and the ropes again, the other way round from level 26: there the fleece the key sat in was the board the player wanted to clear anyway, here the silver key is seven pixels deep in the mouse's fur while the car - the board everything else waits on - is a knot the ropes keep pulling them back to. Eight colours and 728 pixels across five boards. The padlock is deliberately cheap once it falls: the raccoon is 72 black and 74 white, and black is also the car's wheels, the train's wheels and the mouse's whiskers, white the mouse's fur, the train's chassis and the parrot's eye, so nothing is stranded behind the lock and the cost is turns of the carousel, not slots. The slot pressure is the two roped pairs against four colours that live in one place each: the train's 82 brown body, the mouse's 42 pink ears, the parrot's 48 orange beak and wings, and the car's 38 cyan, 30 of it in the windows buried under the body and only the 8 pixels of the headlights showing. Putting the key in the car instead was tried and landed at the top of the band with a worse shape; in the mouse's fur it sits mid-band with the careful bot at 97%.",
+  "target": {
+    "min": 0.54,
+    "max": 0.66
+  },
+  "lanes": 4,
+  "boards": [
+    {
+      "picture": "train",
+      "colors": {
+        "1": "brown",
+        "2": "red",
+        "3": "white",
+        "4": "black",
+        "5": "orange"
+      }
+    },
+    {
+      "picture": "mouse",
+      "colors": {
+        "1": "white",
+        "2": "pink",
+        "3": "black",
+        "4": "black"
+      },
+      "key": {
+        "group": "1",
+        "pick": "middle",
+        "color": "silver"
+      }
+    },
+    {
+      "picture": "raccoon",
+      "colors": {
+        "1": "black",
+        "2": "white",
+        "3": "white"
+      },
+      "lock": {
+        "type": "key",
+        "color": "silver"
+      }
+    },
+    {
+      "picture": "parrot",
+      "colors": {
+        "1": "red",
+        "2": "orange",
+        "3": "blue",
+        "4": "white",
+        "5": "black"
+      }
+    },
+    {
+      "picture": "car",
+      "colors": {
+        "1": "blue",
+        "2": "cyan",
+        "3": "black",
+        "4": "cyan",
+        "5": "white"
+      }
+    }
+  ],
+  "queue": {
+    "hidden": 0,
+    "links": 2
+  }
+}

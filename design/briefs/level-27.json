@@ -1,0 +1,81 @@
+{
+  "id": "level-27",
+  "name": "Fetch the Key",
+  "intent": "The game's first very hard level, and the hiding peak the plan asks for: a key the player has to dig for while they can see neither the deck nor the part of the board they are digging into. The gold key sits inside the chicken's 134-pixel body and that body is a mystery group, so the key icon floats in a field of grey question marks; only six pixels sit under it, but the chicken's body rests on the purple tail and feet, so nothing on that board starts until purple comes, and what the player uncovers on the way is unreadable. What the padlock holds is the cat: 156 of the level's 230 orange, two thirds of the colour, so every orange container sent before the unlock pulls the deer's coat and the two beaks and then sits on a slot. That is the level's spine and it is meant to hurt. Everything else is built to keep it fair rather than cruel: orange, white, black, brown and pink all have exposed homes on open boards, so no colour is ever stranded with nowhere to go, and the three mystery groups are all colours the player can also see somewhere else - white on the dog's muzzle, the deer's belly and the duck's body, black on the deer's antlers, brown on the dog's ears. Three hidden containers keep the lanes unreadable one step ahead. The key was deliberately left shallow: taking it to the top of the chicken reached the same band but dropped the careful bot from 87% to 67%, which would have made the peak a trap rather than a wall.",
+  "label": "very hard",
+  "target": {
+    "min": 0.15,
+    "max": 0.28
+  },
+  "lanes": 4,
+  "boards": [
+    {
+      "picture": "chicken",
+      "colors": {
+        "1": "white",
+        "2": "red",
+        "3": "purple",
+        "4": "yellow",
+        "5": "orange",
+        "6": "black"
+      },
+      "hidden": [
+        "1"
+      ],
+      "key": {
+        "group": "1",
+        "pick": "middle",
+        "color": "gold"
+      }
+    },
+    {
+      "picture": "dog",
+      "colors": {
+        "1": "yellow",
+        "2": "brown",
+        "3": "white",
+        "4": "pink",
+        "5": "black"
+      },
+      "hidden": [
+        "5"
+      ]
+    },
+    {
+      "picture": "cat",
+      "colors": {
+        "1": "orange",
+        "2": "pink",
+        "3": "black",
+        "4": "pink"
+      },
+      "lock": {
+        "type": "key",
+        "color": "gold"
+      }
+    },
+    {
+      "picture": "deer",
+      "colors": {
+        "1": "orange",
+        "2": "white",
+        "3": "black"
+      }
+    },
+    {
+      "picture": "duck",
+      "colors": {
+        "1": "brown",
+        "2": "orange",
+        "3": "white"
+      },
+      "hidden": [
+        "1"
+      ]
+    }
+  ],
+  "queue": {
+    "hidden": 3,
+    "links": 0
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "id": "level-31",
+  "name": "Squeezebox",
+  "intent": "The Concert theme opens with six boards, the most the game allows, and the frozen billboard read as a counting problem. The accordion is iced over and wants 60 red, and the only red in the level is the violin's 106-pixel body, three containers of about 35, so two of them have to finish on the violin before the accordion plays - one is not enough, and the violin is also the board the player would rather not spend their early sends on. Behind the ice sit 104 black, 32 yellow, 32 orange and 24 white. Three passes went into making sure none of those is stranded, because with a third of the level's surface frozen it is very easy to build a colour that has nowhere to go: the first pass froze black's only exposed home and it parked 0.8 sends a run, the second pushed the violin's neck into a brown that lived nowhere else and parked 0.9, the third left purple on the bellows and the piano's case and it parked 1.4. The level that ships has six colours and every one of them open somewhere: black runs through the accordion's case, the violin's neck, the piano's sharps, the saxophone's mouthpiece and the whole banjo, 44 of it exposed across eleven columns; orange through the bellows, the trumpet's valves and its bell; purple is down to the piano's 32-pixel case, sitting under white keys that are exposed across all sixteen columns. Three hidden containers make the lane heads worth reading: with six boards on the carousel, sending the wrong thing is expensive because turning back costs real time.",
+  "target": {
+    "min": 0.52,
+    "max": 0.64
+  },
+  "lanes": 4,
+  "boards": [
+    {
+      "picture": "accordion",
+      "colors": {
+        "1": "orange",
+        "2": "black",
+        "3": "white",
+        "4": "yellow"
+      },
+      "lock": {
+        "type": "frozen",
+        "color": "red",
+        "count": 60
+      }
+    },
+    {
+      "picture": "violin",
+      "colors": {
+        "1": "red",
+        "2": "black",
+        "3": "black"
+      }
+    },
+    {
+      "picture": "piano",
+      "colors": {
+        "1": "white",
+        "2": "purple",
+        "3": "black"
+      }
+    },
+    {
+      "picture": "saxophone",
+      "colors": {
+        "1": "yellow",
+        "2": "black",
+        "3": "white"
+      }
+    },
+    {
+      "picture": "banjo",
+      "colors": {
+        "1": "white",
+        "2": "black",
+        "3": "black"
+      }
+    },
+    {
+      "picture": "trumpet",
+      "colors": {
+        "1": "yellow",
+        "2": "orange",
+        "3": "orange"
+      }
+    }
+  ],
+  "containers": {
+    "split": {
+      "red": 3
+    }
+  },
+  "queue": {
+    "hidden": 3,
+    "links": 0
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "id": "level-26",
+  "name": "Milking Time",
+  "intent": "The first Farmyard level and the first time the key lock and the ropes share a board set. The cow is padlocked and the gold key sits in the middle of the sheep's 145-pixel fleece with seven pixels under it, so the lock opens early and cheaply on purpose - what the level is really about is the two roped pairs and the eight colours competing for five slots while they wait for their partners. Nothing is stranded behind the padlock: the cow's pink muzzle is also the pig's whole body, its brown head is also the pig's trotters, its white horns are the fleece itself and its black eyes are the sheep's face and the tractor's wheels, so a container sent before the unlock always has an open home. What the player has to hold instead are the small single-home colours - the rooster's 23 purple tail feathers, exposed in one column only, the 27 red of its comb and the pig's snout, and the tractor's 64 green, which is the level's one reliable clog. A deeper key was tried and rejected: taking the key to the top of the fleece moved the average by two points and the careless bot from 52% to 12%, which is the trap batch 2 warned about.",
+  "target": {
+    "min": 0.56,
+    "max": 0.68
+  },
+  "lanes": 4,
+  "boards": [
+    {
+      "picture": "sheep",
+      "colors": {
+        "1": "white",
+        "2": "black",
+        "3": "orange"
+      },
+      "key": {
+        "group": "1",
+        "pick": "middle",
+        "color": "gold"
+      }
+    },
+    {
+      "picture": "cow",
+      "colors": {
+        "1": "pink",
+        "2": "brown",
+        "3": "white",
+        "4": "black"
+      },
+      "lock": {
+        "type": "key",
+        "color": "gold"
+      }
+    },
+    {
+      "picture": "tractor",
+      "colors": {
+        "1": "green",
+        "2": "black",
+        "3": "white",
+        "4": "white",
+        "5": "green"
+      }
+    },
+    {
+      "picture": "rooster",
+      "colors": {
+        "1": "orange",
+        "2": "red",
+        "3": "purple"
+      }
+    },
+    {
+      "picture": "pig",
+      "colors": {
+        "1": "pink",
+        "2": "red",
+        "3": "brown"
+      }
+    }
+  ],
+  "queue": {
+    "hidden": 0,
+    "links": 2
+  }
+}

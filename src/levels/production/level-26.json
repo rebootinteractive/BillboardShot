@@ -1,0 +1,133 @@
+{
+  "name": "Milking Time",
+  "boards": [
+    {
+      "name": "Sheep",
+      "art": [
+        "...WWW.WWWW.WWW.",
+        "..WWWWWWWWWWWWW.",
+        "..KKWWWWWWWWWWWW",
+        ".KKKWWWWWWWWWWWW",
+        "KKKKWWWWWWWWWWWW",
+        "KKKKWWWWWWWWWWWW",
+        "KKKKWWWWWWWWWWWW",
+        ".KKKWWWWWWWWWWWW",
+        "..KKWWWWWWWWWWWW",
+        "...WWWWWWWWWWWWW",
+        "...WWWWWWWWWWWWW",
+        "...WWWWWWWWWWWW.",
+        "..OOO...OOOO....",
+        "..OOO...OOOO...."
+      ],
+      "source": { "picture": "sheep", "colors": { "1": "white", "2": "black", "3": "orange" } },
+      "keys": [{ "col": 9, "row": 6, "color": "gold" }]
+    },
+    {
+      "name": "Cow",
+      "art": [
+        "......W...W.....",
+        "NNN..WW...W..NNN",
+        "NMMNNWWWNNNNNMMN",
+        "NNMNNNWWWNNNNMNN",
+        "..NNNNNWWWWNNN..",
+        "...NNNNNWWWWW...",
+        "...NNKNNWWKWW...",
+        "...NNKNNWWKWW...",
+        "...NNNNNWWWWW...",
+        "...MMMMMMMMMM...",
+        "...MMMMMMMMMM...",
+        "..MMMMMMMMMMMM..",
+        "..MMMMMMMMMMMM..",
+        "...MMMMMMMMMM...",
+        "....MMMMMMMM....",
+        "......MMMM......"
+      ],
+      "source": { "picture": "cow", "colors": { "1": "pink", "2": "brown", "3": "white", "4": "black" } },
+      "lock": { "type": "key", "color": "gold" }
+    },
+    {
+      "name": "Tractor",
+      "art": [
+        ".......GGGGGGG..",
+        ".......WWWWWWK..",
+        ".......WWWWWWK..",
+        "......WWWWWWWK..",
+        "....G.WWWWWWWK..",
+        ".GGGGGGGGGGGGGK.",
+        "GGGGGGGGGGKGGGG.",
+        "GGGGGGGGGKGKKKK.",
+        "KGGKKGGGGGKKKKKK",
+        "KGKKGKGGGGKKWWKK",
+        "GKKWKGGGGGKKWWKK",
+        ".KWWK.....KKKKKK",
+        "..KKK......KKKK."
+      ],
+      "source": { "picture": "tractor", "colors": { "1": "green", "2": "black", "3": "white", "4": "white", "5": "green" } }
+    },
+    {
+      "name": "Rooster",
+      "art": [
+        ".RRR...PPP",
+        ".OOOOO.PPP",
+        "ROOOOO.PPP",
+        "ROOOOO.PPP",
+        ".ROOOOOPPP",
+        ".ROOOOOPPP",
+        "OOOOOOOPPP",
+        "OOOOOOOOPP",
+        ".OOOOOOOO.",
+        ".OOOOOOO..",
+        "..OOOOOO..",
+        "...RR.RR..",
+        "...RR.RR..",
+        "..RRR.RRR."
+      ],
+      "source": { "picture": "rooster", "colors": { "1": "orange", "2": "red", "3": "purple" } }
+    },
+    {
+      "name": "Pig",
+      "art": [
+        "...MM..........",
+        "..MMMMMMMMMMMM.",
+        ".MMMMMMMMMMMMMM",
+        "RRMMMMMMMMMMMMM",
+        "RRMMMMMMMMMMMMM",
+        "RRMMMMMMMMMMMMM",
+        ".MMMMMMMMMMMMM.",
+        ".MMMM....MMMM..",
+        ".NNNN....NNNN.."
+      ],
+      "source": { "picture": "pig", "colors": { "1": "pink", "2": "red", "3": "brown" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "white", "charges": 35 },
+      { "color": "pink", "charges": 40 },
+      { "color": "white", "charges": 36, "link": "b" },
+      { "color": "pink", "charges": 40 },
+      { "color": "brown", "charges": 30 }
+    ],
+    [
+      { "color": "green", "charges": 32 },
+      { "color": "orange", "charges": 38 },
+      { "color": "brown", "charges": 30 },
+      { "color": "black", "charges": 38 }
+    ],
+    [
+      { "color": "white", "charges": 35 },
+      { "color": "orange", "charges": 37 },
+      { "color": "pink", "charges": 40 },
+      { "color": "white", "charges": 35, "link": "a" },
+      { "color": "white", "charges": 35 },
+      { "color": "pink", "charges": 40 }
+    ],
+    [
+      { "color": "purple", "charges": 23 },
+      { "color": "red", "charges": 27 },
+      { "color": "green", "charges": 32, "link": "b" },
+      { "color": "black", "charges": 38, "link": "a" },
+      { "color": "white", "charges": 35 }
+    ]
+  ]
+}

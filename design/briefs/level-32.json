@@ -1,0 +1,77 @@
+{
+  "id": "level-32",
+  "name": "Cut the Cake",
+  "intent": "The batch's hard peak and the busiest board set in the game: six boards, ten colours, 790 pixels, and three features pulling in different directions. The birthday cake is iced over and wants 85 purple, and purple is the confetti ball's stripes and the whole balloon, 109 pixels split three ways - so all three containers have to finish, on two different boards, before the cake thaws. The cake is a quarter of the level and it stays shut for most of it. That only works because everything under the ice has somewhere else to go: the 111 white frosting shares its colour with the drum's 64-pixel hoop, exposed from the first move, the 70 orange cake with the popper's burst, the 6 yellow flames with the popper's rim. The first pass did not do that - white and orange each parked more than a send a run - and giving both an open exposed home is what turned a jam into a wall. The one colour deliberately left stranded is cyan: eight pixels of candle behind the ice and 53 in the microphone's grille under its black base, so a cyan container is worth holding rather than spending. Two ropes and three hidden containers finish the squeeze; red, lime, pink and blue each live on exactly one board but are all exposed from the first move, which is what keeps the level hard rather than unfair.",
+  "label": "hard",
+  "target": {
+    "min": 0.32,
+    "max": 0.46
+  },
+  "lanes": 4,
+  "boards": [
+    {
+      "picture": "drum",
+      "colors": {
+        "1": "red",
+        "2": "white",
+        "3": "white"
+      }
+    },
+    {
+      "picture": "birthday-cake",
+      "colors": {
+        "1": "white",
+        "2": "orange",
+        "3": "cyan",
+        "4": "yellow",
+        "5": "white"
+      },
+      "lock": {
+        "type": "frozen",
+        "color": "purple",
+        "count": 85
+      }
+    },
+    {
+      "picture": "confetti",
+      "colors": {
+        "1": "pink",
+        "2": "purple",
+        "3": "lime"
+      }
+    },
+    {
+      "picture": "party-popper",
+      "colors": {
+        "1": "blue",
+        "2": "orange",
+        "3": "yellow"
+      }
+    },
+    {
+      "picture": "microphone",
+      "colors": {
+        "1": "cyan",
+        "2": "black",
+        "3": "black"
+      }
+    },
+    {
+      "picture": "balloon",
+      "colors": {
+        "1": "purple",
+        "2": "black",
+        "3": "white"
+      }
+    }
+  ],
+  "containers": {
+    "split": {
+      "purple": 3
+    }
+  },
+  "queue": {
+    "hidden": 3,
+    "links": 2
+  }
+}

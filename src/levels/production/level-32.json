@@ -1,0 +1,170 @@
+{
+  "name": "Cut the Cake",
+  "label": "hard",
+  "boards": [
+    {
+      "name": "Drum",
+      "art": [
+        "...WWWWWWWWWW...",
+        ".WWWWWWWWWWWWWW.",
+        ".WWWWWWWWWWWWWW.",
+        "WWWWWWWWWWWWWWWW",
+        "WWWWWWWWWWWWWWWW",
+        ".RRRRRRRRRRRRRR.",
+        ".RRRRRRRRRRRRRR.",
+        ".RRRRRRRRRRRRRR.",
+        ".RRRRRRRRRRRRRR.",
+        ".RRRRRRRRRRRRRR.",
+        ".RRRRRRRRRRRRRR.",
+        "WWWWWWWWWWWWWWWW",
+        "WWWWWWWWWWWWWWWW",
+        ".RRRRRRRRRRRRRR."
+      ],
+      "source": { "picture": "drum", "colors": { "1": "red", "2": "white", "3": "white" } }
+    },
+    {
+      "name": "Birthday Cake",
+      "art": [
+        "....Y......Y....",
+        "...YO..YY..OY...",
+        "....C..CC..C....",
+        "....C..CC..C....",
+        ".WWWWWWWWWWWWWWW",
+        "WWWWWWWWWWWWWWWW",
+        "WWWWWWWWWWWWWWWW",
+        "WWWWWWWWWWWWWWWW",
+        "WWWWWWWWWWWWWWWW",
+        "OOOWOOOWWOOOWOOO",
+        ".OOOOOOOOOOOOOO.",
+        ".WWWWWWWWWWWWWW.",
+        ".WWWWWWWWWWWWWW.",
+        ".OOOOOOOOOOOOOO.",
+        ".OOOOOOOOOOOOOO.",
+        ".OOOOOOOOOOOOOO."
+      ],
+      "source": { "picture": "birthday-cake", "colors": { "1": "white", "2": "orange", "3": "cyan", "4": "yellow", "5": "white" } },
+      "lock": { "type": "frozen", "color": "purple", "count": 85 }
+    },
+    {
+      "name": "Confetti ball",
+      "art": [
+        ".....LL.........",
+        ".....LL.........",
+        "LL....LL....LL..",
+        "LLL....L....LL..",
+        "..LL...L...LL...",
+        "...LL..L..LL....",
+        "....LL.L.LL...LL",
+        ".....MPPPM...LL.",
+        "...MMMPPPMMMLL..",
+        "..PMMMPPPMMMP...",
+        ".PPMMMPPPMMMPP..",
+        ".PPMMMPPPMMMPP..",
+        ".PPMMMPPPMMMPP..",
+        "..PMMMPPPMMMP...",
+        "...MMMPPPMMM....",
+        ".....MPPPM......"
+      ],
+      "source": { "picture": "confetti", "colors": { "1": "pink", "2": "purple", "3": "lime" } }
+    },
+    {
+      "name": "Party popper",
+      "art": [
+        "......O..OO.....",
+        "......OO.O....O.",
+        "......YOOO.O.OO.",
+        "......YYO.OO.O..",
+        ".....BBYYOO.OO..",
+        ".....BBYY..OO..O",
+        "....BBBBYYOO..OO",
+        "....BBBBBYY..OO.",
+        "...BBBBBBBYYOO..",
+        "...BBBBBBB......",
+        "..BBBBBBB.......",
+        "..BBBBBB........",
+        ".BBBBB..........",
+        ".BBBB...........",
+        "BBB.............",
+        "BB.............."
+      ],
+      "source": { "picture": "party-popper", "colors": { "1": "blue", "2": "orange", "3": "yellow" } }
+    },
+    {
+      "name": "Microphone",
+      "art": [
+        "...CCC...",
+        ".CCCCCCC.",
+        "CCCCCCCCC",
+        "CCCCCCCCC",
+        "CCCCCCCCC",
+        "CCCCCCCCC",
+        ".CCCCCCC.",
+        "..KKKKK..",
+        "...KKK...",
+        "...KKK...",
+        "...KKK...",
+        "...KKK...",
+        "...KKK...",
+        "..KKKKK..",
+        ".KKKKKKK.",
+        "KKKKKKKKK"
+      ],
+      "source": { "picture": "microphone", "colors": { "1": "cyan", "2": "black", "3": "black" } }
+    },
+    {
+      "name": "Balloon",
+      "art": [
+        "...PPPPP..",
+        "..PPPPPPP.",
+        "..PPPPPWWP",
+        ".PPPPPPPWP",
+        ".PPPPPPPPP",
+        ".PPPPPPPPP",
+        "..PPPPPPPP",
+        "..PPPPPPP.",
+        "...PPPPP..",
+        "...PP.....",
+        "..KK......",
+        "..K.......",
+        "..K.......",
+        "KKK......."
+      ],
+      "source": { "picture": "balloon", "colors": { "1": "purple", "2": "black", "3": "white" } }
+    }
+  ],
+  "lanes": [
+    [
+      { "color": "red", "charges": 33 },
+      { "color": "blue", "charges": 27 },
+      { "color": "purple", "charges": 36, "hidden": true },
+      { "color": "cyan", "charges": 31 },
+      { "color": "cyan", "charges": 30, "link": "a" },
+      { "color": "white", "charges": 36 },
+      { "color": "white", "charges": 36 }
+    ],
+    [
+      { "color": "lime", "charges": 37 },
+      { "color": "black", "charges": 24 },
+      { "color": "blue", "charges": 27 },
+      { "color": "red", "charges": 32 },
+      { "color": "orange", "charges": 34, "link": "a" },
+      { "color": "orange", "charges": 34 }
+    ],
+    [
+      { "color": "pink", "charges": 23 },
+      { "color": "red", "charges": 33 },
+      { "color": "black", "charges": 24, "hidden": true, "link": "b" },
+      { "color": "purple", "charges": 36 },
+      { "color": "white", "charges": 36 },
+      { "color": "white", "charges": 36 }
+    ],
+    [
+      { "color": "purple", "charges": 37 },
+      { "color": "pink", "charges": 23 },
+      { "color": "yellow", "charges": 19, "hidden": true },
+      { "color": "white", "charges": 36, "link": "b" },
+      { "color": "orange", "charges": 34 },
+      { "color": "white", "charges": 36 }
+    ]
+  ]
+}
