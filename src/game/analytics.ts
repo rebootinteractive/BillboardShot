@@ -134,6 +134,11 @@ export class Playtest {
     save(attempts);
   }
 
+  /** Forget the attempt in progress without saving it, e.g. before the data is cleared. */
+  discard() {
+    this.current = null;
+  }
+
   abandon(pixelsLeft?: number) {
     if (this.current?.result !== 'playing') return;
     this.current.result = 'abandoned';
@@ -151,6 +156,11 @@ function csvLine(a: Attempt): string {
 
 function header(count: number): string[] {
   return ['BillboardShot playtest results', `device ${deviceId()} · ${count} attempts · exported ${new Date().toISOString().replace(/\.\d+Z$/, 'Z')}`, ''];
+}
+
+/** How many attempts are saved on this device. */
+export function savedAttemptCount(): number {
+  return load().length;
 }
 
 /** All attempts as compact text: a short header, then one CSV line per attempt. */

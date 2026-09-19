@@ -13,6 +13,13 @@
  * Everything else applies live on the next frame.
  */
 import tuning from './defaults.json';
+
+export const FRAME_STYLES = ['off', 'half', 'full'] as const;
+/** The border around a billboard's art. See Billboard.buildOutline. */
+export type FrameStyle = (typeof FRAME_STYLES)[number];
+
+export const isFrameStyle = (value: unknown): value is FrameStyle => FRAME_STYLES.includes(value as FrameStyle);
+
 export interface Settings {
   // --- Camera ---
   camFov: number;
@@ -33,6 +40,8 @@ export interface Settings {
   cellSize: number;
   ceilingHeight: number;
   ropeLength: number;
+  /** The border around each billboard's art: "off", "half" or "full". */
+  frameStyle: FrameStyle;
 
   // --- Swing ---
   swingStiffness: number;
@@ -65,8 +74,17 @@ export interface Settings {
   projectileArc: number;
 }
 
-/** The committed tuning. Typed against Settings, so a missing key fails the build. */
-export const DEFAULT_SETTINGS: Settings = tuning;
+/**
+ * The committed tuning. Typed against Settings, so a missing key fails the build. JSON
+ * reads frameStyle as any string, so it is checked here; a typo falls back to full.
+ */
+export const DEFAULT_SETTINGS: Settings = {
+  ...tuning,
+  frameStyle: isFrameStyle(tuning.frameStyle) ? tuning.frameStyle : 'full',
+};
+if (!isFrameStyle(tuning.frameStyle)) {
+  console.error(`defaults.json frameStyle '${tuning.frameStyle}' must be one of ${FRAME_STYLES.join(', ')}; using full.`);
+}
 
 export interface ToggleDef {
   key: BooleanKey;
@@ -86,7 +104,7 @@ export const TOGGLES: ToggleDef[] = [
 ];
 
 export interface FieldDef {
-  key: Exclude<keyof Settings, BooleanKey>;
+  key: Exclude<keyof Settings, BooleanKey | 'frameStyle'>;
   label: string;
   group: string;
   min: number;
@@ -202,6 +220,11 @@ export function sanitizeSettings(raw: unknown): Settings | null {
     const v = src[t.key];
     if (typeof v !== 'boolean') continue;
     out[t.key] = v;
+    matched++;
+  }
+
+  if (isFrameStyle(src.frameStyle)) {
+    out.frameStyle = src.frameStyle;
     matched++;
   }
 

@@ -3,7 +3,7 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { roundedBox, beveledBorder } from './visuals';
 import type { ColorKey } from '../shared/types';
 import { COLOR_HEX } from '../shared/colors';
-import type { Settings } from '../shared/settings';
+import type { FrameStyle, Settings } from '../shared/settings';
 import { KEY_HEIGHT, KEY_WIDTH, artColor, isMysteryChar, type BoardData } from './level';
 import { disposeObject, keyObject, mysteryTexture, type KeyColor } from './keys';
 import { BoardPadlock } from './BoardPadlock';
@@ -52,6 +52,7 @@ export interface BoardKey {
   /** Belongs to the board until the key is released, then to its flight. */
   object: THREE.Object3D;
 }
+
 
 export type BoardLock =
   | { type: 'key'; color: KeyColor }
@@ -131,11 +132,11 @@ export class Billboard {
   private readonly ropeMat: THREE.MeshStandardMaterial;
   private readonly barMat: THREE.MeshStandardMaterial;
   private readonly barGeo: THREE.BufferGeometry;
-  private readonly outlineGeo: THREE.BufferGeometry;
+  private readonly border: THREE.Mesh<THREE.BufferGeometry, THREE.MeshStandardMaterial>;
   private readonly outlineMat: THREE.MeshStandardMaterial;
   private readonly mats = new Map<ColorKey, THREE.MeshStandardMaterial>();
 
-  constructor(data: BoardData, angle: number, s: Settings, index: number, cellSize = s.cellSize) {
+  constructor(data: BoardData, angle: number, s: Settings, index: number, cellSize = s.cellSize, frame: FrameStyle = 'full') {
     const art = data.art;
     this.cols = art[0].length;
     this.rows = art.length;
@@ -213,10 +214,10 @@ export class Billboard {
     }
 
     this.outlineMat = new THREE.MeshStandardMaterial({ color: 0xffedce, roughness: 0.4 });
-    this.outlineGeo = this.buildOutline();
-    const border = new THREE.Mesh(this.outlineGeo, this.outlineMat);
-    border.name = 'billboard-border';
-    this.board.add(border);
+    this.findFrameMounts();
+    this.border = new THREE.Mesh(this.buildOutline(frame), this.outlineMat);
+    this.border.name = 'billboard-border';
+    this.board.add(this.border);
 
     this.board.add(this.lockAnchor);
     this.lockAnchor.position.z = this.cell * 0.9;
@@ -358,25 +359,71 @@ export class Billboard {
     }
   }
 
-  /** Follow both outer side edges through every widening and narrowing, leaving
-   * the bottom open for pixels to leave. Empty rows separate independent outlines. */
-  private buildOutline(): THREE.BufferGeometry {
+  /** Per row, the leftmost and rightmost occupied column (pixel or key), row 0 = bottom. */
+  private rowSpans(): Array<[number, number] | null> {
     const filled = (col: number, row: number) => !!this.grid[col][row] || !!this.keyAt(col, row);
-    const spans = Array.from({ length: this.rows }, (_, row): [number, number] | null => {
+    return Array.from({ length: this.rows }, (_, row): [number, number] | null => {
       const columns = this.grid.flatMap((_, col) => filled(col, row) ? [col] : []);
       return columns.length ? [columns[0], columns[columns.length - 1]] : null;
     });
-    const point = (col: number, row: number) => new THREE.Vector2(
-      (col - this.cols / 2) * this.cell,
-      (row - this.rows / 2) * this.cell,
-    );
+  }
+
+  private framePoint(col: number, row: number) {
+    return new THREE.Vector2((col - this.cols / 2) * this.cell, (row - this.rows / 2) * this.cell);
+  }
+
+  /** Where padlock chains attach: the real side edges, a little above the padlock, the
+   * same for every frame style. */
+  private findFrameMounts() {
+    const spans = this.rowSpans();
     const occupiedRows = spans.flatMap((span, row) => span ? [row] : []);
-    if (!occupiedRows.length) return new THREE.BufferGeometry();
-    // Keep chains on real side edges, a little above their central padlock.
+    if (!occupiedRows.length) return;
     const mountRow = occupiedRows.reduce((best, row) =>
       Math.abs(row - this.rows * 0.6) < Math.abs(best - this.rows * 0.6) ? row : best);
     const [mountLeft, mountRight] = spans[mountRow]!;
-    this.frameMounts = [point(mountLeft - 0.12, mountRow + 0.5), point(mountRight + 1.12, mountRow + 0.5)];
+    this.frameMounts = [this.framePoint(mountLeft - 0.12, mountRow + 0.5), this.framePoint(mountRight + 1.12, mountRow + 0.5)];
+  }
+
+  /**
+   * The border around the art, always open at the bottom for pixels to leave.
+   * - `full` follows both outer side edges through every widening and narrowing; empty
+   *   rows separate independent outlines.
+   * - `half` runs over the top and down the sides only as far as the silhouette keeps
+   *   widening, stopping where it starts to taper.
+   * - `off` has no border.
+   */
+  private buildOutline(style: FrameStyle): THREE.BufferGeometry {
+    if (style === 'off') return new THREE.BufferGeometry();
+    const filled = (col: number, row: number) => !!this.grid[col][row] || !!this.keyAt(col, row);
+    const spans = this.rowSpans();
+    const point = (col: number, row: number) => this.framePoint(col, row);
+    const border = (edge: THREE.Vector2[]) => {
+      // Adjacent columns at the same height share an endpoint.
+      const unique = edge.filter((p, i) => i === 0 || !p.equals(edge[i - 1]));
+      return beveledBorder(unique, this.cell * 0.34, this.cell * 0.75, this.cell * 0.24);
+    };
+
+    if (style === 'half') {
+      const top = this.rows - 1;
+      const first = spans[top];
+      if (!first) return new THREE.BufferGeometry();
+      let [left, right] = first;
+      let bottom = top;
+      for (let row = top - 1; row >= 0; row--) {
+        const current = spans[row];
+        if (!current || current[0] > left || current[1] < right) break;
+        [left, right] = current;
+        bottom = row;
+      }
+      const edge: THREE.Vector2[] = [point(left, bottom)];
+      for (let col = left; col <= right; col++) {
+        let ceiling = top;
+        while (ceiling > bottom && !filled(col, ceiling)) ceiling--;
+        edge.push(point(col, ceiling + 1), point(col + 1, ceiling + 1));
+      }
+      edge.push(point(right + 1, bottom));
+      return border(edge);
+    }
 
     const geometries: THREE.BufferGeometry[] = [];
     for (let bottom = 0; bottom < this.rows; bottom++) {
@@ -399,10 +446,10 @@ export class Billboard {
       for (let row = top; row >= bottom; row--) {
         edge.push(point(spans[row]![1] + 1, row + 1), point(spans[row]![1] + 1, row));
       }
-      const unique = edge.filter((p, i) => i === 0 || !p.equals(edge[i - 1]));
-      geometries.push(beveledBorder(unique, this.cell * 0.34, this.cell * 0.75, this.cell * 0.24));
+      geometries.push(border(edge));
       bottom = top;
     }
+    if (!geometries.length) return new THREE.BufferGeometry();
     if (geometries.length === 1) return geometries[0];
     const merged = mergeGeometries(geometries)!;
     geometries.forEach(geometry => geometry.dispose());
@@ -581,7 +628,7 @@ export class Billboard {
     this.ropeMat.dispose();
     this.barGeo.dispose();
     this.barMat.dispose();
-    this.outlineGeo.dispose();
+    this.border.geometry.dispose();
     this.outlineMat.dispose();
     for (const m of this.mats.values()) m.dispose();
     this.mats.clear();

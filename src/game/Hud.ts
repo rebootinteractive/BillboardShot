@@ -2,6 +2,10 @@ export interface HudCallbacks {
   onRestart(): void;
   onNext(): void;
   onSendResults(): void;
+  /** Erase saved progress and playtest results, then start over. */
+  onClearData(): void;
+  /** How many playtest attempts are saved, shown before clearing them. */
+  savedAttempts(): number;
 }
 
 export interface LevelOption {
@@ -10,15 +14,16 @@ export interface LevelOption {
   group: string;
 }
 
+const GEAR_SVG = `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M19.4 13a7.6 7.6 0 0 0 0-2l2-1.6a.5.5 0 0 0 .1-.6l-1.9-3.3a.5.5 0 0 0-.6-.2l-2.4 1a7.3 7.3 0 0 0-1.7-1l-.4-2.6a.5.5 0 0 0-.5-.4h-3.8a.5.5 0 0 0-.5.4l-.4 2.6a7.3 7.3 0 0 0-1.7 1l-2.4-1a.5.5 0 0 0-.6.2L2.6 8.8a.5.5 0 0 0 .1.6L4.7 11a7.6 7.6 0 0 0 0 2l-2 1.6a.5.5 0 0 0-.1.6l1.9 3.3c.1.2.4.3.6.2l2.4-1c.5.4 1.1.7 1.7 1l.4 2.6c0 .2.3.4.5.4h3.8c.2 0 .5-.2.5-.4l.4-2.6c.6-.3 1.2-.6 1.7-1l2.4 1c.2.1.5 0 .6-.2l1.9-3.3a.5.5 0 0 0-.1-.6ZM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"/></svg>`;
+
 export class Hud {
   private readonly root: HTMLDivElement;
-  private readonly tilesEl: HTMLElement;
-  private readonly ammoEl: HTMLElement;
-  private readonly deckEl: HTMLElement;
   private readonly hintEl: HTMLElement;
   private readonly levelEl: HTMLElement;
   private levelSelect: HTMLSelectElement | null = null;
   private modalEl: HTMLDivElement | null = null;
+  /** Separate from modalEl, so a level ending while it is open still shows its result. */
+  private settingsEl: HTMLDivElement | null = null;
   private hintTimer = 0;
 
   constructor(parent: HTMLElement, private readonly cb: HudCallbacks) {
@@ -26,21 +31,71 @@ export class Hud {
     this.root.className = 'overlay hud-layer';
     this.root.innerHTML = `
       <div class="hud-level-row"><div class="hud-level">Level <strong data-level>1</strong></div></div>
-      <div class="hud-top">
-        <div class="hud-stat"><span class="lbl">Pixels</span><strong data-tiles>0</strong></div>
-        <div class="hud-stat"><span class="lbl">Deck</span><strong data-deck>0/0</strong></div>
-        <div class="hud-stat"><span class="lbl">Containers</span><strong data-ammo>0</strong></div>
-      </div>
       <div class="hud-hint" data-hint></div>
-      <button class="hud-send" data-send title="Email your playtest results to the team">✉ Send results</button>
+      <button class="hud-settings" data-settings title="Settings" aria-label="Settings">${GEAR_SVG}</button>
     `;
     parent.appendChild(this.root);
-    this.tilesEl = this.root.querySelector('[data-tiles]')!;
-    this.ammoEl = this.root.querySelector('[data-ammo]')!;
-    this.deckEl = this.root.querySelector('[data-deck]')!;
     this.hintEl = this.root.querySelector('[data-hint]')!;
     this.levelEl = this.root.querySelector('[data-level]')!;
-    this.root.querySelector('[data-send]')!.addEventListener('click', () => this.cb.onSendResults());
+    this.root.querySelector('[data-settings]')!.addEventListener('click', () => this.openSettings());
+  }
+
+  /** Settings: send playtest results, or clear everything saved on this device. */
+  openSettings() {
+    if (this.settingsEl) return;
+    const el = document.createElement('div');
+    el.className = 'modal settings';
+    el.innerHTML = `
+      <div class="modal-card settings-card" role="dialog" aria-label="Settings">
+        <div class="settings-main">
+          <h2>Settings</h2>
+          <button class="settings-row" data-send>
+            <span class="settings-icon">✉</span>
+            <span><b>Send results</b><small>Email your playtest results to the team</small></span>
+          </button>
+          <button class="settings-row danger" data-clear>
+            <span class="settings-icon">⟲</span>
+            <span><b>Clear data</b><small>Start over from level 1 on this device</small></span>
+          </button>
+          <div class="modal-actions"><button class="btn" data-close>Done</button></div>
+        </div>
+        <div class="settings-confirm" hidden>
+          <h2>Clear all data?</h2>
+          <p data-confirm-text></p>
+          <div class="modal-actions">
+            <button class="btn ghost" data-cancel>Cancel</button>
+            <button class="btn danger" data-erase>Clear data</button>
+          </div>
+        </div>
+      </div>`;
+    const main = el.querySelector<HTMLElement>('.settings-main')!;
+    const confirm = el.querySelector<HTMLElement>('.settings-confirm')!;
+    const close = () => this.closeSettings();
+    el.addEventListener('click', (e) => { if (e.target === el) close(); });
+    el.querySelector('[data-close]')!.addEventListener('click', close);
+    el.querySelector('[data-send]')!.addEventListener('click', () => {
+      close();
+      this.cb.onSendResults();
+    });
+    el.querySelector('[data-clear]')!.addEventListener('click', () => {
+      const n = this.cb.savedAttempts();
+      confirm.querySelector('[data-confirm-text]')!.textContent =
+        `Your level progress will be reset to level 1${n ? `, and the ${n} playtest result${n === 1 ? '' : 's'} saved on this device will be deleted. Send them first if the team doesn't have them yet` : ''}. This can't be undone.`;
+      main.hidden = true;
+      confirm.hidden = false;
+    });
+    el.querySelector('[data-cancel]')!.addEventListener('click', () => {
+      confirm.hidden = true;
+      main.hidden = false;
+    });
+    el.querySelector('[data-erase]')!.addEventListener('click', () => this.cb.onClearData());
+    this.root.parentElement!.appendChild(el);
+    this.settingsEl = el;
+  }
+
+  closeSettings() {
+    this.settingsEl?.remove();
+    this.settingsEl = null;
   }
 
   /** A one-line explanation of something new in this level, dismissed with "Got it". */
@@ -124,13 +179,6 @@ export class Hud {
     this.levelSelect = select;
   }
 
-  setStats(tiles: number, deckUsed: number, deckTotal: number, ammo: number) {
-    this.tilesEl.textContent = String(tiles);
-    this.deckEl.textContent = `${deckUsed}/${deckTotal}`;
-    this.ammoEl.textContent = String(ammo);
-    this.deckEl.classList.toggle('danger', deckTotal > 0 && deckUsed >= deckTotal);
-  }
-
   flash(msg: string) {
     this.hintEl.textContent = msg;
     this.hintEl.classList.add('show');
@@ -176,6 +224,7 @@ export class Hud {
 
   dispose() {
     this.dismiss();
+    this.closeSettings();
     this.root.remove();
   }
 }
